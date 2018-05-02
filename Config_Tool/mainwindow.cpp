@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QFileDialog>
 #include <QJsonDocument>
+#include <QJsonObject>
 
 /***********************************************************************************/
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), m_ui(new Ui::MainWindow) {
@@ -41,7 +42,7 @@ void MainWindow::on_actionOpen_triggered() {
 	QFileDialog dialog(this);
 	dialog.setWindowTitle(tr("Open Dataset Config File"));
 	dialog.setFileMode(QFileDialog::ExistingFile);
-	dialog.setNameFilter(tr("Config Files (*.cfg)"));
+	dialog.setNameFilter(tr("Config Files (*.json)"));
 	dialog.setViewMode(QFileDialog::Detail);
 	dialog.setDirectory("/home/nabil/");
 
@@ -60,7 +61,10 @@ void MainWindow::on_actionOpen_triggered() {
 
 		// Parse json
 		// https://stackoverflow.com/questions/15893040/how-to-create-read-write-json-files-in-qt5
-		const auto json = QJsonDocument::fromJson(contents.toUtf8());
+		const auto jsonDocument = QJsonDocument::fromJson(contents.toUtf8());
+		const auto rootObject = jsonDocument.object();
+
+		qWarning() << rootObject["weather_test"]["variables"]["Pressure_surface"]["name"].toString();
 	}
 }
 

@@ -1,0 +1,31 @@
+{
+    "weather_test": {
+        "url": "http://trinity:8080/thredds/dodsC/gemCollection/TP",
+        "climatology": "http://trinity:8080/thredds/dodsC/climatology/Levitus98_PHC21/aggregated.ncml",
+        "name": "Weather Test",
+        "quantum": "hour",
+        "attribution": "GEM Global",
+        "variables": {
+            "v-component_of_wind_height_above_ground": {
+                "name": "Meridional Wind",
+                "unit": "m/s",
+                "default_scale": [-30, 30]
+            },
+            "u-component_of_wind_height_above_ground": {
+                "name": "Zonal Wind",
+                "unit": "m/s",
+                "default_scale": [-30, 30]
+            },
+            "Temperature_height_above_ground": {
+                "name": "Temperature",
+                "unit": "Kelvin",
+                "default_scale": [-5, 30]
+            },
+            "Pressure_surface": {
+                "name": "Pressure",
+                "unit": "Pa",
+                "default_scale": [90000, 103000]
+            }
+        }
+    }
+}
