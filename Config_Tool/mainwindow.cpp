@@ -5,10 +5,14 @@
 #include <QFile>
 #include <QTextStream>
 #include <QDebug>
+#include <QFileDialog>
+#include <QJsonDocument>
 
 /***********************************************************************************/
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), m_ui(new Ui::MainWindow) {
 	m_ui->setupUi(this);
+
+	setWindowTitle(tr("Ocean Navigator Dataset Config Editor"));
 
 	// Set dark stylesheet
 	QFile f(":qdarkstyle/style.qss");
@@ -34,5 +38,33 @@ void MainWindow::on_actionAbout_Qt_triggered() {
 
 /***********************************************************************************/
 void MainWindow::on_actionOpen_triggered() {
+	QFileDialog dialog(this);
+	dialog.setWindowTitle(tr("Open Dataset Config File"));
+	dialog.setFileMode(QFileDialog::ExistingFile);
+	dialog.setNameFilter(tr("Config Files (*.cfg)"));
+	dialog.setViewMode(QFileDialog::Detail);
+	dialog.setDirectory("/home/nabil/");
 
+	// Open file dialog
+	if (dialog.exec()) {
+		m_configFileName = dialog.selectedFiles().at(0); // Get selected file.
+	}
+
+	// If a file was actually selected (ignore cancel or close)
+	if (!m_configFileName.isEmpty()) {
+		// Open file
+		QFile f(m_configFileName);
+		f.open(QFile::ReadOnly | QFile::Text);
+		const QString contents = f.readAll();
+		f.close();
+
+		// Parse json
+		// https://stackoverflow.com/questions/15893040/how-to-create-read-write-json-files-in-qt5
+		const auto json = QJsonDocument::fromJson(contents.toUtf8());
+	}
+}
+
+/***********************************************************************************/
+void MainWindow::on_actionClose_triggered() {
+	close();
 }

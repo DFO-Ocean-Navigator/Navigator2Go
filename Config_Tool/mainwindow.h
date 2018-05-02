@@ -18,12 +18,16 @@ public:
 	~MainWindow();
 
 private slots:
-	void on_actionAbout_Qt_triggered();
 
+	// Menu callbacks
+	void on_actionAbout_Qt_triggered();
 	void on_actionOpen_triggered();
+	void on_actionClose_triggered();
 
 private:
 	Ui::MainWindow* m_ui;
+
+	QString m_configFileName;
 };
 
 #endif // MAINWINDOW_H

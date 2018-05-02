@@ -66,6 +66,12 @@
    <property name="text">
     <string>Open...</string>
    </property>
+   <property name="toolTip">
+    <string>Open dataset config file.</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
