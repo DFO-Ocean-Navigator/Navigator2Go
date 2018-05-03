@@ -8,6 +8,7 @@
 #include <QFileDialog>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QSaveFile>
 
 /***********************************************************************************/
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), m_ui(new Ui::MainWindow) {
@@ -25,6 +26,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), m_ui(new Ui::Main
 		QTextStream ts(&f);
 		qApp->setStyleSheet(ts.readAll());
 	}
+
+	statusBar()->showMessage(tr("Open a config file from File -> Open, or use CTRL + O."));
+
+	m_ui->labelList->setText(tr("Double-click on a dataset to edit it's properties, or click on the Add Dataset button."));
+	m_ui->buttonAddDataset->setText(tr("Add Dataset"));
 }
 
 /***********************************************************************************/
@@ -62,13 +68,44 @@ void MainWindow::on_actionOpen_triggered() {
 		// Parse json
 		// https://stackoverflow.com/questions/15893040/how-to-create-read-write-json-files-in-qt5
 		const auto jsonDocument = QJsonDocument::fromJson(contents.toUtf8());
-		const auto rootObject = jsonDocument.object();
+		m_documentRootObject = jsonDocument.object(); // Get copy of root object
 
-		qWarning() << rootObject["weather_test"]["variables"]["Pressure_surface"]["name"].toString();
+		statusBar()->showMessage("");
 	}
 }
 
 /***********************************************************************************/
 void MainWindow::on_actionClose_triggered() {
+
+	if (m_isUnsavedData) {
+		// show confirm quit dialog
+	}
+
 	close();
+}
+
+
+/***********************************************************************************/
+void MainWindow::on_actionSave_triggered() {
+
+	if (!m_configFileName.isEmpty()) {
+		const QJsonDocument doc(m_documentRootObject);
+
+		QSaveFile f("/home/nabil/test.txt");
+		f.open(QFile::WriteOnly | QFile::Text | QFile::Truncate); // Overwrite original file.
+		f.write(doc.toJson());
+		f.commit();
+
+		statusBar()->showMessage(tr("Config file saved!"));
+	}
+}
+
+/***********************************************************************************/
+void MainWindow::on_buttonAddDataset_clicked() {
+	m_isUnsavedData = true;
+}
+
+/***********************************************************************************/
+void MainWindow::on_listWidget_itemDoubleClicked(QListWidgetItem* item) {
+	qDebug() << item->text();
 }
