@@ -38,11 +38,12 @@ RESOURCES += \
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    datasetview.cpp
+    dialogdatasetview.cpp
 
 HEADERS += \
         mainwindow.h \
-    datasetview.h
+    dialogdatasetview.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    datasetview.ui

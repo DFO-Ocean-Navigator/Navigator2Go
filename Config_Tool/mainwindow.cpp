@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include "dialogdatasetview.h"
+
 #include <QMessageBox>
 #include <QFile>
 #include <QTextStream>
@@ -30,7 +32,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), m_ui(new Ui::Main
 	statusBar()->showMessage(tr("Open a config file from File -> Open, or use CTRL + O."));
 
 	m_ui->labelList->setText(tr("Double-click on a dataset to edit it's properties, or click on the Add Dataset button."));
+	m_ui->labelList->setVisible(false);
 	m_ui->buttonAddDataset->setText(tr("Add Dataset"));
+	m_ui->buttonAddDataset->setEnabled(false);
 }
 
 /***********************************************************************************/
@@ -59,6 +63,7 @@ void MainWindow::on_actionOpen_triggered() {
 
 	// If a file was actually selected (ignore cancel or close)
 	if (!m_configFileName.isEmpty()) {
+
 		// Open file
 		QFile f(m_configFileName);
 		f.open(QFile::ReadOnly | QFile::Text);
@@ -66,10 +71,15 @@ void MainWindow::on_actionOpen_triggered() {
 		f.close();
 
 		// Parse json
-		// https://stackoverflow.com/questions/15893040/how-to-create-read-write-json-files-in-qt5
 		const auto jsonDocument = QJsonDocument::fromJson(contents.toUtf8());
 		m_documentRootObject = jsonDocument.object(); // Get copy of root object
 
+		for (const auto& datasetName : m_documentRootObject.keys()) {
+			m_ui->listWidget->addItem(datasetName);
+		}
+
+		m_ui->labelList->setVisible(true);
+		m_ui->buttonAddDataset->setEnabled(true);
 		statusBar()->showMessage("");
 	}
 }
@@ -97,6 +107,8 @@ void MainWindow::on_actionSave_triggered() {
 		f.commit();
 
 		statusBar()->showMessage(tr("Config file saved!"));
+
+		m_isUnsavedData = false;
 	}
 }
 
@@ -107,5 +119,12 @@ void MainWindow::on_buttonAddDataset_clicked() {
 
 /***********************************************************************************/
 void MainWindow::on_listWidget_itemDoubleClicked(QListWidgetItem* item) {
-	qDebug() << item->text();
+
+	DialogDatasetView dialog(this);
+	const auto datasetKey = item->text();
+	dialog.SetData(datasetKey, m_documentRootObject[datasetKey]);
+
+	if (dialog.exec()) {
+
+	}
 }
