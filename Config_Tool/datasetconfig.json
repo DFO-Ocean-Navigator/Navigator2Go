@@ -32,7 +32,19 @@
                         <li>Volume Of Snow On Sea Ice Per Unit Grid Cell Area</li>
                     </ul>
                 </li>
-            </ul>"
+            </ul>",
+        "variables": {
+            "vozocrtx": {
+                "name": "Water X Velocity",
+                "unit": "m/s",
+                "scale": [-3, 3]
+            },
+            "vomecrty": {
+                "name": "Water Y Velocity",
+                "unit": "m/s",
+                "scale": [-3, 3]
+            }
+        }
     },
     "giops_day": {
         "name": "GIOPS Daily",

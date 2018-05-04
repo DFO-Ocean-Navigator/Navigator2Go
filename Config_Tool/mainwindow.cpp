@@ -122,7 +122,7 @@ void MainWindow::on_listWidget_itemDoubleClicked(QListWidgetItem* item) {
 
 	DialogDatasetView dialog(this);
 	const auto datasetKey = item->text();
-	dialog.SetData(datasetKey, m_documentRootObject[datasetKey]);
+	dialog.SetData(datasetKey, m_documentRootObject[datasetKey].toObject());
 
 	if (dialog.exec()) {
 		qDebug() << "test";

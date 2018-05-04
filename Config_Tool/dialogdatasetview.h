@@ -2,7 +2,7 @@
 #define DATASETVIEW_H
 
 #include <QDialog>
-#include <QJsonValueRef>
+#include <QJsonObject>
 #include <QString>
 
 /***********************************************************************************/
@@ -10,6 +10,7 @@
 namespace Ui {
 class DatasetView;
 }
+class HTMLHighlighter;
 
 /***********************************************************************************/
 class DialogDatasetView : public QDialog {
@@ -18,10 +19,12 @@ public:
 	explicit DialogDatasetView(QWidget* parent = nullptr);
 	~DialogDatasetView();
 
-	void SetData(const QString& datasetKey, const QJsonValueRef object);
+	void SetData(const QString& datasetKey, const QJsonObject& object);
 
 private:
 	Ui::DatasetView* m_ui;
+
+	HTMLHighlighter* m_highlighter;
 };
 
 #endif // DATASETVIEW_H

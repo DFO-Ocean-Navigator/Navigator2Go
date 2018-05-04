@@ -149,17 +149,17 @@
              </property>
              <item>
               <property name="text">
-               <string>Hour</string>
+               <string>hour</string>
               </property>
              </item>
              <item>
               <property name="text">
-               <string>Day</string>
+               <string>day</string>
               </property>
              </item>
              <item>
               <property name="text">
-               <string>Month</string>
+               <string>month</string>
               </property>
              </item>
             </widget>
