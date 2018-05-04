@@ -125,6 +125,6 @@ void MainWindow::on_listWidget_itemDoubleClicked(QListWidgetItem* item) {
 	dialog.SetData(datasetKey, m_documentRootObject[datasetKey]);
 
 	if (dialog.exec()) {
-
+		qDebug() << "test";
 	}
 }
