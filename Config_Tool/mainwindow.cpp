@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "ui_datasetview.h"
 
 #include "dialogdatasetview.h"
 
@@ -125,6 +126,8 @@ void MainWindow::on_listWidget_itemDoubleClicked(QListWidgetItem* item) {
 	dialog.SetData(datasetKey, m_documentRootObject[datasetKey].toObject());
 
 	if (dialog.exec()) {
-		qDebug() << "test";
+		const auto data = dialog.GetData();
+
+		m_documentRootObject[datasetKey] = data.second;
 	}
 }

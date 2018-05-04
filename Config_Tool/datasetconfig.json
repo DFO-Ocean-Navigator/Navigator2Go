@@ -37,12 +37,14 @@
             "vozocrtx": {
                 "name": "Water X Velocity",
                 "unit": "m/s",
-                "scale": [-3, 3]
+                "scale": [-3, 3],
+                "hide": false
             },
             "vomecrty": {
                 "name": "Water Y Velocity",
                 "unit": "m/s",
-                "scale": [-3, 3]
+                "scale": [-3, 3],
+                "hide": false
             }
         }
     },

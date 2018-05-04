@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>960</width>
-    <height>540</height>
+    <width>1280</width>
+    <height>720</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,8 +18,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>960</width>
-    <height>480</height>
+    <width>1280</width>
+    <height>720</height>
    </size>
   </property>
   <property name="maximumSize">
@@ -30,6 +30,9 @@
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
+  </property>
+  <property name="sizeGripEnabled">
+   <bool>true</bool>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -52,14 +55,34 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
-          <width>938</width>
-          <height>487</height>
+          <y>-324</y>
+          <width>1244</width>
+          <height>1080</height>
          </rect>
         </property>
-        <layout class="QGridLayout" name="gridLayout_4">
-         <item row="1" column="0">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>1080</height>
+         </size>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QLabel" name="label_7">
+           <property name="text">
+            <string>Hover over each item label for more info.</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <layout class="QGridLayout" name="gridLayout_3">
+           <item row="6" column="1">
+            <widget class="QPlainTextEdit" name="plainTextEditHelp">
+             <property name="lineWrapMode">
+              <enum>QPlainTextEdit::NoWrap</enum>
+             </property>
+            </widget>
+           </item>
            <item row="0" column="0">
             <widget class="QLabel" name="label_8">
              <property name="toolTip">
@@ -83,7 +106,7 @@
            <item row="6" column="0">
             <widget class="QLabel" name="label_6">
              <property name="toolTip">
-              <string>Detailed information about the dataset goes here. This is presented in the Ocean Navigator.</string>
+              <string>Detailed information about the dataset goes here. This is presented in the Ocean Navigator. HTML formatting is encouraged.</string>
              </property>
              <property name="text">
               <string>Help:</string>
@@ -110,6 +133,9 @@
              </property>
             </widget>
            </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="lineEditKey"/>
+           </item>
            <item row="4" column="0">
             <widget class="QLabel" name="label_4">
              <property name="toolTip">
@@ -119,6 +145,9 @@
               <string>Climatology URL:</string>
              </property>
             </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="lineEditName"/>
            </item>
            <item row="5" column="0">
             <widget class="QLabel" name="label_5">
@@ -130,20 +159,17 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="1">
-            <widget class="QLineEdit" name="lineEditKey"/>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLineEdit" name="lineEditName"/>
-           </item>
            <item row="2" column="1">
             <widget class="QLineEdit" name="lineEditAttribution"/>
            </item>
-           <item row="6" column="1">
-            <widget class="QTextEdit" name="textEditHelp"/>
+           <item row="4" column="1">
+            <widget class="QLineEdit" name="lineEditClima"/>
            </item>
            <item row="5" column="1">
             <widget class="QComboBox" name="comboBoxQuantum">
+             <property name="focusPolicy">
+              <enum>Qt::StrongFocus</enum>
+             </property>
              <property name="maxVisibleItems">
               <number>5</number>
              </property>
@@ -164,20 +190,66 @@
              </item>
             </widget>
            </item>
-           <item row="4" column="1">
-            <widget class="QLineEdit" name="lineEditClima"/>
-           </item>
            <item row="3" column="1">
             <widget class="QLineEdit" name="lineEditURL"/>
            </item>
+           <item row="7" column="0">
+            <widget class="QLabel" name="label_9">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Variables found inside the dataset. &lt;/p&gt;&lt;p&gt;Key: the internal variable name (votemper, or salinity). &lt;/p&gt;&lt;p&gt;Name: the readable form of the Key (Temperature, Salinity). &lt;/p&gt;&lt;p&gt;Default Scale: Default min/max values for the variable. These are used when applying a colourmap.&lt;/p&gt;&lt;p&gt;Hidden: should the variable be hidden to the Ocean Navigator?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Variables:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="1">
+            <widget class="QTableWidget" name="tableWidgetVariables">
+             <property name="editTriggers">
+              <set>QAbstractItemView::DoubleClicked</set>
+             </property>
+             <property name="alternatingRowColors">
+              <bool>true</bool>
+             </property>
+             <property name="sortingEnabled">
+              <bool>true</bool>
+             </property>
+             <attribute name="horizontalHeaderCascadingSectionResizes">
+              <bool>false</bool>
+             </attribute>
+             <column>
+              <property name="text">
+               <string>Key</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Name</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Units</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Default Min</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Default Max</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Hidden</string>
+              </property>
+             </column>
+            </widget>
+           </item>
           </layout>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_7">
-           <property name="text">
-            <string>Hover over each item label for more info.</string>
-           </property>
-          </widget>
          </item>
         </layout>
        </widget>
