@@ -27,6 +27,10 @@ void DialogDatasetView::SetData(const QString& datasetKey, const QJsonObject& ob
 	m_ui->lineEditKey->setText(datasetKey);
 	m_ui->lineEditName->setText(object["name"].toString());
 	m_ui->lineEditAttribution->setText(object["attribution"].toString());
+	if (!object["cache"].isUndefined()) { // For giops_forecast
+		m_ui->spinBoxCache->setEnabled(true);
+		m_ui->spinBoxCache->setValue(object["cache"].toInt());
+	}
 	m_ui->lineEditURL->setText(object["url"].toString());
 	m_ui->lineEditClima->setText(object["climatology"].toString());
 	const auto idx = m_ui->comboBoxQuantum->findText(object["quantum"].toString());
@@ -64,6 +68,9 @@ std::pair<QString, QJsonObject> DialogDatasetView::GetData() const {
 	QJsonObject obj;
 	obj.insert("name", m_ui->lineEditName->text());
 	obj.insert("url", m_ui->lineEditURL->text());
+	if (m_ui->spinBoxCache->isEnabled()) {
+		obj.insert("cache", m_ui->spinBoxCache->value());
+	}
 	obj.insert("quantum", m_ui->comboBoxQuantum->currentText());
 	obj.insert("climatology", m_ui->lineEditClima->text());
 	obj.insert("attribution", m_ui->lineEditAttribution->text());
