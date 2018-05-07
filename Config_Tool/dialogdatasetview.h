@@ -31,11 +31,14 @@ public:
 private slots:
 	void on_tableWidgetVariables_cellDoubleClicked(int row, int column);
 	void on_pushButtonAddVariable_clicked();
-
 	void on_pushButtonDeleteVariable_clicked();
+	void on_lineEditKey_editingFinished();
+	void on_lineEditName_editingFinished();
+	void on_lineEditURL_editingFinished();
 
 private:
 	void addEmptyVariable();
+	void checkInputEmpty(const QString& inputLabel, const QString& inputText);
 
 	Ui::DatasetView* m_ui;
 	HTMLHighlighter* m_highlighter;

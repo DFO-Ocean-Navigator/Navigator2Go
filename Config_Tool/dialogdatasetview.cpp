@@ -60,6 +60,7 @@ void DialogDatasetView::SetData(const QString& datasetKey, const QJsonObject& ob
 
 /***********************************************************************************/
 std::pair<QString, QJsonObject> DialogDatasetView::GetData() const {
+
 	QJsonObject obj;
 	obj.insert("name", m_ui->lineEditName->text());
 	obj.insert("url", m_ui->lineEditURL->text());
@@ -130,6 +131,13 @@ void DialogDatasetView::addEmptyVariable() {
 }
 
 /***********************************************************************************/
+void DialogDatasetView::checkInputEmpty(const QString& inputLabel, const QString& inputText) {
+	if (inputText.isEmpty()) {
+		QMessageBox::critical(this, tr("Alert"), inputLabel + tr(" cannot be empty!"), QMessageBox::Ok);
+	}
+}
+
+/***********************************************************************************/
 void DialogDatasetView::on_pushButtonDeleteVariable_clicked() {
 	const auto reply = QMessageBox::question(this, tr("Confirm Action"), tr("Delete selected variable?"),
 									QMessageBox::Yes | QMessageBox::No);
@@ -137,4 +145,23 @@ void DialogDatasetView::on_pushButtonDeleteVariable_clicked() {
 	if (reply == QMessageBox::Yes) {
 		m_ui->tableWidgetVariables->removeRow(m_ui->tableWidgetVariables->currentRow());
 	}
+}
+
+/***********************************************************************************/
+void DialogDatasetView::on_lineEditKey_editingFinished() {
+
+	const auto text = m_ui->lineEditKey->text();
+	checkInputEmpty(tr("Dataset Key"), text);
+
+	setWindowTitle(text);
+}
+
+/***********************************************************************************/
+void DialogDatasetView::on_lineEditName_editingFinished() {
+	checkInputEmpty(tr("Dataset Name"), m_ui->lineEditName->text());
+}
+
+/***********************************************************************************/
+void DialogDatasetView::on_lineEditURL_editingFinished() {
+	checkInputEmpty(tr("Dataset URL"), m_ui->lineEditURL->text());
 }
