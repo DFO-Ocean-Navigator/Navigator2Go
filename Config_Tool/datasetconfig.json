@@ -342,5 +342,118 @@
             "iicevelu": { "name": "Sea Ice X Velocity", "unit": "m/s", "scale": [-1, 1] },
             "iicevelv": { "name": "Sea Ice Y Velocity", "unit": "m/s", "scale": [-1, 1] }
         }
+    },
+    "glorys_climatology": {
+        "name": "GLORYS Climatology",
+        "url": "http://trinity:8080/thredds/dodsC/climatology/glorys/aggregated.ncml",
+        "quantum": "month",
+        "climatology": "http://trinity:8080/thredds/dodsC/climatology/glorys/aggregated.ncml",
+        "attribution": "GLORYS2V3 from <a href='https://www.mercator-ocean.fr/'>Mercator Ocean</a>",
+        "help": "Global Ocean Reanalysis and Simulation
+            <ul>
+                <li>Global Coverage</li>
+                <li>1/4° Mercator grid</li>
+                <li>75 vertical z-levels</li>
+                <li>Computed from the monthly averages January 1993&ndash;December 2013</li>
+                <li>Variables Available:
+                    <ul>
+                        <li>Eastward Velocity</li>
+                        <li>Ice Concentration</li>
+                        <li>Northward Velocity</li>
+                        <li>Salinity</li>
+                        <li>Sea Ice Eastward Velocity</li>
+                        <li>Sea Ice Northward Velocity</li>
+                        <li>Sea Ice Thickness</li>
+                        <li>Sea Ice Velocity</li>
+                        <li>Sea Surface Height</li>
+                        <li>Sea Water Velocity</li>
+                        <li>Temperature</li>
+                    </ul>
+                </li>
+            </ul>",
+        "variables": {
+            "votemper": { "name": "Temperature",        "unit": "Celsius", "scale": [-5, 30] },
+            "vosaline": { "name": "Salinity",           "unit": "PSU", "scale": [30, 40] },
+            "sossheig": { "name": "Sea Surface Height", "unit": "m", "scale": [-3, 3] },
+            "vozocrtx": { "name": "Water X Velocity",   "unit": "m/s", "scale": [-3, 3] },
+            "vomecrty": { "name": "Water Y Velocity",   "unit": "m/s", "scale": [-3, 3] },
+            "ileadfra": { "name": "Ice Concentration",  "unit": "fraction", "scale": [0, 1] },
+            "iicethic": { "name": "Ice Thickness",      "unit": "m", "scale": [0, 10] },
+            "iicevelu": { "name": "Sea Ice X Velocity", "unit": "m/s", "scale": [-1, 1] },
+            "iicevelv": { "name": "Sea Ice Y Velocity", "unit": "m/s", "scale": [-1, 1] }
+        }
+    },
+    "biomer": {
+        "name": "BIOMER",
+        "url": "http://trinity:8080/thredds/dodsC/biomer/aggregated.ncml",
+        "quantum": "month",
+        "climatology": "http://trinity:8080/thredds/dodsC/climatology/biomer/aggregated.ncml",
+        "attribution": "BIOMER from <a href='https://www.mercator-ocean.fr/'>Mercator Ocean</a>",
+        "help": "Global Biogeochemical Reanalysis -&nbsp;
+            <a href=\"https://www.mercator-ocean.fr/wp-content/uploads/2015/10/FS-BIOMER_EN.pdf\" target=\"_new\">System Sheet</a>
+            <ul>
+                <li>Global Coverage</li>
+                <li>1/4° Mercator grid</li>
+                <li>75 vertical z-levels</li>
+                <li>Available as monthly averages (January 1998&ndash;December 2013)</li>
+                <li>Variables Available:
+                    <ul>
+                        <li>Chlorophyll</li>
+                        <li>Dissolved Oxygen</li>
+                        <li>Iron</li>
+                        <li>Nitrate</li>
+                        <li>Phosphate</li>
+                        <li>Phytoplankton expressed as carbon</li>
+                        <li>Primary Productivity of Carbon</li>
+                        <li>Silicate</li>
+                    </ul>
+                </li>
+            </ul>",
+        "variables": {
+            "CHL": { "name": "Chlorophyll",        "unit": "mg/m^3" },
+            "Fe": { "name": "Iron",               "unit": "mmol/m^3", "scale": [0, 0.05] },
+            "NO3": { "name": "Nitrate",            "unit": "mmol/m^3" },
+            "O2": { "name": "Dissolved Oxygen",   "unit": "mmol/m^3" },
+            "PHYC": { "name": "Phytoplankton expressed as carbon", "unit": "mmol/m^3" },
+            "PO4": { "name": "Phosphate",          "unit": "mmol/m^3" },
+            "PP": { "name": "Primary Productivity of Carbon", "unit": "g/m^3/day" },
+            "SI": { "name": "Silicate",           "unit": "mmol/m^3" }
+        }
+    },
+    "biomer_climatology": {
+        "name": "BIOMER Climatology",
+        "url": "http://trinity:8080/thredds/dodsC/climatology/biomer/aggregated.ncml",
+        "quantum": "month",
+        "climatology": "http://trinity:8080/thredds/dodsC/climatology/biomer/aggregated.ncml",
+        "attribution": "BIOMER from <a href='https://www.mercator-ocean.fr/'>Mercator Ocean</a>",
+        "help": "Global Biogeochemical Reanalysis
+            <ul>
+                <li>Global Coverage</li>
+                <li>1/4° Mercator grid</li>
+                <li>75 vertical z-levels</li>
+                <li>Computed from the monthly averages (January 1998&ndash;December 2013)</li>
+                <li>Variables Available:
+                    <ul>
+                        <li>Chlorophyll</li>
+                        <li>Dissolved Oxygen</li>
+                        <li>Iron</li>
+                        <li>Nitrate</li>
+                        <li>Phosphate</li>
+                        <li>Phytoplankton expressed as carbon</li>
+                        <li>Primary Productivity of Carbon</li>
+                        <li>Silicate</li>
+                    </ul>
+                </li>
+            </ul>",
+        "variables": {
+            "CHL": { "name": "Chlorophyll",        "unit": "mg/m^3" },
+            "Fe": { "name": "Iron",               "unit": "mmol/m^3", "scale": [0, 0.05] },
+            "NO3": { "name": "Nitrate",            "unit": "mmol/m^3" },
+            "O2": { "name": "Dissolved Oxygen",   "unit": "mmol/m^3" },
+            "PHYC": { "name": "Phytoplankton expressed as carbon", "unit": "mmol/m^3" },
+            "PO4": { "name": "Phosphate",          "unit": "mmol/m^3" },
+            "PP": { "name": "Primary Productivity of Carbon", "unit": "g/m^3/day" },
+            "SI": { "name": "Silicate",           "unit": "mmol/m^3" }
+            }
     }
 }
