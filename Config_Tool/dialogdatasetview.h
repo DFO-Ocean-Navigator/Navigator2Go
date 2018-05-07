@@ -23,6 +23,9 @@ public:
 	~DialogDatasetView();
 
 	void SetData(const QString& datasetKey, const QJsonObject& object);
+
+	// Serializes values from the UI into a JSON object.
+	// Returns the dataset key, and JSON object.
 	std::pair<QString, QJsonObject> GetData() const;
 
 private slots:

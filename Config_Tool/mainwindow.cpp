@@ -72,7 +72,18 @@ void MainWindow::on_actionOpen_triggered() {
 		f.close();
 
 		// Parse json
-		const auto jsonDocument = QJsonDocument::fromJson(contents.toUtf8());
+		QJsonParseError error;
+		const auto jsonDocument = QJsonDocument::fromJson(contents.toUtf8(), &error);
+		// Check for errors
+		if (jsonDocument.isNull()) {
+			QMessageBox msgBox(this);
+			msgBox.setText(tr("Error parsing JSON file."));
+			msgBox.setInformativeText(error.errorString());
+			msgBox.setIcon(QMessageBox::Critical);
+			msgBox.exec();
+
+			return;
+		}
 		m_documentRootObject = jsonDocument.object(); // Get copy of root object
 
 		for (const auto& datasetName : m_documentRootObject.keys()) {
@@ -116,6 +127,8 @@ void MainWindow::on_actionSave_triggered() {
 /***********************************************************************************/
 void MainWindow::on_buttonAddDataset_clicked() {
 	m_isUnsavedData = true;
+
+	m_ui->listWidget->addItem("new_dataset_" + QString::number(qrand()));
 }
 
 /***********************************************************************************/

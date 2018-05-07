@@ -67,6 +67,30 @@ std::pair<QString, QJsonObject> DialogDatasetView::GetData() const {
 	obj.insert("attribution", m_ui->lineEditAttribution->text());
 	obj.insert("help", m_ui->plainTextEditHelp->document()->toRawText());
 
+	// Serialize variables
+	QJsonObject variables;
+	const auto rowCount = m_ui->tableWidgetVariables->rowCount();
+	for (auto i = 0; i < rowCount; ++i) {
+		QJsonObject var;
+
+		const auto nameText = m_ui->tableWidgetVariables->item(i, 1)->text();
+		var.insert("name", nameText);
+
+		const auto unitsText = m_ui->tableWidgetVariables->item(i, 2)->text();
+		var.insert("unit", unitsText);
+
+		const auto scaleMin = m_ui->tableWidgetVariables->item(i, 3)->text().toDouble();
+		const auto scaleMax = m_ui->tableWidgetVariables->item(i, 4)->text().toDouble();
+		var.insert("scale", QJsonArray({scaleMin, scaleMax}));
+
+		const auto isHidden = m_ui->tableWidgetVariables->item(i, 5)->checkState();
+		var.insert("hide", isHidden ? "true" : "false");
+
+		const auto keyText = m_ui->tableWidgetVariables->item(i, 0)->text();
+		variables.insert(keyText, var);
+	}
+	obj.insert("variables", variables);
+
 	return { m_ui->lineEditKey->text(), obj };
 }
 

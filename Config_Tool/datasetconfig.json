@@ -37,14 +37,77 @@
             "vozocrtx": {
                 "name": "Water X Velocity",
                 "unit": "m/s",
-                "scale": [-3, 3],
-                "hide": false
+                "scale": [-3, 3]
             },
             "vomecrty": {
                 "name": "Water Y Velocity",
                 "unit": "m/s",
-                "scale": [-3, 3],
-                "hide": false
+                "scale": [-3, 3]
+            },
+            "votemper": {
+                "name": "Temperature",
+                "unit": "Celsius",
+                "scale": [-5, 30]
+            },
+            "vosaline": {
+                "name": "Salinity",
+                "unit": "PSU",
+                "scale": [30, 40]
+            },
+            "sossheig": { 
+                "name": "Sea Surface Height",
+                "unit": "m",
+                "scale": [-3, 3]
+            },
+            "iiceconc": { 
+                "name": "Ice Concentration",
+                "unit": "fraction",
+                "scale": [0, 1]
+            },
+            "iicevol": { 
+                "name": "Ice Volume",
+                "unit": "m",
+                "scale": [0, 10]
+            },
+            "isnowvol": { 
+                "name": "Snow Volume",
+                "unit": "cm",
+                "scale": [0, 10]
+            },
+            "iicesurftemp": { 
+                "name": "Ice/Snow Surface Temperature",
+                "unit": "Kelvin",
+                "scale": [-5, 10]
+            },
+            "itzocrtx": { 
+                "name": "Sea Ice X Velocity",
+                "unit": "m/s",
+                "scale": [-1, 1]
+            },
+            "itmecrty": { 
+                "name": "Sea Ice Y Velocity",
+                "unit": "m/s",
+                "scale": [-1, 1]
+            },
+            "iicepressure": { 
+                "name": "Internal Sea Ice Pressure",
+                "unit": "N/m",
+                "scale": [0, 200000]
+            },
+            "iicestrength": { 
+                "name": "Compressive Sea Ice Strength",
+                "unit": "N/m",
+                "scale": [0, 60000]
+            },
+            "somixhgt": {
+                "name": "Turbocline Depth",
+                "unit": "m",
+                "scale": [0, 4000]
+            },
+            "sokaraml": { 
+                "name": "Ocean Mixed Layer Depth",
+                "unit": "m",
+                "scale": [0, 4000]
             }
         }
     },
@@ -75,6 +138,57 @@
                         <li>Zonal Wind</li>
                     </ul>
                 </li>
-            </ul>"
+            </ul>",
+        "variables": {
+            "vozocrtx": { "name": "Water X Velocity", "unit": "m/s", "scale": [-3, 3] },
+            "vomecrty": { "name": "Water Y Velocity", "unit": "m/s", "scale": [-3, 3] },
+            "votemper": { "name": "Temperature", "unit": "Kelvin", "scale": [-5, 30] },
+            "vosaline": { "name": "Salinity", "unit": "PSU", "scale": [30, 40] },
+            "sossheig": { "name": "Sea Surface Height", "unit": "m", "scale": [-3, 3] },
+            "aice": { "name": "Ice Concentration", "unit": "fraction", "scale": [0, 1] },
+            "vice": { "name": "Ice Volume",        "unit": "m", "scale": [0, 10] },
+            "u_wind": { "name": "Zonal Wind",      "unit": "m/s", "scale": [-20, 20] },
+            "v_wind": { "name": "Meridional Wind", "unit": "m/s", "scale": [-20, 20] }
+        }
+    },
+    "giops_month": {
+        "name": "GIOPS Monthly",
+        "url": "http://trinity:8080/thredds/dodsC/giops/monthly/aggregated.ncml",
+        "quantum": "month",
+        "climatology": "http://trinity:8080/thredds/dodsC/climatology/Levitus98_PHC21/aggregated.ncml",
+        "attribution": "GIOPS Monthly Averages from CONCEPTS",
+        "help": "Global Ice Ocean Prediction System
+            <ul>
+                <li>Global Coverage</li>
+                <li>Tri-polar ORCA grid 1/4° resolution (ORCA025), &lt; 15km in Arctic</li>
+                <li>50 vertical z-levels</li>
+                <li>Available as monthly averages (May 2014&ndash;April 2015)</li>
+                <li>Variables Available:
+                    <ul>
+                        <li>Ice Concentration</li>
+                        <li>Ice Volume</li>
+                        <li>Meridional Wind</li>
+                        <li>Salinity</li>
+                        <li>Sea Surface Height (Free Surface)</li>
+                        <li>Sea Water Velocity</li>
+                        <li>Sea Water X Velocity</li>
+                        <li>Sea Water Y Velocity</li>
+                        <li>Water Temperature</li>
+                        <li>Wind</li>
+                        <li>Zonal Wind</li>
+                    </ul>
+                </li>
+            </ul>",
+        "variables": {
+            "vozocrtx": { "name": "Water X Velocity",   "unit": "m/s", "scale": [-3, 3] },
+            "vomecrty": { "name": "Water Y Velocity",   "unit": "m/s", "scale": [-3, 3] },
+            "votemper": { "name": "Temperature",        "unit": "Kelvin", "scale": [-5, 30] },
+            "vosaline": { "name": "Salinity",           "unit": "PSU", "scale": [30, 40] },
+            "sossheig": { "name": "Sea Surface Height", "unit": "m", "scale": [-3, 3] },
+            "aice": { "name": "Ice Concentration",  "unit": "fraction", "scale": [0, 1] },
+            "vice": { "name": "Ice Volume",         "unit": "m", "scale": [0, 10] },
+            "u_wind": { "name": "Zonal Wind",         "unit": "m/s", "scale": [-20, 20] },
+            "v_wind": { "name": "Meridional Wind",    "unit": "m/s", "scale": [-20, 20] }
+        }
     }
 }
