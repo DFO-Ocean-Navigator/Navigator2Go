@@ -27,10 +27,12 @@ public:
 
 private slots:
 	void on_tableWidgetVariables_cellDoubleClicked(int row, int column);
+	void on_pushButtonAddVariable_clicked();
 
 private:
-	Ui::DatasetView* m_ui;
+	void addEmptyVariable();
 
+	Ui::DatasetView* m_ui;
 	HTMLHighlighter* m_highlighter;
 };
 

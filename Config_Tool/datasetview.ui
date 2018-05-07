@@ -55,7 +55,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-324</y>
+          <y>-413</y>
           <width>1244</width>
           <height>1080</height>
          </rect>
@@ -123,6 +123,9 @@
              </property>
             </widget>
            </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="lineEditKey"/>
+           </item>
            <item row="2" column="0">
             <widget class="QLabel" name="label_2">
              <property name="toolTip">
@@ -133,8 +136,8 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="1">
-            <widget class="QLineEdit" name="lineEditKey"/>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="lineEditName"/>
            </item>
            <item row="4" column="0">
             <widget class="QLabel" name="label_4">
@@ -146,8 +149,11 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="1">
-            <widget class="QLineEdit" name="lineEditName"/>
+           <item row="2" column="1">
+            <widget class="QLineEdit" name="lineEditAttribution"/>
+           </item>
+           <item row="4" column="1">
+            <widget class="QLineEdit" name="lineEditClima"/>
            </item>
            <item row="5" column="0">
             <widget class="QLabel" name="label_5">
@@ -159,11 +165,8 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="1">
-            <widget class="QLineEdit" name="lineEditAttribution"/>
-           </item>
-           <item row="4" column="1">
-            <widget class="QLineEdit" name="lineEditClima"/>
+           <item row="3" column="1">
+            <widget class="QLineEdit" name="lineEditURL"/>
            </item>
            <item row="5" column="1">
             <widget class="QComboBox" name="comboBoxQuantum">
@@ -190,9 +193,6 @@
              </item>
             </widget>
            </item>
-           <item row="3" column="1">
-            <widget class="QLineEdit" name="lineEditURL"/>
-           </item>
            <item row="7" column="0">
             <widget class="QLabel" name="label_9">
              <property name="toolTip">
@@ -217,6 +217,9 @@
              <attribute name="horizontalHeaderCascadingSectionResizes">
               <bool>false</bool>
              </attribute>
+             <attribute name="horizontalHeaderDefaultSectionSize">
+              <number>125</number>
+             </attribute>
              <column>
               <property name="text">
                <string>Key</string>
@@ -225,6 +228,11 @@
              <column>
               <property name="text">
                <string>Name</string>
+              </property>
+              <property name="font">
+               <font>
+                <stylestrategy>PreferAntialias</stylestrategy>
+               </font>
               </property>
              </column>
              <column>
@@ -247,6 +255,13 @@
                <string>Hidden</string>
               </property>
              </column>
+            </widget>
+           </item>
+           <item row="7" column="2">
+            <widget class="QPushButton" name="pushButtonAddVariable">
+             <property name="text">
+              <string>Add Variable</string>
+             </property>
             </widget>
            </item>
           </layout>

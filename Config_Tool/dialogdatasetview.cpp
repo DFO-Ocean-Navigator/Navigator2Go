@@ -46,9 +46,8 @@ void DialogDatasetView::SetData(const QString& datasetKey, const QJsonObject& ob
 		m_ui->tableWidgetVariables->setItem(rowIdx, 2, new QTableWidgetItem(variables[key]["unit"].toString()));
 		// Scale
 		const auto scaleArray = variables[key]["scale"].toArray();
-		// FIX THIS
-		m_ui->tableWidgetVariables->setItem(rowIdx, 3, new QTableWidgetItem(scaleArray[0].toString()));
-		m_ui->tableWidgetVariables->setItem(rowIdx, 4, new QTableWidgetItem(scaleArray[1].toString()));
+		m_ui->tableWidgetVariables->setItem(rowIdx, 3, new QTableWidgetItem(QString::number(scaleArray[0].toDouble())));
+		m_ui->tableWidgetVariables->setItem(rowIdx, 4, new QTableWidgetItem(QString::number(scaleArray[1].toDouble())));
 
 		// Hidden
 		// Gonna use a checkbox
@@ -67,10 +66,39 @@ std::pair<QString, QJsonObject> DialogDatasetView::GetData() const {
 	obj.insert("climatology", m_ui->lineEditClima->text());
 	obj.insert("attribution", m_ui->lineEditAttribution->text());
 	obj.insert("help", m_ui->plainTextEditHelp->document()->toRawText());
+
 	return { m_ui->lineEditKey->text(), obj };
 }
 
 /***********************************************************************************/
 void DialogDatasetView::on_tableWidgetVariables_cellDoubleClicked(int row, int column) {
 
+}
+
+/***********************************************************************************/
+void DialogDatasetView::on_pushButtonAddVariable_clicked() {
+	addEmptyVariable();
+}
+
+/***********************************************************************************/
+void DialogDatasetView::addEmptyVariable() {
+	m_ui->tableWidgetVariables->insertRow(m_ui->tableWidgetVariables->rowCount());
+
+	const auto rowIdx = m_ui->tableWidgetVariables->rowCount() - 1;
+
+	// Key
+	m_ui->tableWidgetVariables->setItem(rowIdx, 0, new QTableWidgetItem());
+	// Name
+	m_ui->tableWidgetVariables->setItem(rowIdx, 1, new QTableWidgetItem());
+	// Units
+	m_ui->tableWidgetVariables->setItem(rowIdx, 2, new QTableWidgetItem());
+	// Scale
+	m_ui->tableWidgetVariables->setItem(rowIdx, 3, new QTableWidgetItem());
+	m_ui->tableWidgetVariables->setItem(rowIdx, 4, new QTableWidgetItem());
+
+	// Hidden
+	// Gonna use a checkbox
+	auto* hidden = new QTableWidgetItem();
+	hidden->setCheckState(Qt::Unchecked);
+	m_ui->tableWidgetVariables->setItem(rowIdx, 5, hidden);
 }
