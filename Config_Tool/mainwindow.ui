@@ -66,6 +66,17 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QPushButton" name="pushButtonDeleteDataset">
+        <property name="text">
+         <string>PushButton</string>
+        </property>
+        <property name="icon">
+         <iconset resource="resources.qrc">
+          <normaloff>:/icons/icons/delete.png</normaloff>:/icons/icons/delete.png</iconset>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
     <item>

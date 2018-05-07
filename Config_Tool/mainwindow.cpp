@@ -36,6 +36,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), m_ui(new Ui::Main
 	m_ui->labelList->setVisible(false);
 	m_ui->buttonAddDataset->setText(tr("Add Dataset"));
 	m_ui->buttonAddDataset->setEnabled(false);
+	m_ui->pushButtonDeleteDataset->setText(tr("Delete Dataset"));
+	m_ui->pushButtonDeleteDataset->setEnabled(false);
 }
 
 /***********************************************************************************/
@@ -92,7 +94,8 @@ void MainWindow::on_actionOpen_triggered() {
 
 		m_ui->labelList->setVisible(true);
 		m_ui->buttonAddDataset->setEnabled(true);
-		statusBar()->showMessage("");
+		m_ui->pushButtonDeleteDataset->setEnabled(true);
+		statusBar()->showMessage(tr("Config file loaded."));
 	}
 }
 
@@ -142,5 +145,18 @@ void MainWindow::on_listWidget_itemDoubleClicked(QListWidgetItem* item) {
 		const auto data = dialog.GetData();
 
 		m_documentRootObject[datasetKey] = data.second;
+	}
+}
+
+/***********************************************************************************/
+void MainWindow::on_pushButtonDeleteDataset_clicked() {
+	const auto reply = QMessageBox::question(this, tr("Confirm Action"), tr("Delete selected dataset(s)?"),
+									QMessageBox::Yes | QMessageBox::No);
+	if (reply == QMessageBox::Yes) {
+		const auto items = m_ui->listWidget->selectedItems();
+
+		for (auto* item : items) {
+			delete m_ui->listWidget->takeItem(m_ui->listWidget->row(item));
+		}
 	}
 }

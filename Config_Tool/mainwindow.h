@@ -33,6 +33,8 @@ private slots:
 	// List item is double clicked
 	void on_listWidget_itemDoubleClicked(QListWidgetItem* item);
 
+	void on_pushButtonDeleteDataset_clicked();
+
 private:
 	Ui::MainWindow* m_ui;
 

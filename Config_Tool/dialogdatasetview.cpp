@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <QJsonValueRef>
 #include <QJsonArray>
+#include <QMessageBox>
 
 /***********************************************************************************/
 DialogDatasetView::DialogDatasetView(QWidget* parent) :	QDialog(parent), m_ui(new Ui::DatasetView) {
@@ -125,4 +126,15 @@ void DialogDatasetView::addEmptyVariable() {
 	auto* hidden = new QTableWidgetItem();
 	hidden->setCheckState(Qt::Unchecked);
 	m_ui->tableWidgetVariables->setItem(rowIdx, 5, hidden);
+
+}
+
+/***********************************************************************************/
+void DialogDatasetView::on_pushButtonDeleteVariable_clicked() {
+	const auto reply = QMessageBox::question(this, tr("Confirm Action"), tr("Delete selected variable?"),
+									QMessageBox::Yes | QMessageBox::No);
+
+	if (reply == QMessageBox::Yes) {
+		m_ui->tableWidgetVariables->removeRow(m_ui->tableWidgetVariables->currentRow());
+	}
 }
