@@ -103,7 +103,19 @@ void MainWindow::on_actionOpen_triggered() {
 void MainWindow::on_actionClose_triggered() {
 
 	if (m_isUnsavedData) {
-		// show confirm quit dialog
+		const auto reply = QMessageBox::question(this, tr("Confirm Action"), tr("Close without saving?"),
+										QMessageBox::Yes | QMessageBox::Save | QMessageBox::Cancel);
+
+		switch (reply) {
+		case QMessageBox::Save:
+			on_actionSave_triggered();
+			break;
+		case QMessageBox::Cancel:
+			return;
+		case QMessageBox::Yes:
+		default:
+			break;
+		}
 	}
 
 	close();
