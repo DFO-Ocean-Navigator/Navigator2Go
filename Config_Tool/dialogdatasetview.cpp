@@ -1,9 +1,8 @@
 #include "ui_datasetview.h"
-
 #include "dialogdatasetview.h"
+
 #include "htmlhighlighter.h"
 
-#include <QDebug>
 #include <QJsonValueRef>
 #include <QJsonArray>
 #include <QMessageBox>

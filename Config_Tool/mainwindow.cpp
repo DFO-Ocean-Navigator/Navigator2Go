@@ -7,11 +7,13 @@
 #include <QMessageBox>
 #include <QFile>
 #include <QTextStream>
-#include <QDebug>
 #include <QFileDialog>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QSaveFile>
+#ifdef QT_DEBUG
+	#include <QDebug>
+#endif
 
 /***********************************************************************************/
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), m_ui(new Ui::MainWindow) {
@@ -22,7 +24,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), m_ui(new Ui::Main
 	// Set dark stylesheet
 	QFile f(":qdarkstyle/style.qss");
 	if (!f.exists()) {
+#ifdef QT_DEBUG
 		qDebug() << "Unable to set stylesheet, file not found.";
+#else
+#endif
 	}
 	else {
 		f.open(QFile::ReadOnly | QFile::Text);
@@ -57,7 +62,11 @@ void MainWindow::on_actionOpen_triggered() {
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Config Files (*.json)"));
 	dialog.setViewMode(QFileDialog::Detail);
+#ifdef QT_DEBUG
 	dialog.setDirectory("/home/nabil/");
+#else
+	dialog.setDirectory("/opt/tools/");
+#endif
 
 	// Open file dialog
 	if (dialog.exec()) {
@@ -121,14 +130,17 @@ void MainWindow::on_actionClose_triggered() {
 	close();
 }
 
-
 /***********************************************************************************/
 void MainWindow::on_actionSave_triggered() {
 
 	if (!m_configFileName.isEmpty()) {
 		const QJsonDocument doc(m_documentRootObject);
 
+#ifdef QT_DEBUG
 		QSaveFile f("/home/nabil/test.txt");
+#else
+		QSaveFile f(m_configFileName);
+#endif
 		f.open(QFile::WriteOnly | QFile::Text | QFile::Truncate); // Overwrite original file.
 		f.write(doc.toJson());
 		f.commit();
