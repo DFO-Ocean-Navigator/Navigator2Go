@@ -26,8 +26,9 @@ void DialogDatasetView::SetData(const QString& datasetKey, const QJsonObject& ob
 
 	m_ui->lineEditKey->setText(datasetKey);
 	m_ui->lineEditName->setText(object["name"].toString());
+	m_ui->checkBoxDatasetEnabled->setCheckState( object["enabled"].toBool() ? Qt::Checked : Qt::Unchecked);
 	m_ui->lineEditAttribution->setText(object["attribution"].toString());
-	if (!object["cache"].isUndefined()) { // For giops_forecast
+	if (!object["cache"].isUndefined()) { // For forecasting
 		m_ui->spinBoxCache->setEnabled(true);
 		m_ui->spinBoxCache->setValue(object["cache"].toInt());
 	}
@@ -54,11 +55,15 @@ void DialogDatasetView::SetData(const QString& datasetKey, const QJsonObject& ob
 		m_ui->tableWidgetVariables->setItem(rowIdx, 3, new QTableWidgetItem(QString::number(scaleArray[0].toDouble())));
 		m_ui->tableWidgetVariables->setItem(rowIdx, 4, new QTableWidgetItem(QString::number(scaleArray[1].toDouble())));
 
+		// Scale factor
+		const auto factor = variables[key]["scale_factor"];
+		m_ui->tableWidgetVariables->setItem(rowIdx, 5, new QTableWidgetItem(QString::number( !factor.isUndefined() ? factor.toDouble() : 1.0)));
+
 		// Hidden
 		// Gonna use a checkbox
 		auto* hidden = new QTableWidgetItem();
 		hidden->setCheckState(variables[key]["hide"].toBool() ? Qt::Checked : Qt::Unchecked);
-		m_ui->tableWidgetVariables->setItem(rowIdx, 5, hidden);
+		m_ui->tableWidgetVariables->setItem(rowIdx, 6, hidden);
 	}
 }
 
@@ -92,7 +97,10 @@ std::pair<QString, QJsonObject> DialogDatasetView::GetData() const {
 		const auto scaleMax = m_ui->tableWidgetVariables->item(i, 4)->text().toDouble();
 		var.insert("scale", QJsonArray({scaleMin, scaleMax}));
 
-		const auto isHidden = m_ui->tableWidgetVariables->item(i, 5)->checkState();
+		const auto factor = m_ui->tableWidgetVariables->item(i, 5)->text().toDouble();
+		var.insert("scale_factor", factor);
+
+		const auto isHidden = m_ui->tableWidgetVariables->item(i, 6)->checkState();
 		var.insert("hide", isHidden ? "true" : "false");
 
 		const auto keyText = m_ui->tableWidgetVariables->item(i, 0)->text();
@@ -160,7 +168,7 @@ void DialogDatasetView::on_lineEditKey_editingFinished() {
 	const auto text = m_ui->lineEditKey->text();
 	checkInputEmpty(tr("Dataset Key"), text);
 
-	setWindowTitle(text);
+	setWindowTitle(tr("Editing: ") + text);
 }
 
 /***********************************************************************************/

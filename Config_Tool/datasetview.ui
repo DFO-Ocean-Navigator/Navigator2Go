@@ -76,7 +76,7 @@
          </item>
          <item>
           <layout class="QGridLayout" name="gridLayout_3">
-           <item row="7" column="1">
+           <item row="8" column="1">
             <widget class="QPlainTextEdit" name="plainTextEditHelp">
              <property name="lineWrapMode">
               <enum>QPlainTextEdit::NoWrap</enum>
@@ -93,7 +93,7 @@
              </property>
             </widget>
            </item>
-           <item row="4" column="0">
+           <item row="5" column="0">
             <widget class="QLabel" name="label_3">
              <property name="toolTip">
               <string>URL to the aggregated.ncml file for this dataset. This is passed to THREDDS.</string>
@@ -103,7 +103,7 @@
              </property>
             </widget>
            </item>
-           <item row="7" column="0">
+           <item row="8" column="0">
             <widget class="QLabel" name="label_6">
              <property name="toolTip">
               <string>Detailed information about the dataset goes here. This is presented in the Ocean Navigator. HTML formatting is encouraged.</string>
@@ -126,7 +126,7 @@
            <item row="0" column="1">
             <widget class="QLineEdit" name="lineEditKey"/>
            </item>
-           <item row="2" column="0">
+           <item row="3" column="0">
             <widget class="QLabel" name="label_2">
              <property name="toolTip">
               <string>Dataset attribution. Presented in bottom right corner of the map and in all plot figures in the Ocean Navigator.</string>
@@ -139,7 +139,7 @@
            <item row="1" column="1">
             <widget class="QLineEdit" name="lineEditName"/>
            </item>
-           <item row="5" column="0">
+           <item row="6" column="0">
             <widget class="QLabel" name="label_4">
              <property name="toolTip">
               <string>URL to the climatology aggregated.ncml file. This is passed to THREDDS.</string>
@@ -149,13 +149,13 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="1">
+           <item row="3" column="1">
             <widget class="QLineEdit" name="lineEditAttribution"/>
            </item>
-           <item row="5" column="1">
+           <item row="6" column="1">
             <widget class="QLineEdit" name="lineEditClima"/>
            </item>
-           <item row="6" column="0">
+           <item row="7" column="0">
             <widget class="QLabel" name="label_5">
              <property name="toolTip">
               <string>Time scale of the data inside this dataset. Days, hours, monthly.</string>
@@ -165,10 +165,10 @@
              </property>
             </widget>
            </item>
-           <item row="4" column="1">
+           <item row="5" column="1">
             <widget class="QLineEdit" name="lineEditURL"/>
            </item>
-           <item row="6" column="1">
+           <item row="7" column="1">
             <widget class="QComboBox" name="comboBoxQuantum">
              <property name="focusPolicy">
               <enum>Qt::StrongFocus</enum>
@@ -193,7 +193,7 @@
              </item>
             </widget>
            </item>
-           <item row="8" column="0">
+           <item row="9" column="0">
             <widget class="QLabel" name="label_9">
              <property name="toolTip">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Variables found inside the dataset. &lt;/p&gt;&lt;p&gt;Key: the internal variable name (votemper, or salinity). &lt;/p&gt;&lt;p&gt;Name: the readable form of the Key (Temperature, Salinity). &lt;/p&gt;&lt;p&gt;Default Scale: Default min/max values for the variable. These are used when applying a colourmap.&lt;/p&gt;&lt;p&gt;Hidden: should the variable be hidden to the Ocean Navigator?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -203,7 +203,7 @@
              </property>
             </widget>
            </item>
-           <item row="8" column="1">
+           <item row="9" column="1">
             <widget class="QTableWidget" name="tableWidgetVariables">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -225,6 +225,9 @@
              </attribute>
              <attribute name="horizontalHeaderDefaultSectionSize">
               <number>125</number>
+             </attribute>
+             <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+              <bool>true</bool>
              </attribute>
              <column>
               <property name="text">
@@ -258,12 +261,24 @@
              </column>
              <column>
               <property name="text">
+               <string>Scale Factor</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
                <string>Hidden</string>
               </property>
              </column>
             </widget>
            </item>
-           <item row="8" column="2">
+           <item row="4" column="1">
+            <widget class="QSpinBox" name="spinBoxCache">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="2">
             <layout class="QVBoxLayout" name="verticalLayout_5">
              <property name="sizeConstraint">
               <enum>QLayout::SetDefaultConstraint</enum>
@@ -295,17 +310,30 @@
              </item>
             </layout>
            </item>
-           <item row="3" column="0">
+           <item row="4" column="0">
             <widget class="QLabel" name="label_10">
              <property name="text">
               <string>Cache:</string>
              </property>
             </widget>
            </item>
-           <item row="3" column="1">
-            <widget class="QSpinBox" name="spinBoxCache">
-             <property name="enabled">
-              <bool>false</bool>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_11">
+             <property name="toolTip">
+              <string>Should this dataset be visible in the Ocean Navigator?</string>
+             </property>
+             <property name="text">
+              <string>Enabled:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QCheckBox" name="checkBoxDatasetEnabled">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
