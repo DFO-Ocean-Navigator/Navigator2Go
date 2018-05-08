@@ -72,6 +72,7 @@ std::pair<QString, QJsonObject> DialogDatasetView::GetData() const {
 
 	QJsonObject obj;
 	obj.insert("name", m_ui->lineEditName->text());
+	obj.insert("enabled", m_ui->checkBoxDatasetEnabled->checkState() ? true : false);
 	obj.insert("url", m_ui->lineEditURL->text());
 	if (m_ui->spinBoxCache->isEnabled()) {
 		obj.insert("cache", m_ui->spinBoxCache->value());
