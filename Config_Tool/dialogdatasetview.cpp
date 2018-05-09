@@ -103,7 +103,7 @@ std::pair<QString, QJsonObject> DialogDatasetView::GetData() const {
 		const auto isHidden = m_ui->tableWidgetVariables->item(i, 6)->checkState();
 		var.insert("hide", isHidden ? "true" : "false");
 
-		const auto keyText = m_ui->tableWidgetVariables->item(i, 0)->text();
+		const auto keyText = m_ui->tableWidgetVariables->item(i, 0)->text().toLower();
 		variables.insert(keyText, var);
 	}
 	obj.insert("variables", variables);
@@ -137,11 +137,14 @@ void DialogDatasetView::addEmptyVariable() {
 	m_ui->tableWidgetVariables->setItem(rowIdx, 3, new QTableWidgetItem());
 	m_ui->tableWidgetVariables->setItem(rowIdx, 4, new QTableWidgetItem());
 
+	// Scale factor
+	m_ui->tableWidgetVariables->setItem(rowIdx, 5, new QTableWidgetItem());
+
 	// Hidden
 	// Gonna use a checkbox
 	auto* hidden = new QTableWidgetItem();
 	hidden->setCheckState(Qt::Unchecked);
-	m_ui->tableWidgetVariables->setItem(rowIdx, 5, hidden);
+	m_ui->tableWidgetVariables->setItem(rowIdx, 6, hidden);
 
 }
 
