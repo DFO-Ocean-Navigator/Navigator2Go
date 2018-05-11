@@ -17,12 +17,18 @@ DialogPreferences::~DialogPreferences() {
 void DialogPreferences::SetPreferences(Preferences& settings) {
 	m_ui->lineEditInstallDir->setText(settings.ONInstallDir);
 	m_ui->checkBoxUpdateDoryListOnStart->setCheckState(settings.UpdateDoryListOnStart ? Qt::Checked : Qt::Unchecked);
+	if (settings.ONActiveDatasetConfig.isEmpty()) {
+		m_ui->lineEditActiveConfigFile->setText(settings.ONInstallDir+"/oceannavigator/datasetconfig.json");
+	} else {
+		m_ui->lineEditActiveConfigFile->setText(settings.ONActiveDatasetConfig);
+	}
 }
 
 /***********************************************************************************/
 auto DialogPreferences::GetPreferences() const noexcept -> Preferences {
 	Preferences prefs;
 	prefs.ONInstallDir = m_ui->lineEditInstallDir->text();
+	prefs.ONActiveDatasetConfig = m_ui->lineEditActiveConfigFile->text();
 	const auto checked = m_ui->checkBoxUpdateDoryListOnStart->checkState();
 	prefs.UpdateDoryListOnStart = checked == Qt::Checked ? true : false;
 
@@ -42,5 +48,24 @@ void DialogPreferences::on_pushButtonBrowseInstallDir_clicked() {
 													   QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 	if (!dir.isEmpty()) {
 		m_ui->lineEditInstallDir->setText(dir);
+	}
+}
+
+/***********************************************************************************/
+void DialogPreferences::on_pushButtonBrowseActiveConfigFile_clicked() {
+	QFileDialog dialog{this};
+	dialog.setWindowTitle(tr("Open Dataset Config File"));
+	dialog.setFileMode(QFileDialog::ExistingFile);
+	dialog.setNameFilter(tr("Config Files (*.json)"));
+	dialog.setViewMode(QFileDialog::Detail);
+#ifdef QT_DEBUG
+	dialog.setDirectory("/home/nabil/");
+#else
+	dialog.setDirectory("/opt/tools/");
+#endif
+
+	// Open file dialog
+	if (dialog.exec()) {
+		m_ui->lineEditActiveConfigFile->setText(dialog.selectedFiles().at(0));
 	}
 }

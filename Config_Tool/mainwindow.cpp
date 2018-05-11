@@ -5,7 +5,6 @@
 #include "dialogpreferences.h"
 #include "apirequest.h"
 
-
 #include <QMessageBox>
 #include <QFile>
 #include <QTextStream>
@@ -21,7 +20,12 @@
 	#include <QDebug>
 #endif
 
-#include <memory>
+/***********************************************************************************/
+enum UITabs : int{
+	HOME = 0,
+	DATA_SYNC,
+	CONFIG_EDITOR
+};
 
 /***********************************************************************************/
 MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
@@ -49,6 +53,7 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 	if (m_prefs.UpdateDoryListOnStart) {
 		updateDoryDatasetList();
 	}
+	updateLocalDatasetList();
 
 	m_ui->labelList->setText(tr("Double-click on a dataset to edit it's properties, or click on the Add Dataset button."));
 	m_ui->labelList->setVisible(false);
@@ -56,6 +61,7 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 	m_ui->buttonAddDataset->setEnabled(false);
 	m_ui->pushButtonDeleteDataset->setText(tr("Delete Dataset"));
 	m_ui->pushButtonDeleteDataset->setEnabled(false);
+	m_ui->tabWidget->setCurrentIndex(UITabs::HOME);
 }
 
 /***********************************************************************************/
@@ -117,7 +123,8 @@ void MainWindow::on_actionOpen_triggered() {
 		m_ui->labelList->setVisible(true);
 		m_ui->buttonAddDataset->setEnabled(true);
 		m_ui->pushButtonDeleteDataset->setEnabled(true);
-		statusBar()->showMessage(tr("Config file loaded."));
+		m_ui->tabWidget->setCurrentIndex(UITabs::CONFIG_EDITOR);
+		statusBar()->showMessage(tr("Config file loaded."), 1000);
 	}
 }
 
@@ -158,7 +165,7 @@ void MainWindow::on_actionSave_triggered() {
 		f.write(doc.toJson());
 		f.commit();
 
-		statusBar()->showMessage(tr("Config file saved!"));
+		statusBar()->showMessage(tr("Config file saved!"), 1000);
 
 		m_hasUnsavedData = false;
 	}
@@ -210,6 +217,7 @@ void MainWindow::readSettings() {
 	settings.beginGroup("General");
 
 	m_prefs.ONInstallDir = settings.value("ONInstallDir").toString();
+	m_prefs.ONActiveDatasetConfig = settings.value("ONActiveDatasetConfig").toString();
 	m_prefs.UpdateDoryListOnStart = settings.value("UpdateDoryListOnStart").toBool();
 
 	settings.endGroup();
@@ -222,6 +230,7 @@ void MainWindow::writeSettings() const {
 	settings.beginGroup("General");
 
 	settings.setValue("ONInstallDir", m_prefs.ONInstallDir);
+	settings.setValue("ONActiveDatasetConfig", m_prefs.ONActiveDatasetConfig);
 	settings.setValue("UpdateDoryListOnStart", m_prefs.UpdateDoryListOnStart);
 
 	settings.endGroup();
@@ -235,27 +244,36 @@ void MainWindow::configureNetworkManager() {
 
 /***********************************************************************************/
 void MainWindow::updateDoryDatasetList() {
+	statusBar()->showMessage(tr("Updating Dory dataset list"), 1000);
 
-	std::function<void(QJsonDocument)> replyHandler = [&](const auto& doc) {
+	const std::function<void(QJsonDocument)> replyHandler = [&](const auto& doc) {
 		const auto root = doc.array();
 
 		m_ui->listWidgetDoryDatasets->clear();
-		m_doryDatasetNameToIDCache.clear();
+		m_datasetsAPIResultCache.clear();
 
 		for (const auto& dataset : root) {
 			const auto valueString = dataset["value"].toString();
 			m_ui->listWidgetDoryDatasets->addItem(valueString);
-			m_doryDatasetNameToIDCache.insert(valueString, dataset["id"].toString());
+
+			m_datasetsAPIResultCache.insert(valueString, dataset.toObject());
 		}
 
 		m_ui->pushButtonUpdateDoryList->setEnabled(true);
 		m_ui->pushButtonUpdateDoryList->setText(tr("Update List"));
+
+		this->statusBar()->showMessage(tr("Dory dataset list updated."), 1000);
 	};
 
 	m_ui->pushButtonUpdateDoryList->setEnabled(false);
 	m_ui->pushButtonUpdateDoryList->setText(tr("Updating..."));
 
 	MakeAPIRequest(m_networkManager, "http://navigator.oceansdata.ca/api/datasets/", replyHandler);
+}
+
+/***********************************************************************************/
+void MainWindow::updateLocalDatasetList() {
+
 }
 
 /***********************************************************************************/
@@ -266,21 +284,25 @@ void MainWindow::on_actionPreferences_triggered() {
 
 	if (prefsDialog.exec()) {
 		m_prefs = prefsDialog.GetPreferences();
+
+		updateLocalDatasetList();
 	}
 }
 
 /***********************************************************************************/
 void MainWindow::on_actionAbout_triggered() {
-
+	QMessageBox::information(this, tr("About"), tr(""));
 }
 
 /***********************************************************************************/
 void MainWindow::on_tabWidget_currentChanged(int index) {
 
 	switch (index) {
-	case 0:
+	case UITabs::HOME:
 		break;
-	case 1:
+	case UITabs::DATA_SYNC:
+		break;
+	case UITabs::CONFIG_EDITOR:
 		break;
 	default:
 		break;
@@ -295,12 +317,23 @@ void MainWindow::on_pushButtonUpdateDoryList_clicked() {
 
 /***********************************************************************************/
 void MainWindow::on_listWidgetDoryDatasets_itemDoubleClicked(QListWidgetItem* item) {
-	const auto datasetID = m_doryDatasetNameToIDCache[item->text()];
+	const auto datasetID{m_datasetsAPIResultCache[item->text()]};
 
 	DialogDatasetView dialog{this};
-	dialog.SetData(datasetID);
+	dialog.SetData(datasetID, m_networkManager);
 
 	if (dialog.exec()) {
+	}
+}
+
+/***********************************************************************************/
+void MainWindow::on_pushButtonDownload_clicked() {
+	// Confirm download by showing selected values
+	QMessageBox box{this};
+	box.setWindowTitle(tr("Confirm Download?"));
+	box.setIcon(QMessageBox::Question);
+
+	if (box.exec()) {
 
 	}
 }

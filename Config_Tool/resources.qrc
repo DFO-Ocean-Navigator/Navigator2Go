@@ -7,5 +7,6 @@
         <file>icons/wrench.png</file>
         <file>icons/compass.png</file>
         <file>icons/sync.png</file>
+        <file>icons/database.png</file>
     </qresource>
 </RCC>

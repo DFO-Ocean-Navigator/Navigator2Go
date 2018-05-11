@@ -26,8 +26,10 @@ public:
 private slots:
 	void on_pushButtonBrowseInstallDir_clicked();
 
+	void on_pushButtonBrowseActiveConfigFile_clicked();
+
 private:
-	Ui::DialogPreferences* m_ui;
+	Ui::DialogPreferences* m_ui{nullptr};
 
 
 };

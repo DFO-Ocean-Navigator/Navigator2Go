@@ -12,6 +12,10 @@
 class QObject;
 
 /***********************************************************************************/
+// Makes a GET request to a given API URL (usually Dory in our case), and handles
+// error-checking. The given replyHandler is invoked on success.
 void MakeAPIRequest(QNetworkAccessManager& nam, const QString& APIURL, std::function<void(QJsonDocument)> replyHandler);
+
+
 
 #endif // APIREQUEST_H

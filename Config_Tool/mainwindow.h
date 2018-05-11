@@ -48,14 +48,16 @@ private slots:
 	void on_tabWidget_currentChanged(int index);
 
 	void on_pushButtonUpdateDoryList_clicked();
+	void on_pushButtonDownload_clicked();
 
 private:
 	void readSettings();
 	void writeSettings() const;
 	void configureNetworkManager();
 	void updateDoryDatasetList();
+	void updateLocalDatasetList();
 
-	Ui::MainWindow* m_ui;
+	Ui::MainWindow* m_ui{nullptr};
 
 	Preferences m_prefs;
 
@@ -67,7 +69,10 @@ private:
 	bool m_hasUnsavedData{false};
 	bool m_isNetworkConnected{true};
 
-	QHash<QString, QString> m_doryDatasetNameToIDCache;
+	// Stores the resulting JSON objects for each dataset
+	// returned by a call to:
+	// http://navigator.oceansdata.ca/api/datasets/
+	QHash<QString, QJsonObject> m_datasetsAPIResultCache;
 };
 
 #endif // MAINWINDOW_H

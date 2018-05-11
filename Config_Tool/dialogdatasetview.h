@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QJsonObject>
 #include <QString>
+#include <QNetworkAccessManager>
 
 #include <utility>
 
@@ -17,16 +18,15 @@ class HTMLHighlighter;
 /***********************************************************************************/
 class DialogDatasetView : public QDialog {
 	Q_OBJECT
-	friend class MainWindow;
+
 public:
 	explicit DialogDatasetView(QWidget* parent = nullptr);
 	~DialogDatasetView();
 
 	// Parse data from loaded config file
 	void SetData(const QString& datasetKey, const QJsonObject& object);
-	// Given a dataset key from the Dory list, send API calls to Dory
-	// to populate UI components
-	void SetData(const QString& datasetKey);
+	//
+	void SetData(const QJsonObject& datasetObj, QNetworkAccessManager& nam);
 
 	// Serializes values from the UI into a JSON object.
 	// Returns the dataset key, and JSON object.
@@ -44,8 +44,8 @@ private:
 	void addEmptyVariable();
 	void checkInputEmpty(const QString& inputLabel, const QString& inputText);
 
-	Ui::DatasetView* m_ui;
-	HTMLHighlighter* m_highlighter;
+	Ui::DatasetView* m_ui{nullptr};
+	HTMLHighlighter* m_highlighter{nullptr};
 };
 
 #endif // DATASETVIEW_H
