@@ -2,5 +2,10 @@
     <qresource prefix="/icons">
         <file>icons/add.png</file>
         <file>icons/delete.png</file>
+        <file>icons/download.png</file>
+        <file>icons/house.png</file>
+        <file>icons/wrench.png</file>
+        <file>icons/compass.png</file>
+        <file>icons/sync.png</file>
     </qresource>
 </RCC>

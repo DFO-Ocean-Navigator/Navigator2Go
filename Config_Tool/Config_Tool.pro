@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
 
 CONFIG += c++1z
 
@@ -39,13 +39,19 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     dialogdatasetview.cpp \
-    htmlhighlighter.cpp
+    htmlhighlighter.cpp \
+    dialogpreferences.cpp \
+    apirequest.cpp
 
 HEADERS += \
         mainwindow.h \
     dialogdatasetview.h \
-    htmlhighlighter.h
+    htmlhighlighter.h \
+    dialogpreferences.h \
+    preferences.h \
+    apirequest.h
 
 FORMS += \
         mainwindow.ui \
-    datasetview.ui
+    datasetview.ui \
+    dialogpreferences.ui

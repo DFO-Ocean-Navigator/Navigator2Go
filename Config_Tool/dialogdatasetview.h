@@ -22,7 +22,11 @@ public:
 	explicit DialogDatasetView(QWidget* parent = nullptr);
 	~DialogDatasetView();
 
+	// Parse data from loaded config file
 	void SetData(const QString& datasetKey, const QJsonObject& object);
+	// Given a dataset key from the Dory list, send API calls to Dory
+	// to populate UI components
+	void SetData(const QString& datasetKey);
 
 	// Serializes values from the UI into a JSON object.
 	// Returns the dataset key, and JSON object.

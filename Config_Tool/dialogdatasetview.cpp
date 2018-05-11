@@ -67,6 +67,10 @@ void DialogDatasetView::SetData(const QString& datasetKey, const QJsonObject& ob
 }
 
 /***********************************************************************************/
+void DialogDatasetView::SetData(const QString& datasetKey) {
+}
+
+/***********************************************************************************/
 std::pair<QString, QJsonObject> DialogDatasetView::GetData() const {
 
 	QJsonObject obj;

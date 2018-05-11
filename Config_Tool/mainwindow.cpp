@@ -1,28 +1,38 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "ui_datasetview.h"
 
 #include "dialogdatasetview.h"
+#include "dialogpreferences.h"
+#include "apirequest.h"
+
 
 #include <QMessageBox>
 #include <QFile>
 #include <QTextStream>
 #include <QFileDialog>
-#include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonArray>
 #include <QSaveFile>
+#include <QSettings>
+#include <QTcpSocket>
+#include <QNetworkSession>
+#include <QNetworkReply>
 #ifdef QT_DEBUG
 	#include <QDebug>
 #endif
 
+#include <memory>
+
 /***********************************************************************************/
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), m_ui(new Ui::MainWindow) {
+MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
+											m_ui{new Ui::MainWindow} {
 	m_ui->setupUi(this);
+	readSettings();
 
 	setWindowTitle(tr("Ocean Navigator Dataset Config Editor"));
 
 	// Set dark stylesheet
-	QFile f(":qdarkstyle/style.qss");
+	QFile f{":qdarkstyle/style.qss"};
 	if (!f.exists()) {
 #ifdef QT_DEBUG
 		qDebug() << "Unable to set stylesheet, file not found.";
@@ -35,7 +45,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), m_ui(new Ui::Main
 		qApp->setStyleSheet(ts.readAll());
 	}
 
-	statusBar()->showMessage(tr("Open a config file from File -> Open, or use CTRL + O."));
+	configureNetworkManager();
+	if (m_prefs.UpdateDoryListOnStart) {
+		updateDoryDatasetList();
+	}
 
 	m_ui->labelList->setText(tr("Double-click on a dataset to edit it's properties, or click on the Add Dataset button."));
 	m_ui->labelList->setVisible(false);
@@ -57,7 +70,7 @@ void MainWindow::on_actionAbout_Qt_triggered() {
 
 /***********************************************************************************/
 void MainWindow::on_actionOpen_triggered() {
-	QFileDialog dialog(this);
+	QFileDialog dialog{this};
 	dialog.setWindowTitle(tr("Open Dataset Config File"));
 	dialog.setFileMode(QFileDialog::ExistingFile);
 	dialog.setNameFilter(tr("Config Files (*.json)"));
@@ -77,7 +90,7 @@ void MainWindow::on_actionOpen_triggered() {
 	if (!m_configFileName.isEmpty()) {
 
 		// Open file
-		QFile f(m_configFileName);
+		QFile f{m_configFileName};
 		f.open(QFile::ReadOnly | QFile::Text);
 		const QString contents = f.readAll();
 		f.close();
@@ -87,7 +100,7 @@ void MainWindow::on_actionOpen_triggered() {
 		const auto jsonDocument = QJsonDocument::fromJson(contents.toUtf8(), &error);
 		// Check for errors
 		if (jsonDocument.isNull()) {
-			QMessageBox msgBox(this);
+			QMessageBox msgBox{this};
 			msgBox.setText(tr("Error parsing JSON file."));
 			msgBox.setInformativeText(error.errorString());
 			msgBox.setIcon(QMessageBox::Critical);
@@ -98,7 +111,7 @@ void MainWindow::on_actionOpen_triggered() {
 		m_documentRootObject = jsonDocument.object(); // Get copy of root object
 
 		for (const auto& datasetName : m_documentRootObject.keys()) {
-			m_ui->listWidget->addItem(datasetName);
+			m_ui->listWidgetConfigDatasets->addItem(datasetName);
 		}
 
 		m_ui->labelList->setVisible(true);
@@ -111,7 +124,7 @@ void MainWindow::on_actionOpen_triggered() {
 /***********************************************************************************/
 void MainWindow::on_actionClose_triggered() {
 
-	if (m_isUnsavedData) {
+	if (m_hasUnsavedData) {
 		const auto reply = QMessageBox::question(this, tr("Confirm Action"), tr("Close without saving?"),
 										QMessageBox::Yes | QMessageBox::Save | QMessageBox::Cancel);
 
@@ -134,10 +147,10 @@ void MainWindow::on_actionClose_triggered() {
 void MainWindow::on_actionSave_triggered() {
 
 	if (!m_configFileName.isEmpty()) {
-		const QJsonDocument doc(m_documentRootObject);
+		const QJsonDocument doc{m_documentRootObject};
 
 #ifdef QT_DEBUG
-		QSaveFile f("/home/nabil/test.txt");
+		QSaveFile f{"/home/nabil/dory.json"};
 #else
 		QSaveFile f(m_configFileName);
 #endif
@@ -147,21 +160,21 @@ void MainWindow::on_actionSave_triggered() {
 
 		statusBar()->showMessage(tr("Config file saved!"));
 
-		m_isUnsavedData = false;
+		m_hasUnsavedData = false;
 	}
 }
 
 /***********************************************************************************/
 void MainWindow::on_buttonAddDataset_clicked() {
-	m_isUnsavedData = true;
+	m_hasUnsavedData = true;
 
-	m_ui->listWidget->addItem("new_dataset_" + QString::number(qrand()));
+	m_ui->listWidgetConfigDatasets->addItem("new_dataset_" + QString::number(qrand()));
 }
 
 /***********************************************************************************/
-void MainWindow::on_listWidget_itemDoubleClicked(QListWidgetItem* item) {
+void MainWindow::on_listWidgetConfigDatasets_itemDoubleClicked(QListWidgetItem* item) {
 
-	DialogDatasetView dialog(this);
+	DialogDatasetView dialog{this};
 	const auto datasetKey = item->text();
 	dialog.SetData(datasetKey, m_documentRootObject[datasetKey].toObject());
 
@@ -177,10 +190,117 @@ void MainWindow::on_pushButtonDeleteDataset_clicked() {
 	const auto reply = QMessageBox::question(this, tr("Confirm Action"), tr("Delete selected dataset(s)?"),
 									QMessageBox::Yes | QMessageBox::No);
 	if (reply == QMessageBox::Yes) {
-		const auto items = m_ui->listWidget->selectedItems();
+		const auto items = m_ui->listWidgetConfigDatasets->selectedItems();
 
 		for (auto* item : items) {
-			delete m_ui->listWidget->takeItem(m_ui->listWidget->row(item));
+			delete m_ui->listWidgetConfigDatasets->takeItem(m_ui->listWidgetConfigDatasets->row(item));
 		}
+	}
+}
+
+/***********************************************************************************/
+void MainWindow::closeEvent(QCloseEvent* event) {
+	writeSettings();
+}
+
+/***********************************************************************************/
+void MainWindow::readSettings() {
+	QSettings settings{"OceanNavigator", "Config Tool"};
+
+	settings.beginGroup("General");
+
+	m_prefs.ONInstallDir = settings.value("ONInstallDir").toString();
+	m_prefs.UpdateDoryListOnStart = settings.value("UpdateDoryListOnStart").toBool();
+
+	settings.endGroup();
+}
+
+/***********************************************************************************/
+void MainWindow::writeSettings() const {
+	QSettings settings{"OceanNavigator", "Config Tool"};
+
+	settings.beginGroup("General");
+
+	settings.setValue("ONInstallDir", m_prefs.ONInstallDir);
+	settings.setValue("UpdateDoryListOnStart", m_prefs.UpdateDoryListOnStart);
+
+	settings.endGroup();
+}
+
+/***********************************************************************************/
+void MainWindow::configureNetworkManager() {
+	m_networkManager.setRedirectPolicy(QNetworkRequest::RedirectPolicy::SameOriginRedirectPolicy);
+
+}
+
+/***********************************************************************************/
+void MainWindow::updateDoryDatasetList() {
+
+	std::function<void(QJsonDocument)> replyHandler = [&](const auto& doc) {
+		const auto root = doc.array();
+
+		m_ui->listWidgetDoryDatasets->clear();
+		m_doryDatasetNameToIDCache.clear();
+
+		for (const auto& dataset : root) {
+			const auto valueString = dataset["value"].toString();
+			m_ui->listWidgetDoryDatasets->addItem(valueString);
+			m_doryDatasetNameToIDCache.insert(valueString, dataset["id"].toString());
+		}
+
+		m_ui->pushButtonUpdateDoryList->setEnabled(true);
+		m_ui->pushButtonUpdateDoryList->setText(tr("Update List"));
+	};
+
+	m_ui->pushButtonUpdateDoryList->setEnabled(false);
+	m_ui->pushButtonUpdateDoryList->setText(tr("Updating..."));
+
+	MakeAPIRequest(m_networkManager, "http://navigator.oceansdata.ca/api/datasets/", replyHandler);
+}
+
+/***********************************************************************************/
+void MainWindow::on_actionPreferences_triggered() {
+	DialogPreferences prefsDialog{this};
+
+	prefsDialog.SetPreferences(m_prefs);
+
+	if (prefsDialog.exec()) {
+		m_prefs = prefsDialog.GetPreferences();
+	}
+}
+
+/***********************************************************************************/
+void MainWindow::on_actionAbout_triggered() {
+
+}
+
+/***********************************************************************************/
+void MainWindow::on_tabWidget_currentChanged(int index) {
+
+	switch (index) {
+	case 0:
+		break;
+	case 1:
+		break;
+	default:
+		break;
+	}
+
+}
+
+/***********************************************************************************/
+void MainWindow::on_pushButtonUpdateDoryList_clicked() {
+	updateDoryDatasetList();
+}
+
+/***********************************************************************************/
+void MainWindow::on_listWidgetDoryDatasets_itemDoubleClicked(QListWidgetItem* item) {
+	const auto datasetID = m_doryDatasetNameToIDCache[item->text()];
+
+	DialogDatasetView dialog{this};
+	dialog.SetData(datasetID);
+
+	if (dialog.exec()) {
+
 	}
 }
