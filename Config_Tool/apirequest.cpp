@@ -6,17 +6,19 @@
 #include <memory>
 
 /***********************************************************************************/
-void MakeAPIRequest(QNetworkAccessManager& nam, const QString& APIURL, std::function<void (QJsonDocument)> replyHandler) {
+void MakeAPIRequest(QNetworkAccessManager& nam, const QString& APIURL, const std::function<void(QJsonDocument)> replyHandler) {
 
 	const QNetworkRequest request{APIURL};
+	// Send our request
+	const auto reply = nam.get(request);
 
 	auto context = std::make_unique<QObject>(new QObject);
 	auto pcontext = context.get();
-
-	// Connect the "finished" signal from the Network Access Manager
-	// to the following lambda
-	QObject::connect(&nam, &QNetworkAccessManager::finished, pcontext,
-		[&, context = std::move(context), replyHandler] (auto* reply) mutable {
+	// Connect the "finished" signal from our reply
+	// to the following lambda. This allows the Access Manager
+	// to handle simultaneous requests
+	QObject::connect(reply, &QNetworkReply::finished, pcontext,
+		[context = std::move(context), replyHandler, reply]() mutable {
 			context.reset(); // Clear context
 
 			// Check for errors
@@ -52,7 +54,4 @@ void MakeAPIRequest(QNetworkAccessManager& nam, const QString& APIURL, std::func
 			reply->deleteLater();
 		}
 	);
-
-	// Make our request
-	nam.get(request);
 }
