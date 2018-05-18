@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "downloaddata.h"
 #include "preferences.h"
 
 #include <QMainWindow>
@@ -32,7 +33,6 @@ private slots:
 
 	// Menu callbacks
 	void on_actionAbout_Qt_triggered();
-	void on_actionOpen_triggered();
 	void on_actionClose_triggered();
 	void on_actionSave_triggered();
 	void on_actionPreferences_triggered();
@@ -45,10 +45,19 @@ private slots:
 	void on_listWidgetConfigDatasets_itemDoubleClicked(QListWidgetItem* item);
 	void on_listWidgetDoryDatasets_itemDoubleClicked(QListWidgetItem* item);
 
+	void on_listWidgetDownloadQueue_itemDoubleClicked(QListWidgetItem *item);
+
+	// Current tab changed
 	void on_tabWidget_currentChanged(int index);
 
 	void on_pushButtonUpdateDoryList_clicked();
 	void on_pushButtonDownload_clicked();
+
+	// Start/Stop servers
+	void on_pushButtonStartWebServer_clicked(); // gUnicorn
+	void on_pushButtonStopWebServer_clicked();
+	void on_pushButtonStopApache_clicked();	// Apache Tomcat
+	void on_pushButtonStartApache_clicked();
 
 private:
 	void readSettings();
@@ -56,6 +65,8 @@ private:
 	void configureNetworkManager();
 	void updateDoryDatasetList();
 	void updateLocalDatasetList();
+	void setInitialLayout();
+	void startServers();
 
 	Ui::MainWindow* m_ui{nullptr};
 
@@ -73,6 +84,10 @@ private:
 	// returned by a call to:
 	// http://navigator.oceansdata.ca/api/datasets/
 	QHash<QString, QJsonObject> m_datasetsAPIResultCache;
+
+	QHash<QString, DownloadData> m_downloadQueue;
+
+	bool m_gunicornRunning{false}, m_apacheRunning{false};
 };
 
 #endif // MAINWINDOW_H

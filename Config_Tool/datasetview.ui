@@ -31,6 +31,10 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/icons/icons/compass.png</normaloff>:/icons/icons/compass.png</iconset>
+  </property>
   <property name="sizeGripEnabled">
    <bool>true</bool>
   </property>
@@ -55,7 +59,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>-413</y>
           <width>1244</width>
           <height>1080</height>
          </rect>
@@ -84,7 +88,7 @@
             </widget>
            </item>
            <item row="0" column="0">
-            <widget class="QLabel" name="label_8">
+            <widget class="QLabel" name="labelKey">
              <property name="toolTip">
               <string>The JSON key for this dataset. Usually it is a simplified version of the Name. E.g. The dataset with Name Giops Daily could have the Key giops_day. No spaces are allowed here.</string>
              </property>
@@ -94,7 +98,7 @@
             </widget>
            </item>
            <item row="5" column="0">
-            <widget class="QLabel" name="label_3">
+            <widget class="QLabel" name="labelURL">
              <property name="toolTip">
               <string>URL to the aggregated.ncml file for this dataset. This is passed to THREDDS.</string>
              </property>
@@ -104,7 +108,7 @@
             </widget>
            </item>
            <item row="8" column="0">
-            <widget class="QLabel" name="label_6">
+            <widget class="QLabel" name="labelHelp">
              <property name="toolTip">
               <string>Detailed information about the dataset goes here. This is presented in the Ocean Navigator. HTML formatting is encouraged.</string>
              </property>
@@ -114,7 +118,7 @@
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QLabel" name="label">
+            <widget class="QLabel" name="labelName">
              <property name="toolTip">
               <string>&quot;Nicely&quot; formatted name of the dataset. This is presented on the Ocean Navigator webpage.</string>
              </property>
@@ -123,29 +127,19 @@
              </property>
             </widget>
            </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="lineEditName"/>
+           </item>
            <item row="0" column="1">
             <widget class="QLineEdit" name="lineEditKey"/>
            </item>
            <item row="3" column="0">
-            <widget class="QLabel" name="label_2">
+            <widget class="QLabel" name="labelAttrib">
              <property name="toolTip">
               <string>Dataset attribution. Presented in bottom right corner of the map and in all plot figures in the Ocean Navigator.</string>
              </property>
              <property name="text">
               <string>Attribution:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLineEdit" name="lineEditName"/>
-           </item>
-           <item row="6" column="0">
-            <widget class="QLabel" name="label_4">
-             <property name="toolTip">
-              <string>URL to the climatology aggregated.ncml file. This is passed to THREDDS.</string>
-             </property>
-             <property name="text">
-              <string>Climatology URL:</string>
              </property>
             </widget>
            </item>
@@ -155,13 +149,13 @@
            <item row="6" column="1">
             <widget class="QLineEdit" name="lineEditClima"/>
            </item>
-           <item row="7" column="0">
-            <widget class="QLabel" name="label_5">
+           <item row="6" column="0">
+            <widget class="QLabel" name="labelClimaURL">
              <property name="toolTip">
-              <string>Time scale of the data inside this dataset. Days, hours, monthly.</string>
+              <string>URL to the climatology aggregated.ncml file. This is passed to THREDDS.</string>
              </property>
              <property name="text">
-              <string>Quantum:</string>
+              <string>Climatology URL:</string>
              </property>
             </widget>
            </item>
@@ -193,8 +187,18 @@
              </item>
             </widget>
            </item>
+           <item row="7" column="0">
+            <widget class="QLabel" name="labelQuantum">
+             <property name="toolTip">
+              <string>Time scale of the data inside this dataset. Days, hours, monthly.</string>
+             </property>
+             <property name="text">
+              <string>Quantum:</string>
+             </property>
+            </widget>
+           </item>
            <item row="9" column="0">
-            <widget class="QLabel" name="label_9">
+            <widget class="QLabel" name="labelVariables">
              <property name="toolTip">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Variables found inside the dataset. &lt;/p&gt;&lt;p&gt;Key: the internal variable name (votemper, or salinity). &lt;/p&gt;&lt;p&gt;Name: the readable form of the Key (Temperature, Salinity). &lt;/p&gt;&lt;p&gt;Default Scale: Default min/max values for the variable. These are used when applying a colourmap.&lt;/p&gt;&lt;p&gt;Hidden: should the variable be hidden to the Ocean Navigator?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
@@ -278,6 +282,33 @@
              </property>
             </widget>
            </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="labelCache">
+             <property name="text">
+              <string>Cache:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="labelEnabled">
+             <property name="toolTip">
+              <string>Should this dataset be visible in the Ocean Navigator?</string>
+             </property>
+             <property name="text">
+              <string>Enabled:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QCheckBox" name="checkBoxDatasetEnabled">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
            <item row="9" column="2">
             <layout class="QVBoxLayout" name="verticalLayout_5">
              <property name="sizeConstraint">
@@ -310,29 +341,92 @@
              </item>
             </layout>
            </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="label_10">
-             <property name="text">
-              <string>Cache:</string>
-             </property>
-            </widget>
+           <item row="11" column="1">
+            <layout class="QGridLayout" name="gridLayoutDateRange">
+             <item row="0" column="2">
+              <widget class="QLabel" name="labelEndDate">
+               <property name="text">
+                <string>End Date:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QCalendarWidget" name="calendarWidgetStart">
+               <property name="gridVisible">
+                <bool>true</bool>
+               </property>
+               <property name="verticalHeaderFormat">
+                <enum>QCalendarWidget::NoVerticalHeader</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QCalendarWidget" name="calendarWidgetEnd">
+               <property name="gridVisible">
+                <bool>true</bool>
+               </property>
+               <property name="verticalHeaderFormat">
+                <enum>QCalendarWidget::NoVerticalHeader</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="labelStartDate">
+               <property name="text">
+                <string>Start Date:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="Line" name="line">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_11">
+           <item row="11" column="0">
+            <widget class="QLabel" name="labelDateRange">
              <property name="toolTip">
-              <string>Should this dataset be visible in the Ocean Navigator?</string>
+              <string>The span of time for which this dataset has data.</string>
              </property>
              <property name="text">
-              <string>Enabled:</string>
+              <string>Date Range:</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="1">
-            <widget class="QCheckBox" name="checkBoxDatasetEnabled">
-             <property name="text">
-              <string/>
+           <item row="10" column="0">
+            <widget class="QLabel" name="labelVarSelection">
+             <property name="toolTip">
+              <string>Select the variables you wish to download. Click + drag the mouse, or use CTRL + click to select multiple values.</string>
              </property>
-             <property name="checked">
+             <property name="text">
+              <string>Variable Selection:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="10" column="1">
+            <widget class="QListWidget" name="listWidgetVariables">
+             <property name="editTriggers">
+              <set>QAbstractItemView::NoEditTriggers</set>
+             </property>
+             <property name="alternatingRowColors">
+              <bool>true</bool>
+             </property>
+             <property name="selectionMode">
+              <enum>QAbstractItemView::ExtendedSelection</enum>
+             </property>
+             <property name="selectionRectVisible">
+              <bool>true</bool>
+             </property>
+             <property name="sortingEnabled">
               <bool>true</bool>
              </property>
             </widget>

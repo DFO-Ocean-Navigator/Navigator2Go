@@ -8,5 +8,7 @@
         <file>icons/compass.png</file>
         <file>icons/sync.png</file>
         <file>icons/database.png</file>
+        <file>icons/light.png</file>
+        <file>icons/stop.png</file>
     </qresource>
 </RCC>

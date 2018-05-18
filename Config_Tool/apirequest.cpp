@@ -13,7 +13,7 @@ void MakeAPIRequest(QNetworkAccessManager& nam, const QString& APIURL, const std
 	const auto reply = nam.get(request);
 
 	auto context = std::make_unique<QObject>(new QObject);
-	auto pcontext = context.get();
+	const auto pcontext = context.get();
 	// Connect the "finished" signal from our reply
 	// to the following lambda. This allows the Access Manager
 	// to handle simultaneous requests

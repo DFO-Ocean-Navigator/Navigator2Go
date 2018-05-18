@@ -13,11 +13,11 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Config_Tool
 TEMPLATE = app
 
+#QMAKE_CXXFLAGS += -std=c++17
 # remove possible other optimization flags
 QMAKE_CXXFLAGS_RELEASE -= -O
 QMAKE_CXXFLAGS_RELEASE -= -O1
 QMAKE_CXXFLAGS_RELEASE -= -O2
-
 QMAKE_CXXFLAGS_RELEASE *= -Os # optimize for size
 
 # The following define makes your compiler emit warnings if you use
@@ -49,7 +49,9 @@ HEADERS += \
     htmlhighlighter.h \
     dialogpreferences.h \
     preferences.h \
-    apirequest.h
+    apirequest.h \
+    downloaddata.h \
+    defines.h
 
 FORMS += \
         mainwindow.ui \

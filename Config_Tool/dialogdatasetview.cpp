@@ -65,60 +65,92 @@ void DialogDatasetView::SetData(const QString& datasetKey, const QJsonObject& ob
 		hidden->setCheckState(variables[key]["hide"].toBool() ? Qt::Checked : Qt::Unchecked);
 		m_ui->tableWidgetVariables->setItem(rowIdx, 6, hidden);
 	}
+
+	m_ui->labelDateRange->setVisible(false);
+	m_ui->labelStartDate->setVisible(false);
+	m_ui->labelEndDate->setVisible(false);
+	m_ui->calendarWidgetStart->setVisible(false);
+	m_ui->calendarWidgetEnd->setVisible(false);
+	m_ui->labelVarSelection->setVisible(false);
+	m_ui->listWidgetVariables->setVisible(false);
 }
 
 /***********************************************************************************/
 void DialogDatasetView::SetData(const QJsonObject& datasetObj, QNetworkAccessManager& nam) {
+
 	const auto nameString = datasetObj["value"].toString();
 	setWindowTitle(tr("Viewing ") + nameString);
 
-	m_ui->lineEditKey->setText(datasetObj["id"].toString());
+	const auto datasetIDString = datasetObj["id"].toString();
+
+	m_ui->lineEditKey->setText(datasetIDString);
 	m_ui->lineEditKey->setReadOnly(true);
 
 	m_ui->lineEditName->setText(nameString);
 	m_ui->lineEditName->setReadOnly(true);
 
+	m_ui->labelEnabled->setVisible(false);
 	m_ui->checkBoxDatasetEnabled->setEnabled(false);
+	m_ui->checkBoxDatasetEnabled->setVisible(false);
 
 	m_ui->lineEditAttribution->setText(datasetObj["attribution"].toString());
 	m_ui->lineEditAttribution->setReadOnly(true);
 
+	m_ui->labelURL->setVisible(false);
+	m_ui->lineEditURL->setVisible(false);
 	m_ui->lineEditURL->setEnabled(false);
 
+	m_ui->labelClimaURL->setVisible(false);
+	m_ui->lineEditClima->setVisible(false);
 	m_ui->lineEditClima->setEnabled(false);
+
+	m_ui->labelCache->setVisible(false);
+	m_ui->spinBoxCache->setVisible(false);
 
 	const auto idx = m_ui->comboBoxQuantum->findText(datasetObj["quantum"].toString());
 	m_ui->comboBoxQuantum->setCurrentIndex(idx);
 	m_ui->comboBoxQuantum->setEnabled(false);
 
-	// Get variables from api
-	const std::function<void(QJsonDocument)> replyHandler = [&](const auto& doc) {
-		const auto root = doc.array();
-
-		for (const auto& variable : root) {
-			m_ui->tableWidgetVariables->insertRow(m_ui->tableWidgetVariables->rowCount());
-			const auto rowIdx = m_ui->tableWidgetVariables->rowCount() - 1;
-
-			// Key
-			m_ui->tableWidgetVariables->setItem(rowIdx, 0, new QTableWidgetItem(variable["id"].toString()));
-			// Name
-			m_ui->tableWidgetVariables->setItem(rowIdx, 1, new QTableWidgetItem(variable["value"].toString()));
-			// Scale
-			const auto scaleArray = variable["scale"].toArray();
-			m_ui->tableWidgetVariables->setItem(rowIdx, 3, new QTableWidgetItem(QString::number(scaleArray[0].toDouble())));
-			m_ui->tableWidgetVariables->setItem(rowIdx, 4, new QTableWidgetItem(QString::number(scaleArray[1].toDouble())));
-		}
-	};
-
-	MakeAPIRequest(nam, "http://navigator.oceansdata.ca/api/variables/?dataset="+datasetObj["id"].toString(), replyHandler);
-
 	m_ui->plainTextEditHelp->document()->setHtml(datasetObj["help"].toString());
 	m_ui->plainTextEditHelp->setReadOnly(true);
 
 	m_ui->pushButtonAddVariable->setEnabled(false);
+	m_ui->pushButtonAddVariable->setVisible(false);
 	m_ui->pushButtonDeleteVariable->setEnabled(false);
+	m_ui->pushButtonDeleteVariable->setVisible(false);
 
-	m_ui->tableWidgetVariables->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	m_ui->labelVariables->setVisible(false);
+	m_ui->tableWidgetVariables->setVisible(false);
+
+	// Get variables from api
+	const std::function<void(QJsonDocument)> variableReplyHandler = [&](const auto& doc) {
+		const auto root = doc.array();
+
+		for (const auto& variable : root) {
+			m_ui->listWidgetVariables->addItem(variable["value"].toString());
+		}
+	};
+
+	MakeAPIRequest(nam, "http://navigator.oceansdata.ca/api/variables/?dataset="+datasetIDString, variableReplyHandler);
+
+	// Figure out date range
+	const std::function<void(QJsonDocument)> timestampReplyHandler = [&](const auto& doc) {
+		const auto root = doc.array();
+		const auto quantum = datasetObj["quantum"].toString();
+		const auto start = root.first()["value"].toString();
+		const auto end = root.last()["value"].toString();
+
+		m_startDate = QDate::fromString(start, Qt::DateFormat::ISODate);
+		m_endDate =  QDate::fromString(end, Qt::DateFormat::ISODate);
+
+		m_ui->calendarWidgetStart->setDateRange(m_startDate, m_endDate);
+		m_ui->calendarWidgetStart->setSelectedDate(m_startDate);
+
+		m_ui->calendarWidgetEnd->setDateRange(m_startDate, m_endDate);
+		m_ui->calendarWidgetEnd->setSelectedDate(m_endDate);
+	};
+
+	MakeAPIRequest(nam, "http://navigator.oceansdata.ca/api/timestamps/?dataset="+datasetIDString, timestampReplyHandler);
 }
 
 /***********************************************************************************/
@@ -126,7 +158,7 @@ std::pair<QString, QJsonObject> DialogDatasetView::GetData() const {
 
 	QJsonObject obj;
 	obj.insert("name", m_ui->lineEditName->text());
-	obj.insert("enabled", m_ui->checkBoxDatasetEnabled->checkState() ? true : false);
+	obj.insert("enabled", m_ui->checkBoxDatasetEnabled->isChecked());
 	obj.insert("url", m_ui->lineEditURL->text());
 	if (m_ui->spinBoxCache->isEnabled()) {
 		obj.insert("cache", m_ui->spinBoxCache->value());
@@ -164,6 +196,19 @@ std::pair<QString, QJsonObject> DialogDatasetView::GetData() const {
 	obj.insert("variables", variables);
 
 	return { m_ui->lineEditKey->text(), obj };
+}
+
+/***********************************************************************************/
+DownloadData DialogDatasetView::GetDownloadData() const {
+	DownloadData data;
+
+	data.Name = m_ui->lineEditName->text();
+	data.ID = m_ui->lineEditKey->text();
+	data.StartDate = m_startDate;
+	data.EndDate = m_endDate;
+	data.SelectedVariables = m_ui->listWidgetVariables->selectedItems();
+
+	return data;
 }
 
 /***********************************************************************************/

@@ -1,6 +1,10 @@
 #ifndef DATASETVIEW_H
 #define DATASETVIEW_H
 
+#include "defines.h"
+
+#include "downloaddata.h"
+
 #include <QDialog>
 #include <QJsonObject>
 #include <QString>
@@ -30,7 +34,9 @@ public:
 
 	// Serializes values from the UI into a JSON object.
 	// Returns the dataset key, and JSON object.
-	std::pair<QString, QJsonObject> GetData() const;
+	std::pair<QString, QJsonObject> GetData() const NODISCARD;
+
+	DownloadData GetDownloadData() const NODISCARD;
 
 private slots:
 	void on_tableWidgetVariables_cellDoubleClicked(int row, int column);
@@ -46,6 +52,8 @@ private:
 
 	Ui::DatasetView* m_ui{nullptr};
 	HTMLHighlighter* m_highlighter{nullptr};
+
+	QDate m_startDate, m_endDate;
 };
 
 #endif // DATASETVIEW_H
