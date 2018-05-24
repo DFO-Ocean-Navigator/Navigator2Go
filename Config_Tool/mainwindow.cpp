@@ -21,12 +21,14 @@
 	#include <QDebug>
 #endif
 
-#include <memory>
+/***********************************************************************************/
+// Timeout for status bar messages
+const constexpr int STATUS_BAR_MSG_TIMEOUT{2000};
 
 /***********************************************************************************/
 // Colours for server status labels
-const constexpr auto COLOR_GREEN = "color: rgb(115, 210, 22);";
-const constexpr auto COLOR_RED = "color: rgb(239, 41, 41);";
+const constexpr auto COLOR_GREEN{"color: rgb(115, 210, 22);"};
+const constexpr auto COLOR_RED{"color: rgb(239, 41, 41);"};
 
 /***********************************************************************************/
 enum UITabs : int {
@@ -35,6 +37,8 @@ enum UITabs : int {
 };
 
 /***********************************************************************************/
+// Checks if a named process is running on a UNIX or Windows system
+#ifdef __linux__
 auto IsProcessRunning(const QString& processName) {
 	static const QString prefix{"ps cax | grep "};
 	static const QString postfix{" > /dev/null; if [ $? -eq 0 ]; then echo \"true\"; else echo \"false\"; fi"};
@@ -54,20 +58,85 @@ auto IsProcessRunning(const QString& processName) {
 
 	return false;
 }
+#elif _WIN32
+auto IsProcessRunning(const QString& processName) {
+	return false;
+}
+#endif
+
+/***********************************************************************************/
+// Loads a JSON file from disk, checks for errors, and returns the QJsonDocument.
+auto LoadJSONFile(const QString& path, const bool showMsgBox = true) {
+
+	// Try to open file
+	QFile f{path};
+	if (!f.open(QFile::ReadOnly | QFile::Text)) {
+#ifdef QT_DEBUG
+		qDebug() << "File Open Error: " << path;
+		qDebug() << f.errorString();
+#endif
+		if (showMsgBox) {
+			QMessageBox msgBox;
+			msgBox.setWindowTitle(QObject::tr("Error..."));
+			msgBox.setText(path);
+			msgBox.setInformativeText(QObject::tr("File not found!"));
+			msgBox.setIcon(QMessageBox::Critical);
+			msgBox.exec();
+		}
+
+		return QJsonDocument();
+	}
+	const QString contents = f.readAll(); // Get file contents
+	f.close();
+
+	// Parse json
+	QJsonParseError error; // catch errors
+	const auto jsonDocument = QJsonDocument::fromJson(contents.toUtf8(), &error);
+	// Check for errors
+	if (jsonDocument.isNull()) {
+#ifdef QT_DEBUG
+		qDebug() << "JSON Error: " << path;
+		qDebug() << error.errorString();
+#endif
+		if (showMsgBox) {
+			QMessageBox msgBox;
+			msgBox.setWindowTitle(QObject::tr("Error parsing JSON file..."));
+			msgBox.setText(path);
+			msgBox.setInformativeText(QObject::tr("JSON syntax error detected."));
+			msgBox.setDetailedText(error.errorString());
+			msgBox.setIcon(QMessageBox::Critical);
+			msgBox.exec();
+		}
+
+		return QJsonDocument(); // Return empty doc
+	}
+
+	return jsonDocument;
+}
+
+/***********************************************************************************/
+// Writes a JSON file to the given path
+void WriteJSONFile(const QString& path, const QJsonObject& obj = QJsonObject()) {
+
+	const QJsonDocument doc{obj};
+
+	QSaveFile f{path};
+	if (!f.open(QFile::WriteOnly | QFile::Text | QFile::Truncate)); { // Overwrite original file.
+		qDebug() << f.errorString();
+	}
+	f.write(doc.toJson());
+	f.commit();
+}
 
 /***********************************************************************************/
 MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 											m_ui{new Ui::MainWindow} {
 	m_ui->setupUi(this);
-	readSettings();
-
-	setWindowTitle(tr("Ocean Navigator Configurator"));
-
 	// Set dark stylesheet
 	QFile f{":qdarkstyle/style.qss"};
 	if (!f.exists()) {
 #ifdef QT_DEBUG
-		qDebug() << "Unable to set stylesheet, file not found.";
+		qDebug() << "Unable to set stylesheet: " << f.errorString();
 #endif
 	}
 	else {
@@ -76,20 +145,33 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 		qApp->setStyleSheet(ts.readAll());
 	}
 
+	readSettings();
+
+	setActiveConfigFile();
+
 	configureNetworkManager();
+
 	if (m_prefs.UpdateDoryListOnStart) {
 		updateDoryDatasetList();
 	}
-	if (!m_prefs.ONDatasetConfig.isEmpty()) {
-		updateLocalDatasetList();
-	}
+	updateActiveDatasetListWidget();
+
+	checkAndStartServers();
+
+	setWindowTitle(tr("Navigator2Go"));
 
 	setInitialLayout();
 
-	// Start servers if needed
-	if (m_prefs.AutoStartServers) {
-		startServers();
-	}
+#ifdef QT_DEBUG
+	m_downloader.setDebug(true);
+	QObject::connect(&m_downloader, &QEasyDownloader::Debugger,
+					 [&](const auto& msg) {
+						qDebug() << msg;
+						return;
+					}
+	);
+#endif
+
 }
 
 /***********************************************************************************/
@@ -127,19 +209,18 @@ void MainWindow::on_actionClose_triggered() {
 /***********************************************************************************/
 void MainWindow::on_actionSave_triggered() {
 
-	if (!m_configFileName.isEmpty()) {
+	if (!m_activeConfigFile.isEmpty()) {
 		const QJsonDocument doc{m_documentRootObject};
 
-#ifdef QT_DEBUG
-		QSaveFile f{"/home/nabil/dory.json"};
-#else
-		QSaveFile f(m_configFileName);
-#endif
-		f.open(QFile::WriteOnly | QFile::Text | QFile::Truncate); // Overwrite original file.
-		f.write(doc.toJson());
-		f.commit();
+		WriteJSONFile(
+			#ifdef QT_DEBUG
+					"/home/nabil/dory.json"
+			#else
+					m_activeConfigFile
+			#endif
+					, m_documentRootObject);
 
-		statusBar()->showMessage(tr("Config file saved!"), 1000);
+		statusBar()->showMessage(tr("Config file saved!"), STATUS_BAR_MSG_TIMEOUT);
 
 		m_hasUnsavedData = false;
 	}
@@ -149,11 +230,11 @@ void MainWindow::on_actionSave_triggered() {
 void MainWindow::on_buttonAddDataset_clicked() {
 	m_hasUnsavedData = true;
 
-	m_ui->listWidgetConfigDatasets->addItem("new_dataset_" + QString::number(qrand()));
+	m_ui->listWidgetActiveDatasets->addItem("new_dataset_" + QString::number(qrand()));
 }
 
 /***********************************************************************************/
-void MainWindow::on_listWidgetConfigDatasets_itemDoubleClicked(QListWidgetItem* item) {
+void MainWindow::on_listWidgetActiveDatasets_itemDoubleClicked(QListWidgetItem* item) {
 
 	DialogDatasetView dialog{this};
 	const auto datasetKey = item->text();
@@ -168,13 +249,15 @@ void MainWindow::on_listWidgetConfigDatasets_itemDoubleClicked(QListWidgetItem* 
 
 /***********************************************************************************/
 void MainWindow::on_pushButtonDeleteDataset_clicked() {
-	const auto reply = QMessageBox::question(this, tr("Confirm Action"), tr("Delete selected dataset(s)?"),
-									QMessageBox::Yes | QMessageBox::No);
-	if (reply == QMessageBox::Yes) {
-		const auto items = m_ui->listWidgetConfigDatasets->selectedItems();
+	const auto items = m_ui->listWidgetActiveDatasets->selectedItems();
 
-		for (auto* item : items) {
-			delete m_ui->listWidgetConfigDatasets->takeItem(m_ui->listWidgetConfigDatasets->row(item));
+	if (!items.empty())	{
+		const auto reply = QMessageBox::question(this, tr("Confirm Action"), tr("Delete selected dataset(s)?"),
+												 QMessageBox::Yes | QMessageBox::No);
+		if (reply == QMessageBox::Yes) {
+			for (auto* item : items) {
+				delete m_ui->listWidgetActiveDatasets->takeItem(m_ui->listWidgetActiveDatasets->row(item));
+			}
 		}
 	}
 }
@@ -190,10 +273,33 @@ void MainWindow::readSettings() {
 
 	settings.beginGroup("General");
 
-	m_prefs.ONInstallDir = settings.value("ONInstallDir").toString();
-	m_prefs.ONDatasetConfig = settings.value("ONActiveDatasetConfig").toString();
-	m_prefs.UpdateDoryListOnStart = settings.value("UpdateDoryListOnStart").toBool();
-	m_prefs.AutoStartServers = settings.value("AutoStartServers").toBool();
+	if (settings.contains("ONInstallDir")) {
+		m_prefs.ONInstallDir = settings.value("ONInstallDir").toString();
+	}
+	else {
+		m_prefs.ONInstallDir = "/opt/tools/Ocean-Data-Map-Project/";
+	}
+
+	if (settings.contains("UpdateDoryListOnStart")) {
+		m_prefs.UpdateDoryListOnStart = settings.value("UpdateDoryListOnStart").toBool();
+	}
+	else {
+		m_prefs.UpdateDoryListOnStart = true;
+	}
+
+	if (settings.contains("AutoStartServers")) {
+		m_prefs.AutoStartServers = settings.value("AutoStartServers").toBool();
+	}
+	else {
+		m_prefs.AutoStartServers = false;
+	}
+
+	if (settings.contains("IsOnline")) {
+		m_prefs.IsOnline = settings.value("IsOnline").toBool();
+	}
+	else {
+		m_prefs.IsOnline = false;
+	}
 
 	settings.endGroup();
 }
@@ -205,9 +311,9 @@ void MainWindow::writeSettings() const {
 	settings.beginGroup("General");
 
 	settings.setValue("ONInstallDir", m_prefs.ONInstallDir);
-	settings.setValue("ONActiveDatasetConfig", m_prefs.ONDatasetConfig);
 	settings.setValue("UpdateDoryListOnStart", m_prefs.UpdateDoryListOnStart);
 	settings.setValue("AutoStartServers", m_prefs.AutoStartServers);
+	settings.setValue("IsOnline", m_prefs.IsOnline);
 
 	settings.endGroup();
 }
@@ -220,7 +326,7 @@ void MainWindow::configureNetworkManager() {
 
 /***********************************************************************************/
 void MainWindow::updateDoryDatasetList() {
-	statusBar()->showMessage(tr("Updating Dory dataset list..."), 1000);
+	statusBar()->showMessage(tr("Updating Dory dataset list..."), STATUS_BAR_MSG_TIMEOUT);
 
 	const std::function<void(QJsonDocument)> replyHandler = [&](const auto& doc) {
 		const auto root = doc.array();
@@ -238,7 +344,7 @@ void MainWindow::updateDoryDatasetList() {
 		m_ui->pushButtonUpdateDoryList->setEnabled(true);
 		m_ui->pushButtonUpdateDoryList->setText(tr("Update List"));
 
-		this->statusBar()->showMessage(tr("Dory dataset list updated."), 1000);
+		this->statusBar()->showMessage(tr("Dory dataset list updated."), STATUS_BAR_MSG_TIMEOUT);
 	};
 
 	m_ui->pushButtonUpdateDoryList->setEnabled(false);
@@ -248,37 +354,18 @@ void MainWindow::updateDoryDatasetList() {
 }
 
 /***********************************************************************************/
-void MainWindow::updateLocalDatasetList() {
-	// Open file
-	QFile f{m_prefs.ONDatasetConfig};
-	f.open(QFile::ReadOnly | QFile::Text);
-	const QString contents = f.readAll();
-	f.close();
+void MainWindow::updateActiveDatasetListWidget() {
 
-	// Parse json
-	QJsonParseError error;
-	const auto jsonDocument = QJsonDocument::fromJson(contents.toUtf8(), &error);
-	// Check for errors
-	if (jsonDocument.isNull()) {
-		QMessageBox msgBox{this};
-		msgBox.setText(tr("Error parsing local dataset config file."));
-		msgBox.setInformativeText(tr("JSON syntax error detected."));
-		msgBox.setDetailedText(error.errorString());
-		msgBox.setIcon(QMessageBox::Critical);
-		msgBox.exec();
+	m_ui->listWidgetActiveDatasets->clear();
 
-		return;
-	}
-	m_documentRootObject = jsonDocument.object(); // Get copy of root object
-
-	for (const auto &datasetName : m_documentRootObject.keys()) {
-		m_ui->listWidgetConfigDatasets->addItem(datasetName);
+	for (const auto& datasetName : m_documentRootObject.keys()) {
+		m_ui->listWidgetActiveDatasets->addItem(datasetName);
 	}
 
-	m_ui->labelList->setVisible(true);
+	m_ui->labelActiveConfigFile->setVisible(true);
+	m_ui->labelActiveConfigFile->setText(QString("Active Config File: ") + QFileInfo(m_activeConfigFile).fileName());
 	m_ui->buttonAddDataset->setEnabled(true);
 	m_ui->pushButtonDeleteDataset->setEnabled(true);
-	statusBar()->showMessage(tr("Config file loaded."), 1000);
 }
 
 /***********************************************************************************/
@@ -288,9 +375,23 @@ void MainWindow::on_actionPreferences_triggered() {
 	prefsDialog.SetPreferences(m_prefs);
 
 	if (prefsDialog.exec()) {
+		const auto prevIsOnline = m_prefs.IsOnline;
 		m_prefs = prefsDialog.GetPreferences();
 
-		updateLocalDatasetList();
+		setActiveConfigFile();
+
+		updateActiveDatasetListWidget();
+
+		// Show a notification to restart gUnicorn
+		if (m_prefs.IsOnline != prevIsOnline) {
+			QMessageBox box{this};
+			box.setWindowTitle(tr("Online status changed..."));
+			box.setText(tr("You've changed the network status of Navigator2Go.\
+							Please Stop and Start the Web Server in the Dashboard tab."));
+			box.setIcon(QMessageBox::Icon::Information);
+
+			box.exec();
+		}
 	}
 }
 
@@ -382,6 +483,11 @@ void MainWindow::on_pushButtonDownload_clicked() {
 	box.setStandardButtons(QMessageBox::StandardButton::Cancel | QMessageBox::StandardButton::Ok);
 
 	if (box.exec() == QMessageBox::StandardButton::Ok) {
+		// Disable buttons
+		m_ui->pushButtonUpdateDoryList->setEnabled(false);
+		m_ui->pushButtonDownload->setEnabled(false);
+
+		// Show download stuff
 		m_ui->labelDownloadProgress->setVisible(true);
 		m_ui->progressBarDownload->setVisible(true);
 	}
@@ -390,13 +496,13 @@ void MainWindow::on_pushButtonDownload_clicked() {
 /***********************************************************************************/
 void MainWindow::setInitialLayout() {
 	m_ui->buttonAddDataset->setText(tr("Add Dataset"));
-	m_ui->buttonAddDataset->setEnabled(false);
 	m_ui->pushButtonDeleteDataset->setText(tr("Delete Dataset"));
-	m_ui->pushButtonDeleteDataset->setEnabled(false);
 	m_ui->tabWidget->setCurrentIndex(UITabs::HOME);
 
 	m_ui->labelDownloadProgress->setVisible(false);
 	m_ui->progressBarDownload->setVisible(false);
+
+	m_ui->labelDatasetTarget->setStyleSheet(COLOR_GREEN);
 }
 
 /***********************************************************************************/
@@ -405,7 +511,7 @@ void MainWindow::on_pushButtonStartWebServer_clicked() {
 		QProcess process{this};
 		process.setProgram("/bin/sh");
 		process.setWorkingDirectory(m_prefs.ONInstallDir);
-		process.setArguments({"runserver.sh"});
+		process.setArguments({"runserver.sh", QFileInfo("datasetconfig.json").fileName()});
 
 		if (!process.startDetached(nullptr)) {
 			QMessageBox box{this};
@@ -474,9 +580,10 @@ void MainWindow::on_pushButtonStopApache_clicked() {
 }
 
 /***********************************************************************************/
-void MainWindow::startServers() {
+void MainWindow::checkAndStartServers() {
+	// gUnicorn
 	m_gunicornRunning = IsProcessRunning("gunicorn");
-	if (!m_gunicornRunning) {
+	if (!m_gunicornRunning && m_prefs.AutoStartServers) {
 		on_pushButtonStartWebServer_clicked();
 		m_gunicornRunning = true;
 	}
@@ -485,8 +592,9 @@ void MainWindow::startServers() {
 		m_ui->labelStatusWebServer->setStyleSheet(COLOR_GREEN);
 	}
 
+	// Apache tomcat
 	m_apacheRunning = IsProcessRunning("tomcat");
-	if (!m_apacheRunning) {
+	if (!m_apacheRunning && m_prefs.AutoStartServers) {
 		//on_pushButtonStartApache_clicked();
 		//m_apacheRunning = true;
 	}
@@ -497,6 +605,52 @@ void MainWindow::startServers() {
 }
 
 /***********************************************************************************/
+void MainWindow::setActiveConfigFile() {
+	const static auto onlineConfig{ m_prefs.ONInstallDir+"/oceannavigator/datasetconfigONLINE.json" };
+	const static auto offlineConfig{ m_prefs.ONInstallDir+"/oceannavigator/datasetconfigOFFLINE.json" };
+
+	QString newConfigFile;
+	if (m_prefs.IsOnline) {
+		newConfigFile = onlineConfig;
+	}
+	else {
+		newConfigFile = offlineConfig;
+	}
+
+	// Validate file
+	auto doc = LoadJSONFile(newConfigFile);
+	if (doc.isNull()) {
+#ifdef QT_DEBUG
+		qDebug() << "Config file not found: " << newConfigFile;
+		qDebug() << "Creating it...";
+#endif
+		// File doesn't exist so create it
+		WriteJSONFile(newConfigFile);
+
+		// And now load it
+		doc = LoadJSONFile(newConfigFile);
+	}
+
+	m_activeConfigFile = newConfigFile;
+	m_documentRootObject = doc.object();
+
+	// Update UI text
+	if (m_prefs.IsOnline) {
+		m_ui->labelDatasetTarget->setText(tr("Remote Storage (Dory)"));
+	}
+	else {
+		m_ui->labelDatasetTarget->setText(tr("Local Storage"));
+	}
+
+	statusBar()->showMessage(tr("Config file loaded."), STATUS_BAR_MSG_TIMEOUT);
+}
+
+/***********************************************************************************/
 void MainWindow::on_listWidgetDownloadQueue_itemDoubleClicked(QListWidgetItem* item) {
 	delete m_ui->listWidgetDownloadQueue->takeItem(m_ui->listWidgetDownloadQueue->row(item));
+}
+
+/***********************************************************************************/
+void MainWindow::on_pushButtonUpdateAggregate_clicked() {
+	m_ui->pushButtonUpdateAggregate->setEnabled(false);
 }

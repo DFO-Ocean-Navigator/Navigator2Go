@@ -16,19 +16,19 @@ DialogPreferences::~DialogPreferences() {
 /***********************************************************************************/
 void DialogPreferences::SetPreferences(Preferences& settings) {
 	m_ui->lineEditInstallDir->setText(settings.ONInstallDir);
-	m_ui->checkBoxUpdateDoryListOnStart->setCheckState(settings.UpdateDoryListOnStart ? Qt::Checked : Qt::Unchecked);
-	m_ui->checkBoxAutoStartServers->setCheckState(settings.AutoStartServers ? Qt::Checked : Qt::Unchecked);
+	m_ui->switchUpdateDoryDatasetsOnStart->setChecked(settings.UpdateDoryListOnStart);
+	m_ui->switchAutoStartServers->setChecked(settings.AutoStartServers);
+	m_ui->switchOnlineOffline->setChecked(settings.IsOnline);
 }
 
 /***********************************************************************************/
 auto DialogPreferences::GetPreferences() const noexcept -> Preferences {
-	Preferences prefs;
-	prefs.ONInstallDir = m_ui->lineEditInstallDir->text();
-	prefs.ONDatasetConfig = prefs.ONInstallDir+"/oceannavigator/datasetconfig.json";
-	prefs.UpdateDoryListOnStart = m_ui->checkBoxUpdateDoryListOnStart->isChecked();
-	prefs.AutoStartServers = m_ui->checkBoxAutoStartServers->isChecked();
-
-	return prefs;
+	return {
+		m_ui->lineEditInstallDir->text(),
+		m_ui->switchUpdateDoryDatasetsOnStart->isChecked(),
+		m_ui->switchAutoStartServers->isChecked(),
+		m_ui->switchOnlineOffline->isChecked()
+	};
 }
 
 /***********************************************************************************/

@@ -6,10 +6,19 @@
 /***********************************************************************************/
 // Helper struct to return set preferences to mainwindow
 struct Preferences {
-	QString ONInstallDir;	// Ocean Navigator installation directory
-	QString ONDatasetConfig;	// Holds dataset config file
-	bool UpdateDoryListOnStart; // Should we update dataset list from dory when starting
-	bool AutoStartServers;		// Should we start gUnicorn and THREDDS on program start?
+	Preferences() noexcept = default;
+
+	auto operator==(const Preferences& rhs) const noexcept {
+		return ONInstallDir == rhs.ONInstallDir &&
+				UpdateDoryListOnStart == rhs.UpdateDoryListOnStart &&
+				AutoStartServers == rhs.AutoStartServers &&
+				IsOnline == rhs.IsOnline;
+	}
+
+	QString ONInstallDir;				// Ocean Navigator installation directory
+	bool UpdateDoryListOnStart{true};	// Should we update dataset list from dory when starting
+	bool AutoStartServers{false};		// Should we start gUnicorn and THREDDS on program start?
+	bool IsOnline{true};				// Online or Offline? This determines the active config file.
 };
 
 #endif // PREFERENCES_H

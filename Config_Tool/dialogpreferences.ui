@@ -82,16 +82,6 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="1">
-          <widget class="QCheckBox" name="checkBoxUpdateDoryListOnStart">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
          <item row="3" column="0">
           <widget class="QLabel" name="label_3">
            <property name="text">
@@ -99,12 +89,21 @@
            </property>
           </widget>
          </item>
+         <item row="2" column="1">
+          <widget class="Switch" name="switchUpdateDoryDatasetsOnStart" native="true"/>
+         </item>
          <item row="3" column="1">
-          <widget class="QCheckBox" name="checkBoxAutoStartServers">
+          <widget class="Switch" name="switchAutoStartServers" native="true"/>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="label_4">
            <property name="text">
-            <string/>
+            <string>Online/Offline:</string>
            </property>
           </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="Switch" name="switchOnlineOffline" native="true"/>
          </item>
         </layout>
        </widget>
@@ -124,6 +123,14 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Switch</class>
+   <extends>QWidget</extends>
+   <header>switch.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>

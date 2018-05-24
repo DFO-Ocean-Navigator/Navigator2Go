@@ -10,5 +10,6 @@
         <file>icons/database.png</file>
         <file>icons/light.png</file>
         <file>icons/stop.png</file>
+        <file>icons/save.png</file>
     </qresource>
 </RCC>
