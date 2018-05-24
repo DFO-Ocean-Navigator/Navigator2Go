@@ -464,6 +464,20 @@
               </property>
              </widget>
             </item>
+            <item>
+             <widget class="QPushButton" name="pushButtonSaveConfigFile">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>Save Changes</string>
+              </property>
+              <property name="icon">
+               <iconset resource="resources.qrc">
+                <normaloff>:/icons/icons/save.png</normaloff>:/icons/icons/save.png</iconset>
+              </property>
+             </widget>
+            </item>
            </layout>
           </item>
           <item>
@@ -492,6 +506,19 @@
              <bool>false</bool>
             </property>
            </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
           </item>
          </layout>
         </item>
@@ -535,7 +562,6 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionSave"/>
     <addaction name="actionClose"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -569,22 +595,6 @@
   <action name="actionClose">
    <property name="text">
     <string>Close</string>
-   </property>
-  </action>
-  <action name="actionOpen">
-   <property name="text">
-    <string>Open Config File...</string>
-   </property>
-   <property name="toolTip">
-    <string>Open dataset config file.</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+O</string>
-   </property>
-  </action>
-  <action name="actionSave">
-   <property name="text">
-    <string>Save Config FIle</string>
    </property>
   </action>
   <action name="actionPreferences">

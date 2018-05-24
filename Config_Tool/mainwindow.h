@@ -34,7 +34,6 @@ private slots:
 	// Menu callbacks
 	void on_actionAbout_Qt_triggered();
 	void on_actionClose_triggered();
-	void on_actionSave_triggered();
 	void on_actionPreferences_triggered();
 	void on_actionAbout_triggered();
 
@@ -61,6 +60,8 @@ private slots:
 	void on_pushButtonStartApache_clicked();
 
 	void on_pushButtonUpdateAggregate_clicked();
+
+	void on_pushButtonSaveConfigFile_clicked();
 
 private:
 	//

@@ -193,7 +193,7 @@ void MainWindow::on_actionClose_triggered() {
 
 		switch (reply) {
 		case QMessageBox::Save:
-			on_actionSave_triggered();
+			on_pushButtonSaveConfigFile_clicked();
 			break;
 		case QMessageBox::Cancel:
 			return;
@@ -207,28 +207,9 @@ void MainWindow::on_actionClose_triggered() {
 }
 
 /***********************************************************************************/
-void MainWindow::on_actionSave_triggered() {
-
-	if (!m_activeConfigFile.isEmpty()) {
-		const QJsonDocument doc{m_documentRootObject};
-
-		WriteJSONFile(
-			#ifdef QT_DEBUG
-					"/home/nabil/dory.json"
-			#else
-					m_activeConfigFile
-			#endif
-					, m_documentRootObject);
-
-		statusBar()->showMessage(tr("Config file saved!"), STATUS_BAR_MSG_TIMEOUT);
-
-		m_hasUnsavedData = false;
-	}
-}
-
-/***********************************************************************************/
 void MainWindow::on_buttonAddDataset_clicked() {
 	m_hasUnsavedData = true;
+	m_ui->pushButtonSaveConfigFile->setEnabled(true);
 
 	m_ui->listWidgetActiveDatasets->addItem("new_dataset_" + QString::number(qrand()));
 }
@@ -260,6 +241,9 @@ void MainWindow::on_pushButtonDeleteDataset_clicked() {
 			}
 		}
 	}
+
+	m_hasUnsavedData = true;
+	m_ui->pushButtonSaveConfigFile->setEnabled(true);
 }
 
 /***********************************************************************************/
@@ -397,7 +381,7 @@ void MainWindow::on_actionPreferences_triggered() {
 
 /***********************************************************************************/
 void MainWindow::on_actionAbout_triggered() {
-	QMessageBox::information(this, tr("About"), tr(""));
+	QMessageBox::information(this, tr("About Navigator2Go"), tr(""));
 }
 
 /***********************************************************************************/
@@ -653,4 +637,22 @@ void MainWindow::on_listWidgetDownloadQueue_itemDoubleClicked(QListWidgetItem* i
 /***********************************************************************************/
 void MainWindow::on_pushButtonUpdateAggregate_clicked() {
 	m_ui->pushButtonUpdateAggregate->setEnabled(false);
+}
+
+/***********************************************************************************/
+void MainWindow::on_pushButtonSaveConfigFile_clicked() {
+	const QJsonDocument doc{m_documentRootObject};
+
+	WriteJSONFile(
+		#ifdef QT_DEBUG
+				"/home/nabil/dory.json"
+		#else
+				m_activeConfigFile
+		#endif
+				, m_documentRootObject);
+
+	statusBar()->showMessage(tr("Config file saved!"), STATUS_BAR_MSG_TIMEOUT);
+
+	m_hasUnsavedData = false;
+	m_ui->pushButtonSaveConfigFile->setEnabled(false);
 }
