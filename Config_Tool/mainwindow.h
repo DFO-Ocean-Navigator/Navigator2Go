@@ -41,6 +41,8 @@ private slots:
 	void on_buttonAddDataset_clicked();
 	// Delete Dataset button callback
 	void on_pushButtonDeleteDataset_clicked();
+	// Save button callback
+	void on_pushButtonSaveConfigFile_clicked();
 
 	// List item is double clicked
 	void on_listWidgetActiveDatasets_itemDoubleClicked(QListWidgetItem* item);
@@ -50,7 +52,10 @@ private slots:
 	// Current tab changed
 	void on_tabWidget_currentChanged(int index);
 
+	// Update Dory dataset list
 	void on_pushButtonUpdateDoryList_clicked();
+
+	// Download data in queue
 	void on_pushButtonDownload_clicked();
 
 	// Start/Stop servers
@@ -59,9 +64,9 @@ private slots:
 	void on_pushButtonStopApache_clicked();	// Apache Tomcat
 	void on_pushButtonStartApache_clicked();
 
-	void on_pushButtonUpdateAggregate_clicked();
-
-	void on_pushButtonSaveConfigFile_clicked();
+	// Updates THREDDS aggregate files
+	// and datasetconfigOFFLINE
+	void on_pushButtonUpdateAggConfig_clicked();
 
 private:
 	//
@@ -69,7 +74,7 @@ private:
 	//
 	void writeSettings() const;
 	//
-	void configureNetworkManager();
+	void configureNetwork();
 	//
 	void updateDoryDatasetList();
 	//
@@ -102,6 +107,8 @@ private:
 	QHash<QString, QJsonObject> m_datasetsAPIResultCache;
 
 	QHash<QString, DownloadData> m_downloadQueue;
+
+	QString m_datasetDownloadPath{"/home/nabil/"};
 
 	// Which servers are running locally
 	bool m_gunicornRunning{false}, m_apacheRunning{false};

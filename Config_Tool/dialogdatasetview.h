@@ -2,7 +2,6 @@
 #define DATASETVIEW_H
 
 #include "defines.h"
-
 #include "downloaddata.h"
 
 #include <QDialog>
@@ -25,18 +24,20 @@ class DialogDatasetView : public QDialog {
 
 public:
 	explicit DialogDatasetView(QWidget* parent = nullptr);
-	~DialogDatasetView();
+	~DialogDatasetView() override;
 
 	// Parse data from loaded config file
 	void SetData(const QString& datasetKey, const QJsonObject& object);
 	//
 	void SetData(const QJsonObject& datasetObj, QNetworkAccessManager& nam);
+	//
+	void SetData(const DownloadData& data);
 
 	// Serializes values from the UI into a JSON object.
 	// Returns the dataset key, and JSON object.
-	std::pair<QString, QJsonObject> GetData() const NODISCARD;
+	NODISCARD std::pair<QString, QJsonObject> GetData() const;
 
-	DownloadData GetDownloadData() const NODISCARD;
+	NODISCARD DownloadData GetDownloadData() const;
 
 private slots:
 	void on_tableWidgetVariables_cellDoubleClicked(int row, int column);
@@ -46,14 +47,16 @@ private slots:
 	void on_lineEditName_editingFinished();
 	void on_lineEditURL_editingFinished();
 
+	void keyPressEvent(QKeyEvent* e) override;
 private:
 	void addEmptyVariable();
 	void checkInputEmpty(const QString& inputLabel, const QString& inputText);
+	void setReadOnlyUI();
 
 	Ui::DatasetView* m_ui{nullptr};
 	HTMLHighlighter* m_highlighter{nullptr};
 
-	QDate m_startDate, m_endDate;
+	QHash<QString, QString> m_variableMap;
 };
 
 #endif // DATASETVIEW_H

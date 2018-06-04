@@ -2,7 +2,7 @@
 #include "dialogdatasetview.h"
 
 #include "htmlhighlighter.h"
-#include "apirequest.h"
+#include "api.h"
 
 #include <QJsonValueRef>
 #include <QJsonArray>
@@ -84,54 +84,25 @@ void DialogDatasetView::SetData(const QJsonObject& datasetObj, QNetworkAccessMan
 	const auto datasetIDString = datasetObj["id"].toString();
 
 	m_ui->lineEditKey->setText(datasetIDString);
-	m_ui->lineEditKey->setReadOnly(true);
-
 	m_ui->lineEditName->setText(nameString);
-	m_ui->lineEditName->setReadOnly(true);
-
-	m_ui->labelEnabled->setVisible(false);
-	m_ui->checkBoxDatasetEnabled->setEnabled(false);
-	m_ui->checkBoxDatasetEnabled->setVisible(false);
-
 	m_ui->lineEditAttribution->setText(datasetObj["attribution"].toString());
-	m_ui->lineEditAttribution->setReadOnly(true);
-
-	m_ui->labelURL->setVisible(false);
-	m_ui->lineEditURL->setVisible(false);
-	m_ui->lineEditURL->setEnabled(false);
-
-	m_ui->labelClimaURL->setVisible(false);
-	m_ui->lineEditClima->setVisible(false);
-	m_ui->lineEditClima->setEnabled(false);
-
-	m_ui->labelCache->setVisible(false);
-	m_ui->spinBoxCache->setVisible(false);
-
 	const auto idx = m_ui->comboBoxQuantum->findText(datasetObj["quantum"].toString());
 	m_ui->comboBoxQuantum->setCurrentIndex(idx);
-	m_ui->comboBoxQuantum->setEnabled(false);
-
 	m_ui->plainTextEditHelp->document()->setHtml(datasetObj["help"].toString());
-	m_ui->plainTextEditHelp->setReadOnly(true);
-
-	m_ui->pushButtonAddVariable->setEnabled(false);
-	m_ui->pushButtonAddVariable->setVisible(false);
-	m_ui->pushButtonDeleteVariable->setEnabled(false);
-	m_ui->pushButtonDeleteVariable->setVisible(false);
-
-	m_ui->labelVariables->setVisible(false);
-	m_ui->tableWidgetVariables->setVisible(false);
 
 	// Get variables from api
 	const std::function<void(QJsonDocument)> variableReplyHandler = [&](const auto& doc) {
 		const auto root = doc.array();
 
 		for (const auto& variable : root) {
-			m_ui->listWidgetVariables->addItem(variable["value"].toString());
+			const auto value = variable["value"].toString();
+
+			m_ui->listWidgetVariables->addItem(value);
+			m_variableMap.insert(value, variable["id"].toString());
 		}
 	};
 
-	MakeAPIRequest(nam, "http://navigator.oceansdata.ca/api/variables/?dataset="+datasetIDString, variableReplyHandler);
+	API::MakeAPIRequest(nam, "http://navigator.oceansdata.ca/api/variables/?dataset="+datasetIDString, variableReplyHandler);
 
 	// Figure out date range
 	const std::function<void(QJsonDocument)> timestampReplyHandler = [&](const auto& doc) {
@@ -140,17 +111,19 @@ void DialogDatasetView::SetData(const QJsonObject& datasetObj, QNetworkAccessMan
 		const auto start = root.first()["value"].toString();
 		const auto end = root.last()["value"].toString();
 
-		m_startDate = QDate::fromString(start, Qt::DateFormat::ISODate);
-		m_endDate =  QDate::fromString(end, Qt::DateFormat::ISODate);
+		const auto startDate = QDate::fromString(start, Qt::DateFormat::ISODate);
+		const auto endDate =  QDate::fromString(end, Qt::DateFormat::ISODate);
 
-		m_ui->calendarWidgetStart->setDateRange(m_startDate, m_endDate);
-		m_ui->calendarWidgetStart->setSelectedDate(m_startDate);
+		m_ui->calendarWidgetStart->setDateRange(startDate, endDate);
+		m_ui->calendarWidgetStart->setSelectedDate(startDate);
 
-		m_ui->calendarWidgetEnd->setDateRange(m_startDate, m_endDate);
-		m_ui->calendarWidgetEnd->setSelectedDate(m_endDate);
+		m_ui->calendarWidgetEnd->setDateRange(startDate, endDate);
+		m_ui->calendarWidgetEnd->setSelectedDate(endDate);
 	};
 
-	MakeAPIRequest(nam, "http://navigator.oceansdata.ca/api/timestamps/?dataset="+datasetIDString, timestampReplyHandler);
+	API::MakeAPIRequest(nam, "http://navigator.oceansdata.ca/api/timestamps/?dataset="+datasetIDString, timestampReplyHandler);
+
+	setReadOnlyUI();
 }
 
 /***********************************************************************************/
@@ -200,15 +173,18 @@ std::pair<QString, QJsonObject> DialogDatasetView::GetData() const {
 
 /***********************************************************************************/
 DownloadData DialogDatasetView::GetDownloadData() const {
-	DownloadData data;
 
-	data.Name = m_ui->lineEditName->text();
-	data.ID = m_ui->lineEditKey->text();
-	data.StartDate = m_startDate;
-	data.EndDate = m_endDate;
-	data.SelectedVariables = m_ui->listWidgetVariables->selectedItems();
+	QStringList vars;
 
-	return data;
+	for (const auto& var : m_ui->listWidgetVariables->selectedItems()) {
+		vars << m_variableMap[var->text()];
+	}
+
+	return {m_ui->lineEditKey->text(),
+			m_ui->lineEditName->text(),
+			m_ui->calendarWidgetStart->selectedDate(),
+			m_ui->calendarWidgetEnd->selectedDate(),
+			vars};
 }
 
 /***********************************************************************************/
@@ -256,6 +232,41 @@ void DialogDatasetView::checkInputEmpty(const QString& inputLabel, const QString
 }
 
 /***********************************************************************************/
+void DialogDatasetView::setReadOnlyUI() {
+	m_ui->lineEditKey->setReadOnly(true);
+	m_ui->lineEditName->setReadOnly(true);
+
+	m_ui->labelEnabled->setVisible(false);
+	m_ui->checkBoxDatasetEnabled->setEnabled(false);
+	m_ui->checkBoxDatasetEnabled->setVisible(false);
+
+	m_ui->lineEditAttribution->setReadOnly(true);
+
+	m_ui->labelURL->setVisible(false);
+	m_ui->lineEditURL->setVisible(false);
+	m_ui->lineEditURL->setEnabled(false);
+
+	m_ui->labelClimaURL->setVisible(false);
+	m_ui->lineEditClima->setVisible(false);
+	m_ui->lineEditClima->setEnabled(false);
+
+	m_ui->labelCache->setVisible(false);
+	m_ui->spinBoxCache->setVisible(false);
+
+	m_ui->comboBoxQuantum->setEnabled(false);
+
+	m_ui->plainTextEditHelp->setReadOnly(true);
+
+	m_ui->pushButtonAddVariable->setEnabled(false);
+	m_ui->pushButtonAddVariable->setVisible(false);
+	m_ui->pushButtonDeleteVariable->setEnabled(false);
+	m_ui->pushButtonDeleteVariable->setVisible(false);
+
+	m_ui->labelVariables->setVisible(false);
+	m_ui->tableWidgetVariables->setVisible(false);
+}
+
+/***********************************************************************************/
 void DialogDatasetView::on_pushButtonDeleteVariable_clicked() {
 	const auto reply = QMessageBox::question(this, tr("Confirm Action"), tr("Delete selected variable?"),
 									QMessageBox::Yes | QMessageBox::No);
@@ -282,4 +293,12 @@ void DialogDatasetView::on_lineEditName_editingFinished() {
 /***********************************************************************************/
 void DialogDatasetView::on_lineEditURL_editingFinished() {
 	checkInputEmpty(tr("Dataset URL"), m_ui->lineEditURL->text());
+}
+
+/***********************************************************************************/
+void DialogDatasetView::keyPressEvent(QKeyEvent* e) {
+	if (e->key() == Qt::Key_Enter || e->key() == Qt::Key_Return) {
+		return;
+	}
+	QDialog::keyPressEvent(e);
 }

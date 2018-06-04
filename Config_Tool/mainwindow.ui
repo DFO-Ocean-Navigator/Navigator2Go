@@ -61,7 +61,7 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="0">
-         <layout class="QGridLayout" name="gridLayout">
+         <layout class="QGridLayout" name="gridLayoutStatus">
           <item row="0" column="0">
            <widget class="QGroupBox" name="groupBox">
             <property name="title">
@@ -206,6 +206,15 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="apitools">
+       <attribute name="icon">
+        <iconset resource="resources.qrc">
+         <normaloff>:/icons/icons/wrench.png</normaloff>:/icons/icons/wrench.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>API Tools</string>
+       </attribute>
+      </widget>
       <widget class="QWidget" name="datasets">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -266,6 +275,9 @@
               <property name="icon">
                <iconset resource="resources.qrc">
                 <normaloff>:/icons/icons/sync.png</normaloff>:/icons/icons/sync.png</iconset>
+              </property>
+              <property name="default">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -367,7 +379,7 @@
             <item>
              <widget class="QLabel" name="label_6">
               <property name="text">
-               <string>3. Update THREDDS Aggregate Files:</string>
+               <string>3. Update THREDDS Aggregate Files &amp; Local Dataset Config:</string>
               </property>
              </widget>
             </item>
@@ -385,7 +397,7 @@
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButtonUpdateAggregate">
+             <widget class="QPushButton" name="pushButtonUpdateAggConfig">
               <property name="enabled">
                <bool>false</bool>
               </property>
@@ -470,7 +482,7 @@
                <bool>false</bool>
               </property>
               <property name="text">
-               <string>Save Changes</string>
+               <string>Save</string>
               </property>
               <property name="icon">
                <iconset resource="resources.qrc">

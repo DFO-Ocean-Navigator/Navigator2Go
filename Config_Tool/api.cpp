@@ -1,9 +1,11 @@
-#include "apirequest.h"
+#include "api.h"
 
 #include <QNetworkReply>
 #include <QMessageBox>
 
 #include <memory>
+
+namespace API {
 
 /***********************************************************************************/
 void MakeAPIRequest(QNetworkAccessManager& nam, const QString& APIURL, const std::function<void(QJsonDocument)> replyHandler) {
@@ -55,3 +57,5 @@ void MakeAPIRequest(QNetworkAccessManager& nam, const QString& APIURL, const std
 		}
 	);
 }
+
+} // namespace API

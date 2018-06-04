@@ -3,7 +3,8 @@
 
 #include "dialogdatasetview.h"
 #include "dialogpreferences.h"
-#include "apirequest.h"
+#include "api.h"
+#include "process.h"
 
 #include <QMessageBox>
 #include <QFile>
@@ -13,8 +14,6 @@
 #include <QJsonArray>
 #include <QSaveFile>
 #include <QSettings>
-#include <QTcpSocket>
-#include <QNetworkSession>
 #include <QNetworkReply>
 #include <QProcess>
 #ifdef QT_DEBUG
@@ -35,34 +34,6 @@ enum UITabs : int {
 	HOME = 0,
 	DATA_SYNC
 };
-
-/***********************************************************************************/
-// Checks if a named process is running on a UNIX or Windows system
-#ifdef __linux__
-auto IsProcessRunning(const QString& processName) {
-	static const QString prefix{"ps cax | grep "};
-	static const QString postfix{" > /dev/null; if [ $? -eq 0 ]; then echo \"true\"; else echo \"false\"; fi"};
-
-	QProcess process;
-	process.setProcessEnvironment(QProcessEnvironment::systemEnvironment());
-
-	auto args = QStringList() << "-c" << prefix + processName + postfix;
-	process.start("/bin/sh", args);
-	process.waitForFinished();
-
-	// Capture output from bash script
-	const QString output =  process.readAll();
-	if (output.contains("true", Qt::CaseInsensitive)) {
-		return true;
-	}
-
-	return false;
-}
-#elif _WIN32
-auto IsProcessRunning(const QString& processName) {
-	return false;
-}
-#endif
 
 /***********************************************************************************/
 // Loads a JSON file from disk, checks for errors, and returns the QJsonDocument.
@@ -121,9 +92,7 @@ void WriteJSONFile(const QString& path, const QJsonObject& obj = QJsonObject()) 
 	const QJsonDocument doc{obj};
 
 	QSaveFile f{path};
-	if (!f.open(QFile::WriteOnly | QFile::Text | QFile::Truncate)); { // Overwrite original file.
-		qDebug() << f.errorString();
-	}
+	f.open(QFile::WriteOnly | QFile::Text | QFile::Truncate);  // Overwrite original file.
 	f.write(doc.toJson());
 	f.commit();
 }
@@ -141,7 +110,7 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 	}
 	else {
 		f.open(QFile::ReadOnly | QFile::Text);
-		QTextStream ts(&f);
+		QTextStream ts{&f};
 		qApp->setStyleSheet(ts.readAll());
 	}
 
@@ -149,7 +118,7 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 
 	setActiveConfigFile();
 
-	configureNetworkManager();
+	configureNetwork();
 
 	if (m_prefs.UpdateDoryListOnStart) {
 		updateDoryDatasetList();
@@ -303,9 +272,11 @@ void MainWindow::writeSettings() const {
 }
 
 /***********************************************************************************/
-void MainWindow::configureNetworkManager() {
+void MainWindow::configureNetwork() {
 	// Follow server redirects for same domain only
 	m_networkManager.setRedirectPolicy(QNetworkRequest::RedirectPolicy::SameOriginRedirectPolicy);
+
+	m_downloader.setDownloadPath(m_datasetDownloadPath);
 }
 
 /***********************************************************************************/
@@ -334,7 +305,7 @@ void MainWindow::updateDoryDatasetList() {
 	m_ui->pushButtonUpdateDoryList->setEnabled(false);
 	m_ui->pushButtonUpdateDoryList->setText(tr("Updating..."));
 
-	MakeAPIRequest(m_networkManager, "http://navigator.oceansdata.ca/api/datasets/", replyHandler);
+	API::MakeAPIRequest(m_networkManager, "http://navigator.oceansdata.ca/api/datasets/", replyHandler);
 }
 
 /***********************************************************************************/
@@ -359,6 +330,7 @@ void MainWindow::on_actionPreferences_triggered() {
 	prefsDialog.SetPreferences(m_prefs);
 
 	if (prefsDialog.exec()) {
+		// Store previous network state
 		const auto prevIsOnline = m_prefs.IsOnline;
 		m_prefs = prefsDialog.GetPreferences();
 
@@ -367,6 +339,7 @@ void MainWindow::on_actionPreferences_triggered() {
 		updateActiveDatasetListWidget();
 
 		// Show a notification to restart gUnicorn
+		// is network status changed
 		if (m_prefs.IsOnline != prevIsOnline) {
 			QMessageBox box{this};
 			box.setWindowTitle(tr("Online status changed..."));
@@ -407,17 +380,13 @@ void MainWindow::on_pushButtonUpdateDoryList_clicked() {
 void MainWindow::on_listWidgetDoryDatasets_itemDoubleClicked(QListWidgetItem* item) {
 	const auto datasetID{m_datasetsAPIResultCache[item->text()]};
 	DialogDatasetView dialog{this};
-	bool isUpdatingDownload{false};
 
-	const auto cachedDownloadSettings = m_downloadQueue.find(item->text());
-	if (cachedDownloadSettings == m_downloadQueue.end()) {
-		dialog.SetData(datasetID, m_networkManager);
-	}
-	else {
-		// The user wants to edit their download settings
-		//dialog.SetData();
+	auto isUpdatingDownload{false};
+	if (m_downloadQueue.find(item->text()) != m_downloadQueue.end()) {
 		isUpdatingDownload = true;
 	}
+
+	dialog.SetData(datasetID, m_networkManager);
 
 	if (dialog.exec()) {
 		const auto data = dialog.GetDownloadData();
@@ -439,7 +408,7 @@ void MainWindow::on_listWidgetDoryDatasets_itemDoubleClicked(QListWidgetItem* it
 
 				box.exec();
 
-				return;				
+				return;
 			}
 			*/
 			if (!isUpdatingDownload) {
@@ -471,6 +440,12 @@ void MainWindow::on_pushButtonDownload_clicked() {
 		m_ui->pushButtonUpdateDoryList->setEnabled(false);
 		m_ui->pushButtonDownload->setEnabled(false);
 
+		for (const auto& item : m_downloadQueue) {
+			const auto url{ item.ToAPIURL() };
+
+			qDebug() << url;
+		}
+
 		// Show download stuff
 		m_ui->labelDownloadProgress->setVisible(true);
 		m_ui->progressBarDownload->setVisible(true);
@@ -495,7 +470,7 @@ void MainWindow::on_pushButtonStartWebServer_clicked() {
 		QProcess process{this};
 		process.setProgram("/bin/sh");
 		process.setWorkingDirectory(m_prefs.ONInstallDir);
-		process.setArguments({"runserver.sh", QFileInfo("datasetconfig.json").fileName()});
+		process.setArguments({"runserver.sh", QFileInfo("datasetconfigONLINE.json").fileName()});
 
 		if (!process.startDetached(nullptr)) {
 			QMessageBox box{this};
@@ -635,8 +610,8 @@ void MainWindow::on_listWidgetDownloadQueue_itemDoubleClicked(QListWidgetItem* i
 }
 
 /***********************************************************************************/
-void MainWindow::on_pushButtonUpdateAggregate_clicked() {
-	m_ui->pushButtonUpdateAggregate->setEnabled(false);
+void MainWindow::on_pushButtonUpdateAggConfig_clicked() {
+	m_ui->pushButtonUpdateAggConfig->setEnabled(false);
 }
 
 /***********************************************************************************/

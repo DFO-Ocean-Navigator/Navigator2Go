@@ -1,4 +1,4 @@
-#include "switch.h"
+#include "switchwidget.h"
 
 #include <QPropertyAnimation>
 #include <QPainter>
@@ -6,7 +6,7 @@
 #include <QDebug>
 
 /***********************************************************************************/
-Switch::Switch(QWidget* parent) : QAbstractButton{parent}, m_anim{new QPropertyAnimation(this, "offset", this)} {
+SwitchWidget::SwitchWidget(QWidget* parent) : QAbstractButton{parent}, m_anim{new QPropertyAnimation(this, "offset", this)} {
 	const auto offset = m_height / 2;
 	setOffset(offset);
 	m_y = offset;
@@ -16,18 +16,18 @@ Switch::Switch(QWidget* parent) : QAbstractButton{parent}, m_anim{new QPropertyA
 }
 
 /***********************************************************************************/
-QSize Switch::sizeHint() const {
+QSize SwitchWidget::sizeHint() const {
 	return {2 * (m_height + m_margin), m_height + 2 * m_margin};
 }
 
 /***********************************************************************************/
-void Switch::setOffset(const int o) {
+void SwitchWidget::setOffset(const int o) {
 	m_x = o;
 	update();
 }
 
 /***********************************************************************************/
-void Switch::paintEvent(QPaintEvent* e) {
+void SwitchWidget::paintEvent(QPaintEvent* e) {
 	QPainter p{this};
 	p.fillRect(rect(), QColor(90, 102, 117));
 	QRect switchRect;
@@ -49,13 +49,13 @@ void Switch::paintEvent(QPaintEvent* e) {
 }
 
 /***********************************************************************************/
-void Switch::mouseReleaseEvent(QMouseEvent* e) {
+void SwitchWidget::mouseReleaseEvent(QMouseEvent* e) {
 
 	QAbstractButton::mouseReleaseEvent(e);
 }
 
 /***********************************************************************************/
-void Switch::enterEvent(QEvent* e) {
+void SwitchWidget::enterEvent(QEvent* e) {
 	setCursor(Qt::PointingHandCursor);
 	QAbstractButton::enterEvent(e);
 }

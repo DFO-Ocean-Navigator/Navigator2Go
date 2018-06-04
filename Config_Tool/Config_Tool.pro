@@ -41,9 +41,11 @@ SOURCES += \
     dialogdatasetview.cpp \
     htmlhighlighter.cpp \
     dialogpreferences.cpp \
-    apirequest.cpp \
-    switch.cpp \
-    QEasyDownloader.cc
+    QEasyDownloader.cc \
+    api.cpp \
+    downloaddata.cpp \
+    process.cpp \
+    switchwidget.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -51,11 +53,12 @@ HEADERS += \
     htmlhighlighter.h \
     dialogpreferences.h \
     preferences.h \
-    apirequest.h \
     downloaddata.h \
     defines.h \
-    switch.h \
-    QEasyDownloader.hpp
+    QEasyDownloader.hpp \
+    api.h \
+    process.h \
+    switchwidget.h
 
 FORMS += \
         mainwindow.ui \

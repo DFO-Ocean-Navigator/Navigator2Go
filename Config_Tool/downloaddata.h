@@ -2,11 +2,7 @@
 #define DOWNLOADDATA_H
 
 #include <QDate>
-#include <QList>
-
-/***********************************************************************************/
-// Forward Declarations
-class QListWidgetItem;
+#include <QStringList>
 
 /***********************************************************************************/
 struct DownloadData {
@@ -15,13 +11,15 @@ struct DownloadData {
 		return ID == rhs.ID;
 	}
 
+	QString ToAPIURL() const;
+
 	QString ID, Name;
 	QDate StartDate, EndDate;
-	QList<QListWidgetItem*> SelectedVariables;
+	QStringList SelectedVariables;
 };
 
 /***********************************************************************************/
-inline uint qHash(const DownloadData& dlData) Q_DECL_NOTHROW {
+inline auto qHash(const DownloadData& dlData) Q_DECL_NOTHROW {
 	return qHash(dlData.ID);
 }
 
