@@ -116,9 +116,13 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 
 	readSettings();
 
-	setActiveConfigFile();
-
 	configureNetwork();
+
+	if (m_firstRun) {
+		qDebug() << "First run";
+	}
+
+	setActiveConfigFile();
 
 	if (m_prefs.UpdateDoryListOnStart) {
 		updateDoryDatasetList();
@@ -130,17 +134,6 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 	setWindowTitle(tr("Navigator2Go"));
 
 	setInitialLayout();
-
-#ifdef QT_DEBUG
-	m_downloader.setDebug(true);
-	QObject::connect(&m_downloader, &QEasyDownloader::Debugger,
-					 [&](const auto& msg) {
-						qDebug() << msg;
-						return;
-					}
-	);
-#endif
-
 }
 
 /***********************************************************************************/
@@ -226,6 +219,10 @@ void MainWindow::readSettings() {
 
 	settings.beginGroup("General");
 
+	if (!settings.contains("FirstRun")) {
+		m_firstRun = true;
+	}
+
 	if (settings.contains("ONInstallDir")) {
 		m_prefs.ONInstallDir = settings.value("ONInstallDir").toString();
 	}
@@ -263,6 +260,7 @@ void MainWindow::writeSettings() const {
 
 	settings.beginGroup("General");
 
+	settings.setValue("FirstRun", false);
 	settings.setValue("ONInstallDir", m_prefs.ONInstallDir);
 	settings.setValue("UpdateDoryListOnStart", m_prefs.UpdateDoryListOnStart);
 	settings.setValue("AutoStartServers", m_prefs.AutoStartServers);
@@ -276,7 +274,65 @@ void MainWindow::configureNetwork() {
 	// Follow server redirects for same domain only
 	m_networkManager.setRedirectPolicy(QNetworkRequest::RedirectPolicy::SameOriginRedirectPolicy);
 
-	m_downloader.setDownloadPath(m_datasetDownloadPath);
+#ifdef QT_DEBUG
+	m_downloader.setDebug(true);
+	QObject::connect(&m_downloader, &QEasyDownloader::Debugger, this,
+					 [&](const auto& msg) {
+						qDebug() << msg;
+						return;
+					}
+	);
+#endif
+
+	// Full Download Progress. Emitted on every download.
+	QObject::connect(&m_downloader, &QEasyDownloader::DownloadProgress, this,
+					 [&](const auto bytesReceived, const auto percent, const auto speed, const auto& unit, const auto& url, const auto& filename) {
+						qDebug() << percent;
+						qDebug() << speed;
+					}
+	);
+
+	// Emitted when a single file is downloaded.
+	QObject::connect(&m_downloader, &QEasyDownloader::DownloadFinished, this,
+					 [&](const auto& url, const auto& filename) {
+
+					}
+	);
+
+	// Emitted when all jobs are done.
+	QObject::connect(&m_downloader, &QEasyDownloader::Finished, this,
+					 [&]() {
+#ifdef QT_DEBUG
+						qDebug() << "All downloads complete";
+#endif
+
+						m_ui->pushButtonUpdateAggConfig->setEnabled(true);
+						m_ui->listWidgetDownloadQueue->clear();
+						return;
+					}
+	);
+
+	// Emitted on error.
+	QObject::connect(&m_downloader, &QEasyDownloader::Error, this,
+					 [&](const auto& errorCode, const auto& url, const auto& filename) {
+
+					}
+	);
+
+	// Emitted when there is a timeout.
+	QObject::connect(&m_downloader, &QEasyDownloader::Timeout, this,
+					 [&](const auto& url, const auto& filename) {
+						QMessageBox box{this};
+						box.setWindowTitle(tr("Download has timed out..."));
+						box.setInformativeText("URL: " + url.toString());
+						box.setDetailedText(filename);
+
+						box.setIcon(QMessageBox::Warning);
+
+						box.exec();
+					}
+	);
+
 }
 
 /***********************************************************************************/
@@ -440,10 +496,13 @@ void MainWindow::on_pushButtonDownload_clicked() {
 		m_ui->pushButtonUpdateDoryList->setEnabled(false);
 		m_ui->pushButtonDownload->setEnabled(false);
 
-		for (const auto& item : m_downloadQueue) {
-			const auto url{ item.ToAPIURL() };
+		const QString min_range{ "&min_range=" + QString::number(m_ui->spinboxMinLat->value()) + "," + QString::number(m_ui->spinboxMinLon->value()) };
+		const QString max_range{ "&max_range=" + QString::number(m_ui->spinboxMaxLat->value()) + "," + QString::number(m_ui->spinboxMaxLon->value()) };
 
-			qDebug() << url;
+		for (const auto& item : m_downloadQueue) {
+			const auto url{ item.ToAPIURL() + min_range + max_range };
+
+			m_downloader.Download(url, "/home/nabil/download.nc");
 		}
 
 		// Show download stuff
@@ -631,3 +690,4 @@ void MainWindow::on_pushButtonSaveConfigFile_clicked() {
 	m_hasUnsavedData = false;
 	m_ui->pushButtonSaveConfigFile->setEnabled(false);
 }
+

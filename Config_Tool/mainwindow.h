@@ -25,7 +25,7 @@ class MainWindow : public QMainWindow {
 
 public:
 	explicit MainWindow(QWidget* parent = nullptr);
-	~MainWindow();
+	~MainWindow() override;
 
 protected:
 	void closeEvent(QCloseEvent* event) override;
@@ -87,6 +87,8 @@ private:
 	void setActiveConfigFile();
 
 	Ui::MainWindow* m_ui{nullptr};
+
+	bool m_firstRun{false};
 
 	Preferences m_prefs;
 

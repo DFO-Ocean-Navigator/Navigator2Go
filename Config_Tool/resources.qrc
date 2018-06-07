@@ -11,5 +11,7 @@
         <file>icons/light.png</file>
         <file>icons/stop.png</file>
         <file>icons/save.png</file>
+        <file>icons/bbox.png</file>
+        <file>icons/pencil</file>
     </qresource>
 </RCC>
