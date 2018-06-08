@@ -4,7 +4,7 @@
 #include <QFileDialog>
 
 /***********************************************************************************/
-DialogPreferences::DialogPreferences(QWidget *parent) : QDialog(parent), m_ui(new Ui::DialogPreferences) {
+DialogPreferences::DialogPreferences(QWidget* parent) : QDialog{parent}, m_ui{new Ui::DialogPreferences} {
 	m_ui->setupUi(this);
 }
 
@@ -41,7 +41,7 @@ void DialogPreferences::on_pushButtonBrowseInstallDir_clicked() {
 	const auto dir = QFileDialog::getExistingDirectory(this,
 													   tr("Open Ocean Navigator Installation Folder..."),
 													   path,
-													   QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+													   QFileDialog::ShowDirsOnly);
 	if (!dir.isEmpty()) {
 		m_ui->lineEditInstallDir->setText(dir);
 	}

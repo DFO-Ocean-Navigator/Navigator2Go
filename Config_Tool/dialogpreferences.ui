@@ -90,10 +90,10 @@
           </widget>
          </item>
          <item row="2" column="1">
-          <widget class="Switch" name="switchUpdateDoryDatasetsOnStart" native="true"/>
+          <widget class="SwitchWidget" name="switchUpdateDoryDatasetsOnStart" native="true"/>
          </item>
          <item row="3" column="1">
-          <widget class="Switch" name="switchAutoStartServers" native="true"/>
+          <widget class="SwitchWidget" name="switchAutoStartServers" native="true"/>
          </item>
          <item row="4" column="0">
           <widget class="QLabel" name="label_4">
@@ -103,7 +103,7 @@
           </widget>
          </item>
          <item row="4" column="1">
-          <widget class="Switch" name="switchOnlineOffline" native="true"/>
+          <widget class="SwitchWidget" name="switchOnlineOffline" native="true"/>
          </item>
         </layout>
        </widget>
@@ -125,9 +125,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>Switch</class>
+   <class>SwitchWidget</class>
    <extends>QWidget</extends>
-   <header>switch.h</header>
+   <header>switchwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -298,11 +298,11 @@ void MainWindow::configureNetwork() {
 #ifdef QT_DEBUG
 						qDebug() << "Downloaded: " << url;
 #endif
-						++m_numDownloadsComplete;
+						this->statusBar()->showMessage(tr(" download complete."), STATUS_BAR_MSG_TIMEOUT);
 
-						const auto percent = 100 * (m_numDownloadsComplete / static_cast<std::size_t>(m_downloadQueue.size()));
-
-						m_ui->progressBarDownload->setValue(static_cast<int>(percent));
+						++this->m_numDownloadsComplete;
+						const auto percent = 100 * (this->m_numDownloadsComplete / static_cast<std::size_t>(this->m_downloadQueue.size()));
+						this->m_ui->progressBarDownload->setValue(static_cast<int>(percent));
 					}
 	);
 
@@ -331,7 +331,36 @@ void MainWindow::configureNetwork() {
 	// Emitted on error.
 	QObject::connect(&m_downloader, &QEasyDownloader::Error, this,
 					 [&](const auto& errorCode, const auto& url, const auto& filename) {
+#ifdef QT_DEBUG
+						qDebug() << "Error: " << errorCode << " " << url;
+#endif
+						++this->m_numDownloadsComplete;
+						const auto percent = 100 * (this->m_numDownloadsComplete / static_cast<std::size_t>(this->m_downloadQueue.size()));
+						this->m_ui->progressBarDownload->setValue(static_cast<int>(percent));
 
+						QMessageBox box{this};
+						box.setIcon(QMessageBox::Critical);
+						box.setWindowTitle(tr("Download error..."));
+						box.setText(tr("A error has occoured while downloading your file. If it exists, we will continue with the next file in your queue."));
+						box.setDetailedText( url.toString() + "\n\n QNetworkReply::NetworkError: " + QVariant(errorCode).toString() +
+											" http://doc.qt.io/archives/qt-4.8/qnetworkreply.html#NetworkError-enum");
+
+						box.exec();
+
+						// Move on to next file in queue.
+						if (m_downloader.HasNext()) {
+#ifdef QT_DEBUG
+							qDebug() << "Moving on to next file";
+#endif
+							m_downloader.Next();
+						}
+						else {
+							m_ui->pushButtonUpdateAggConfig->setEnabled(true);
+							m_ui->listWidgetDownloadQueue->clear();
+							m_ui->progressBarDownload->setVisible(false);
+
+							m_downloadQueue.clear();
+						}
 					}
 	);
 

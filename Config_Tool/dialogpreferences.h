@@ -23,7 +23,7 @@ public:
 	~DialogPreferences();
 
 	void SetPreferences(Preferences& settings);
-	auto GetPreferences() const noexcept -> Preferences NODISCARD;
+	NODISCARD auto GetPreferences() const noexcept -> Preferences;
 
 private slots:
 	void on_pushButtonBrowseInstallDir_clicked();
