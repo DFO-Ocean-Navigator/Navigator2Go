@@ -295,7 +295,14 @@ void MainWindow::configureNetwork() {
 	// Emitted when a single file is downloaded.
 	QObject::connect(&m_downloader, &QEasyDownloader::DownloadFinished, this,
 					 [&](const auto& url, const auto& filename) {
+#ifdef QT_DEBUG
+						qDebug() << "Downloaded: " << url;
+#endif
+						++m_numDownloadsComplete;
 
+						const auto percent = 100 * (m_numDownloadsComplete / static_cast<std::size_t>(m_downloadQueue.size()));
+
+						m_ui->progressBarDownload->setValue(static_cast<int>(percent));
 					}
 	);
 
@@ -305,10 +312,19 @@ void MainWindow::configureNetwork() {
 #ifdef QT_DEBUG
 						qDebug() << "All downloads complete";
 #endif
-
 						m_ui->pushButtonUpdateAggConfig->setEnabled(true);
 						m_ui->listWidgetDownloadQueue->clear();
-						return;
+						m_ui->progressBarDownload->setVisible(false);
+
+						m_downloadQueue.clear();
+
+						QMessageBox box{this};
+						box.setWindowTitle(tr("Downloads completed..."));
+						box.setText(tr("All downloads completed! Your queue has been emptied."));
+						box.setInformativeText(tr("Be sure to click the button below to update your config and aggregation files!"));
+						box.setIcon(QMessageBox::Information);
+
+						box.exec();
 					}
 	);
 
@@ -499,6 +515,7 @@ void MainWindow::on_pushButtonDownload_clicked() {
 		const QString min_range{ "&min_range=" + QString::number(m_ui->spinboxMinLat->value()) + "," + QString::number(m_ui->spinboxMinLon->value()) };
 		const QString max_range{ "&max_range=" + QString::number(m_ui->spinboxMaxLat->value()) + "," + QString::number(m_ui->spinboxMaxLon->value()) };
 
+		m_numDownloadsComplete = static_cast<std::size_t>(m_downloadQueue.size());
 		for (const auto& item : m_downloadQueue) {
 			const auto url{ item.ToAPIURL() + min_range + max_range };
 
@@ -508,6 +525,7 @@ void MainWindow::on_pushButtonDownload_clicked() {
 		// Show download stuff
 		m_ui->labelDownloadProgress->setVisible(true);
 		m_ui->progressBarDownload->setVisible(true);
+		m_ui->progressBarDownload->setValue(0);
 	}
 }
 
@@ -691,3 +709,7 @@ void MainWindow::on_pushButtonSaveConfigFile_clicked() {
 	m_ui->pushButtonSaveConfigFile->setEnabled(false);
 }
 
+/***********************************************************************************/
+void MainWindow::on_pushButtonImportNetCDF_clicked() {
+
+}

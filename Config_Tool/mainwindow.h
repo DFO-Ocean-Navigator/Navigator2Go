@@ -68,6 +68,8 @@ private slots:
 	// and datasetconfigOFFLINE
 	void on_pushButtonUpdateAggConfig_clicked();
 
+	void on_pushButtonImportNetCDF_clicked();
+
 private:
 	//
 	void readSettings();
@@ -111,6 +113,8 @@ private:
 	QHash<QString, DownloadData> m_downloadQueue;
 
 	QString m_datasetDownloadPath{"/home/nabil/"};
+
+	std::size_t m_numDownloadsComplete{0};
 
 	// Which servers are running locally
 	bool m_gunicornRunning{false}, m_apacheRunning{false};
