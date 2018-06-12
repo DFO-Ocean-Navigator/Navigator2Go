@@ -6,6 +6,7 @@
 #include "api.h"
 #include "jsonio.h"
 #include "process.h"
+#include "filecopyworker.h"
 
 #include <QMessageBox>
 #include <QFile>
@@ -15,6 +16,7 @@
 #include <QSettings>
 #include <QNetworkReply>
 #include <QProcess>
+#include <QThread>
 
 #ifdef QT_DEBUG
 	#include <QDebug>
@@ -715,11 +717,25 @@ void MainWindow::on_pushButtonImportNetCDF_clicked() {
 													 "NetCDF Files (*)"
 													 );
 
-	for (const auto& filePath : files) {
-		// Move file into thredds directory, and check for name clashes
-		const auto fileName{QFileInfo{filePath}};
-		qDebug() << fileName.fileName();
-	}
+	m_workerThread = new QThread;
+	auto* worker = new IO::FileCopyWorker(files);
+	worker->moveToThread(m_workerThread);
+
+	QObject::connect(worker, &IO::FileCopyWorker::error, this, [&](const auto& error) {
+#ifdef QT_DEBUG
+		qDebug() << error;
+#endif
+		QMessageBox::critical(this, tr("File copy error..."), error);
+	});
+
+	QObject::connect(m_workerThread, &QThread::started, worker, &IO::FileCopyWorker::copyFiles);
+	// Resource clean-up connections
+	QObject::connect(worker, &IO::FileCopyWorker::finished, m_workerThread, &QThread::quit);
+	QObject::connect(worker, &IO::FileCopyWorker::finished, worker, &IO::FileCopyWorker::deleteLater);
+	QObject::connect(m_workerThread, &QThread::finished, m_workerThread, &QThread::deleteLater);
+
+	// Run it
+	m_workerThread->start(QThread::HighestPriority);
 }
 
 /***********************************************************************************/
@@ -736,11 +752,12 @@ void MainWindow::on_pushButtonLoadCustomConfig_clicked() {
 		}
 	}
 
-	const auto filePath = QFileDialog::getOpenFileName(this,
+	const auto filePath{ QFileDialog::getOpenFileName(this,
 													   tr("Select a dataset config file..."),
 													   QDir::currentPath(),
 													   "Config Files (*.json)"
-													   );
+													   )
+					   };
 	if (filePath.isNull()) {
 		return;
 	}

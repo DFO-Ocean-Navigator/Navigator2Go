@@ -1,16 +1,25 @@
 #include "filecopyworker.h"
 
+#include <QFileInfo>
+
 namespace IO {
 
 /***********************************************************************************/
-FileCopyWorker::FileCopyWorker(QObject* parent) : QObject{parent} {
-
+FileCopyWorker::FileCopyWorker(const QStringList& fileList, QObject* parent) :	QObject{parent},
+																				m_fileList{fileList} {
 }
 
 /***********************************************************************************/
 void FileCopyWorker::copyFiles() {
 
-	emit copyComplete();
+	for (const auto& filePath : m_fileList) {
+		const auto fileName{ QFileInfo{filePath}.fileName() };
+		//QFile::rename(fileName, ".nc");
+
+		//QFile::remove(fileName);
+	}
+
+	emit finished();
 }
 
 } // namespace IO

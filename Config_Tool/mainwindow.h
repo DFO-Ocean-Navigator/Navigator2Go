@@ -18,6 +18,7 @@ class MainWindow;
 }
 class QListWidgetItem;
 class QObject;
+class QThread;
 
 /***********************************************************************************/
 class MainWindow : public QMainWindow {
@@ -99,6 +100,8 @@ private:
 	int showUnsavedDataMessageBox();
 
 	Ui::MainWindow* m_ui{nullptr};
+
+	QThread* m_workerThread;
 
 	bool m_firstRun{false};
 
