@@ -684,11 +684,12 @@ void MainWindow::saveConfigFile() {
 
 /***********************************************************************************/
 int MainWindow::showUnsavedDataMessageBox() {
-	QMessageBox box{this};
-	box.setWindowTitle(tr("Confirm continue..."));
-	box.setText(tr("You have unsaved changes. Do you want to save them?"));
 
-	return box.exec();
+	return QMessageBox::question(this,
+								 tr("Confirm continue..."),
+								 tr("You have unsaved changes. Do you want to save them?"),
+								 QMessageBox::No | QMessageBox::Save | QMessageBox::Cancel
+								 );
 }
 
 /***********************************************************************************/
