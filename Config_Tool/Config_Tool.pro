@@ -45,7 +45,9 @@ SOURCES += \
     api.cpp \
     downloaddata.cpp \
     process.cpp \
-    switchwidget.cpp
+    switchwidget.cpp \
+    filecopyworker.cpp \
+    jsonio.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -58,7 +60,9 @@ HEADERS += \
     QEasyDownloader.hpp \
     api.h \
     process.h \
-    switchwidget.h
+    switchwidget.h \
+    filecopyworker.h \
+    jsonio.h
 
 FORMS += \
         mainwindow.ui \

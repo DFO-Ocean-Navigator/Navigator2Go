@@ -70,6 +70,10 @@ private slots:
 
 	void on_pushButtonImportNetCDF_clicked();
 
+	void on_pushButtonLoadCustomConfig_clicked();
+
+	void on_pushButtonLoadDefaultConfig_clicked();
+
 private:
 	//
 	void readSettings();
@@ -86,7 +90,13 @@ private:
 	//
 	void checkAndStartServers();
 	//
-	void setActiveConfigFile();
+	void setDefaultConfigFile();
+	//
+	void setCustomConfigFile(const QString& filePath);
+	//
+	void saveConfigFile();
+	//
+	int showUnsavedDataMessageBox();
 
 	Ui::MainWindow* m_ui{nullptr};
 
@@ -94,9 +104,9 @@ private:
 
 	Preferences m_prefs;
 
-	//
+	// Path to the currently loaded config file
 	QString m_activeConfigFile;
-	//
+	// Root JSON object of active config file
 	QJsonObject m_documentRootObject;
 
 	// Network stuff
@@ -112,7 +122,12 @@ private:
 
 	QHash<QString, DownloadData> m_downloadQueue;
 
-	QString m_datasetDownloadPath{"/home/nabil/"};
+	// Location for THREDDS datasets
+#ifdef QT_DEBUG
+	QString m_threddsRootDatasetLocation{"/home/nabil/"};
+#else
+	QString m_threddsRootDatasetLocation{""}
+#endif
 
 	std::size_t m_numDownloadsComplete{0};
 

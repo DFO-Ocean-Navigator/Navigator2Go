@@ -13,5 +13,6 @@
         <file>icons/save.png</file>
         <file>icons/bbox.png</file>
         <file>icons/pencil</file>
+        <file>icons/folder.png</file>
     </qresource>
 </RCC>

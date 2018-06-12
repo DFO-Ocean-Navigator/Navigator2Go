@@ -4,18 +4,18 @@
 #include "dialogdatasetview.h"
 #include "dialogpreferences.h"
 #include "api.h"
+#include "jsonio.h"
 #include "process.h"
 
 #include <QMessageBox>
 #include <QFile>
 #include <QTextStream>
 #include <QFileDialog>
-#include <QJsonObject>
 #include <QJsonArray>
-#include <QSaveFile>
 #include <QSettings>
 #include <QNetworkReply>
 #include <QProcess>
+
 #ifdef QT_DEBUG
 	#include <QDebug>
 #endif
@@ -34,68 +34,6 @@ enum UITabs : int {
 	HOME = 0,
 	DATA_SYNC
 };
-
-/***********************************************************************************/
-// Loads a JSON file from disk, checks for errors, and returns the QJsonDocument.
-auto LoadJSONFile(const QString& path, const bool showMsgBox = true) {
-
-	// Try to open file
-	QFile f{path};
-	if (!f.open(QFile::ReadOnly | QFile::Text)) {
-#ifdef QT_DEBUG
-		qDebug() << "File Open Error: " << path;
-		qDebug() << f.errorString();
-#endif
-		if (showMsgBox) {
-			QMessageBox msgBox;
-			msgBox.setWindowTitle(QObject::tr("Error..."));
-			msgBox.setText(path);
-			msgBox.setInformativeText(QObject::tr("File not found!"));
-			msgBox.setIcon(QMessageBox::Critical);
-			msgBox.exec();
-		}
-
-		return QJsonDocument();
-	}
-	const QString contents = f.readAll(); // Get file contents
-	f.close();
-
-	// Parse json
-	QJsonParseError error; // catch errors
-	const auto jsonDocument = QJsonDocument::fromJson(contents.toUtf8(), &error);
-	// Check for errors
-	if (jsonDocument.isNull()) {
-#ifdef QT_DEBUG
-		qDebug() << "JSON Error: " << path;
-		qDebug() << error.errorString();
-#endif
-		if (showMsgBox) {
-			QMessageBox msgBox;
-			msgBox.setWindowTitle(QObject::tr("Error parsing JSON file..."));
-			msgBox.setText(path);
-			msgBox.setInformativeText(QObject::tr("JSON syntax error detected."));
-			msgBox.setDetailedText(error.errorString());
-			msgBox.setIcon(QMessageBox::Critical);
-			msgBox.exec();
-		}
-
-		return QJsonDocument(); // Return empty doc
-	}
-
-	return jsonDocument;
-}
-
-/***********************************************************************************/
-// Writes a JSON file to the given path
-void WriteJSONFile(const QString& path, const QJsonObject& obj = QJsonObject()) {
-
-	const QJsonDocument doc{obj};
-
-	QSaveFile f{path};
-	f.open(QFile::WriteOnly | QFile::Text | QFile::Truncate);  // Overwrite original file.
-	f.write(doc.toJson());
-	f.commit();
-}
 
 /***********************************************************************************/
 MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
@@ -122,7 +60,7 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 		qDebug() << "First run";
 	}
 
-	setActiveConfigFile();
+	setDefaultConfigFile();
 
 	if (m_prefs.UpdateDoryListOnStart) {
 		updateDoryDatasetList();
@@ -435,7 +373,7 @@ void MainWindow::on_actionPreferences_triggered() {
 		const auto prevIsOnline = m_prefs.IsOnline;
 		m_prefs = prefsDialog.GetPreferences();
 
-		setActiveConfigFile();
+		setDefaultConfigFile();
 
 		updateActiveDatasetListWidget();
 
@@ -493,14 +431,14 @@ void MainWindow::on_listWidgetDoryDatasets_itemDoubleClicked(QListWidgetItem* it
 		const auto data = dialog.GetDownloadData();
 		// Only add to queue if variables were selected.
 		if (!data.SelectedVariables.empty()) {
-			/*
+
 			// Don't accept a giant date range
 			std::size_t dayLimit = 60;
 			if (m_datasetsAPIResultCache[data.ID]["quantum"] == "month") {
 				dayLimit = 1825; // 5 years of monthly data only
 			}
 
-			if (data.StartDate.daysTo(data.EndDate) > dayLimit) {
+			if (static_cast<std::size_t>(data.StartDate.daysTo(data.EndDate)) > dayLimit) {
 				QMessageBox box{this};
 				box.setWindowTitle(tr("Selected date range was too large..."));
 				box.setText(tr("For datasets with quantum \"day\" and \"hour\", 60 days is the limit. \nFor datasets with quantum \"month\", 5 years is the limit."));
@@ -511,7 +449,7 @@ void MainWindow::on_listWidgetDoryDatasets_itemDoubleClicked(QListWidgetItem* it
 
 				return;
 			}
-			*/
+
 			if (!isUpdatingDownload) {
 				m_ui->listWidgetDownloadQueue->addItem(data.Name);
 			}
@@ -541,10 +479,10 @@ void MainWindow::on_pushButtonDownload_clicked() {
 		m_ui->pushButtonUpdateDoryList->setEnabled(false);
 		m_ui->pushButtonDownload->setEnabled(false);
 
+		// Get given region of interest
 		const QString min_range{ "&min_range=" + QString::number(m_ui->spinboxMinLat->value()) + "," + QString::number(m_ui->spinboxMinLon->value()) };
 		const QString max_range{ "&max_range=" + QString::number(m_ui->spinboxMaxLat->value()) + "," + QString::number(m_ui->spinboxMaxLon->value()) };
 
-		m_numDownloadsComplete = static_cast<std::size_t>(m_downloadQueue.size());
 		for (const auto& item : m_downloadQueue) {
 			const auto url{ item.ToAPIURL() + min_range + max_range };
 
@@ -670,7 +608,7 @@ void MainWindow::checkAndStartServers() {
 }
 
 /***********************************************************************************/
-void MainWindow::setActiveConfigFile() {
+void MainWindow::setDefaultConfigFile() {
 	const static auto onlineConfig{ m_prefs.ONInstallDir+"/oceannavigator/datasetconfigONLINE.json" };
 	const static auto offlineConfig{ m_prefs.ONInstallDir+"/oceannavigator/datasetconfigOFFLINE.json" };
 
@@ -683,17 +621,17 @@ void MainWindow::setActiveConfigFile() {
 	}
 
 	// Validate file
-	auto doc = LoadJSONFile(newConfigFile);
+	auto doc = IO::LoadJSONFile(newConfigFile);
 	if (doc.isNull()) {
 #ifdef QT_DEBUG
 		qDebug() << "Config file not found: " << newConfigFile;
 		qDebug() << "Creating it...";
 #endif
 		// File doesn't exist so create it
-		WriteJSONFile(newConfigFile);
+		IO::WriteJSONFile(newConfigFile);
 
 		// And now load it
-		doc = LoadJSONFile(newConfigFile);
+		doc = IO::LoadJSONFile(newConfigFile);
 	}
 
 	m_activeConfigFile = newConfigFile;
@@ -707,7 +645,50 @@ void MainWindow::setActiveConfigFile() {
 		m_ui->labelDatasetTarget->setText(tr("Local Storage"));
 	}
 
-	statusBar()->showMessage(tr("Config file loaded."), STATUS_BAR_MSG_TIMEOUT);
+	statusBar()->showMessage(tr("Config file loaded: ") + m_activeConfigFile, STATUS_BAR_MSG_TIMEOUT);
+}
+
+/***********************************************************************************/
+void MainWindow::setCustomConfigFile(const QString& filePath) {
+
+	// Validate file
+	const auto doc = IO::LoadJSONFile(filePath);
+
+	if (doc.isNull()) {
+		return;
+	}
+
+	m_activeConfigFile = filePath;
+	m_documentRootObject = doc.object();
+
+	statusBar()->showMessage(tr("Config file loaded: ") + m_activeConfigFile, STATUS_BAR_MSG_TIMEOUT);
+}
+
+/***********************************************************************************/
+void MainWindow::saveConfigFile() {
+	const QJsonDocument doc{m_documentRootObject};
+
+	IO::WriteJSONFile(
+		#ifdef QT_DEBUG
+				"/home/nabil/dory.json"
+		#else
+				m_activeConfigFile
+		#endif
+				, m_documentRootObject);
+
+	statusBar()->showMessage(tr("Config file saved: ") + m_activeConfigFile, STATUS_BAR_MSG_TIMEOUT);
+
+	m_hasUnsavedData = false;
+	m_ui->pushButtonSaveConfigFile->setEnabled(false);
+}
+
+/***********************************************************************************/
+int MainWindow::showUnsavedDataMessageBox() {
+	QMessageBox box{this};
+	box.setWindowTitle(tr("Confirm continue..."));
+	box.setText(tr("You have unsaved changes. Do you want to save them?"));
+
+	return box.exec();
 }
 
 /***********************************************************************************/
@@ -722,23 +703,65 @@ void MainWindow::on_pushButtonUpdateAggConfig_clicked() {
 
 /***********************************************************************************/
 void MainWindow::on_pushButtonSaveConfigFile_clicked() {
-	const QJsonDocument doc{m_documentRootObject};
-
-	WriteJSONFile(
-		#ifdef QT_DEBUG
-				"/home/nabil/dory.json"
-		#else
-				m_activeConfigFile
-		#endif
-				, m_documentRootObject);
-
-	statusBar()->showMessage(tr("Config file saved!"), STATUS_BAR_MSG_TIMEOUT);
-
-	m_hasUnsavedData = false;
-	m_ui->pushButtonSaveConfigFile->setEnabled(false);
+	saveConfigFile();
 }
 
 /***********************************************************************************/
 void MainWindow::on_pushButtonImportNetCDF_clicked() {
+	const auto files = QFileDialog::getOpenFileNames(this,
+													 tr("Select NetCDF files to import..."),
+													 QDir::currentPath(),
+													 "NetCDF Files (*)"
+													 );
 
+	for (const auto& filePath : files) {
+		// Move file into thredds directory, and check for name clashes
+		const auto fileName{QFileInfo{filePath}};
+		qDebug() << fileName.fileName();
+	}
+}
+
+/***********************************************************************************/
+void MainWindow::on_pushButtonLoadCustomConfig_clicked() {
+	if (m_hasUnsavedData) {
+		switch(showUnsavedDataMessageBox()) {
+		case QMessageBox::Yes:
+			saveConfigFile();
+			break;
+		case QMessageBox::No:
+			break;
+		case QMessageBox::Cancel:
+			return;
+		}
+	}
+
+	const auto filePath = QFileDialog::getOpenFileName(this,
+													   tr("Select a dataset config file..."),
+													   QDir::currentPath(),
+													   "Config Files (*.json)"
+													   );
+	if (filePath.isNull()) {
+		return;
+	}
+
+	setCustomConfigFile(filePath);
+	updateActiveDatasetListWidget();
+}
+
+/***********************************************************************************/
+void MainWindow::on_pushButtonLoadDefaultConfig_clicked() {
+	if (m_hasUnsavedData) {
+		switch(showUnsavedDataMessageBox()) {
+		case QMessageBox::Yes:
+			saveConfigFile();
+			break;
+		case QMessageBox::No:
+			break;
+		case QMessageBox::Cancel:
+			return;
+		}
+	}
+
+	setDefaultConfigFile();
+	updateActiveDatasetListWidget();
 }

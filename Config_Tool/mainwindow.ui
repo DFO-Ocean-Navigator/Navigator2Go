@@ -40,7 +40,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <property name="documentMode">
        <bool>false</bool>
@@ -614,6 +614,28 @@
              </size>
             </property>
            </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButtonLoadCustomConfig">
+            <property name="text">
+             <string>Load Custom File</string>
+            </property>
+            <property name="icon">
+             <iconset resource="resources.qrc">
+              <normaloff>:/icons/icons/folder.png</normaloff>:/icons/icons/folder.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButtonLoadDefaultConfig">
+            <property name="text">
+             <string>Load Default File</string>
+            </property>
+            <property name="icon">
+             <iconset resource="resources.qrc">
+              <normaloff>:/icons/icons/folder.png</normaloff>:/icons/icons/folder.png</iconset>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QPushButton" name="buttonAddDataset">
