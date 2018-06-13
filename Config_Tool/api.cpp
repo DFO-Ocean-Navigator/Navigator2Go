@@ -32,11 +32,11 @@ void MakeAPIRequest(QNetworkAccessManager& nam, const QString& APIURL, const std
 			}
 
 			// Read raw data stream
-			const auto data = reply->readAll();
+			const auto data{ reply->readAll() };
 
 			// Parse JSON response
 			QJsonParseError error;
-			const auto document = QJsonDocument::fromJson(data, &error);
+			const auto document{ QJsonDocument::fromJson(data, &error) };
 
 			// Check for errors
 			if (document.isNull() || error.error != QJsonParseError::NoError) {

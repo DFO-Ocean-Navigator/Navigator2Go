@@ -14,6 +14,7 @@ public slots:
 	void copyFiles();
 
 signals:
+	void progress(const std::size_t percentDone);
 	void finished();
 	void error(const QString& error);
 

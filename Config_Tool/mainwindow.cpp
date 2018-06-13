@@ -7,6 +7,7 @@
 #include "jsonio.h"
 #include "process.h"
 #include "filecopyworker.h"
+#include "ioutils.h"
 
 #include <QMessageBox>
 #include <QFile>
@@ -214,6 +215,7 @@ void MainWindow::configureNetwork() {
 	// Follow server redirects for same domain only
 	m_networkManager.setRedirectPolicy(QNetworkRequest::RedirectPolicy::SameOriginRedirectPolicy);
 
+	// Configure downloader
 #ifdef QT_DEBUG
 	m_downloader.setDebug(true);
 	QObject::connect(&m_downloader, &QEasyDownloader::Debugger, this,
@@ -558,22 +560,33 @@ void MainWindow::on_pushButtonStopWebServer_clicked() {
 /***********************************************************************************/
 void MainWindow::on_pushButtonStartApache_clicked() {
 	if (!m_apacheRunning) {
+		QProcess process{this};
+		process.setProgram("/bin/sh");
+		process.setWorkingDirectory(IO::TOMCAT_BIN_DIR);
+		process.setArguments({"startup.sh"});
+
+		if (!process.startDetached()) {
+			QMessageBox::critical(this, tr("Error"), tr("Failed to start THREDDS server."));
+
+			return;
+		}
 
 		m_ui->labelStatusApache->setText(tr("Running"));
 		m_ui->labelStatusApache->setStyleSheet(COLOR_GREEN);
+		m_apacheRunning = true;
 	}
 }
 
 /***********************************************************************************/
 void MainWindow::on_pushButtonStopApache_clicked() {
 	if (m_apacheRunning) {
-		if (!QProcess::startDetached("pkill", {"java"})) {
-			QMessageBox box{this};
-			box.setWindowTitle(tr("Error"));
-			box.setText(tr("Failed to kill gUnicorn process. It might already be stopped. Use ps -aux | grep tomcat to verify."));
-			box.setIcon(QMessageBox::Critical);
+		QProcess process{this};
+		process.setProgram("/bin/sh");
+		process.setWorkingDirectory(IO::TOMCAT_BIN_DIR);
+		process.setArguments({"shutdown.sh"});
 
-			box.exec();
+		if (!process.startDetached()) {
+			QMessageBox::critical(this, tr("Error"), tr("Failed to stop THREDDS server."));
 
 			return;
 		}
@@ -598,10 +611,10 @@ void MainWindow::checkAndStartServers() {
 	}
 
 	// Apache tomcat
-	m_apacheRunning = IsProcessRunning("tomcat");
+	m_apacheRunning = IsProcessRunning("java");
 	if (!m_apacheRunning && m_prefs.AutoStartServers) {
-		//on_pushButtonStartApache_clicked();
-		//m_apacheRunning = true;
+		on_pushButtonStartApache_clicked();
+		m_apacheRunning = true;
 	}
 	if (m_apacheRunning) {
 		m_ui->labelStatusApache->setText(tr("Running"));
@@ -714,8 +727,11 @@ void MainWindow::on_pushButtonImportNetCDF_clicked() {
 	const auto files = QFileDialog::getOpenFileNames(this,
 													 tr("Select NetCDF files to import..."),
 													 QDir::currentPath(),
-													 "NetCDF Files (*)"
+													 "NetCDF Files (*.nc)"
 													 );
+	if (files.empty()) {
+		return;
+	}
 
 	m_workerThread = new QThread;
 	auto* worker = new IO::FileCopyWorker(files);
