@@ -2,7 +2,7 @@
 #include "dialogdatasetview.h"
 
 #include "htmlhighlighter.h"
-#include "api.h"
+#include "network.h"
 
 #include <QJsonValueRef>
 #include <QJsonArray>
@@ -102,7 +102,7 @@ void DialogDatasetView::SetData(const QJsonObject& datasetObj, QNetworkAccessMan
 		}
 	};
 
-	API::MakeAPIRequest(nam, "http://navigator.oceansdata.ca/api/variables/?dataset="+datasetIDString, variableReplyHandler);
+	Network::MakeAPIRequest(nam, "http://navigator.oceansdata.ca/api/variables/?dataset="+datasetIDString, variableReplyHandler);
 
 	// Figure out date range
 	const std::function<void(QJsonDocument)> timestampReplyHandler = [&](const auto& doc) {
@@ -121,7 +121,7 @@ void DialogDatasetView::SetData(const QJsonObject& datasetObj, QNetworkAccessMan
 		m_ui->calendarWidgetEnd->setSelectedDate(endDate);
 	};
 
-	API::MakeAPIRequest(nam, "http://navigator.oceansdata.ca/api/timestamps/?dataset="+datasetIDString, timestampReplyHandler);
+	Network::MakeAPIRequest(nam, "http://navigator.oceansdata.ca/api/timestamps/?dataset="+datasetIDString, timestampReplyHandler);
 
 	setReadOnlyUI();
 }

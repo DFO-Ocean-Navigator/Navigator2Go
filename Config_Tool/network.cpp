@@ -1,14 +1,14 @@
-#include "api.h"
+#include "network.h"
 
 #include <QNetworkReply>
 #include <QMessageBox>
 
 #include <memory>
 
-namespace API {
+namespace Network {
 
 /***********************************************************************************/
-void MakeAPIRequest(QNetworkAccessManager& nam, const QString& APIURL, const std::function<void(QJsonDocument)> replyHandler) {
+void MakeAPIRequest(QNetworkAccessManager& nam, const QString& APIURL, const std::function<void(QJsonDocument)> replyHandler, const std::function<void()> errorHandler) {
 
 	const QNetworkRequest request{APIURL};
 	// Send our request
@@ -20,7 +20,7 @@ void MakeAPIRequest(QNetworkAccessManager& nam, const QString& APIURL, const std
 	// to the following lambda. This allows the Access Manager
 	// to handle simultaneous requests
 	QObject::connect(reply, &QNetworkReply::finished, pcontext,
-		[context = std::move(context), replyHandler, reply]() mutable {
+		[context = std::move(context), replyHandler, errorHandler, reply]() mutable {
 			context.reset(); // Clear context
 
 			// Check for errors
@@ -28,6 +28,11 @@ void MakeAPIRequest(QNetworkAccessManager& nam, const QString& APIURL, const std
 				QMessageBox::critical(	nullptr,
 										QObject::tr("Network Error"),
 										reply->errorString());
+
+				if (errorHandler) {
+					errorHandler();
+				}
+
 				return;
 			}
 
@@ -58,4 +63,31 @@ void MakeAPIRequest(QNetworkAccessManager& nam, const QString& APIURL, const std
 	);
 }
 
-} // namespace API
+/***********************************************************************************/
+URLExistsRunnable::URLExistsRunnable(	const QString& urlString,
+										const std::function<void()> successHandler,
+										const std::function<void(const QString& errorString)> errorHandler) :	QRunnable{},
+																												m_url{urlString},
+																												m_successHandler{successHandler},
+																												m_errorHandler{errorHandler} {}
+/***********************************************************************************/
+void URLExistsRunnable::run() {
+	QTcpSocket socket;
+	socket.connectToHost(m_url.host(), 80);
+
+	if (socket.waitForConnected()) {
+		socket.write("HEAD " + m_url.path().toUtf8() + " HTTP/1.1\r\n"
+						"Host: " + m_url.host().toUtf8() + "\r\n\r\n");
+
+		if (socket.waitForReadyRead()) {
+			const auto bytes{ socket.readAll() };
+			if (bytes.contains("200 OK")) {
+				m_successHandler();
+			}
+		}
+	}
+
+	m_errorHandler(socket.errorString());
+}
+
+} // namespace Network

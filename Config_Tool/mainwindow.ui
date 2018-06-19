@@ -36,6 +36,9 @@
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
      <widget class="QTabWidget" name="tabWidget">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="tabShape">
        <enum>QTabWidget::Rounded</enum>
       </property>
@@ -220,6 +223,34 @@
              </property>
             </widget>
            </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="labelUpdate">
+             <property name="text">
+              <string>Update Available!</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QPushButton" name="pushButtonUpdate">
+             <property name="text">
+              <string>Update</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_16">
+             <property name="text">
+              <string>Check Dory Uplink:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QPushButton" name="pushButtonCheckDoryUplink">
+             <property name="text">
+              <string>Test</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </widget>
         </item>
@@ -233,6 +264,27 @@
        <attribute name="title">
         <string>API Tools</string>
        </attribute>
+       <widget class="QLabel" name="label_15">
+        <property name="geometry">
+         <rect>
+          <x>490</x>
+          <y>270</y>
+          <width>261</width>
+          <height>81</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Purisa</family>
+          <pointsize>15</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Coming soon...</string>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="datasets">
        <property name="sizePolicy">
@@ -682,6 +734,13 @@
          </layout>
         </item>
         <item>
+         <widget class="QLabel" name="label_14">
+          <property name="text">
+           <string>Double-click on a dataset to edit its properties.</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QListWidget" name="listWidgetActiveDatasets">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -693,6 +752,9 @@
            <font>
             <pointsize>12</pointsize>
            </font>
+          </property>
+          <property name="toolTip">
+           <string>Datasets inside current config file.</string>
           </property>
           <property name="frameShadow">
            <enum>QFrame::Sunken</enum>
@@ -767,6 +829,7 @@
     <property name="title">
      <string>Help</string>
     </property>
+    <addaction name="actionCheck_for_Updates"/>
     <addaction name="actionAbout"/>
     <addaction name="actionAbout_Qt"/>
    </widget>
@@ -802,6 +865,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+P</string>
+   </property>
+  </action>
+  <action name="actionCheck_for_Updates">
+   <property name="text">
+    <string>Check for Updates</string>
    </property>
   </action>
  </widget>

@@ -3,7 +3,7 @@
 
 #include "dialogdatasetview.h"
 #include "dialogpreferences.h"
-#include "api.h"
+#include "network.h"
 #include "jsonio.h"
 #include "process.h"
 #include "filecopyworker.h"
@@ -18,6 +18,7 @@
 #include <QNetworkReply>
 #include <QProcess>
 #include <QThread>
+#include <QThreadPool>
 
 #ifdef QT_DEBUG
 	#include <QDebug>
@@ -59,9 +60,17 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 
 	configureNetwork();
 
+	checkDoryConnection();
+
+	m_uplinkTimer.setInterval(300000); // Check for Dory uplink every 5 minutes.
+	QObject::connect(&m_uplinkTimer, &QTimer::timeout, this, &MainWindow::checkDoryConnection);
+	m_uplinkTimer.start();
+
 	if (m_firstRun) {
 		qDebug() << "First run";
 	}
+
+	checkForUpdates();
 
 	setDefaultConfigFile();
 
@@ -345,10 +354,17 @@ void MainWindow::updateDoryDatasetList() {
 		this->statusBar()->showMessage(tr("Dory dataset list updated."), STATUS_BAR_MSG_TIMEOUT);
 	};
 
+	const std::function<void()> errorHandler = [&]() {
+		m_ui->pushButtonUpdateDoryList->setEnabled(true);
+		m_ui->pushButtonUpdateDoryList->setText(tr("Update List"));
+
+		this->statusBar()->showMessage(tr("Failed to update Dory dataset list."), STATUS_BAR_MSG_TIMEOUT);
+	};
+
 	m_ui->pushButtonUpdateDoryList->setEnabled(false);
 	m_ui->pushButtonUpdateDoryList->setText(tr("Updating..."));
 
-	API::MakeAPIRequest(m_networkManager, "http://navigator.oceansdata.ca/api/datasets/", replyHandler);
+	Network::MakeAPIRequest(m_networkManager, "http://navigator.oceansdata.ca/api/datasets/", replyHandler, errorHandler);
 }
 
 /***********************************************************************************/
@@ -510,6 +526,11 @@ void MainWindow::setInitialLayout() {
 	m_ui->progressBarDownload->setVisible(false);
 
 	m_ui->labelDatasetTarget->setStyleSheet(COLOR_GREEN);
+
+	m_ui->labelUpdate->setStyleSheet(COLOR_GREEN);
+	m_ui->labelUpdate->setVisible(false);
+	m_ui->pushButtonUpdate->setEnabled(false);
+	m_ui->pushButtonUpdate->setVisible(false);
 }
 
 /***********************************************************************************/
@@ -708,6 +729,26 @@ int MainWindow::showUnsavedDataMessageBox() {
 }
 
 /***********************************************************************************/
+void MainWindow::checkForUpdates() {
+}
+
+/***********************************************************************************/
+void MainWindow::checkDoryConnection() {
+	const std::function<void()> success = [&]() {
+		qDebug() << "success";
+	};
+
+	const std::function<void(const QString&)> fail = [&](const auto& error) {
+		qDebug() << error;
+	};
+
+	// QThreadPool deletes automatically
+	auto* task{ new Network::URLExistsRunnable{"http://navigator.oceansdata.ca", success, fail} };
+
+	QThreadPool::globalInstance()->start(task);
+}
+
+/***********************************************************************************/
 void MainWindow::on_listWidgetDownloadQueue_itemDoubleClicked(QListWidgetItem* item) {
 	delete m_ui->listWidgetDownloadQueue->takeItem(m_ui->listWidgetDownloadQueue->row(item));
 }
@@ -798,4 +839,19 @@ void MainWindow::on_pushButtonLoadDefaultConfig_clicked() {
 
 	setDefaultConfigFile();
 	updateActiveDatasetListWidget();
+}
+
+/***********************************************************************************/
+void MainWindow::on_actionCheck_for_Updates_triggered() {
+
+}
+
+/***********************************************************************************/
+void MainWindow::on_pushButtonUpdate_clicked() {
+	checkForUpdates();
+}
+
+/***********************************************************************************/
+void MainWindow::on_pushButtonCheckDoryUplink_clicked() {
+	checkDoryConnection();
 }

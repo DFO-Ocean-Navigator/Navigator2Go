@@ -75,6 +75,12 @@ private slots:
 
 	void on_pushButtonLoadDefaultConfig_clicked();
 
+	void on_actionCheck_for_Updates_triggered();
+
+	void on_pushButtonUpdate_clicked();
+
+	void on_pushButtonCheckDoryUplink_clicked();
+
 private:
 	//
 	void readSettings();
@@ -98,10 +104,17 @@ private:
 	void saveConfigFile();
 	//
 	int showUnsavedDataMessageBox();
+	//
+	void checkForUpdates();
+	//
+	void checkDoryConnection();
 
 	Ui::MainWindow* m_ui{nullptr};
 
 	QThread* m_workerThread;
+
+	QTimer m_uplinkTimer{this};
+	bool m_hasDoryUplink{false};
 
 	bool m_firstRun{false};
 
