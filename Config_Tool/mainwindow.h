@@ -111,10 +111,10 @@ private:
 
 	Ui::MainWindow* m_ui{nullptr};
 
-	QThread* m_workerThread;
+	QThread* m_workerThread{nullptr};
 
 	QTimer m_uplinkTimer{this};
-	bool m_hasDoryUplink{false};
+	bool m_hasDoryUplink{true};
 
 	bool m_firstRun{false};
 

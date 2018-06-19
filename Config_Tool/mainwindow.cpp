@@ -734,16 +734,57 @@ void MainWindow::checkForUpdates() {
 
 /***********************************************************************************/
 void MainWindow::checkDoryConnection() {
-	const std::function<void()> success = [&]() {
-		qDebug() << "success";
-	};
-
-	const std::function<void(const QString&)> fail = [&](const auto& error) {
-		qDebug() << error;
-	};
-
 	// QThreadPool deletes automatically
-	auto* task{ new Network::URLExistsRunnable{"http://navigator.oceansdata.ca", success, fail} };
+	auto* task{ new Network::URLExistsRunnable{"http://navigator.oceansdata.ca/public"} };
+
+	// Setup connection
+	QObject::connect(task, &Network::URLExistsRunnable::urlResult, this, [&](const auto success) {
+		QMessageBox box{this};
+
+		if (success) {
+			if (!m_hasDoryUplink) {
+				m_hasDoryUplink = true;
+
+				box.setWindowTitle(tr("Dory uplink restored..."));
+				box.setIcon(QMessageBox::Information);
+				box.setText(tr("You have restored connection to Dory. Nice job! Would you like to switch to your Dory's datasets?"));
+				box.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+
+				if (box.exec() == QMessageBox::Yes) {
+					qDebug() << "changing to online";
+				}
+			}
+
+			this->m_ui->labelDoryUplink->setText(tr("Online"));
+			this->m_ui->labelDoryUplink->setStyleSheet(COLOR_GREEN);
+			this->statusBar()->showMessage(tr("Dory uplink test successful."), STATUS_BAR_MSG_TIMEOUT);
+		}
+		else {
+			if (m_hasDoryUplink) {
+				m_hasDoryUplink = false;
+
+				box.setWindowTitle(tr("Dory uplink lost..."));
+				box.setIcon(QMessageBox::Warning);
+				box.setText(tr("You have lost connection to Dory. Would you like to switch to your local datasets?"));
+				box.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+
+				if (box.exec() == QMessageBox::Yes) {
+					qDebug() << "YEET";
+				}
+			}
+
+			this->m_ui->labelDoryUplink->setText(tr("Offline"));
+			this->m_ui->labelDoryUplink->setStyleSheet(COLOR_RED);
+			this->statusBar()->showMessage(tr("Dory uplink test failed"), STATUS_BAR_MSG_TIMEOUT);
+		}
+
+		m_ui->pushButtonCheckDoryUplink->setEnabled(true);
+		m_ui->pushButtonCheckDoryUplink->setText(tr("Test"));
+
+	}, Qt::BlockingQueuedConnection); // <-- Check out this magic...this would segfault otherwise
+
+	m_ui->pushButtonCheckDoryUplink->setEnabled(false);
+	m_ui->pushButtonCheckDoryUplink->setText(tr("Checking..."));
 
 	QThreadPool::globalInstance()->start(task);
 }

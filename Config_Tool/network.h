@@ -20,19 +20,18 @@ void MakeAPIRequest(QNetworkAccessManager& nam,
 					);
 
 /***********************************************************************************/
-class URLExistsRunnable : public QRunnable {
-
+class URLExistsRunnable : public QObject, public QRunnable {
+	Q_OBJECT
 public:
-	URLExistsRunnable(const QString& urlString,
-					  const std::function<void()> successHandler,
-					  const std::function<void(const QString&)> errorHandler);
+	URLExistsRunnable(const QString& urlString);
 
 	void run() override;
 
+signals:
+	void urlResult(const bool success);
+
 private:
 	const QUrl m_url;
-	const std::function<void()> m_successHandler{nullptr};
-	const std::function<void(const QString&)> m_errorHandler{nullptr};
 };
 
 } // namespace Network

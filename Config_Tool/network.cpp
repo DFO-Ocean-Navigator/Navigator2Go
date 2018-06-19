@@ -64,14 +64,13 @@ void MakeAPIRequest(QNetworkAccessManager& nam, const QString& APIURL, const std
 }
 
 /***********************************************************************************/
-URLExistsRunnable::URLExistsRunnable(	const QString& urlString,
-										const std::function<void()> successHandler,
-										const std::function<void(const QString& errorString)> errorHandler) :	QRunnable{},
-																												m_url{urlString},
-																												m_successHandler{successHandler},
-																												m_errorHandler{errorHandler} {}
+URLExistsRunnable::URLExistsRunnable(const QString& urlString) :	QRunnable{},
+																	m_url{urlString} {}
+
 /***********************************************************************************/
 void URLExistsRunnable::run() {
+	bool succ{false};
+
 	QTcpSocket socket;
 	socket.connectToHost(m_url.host(), 80);
 
@@ -80,14 +79,11 @@ void URLExistsRunnable::run() {
 						"Host: " + m_url.host().toUtf8() + "\r\n\r\n");
 
 		if (socket.waitForReadyRead()) {
-			const auto bytes{ socket.readAll() };
-			if (bytes.contains("200 OK")) {
-				m_successHandler();
-			}
+			succ = true;
 		}
 	}
 
-	m_errorHandler(socket.errorString());
+	emit urlResult(succ);
 }
 
 } // namespace Network
