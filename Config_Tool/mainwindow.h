@@ -79,7 +79,7 @@ private slots:
 
 	void on_pushButtonUpdate_clicked();
 
-	void on_pushButtonCheckDoryUplink_clicked();
+	void on_pushButtonCheckRemoteUplink_clicked();
 
 private:
 	//
@@ -89,7 +89,7 @@ private:
 	//
 	void configureNetwork();
 	//
-	void updateDoryDatasetList();
+	void updateRemoteDatasetList();
 	//
 	void updateActiveDatasetListWidget();
 	//
@@ -107,7 +107,7 @@ private:
 	//
 	void checkForUpdates();
 	//
-	void checkDoryConnection();
+	void checkRemoteConnection();
 	//
 	void setOnline();
 	//
@@ -120,7 +120,7 @@ private:
 	QThread* m_workerThread{nullptr};
 
 	QTimer m_uplinkTimer{this};
-	bool m_hasDoryUplink{true};
+	bool m_hasRemoteUplink{true};
 
 	bool m_firstRun{false};
 

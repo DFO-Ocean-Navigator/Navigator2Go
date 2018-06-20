@@ -60,10 +60,10 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 
 	configureNetwork();
 
-	checkDoryConnection();
+	checkRemoteConnection();
 
 	m_uplinkTimer.setInterval(300000); // Check for Dory uplink every 5 minutes.
-	QObject::connect(&m_uplinkTimer, &QTimer::timeout, this, &MainWindow::checkDoryConnection);
+	QObject::connect(&m_uplinkTimer, &QTimer::timeout, this, &MainWindow::checkRemoteConnection);
 	m_uplinkTimer.start();
 
 	if (m_firstRun) {
@@ -75,8 +75,8 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 	setDefaultConfigFile();
 	updateConfigTargetUI();
 
-	if (m_prefs.UpdateDoryListOnStart) {
-		updateDoryDatasetList();
+	if (m_prefs.UpdateRemoteListOnStart) {
+		updateRemoteDatasetList();
 	}
 	updateActiveDatasetListWidget();
 
@@ -181,11 +181,18 @@ void MainWindow::readSettings() {
 		m_prefs.ONInstallDir = "/opt/tools/Ocean-Data-Map-Project/";
 	}
 
-	if (settings.contains("UpdateDoryListOnStart")) {
-		m_prefs.UpdateDoryListOnStart = settings.value("UpdateDoryListOnStart").toBool();
+	if (settings.contains("RemoteURL")) {
+		m_prefs.RemoteURL = settings.value("RemoteURL").toString();
 	}
 	else {
-		m_prefs.UpdateDoryListOnStart = true;
+		m_prefs.RemoteURL = "http://www.navigator.oceansdata.ca/";
+	}
+
+	if (settings.contains("UpdateRemoteListOnStart")) {
+		m_prefs.UpdateRemoteListOnStart = settings.value("UpdateRemoteListOnStart").toBool();
+	}
+	else {
+		m_prefs.UpdateRemoteListOnStart = true;
 	}
 
 	if (settings.contains("AutoStartServers")) {
@@ -213,7 +220,7 @@ void MainWindow::writeSettings() const {
 
 	settings.setValue("FirstRun", false);
 	settings.setValue("ONInstallDir", m_prefs.ONInstallDir);
-	settings.setValue("UpdateDoryListOnStart", m_prefs.UpdateDoryListOnStart);
+	settings.setValue("UpdateRemoteListOnStart", m_prefs.UpdateRemoteListOnStart);
 	settings.setValue("AutoStartServers", m_prefs.AutoStartServers);
 	settings.setValue("IsOnline", m_prefs.IsOnline);
 
@@ -333,8 +340,8 @@ void MainWindow::configureNetwork() {
 }
 
 /***********************************************************************************/
-void MainWindow::updateDoryDatasetList() {
-	statusBar()->showMessage(tr("Updating Dory dataset list..."), STATUS_BAR_MSG_TIMEOUT);
+void MainWindow::updateRemoteDatasetList() {
+	statusBar()->showMessage(tr("Updating remote dataset list..."), STATUS_BAR_MSG_TIMEOUT);
 
 	const std::function<void(QJsonDocument)> replyHandler = [&](const auto& doc) {
 		const auto root = doc.array();
@@ -352,20 +359,20 @@ void MainWindow::updateDoryDatasetList() {
 		m_ui->pushButtonUpdateDoryList->setEnabled(true);
 		m_ui->pushButtonUpdateDoryList->setText(tr("Update List"));
 
-		this->statusBar()->showMessage(tr("Dory dataset list updated."), STATUS_BAR_MSG_TIMEOUT);
+		this->statusBar()->showMessage(tr("Remote dataset list updated."), STATUS_BAR_MSG_TIMEOUT);
 	};
 
 	const std::function<void()> errorHandler = [&]() {
 		m_ui->pushButtonUpdateDoryList->setEnabled(true);
 		m_ui->pushButtonUpdateDoryList->setText(tr("Update List"));
 
-		this->statusBar()->showMessage(tr("Failed to update Dory dataset list."), STATUS_BAR_MSG_TIMEOUT);
+		this->statusBar()->showMessage(tr("Failed to update remote dataset list."), STATUS_BAR_MSG_TIMEOUT);
 	};
 
 	m_ui->pushButtonUpdateDoryList->setEnabled(false);
 	m_ui->pushButtonUpdateDoryList->setText(tr("Updating..."));
 
-	Network::MakeAPIRequest(m_networkManager, "http://navigator.oceansdata.ca/api/datasets/", replyHandler, errorHandler);
+	Network::MakeAPIRequest(m_networkManager, m_prefs.RemoteURL+"/api/datasets/", replyHandler, errorHandler);
 }
 
 /***********************************************************************************/
@@ -433,7 +440,7 @@ void MainWindow::on_tabWidget_currentChanged(int index) {
 
 /***********************************************************************************/
 void MainWindow::on_pushButtonUpdateDoryList_clicked() {
-	updateDoryDatasetList();
+	updateRemoteDatasetList();
 }
 
 /***********************************************************************************/
@@ -749,21 +756,21 @@ void MainWindow::checkForUpdates() {
 }
 
 /***********************************************************************************/
-void MainWindow::checkDoryConnection() {
+void MainWindow::checkRemoteConnection() {
 	// QThreadPool deletes automatically
-	auto* task{ new Network::URLExistsRunnable{"http://navigator.oceansdata.ca/public"} };
+	auto* task{ new Network::URLExistsRunnable{m_prefs.RemoteURL} };
 
 	// Setup connection
 	QObject::connect(task, &Network::URLExistsRunnable::urlResult, this, [&](const auto success) {
 		QMessageBox box{this};
 
 		if (success) {
-			if (!m_hasDoryUplink) {
-				m_hasDoryUplink = true;
+			if (!m_hasRemoteUplink) {
+				m_hasRemoteUplink = true;
 
-				box.setWindowTitle(tr("Dory uplink restored..."));
+				box.setWindowTitle(tr("Remote uplink restored..."));
 				box.setIcon(QMessageBox::Information);
-				box.setText(tr("You have restored connection to Dory. Nice job! Would you like to switch to your Dory's datasets?"));
+				box.setText(tr("You have restored connection to the remote server. Nice job! Would you like to switch to your remote server's datasets?"));
 				box.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
 
 				if (box.exec() == QMessageBox::Yes) {
@@ -771,18 +778,18 @@ void MainWindow::checkDoryConnection() {
 				}
 			}
 
-			this->m_ui->labelDoryUplink->setText(tr("Online"));
-			this->m_ui->labelDoryUplink->setStyleSheet(COLOR_GREEN);
-			this->statusBar()->showMessage(tr("Dory uplink test successful."), STATUS_BAR_MSG_TIMEOUT);
-			this->updateDoryDatasetList();
+			this->m_ui->labelRemoteUplink->setText(tr("Online"));
+			this->m_ui->labelRemoteUplink->setStyleSheet(COLOR_GREEN);
+			this->statusBar()->showMessage(tr("Remote uplink test successful."), STATUS_BAR_MSG_TIMEOUT);
+			this->updateRemoteDatasetList();
 		}
 		else {
-			if (m_hasDoryUplink) {
-				m_hasDoryUplink = false;
+			if (m_hasRemoteUplink) {
+				m_hasRemoteUplink = false;
 
-				box.setWindowTitle(tr("Dory uplink lost..."));
+				box.setWindowTitle(tr("Remote uplink lost..."));
 				box.setIcon(QMessageBox::Warning);
-				box.setText(tr("You have lost connection to Dory. Would you like to switch to your local datasets?"));
+				box.setText(tr("You have lost connection to the remote server. Would you like to switch to your local datasets?"));
 				box.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
 
 				if (box.exec() == QMessageBox::Yes) {
@@ -790,18 +797,18 @@ void MainWindow::checkDoryConnection() {
 				}
 			}
 
-			this->m_ui->labelDoryUplink->setText(tr("Offline"));
-			this->m_ui->labelDoryUplink->setStyleSheet(COLOR_RED);
-			this->statusBar()->showMessage(tr("Dory uplink test failed"), STATUS_BAR_MSG_TIMEOUT);
+			this->m_ui->labelRemoteUplink->setText(tr("Offline"));
+			this->m_ui->labelRemoteUplink->setStyleSheet(COLOR_RED);
+			this->statusBar()->showMessage(tr("Remote uplink test failed"), STATUS_BAR_MSG_TIMEOUT);
 		}
 
-		m_ui->pushButtonCheckDoryUplink->setEnabled(true);
-		m_ui->pushButtonCheckDoryUplink->setText(tr("Test"));
+		m_ui->pushButtonCheckRemoteUplink->setEnabled(true);
+		m_ui->pushButtonCheckRemoteUplink->setText(tr("Test"));
 
 	}, Qt::BlockingQueuedConnection); // <-- Check out this magic...this would segfault otherwise
 
-	m_ui->pushButtonCheckDoryUplink->setEnabled(false);
-	m_ui->pushButtonCheckDoryUplink->setText(tr("Checking..."));
+	m_ui->pushButtonCheckRemoteUplink->setEnabled(false);
+	m_ui->pushButtonCheckRemoteUplink->setText(tr("Checking..."));
 
 	QThreadPool::globalInstance()->start(task);
 }
@@ -931,6 +938,6 @@ void MainWindow::on_pushButtonUpdate_clicked() {
 }
 
 /***********************************************************************************/
-void MainWindow::on_pushButtonCheckDoryUplink_clicked() {
-	checkDoryConnection();
+void MainWindow::on_pushButtonCheckRemoteUplink_clicked() {
+	checkRemoteConnection();
 }

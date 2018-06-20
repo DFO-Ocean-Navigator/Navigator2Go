@@ -16,7 +16,8 @@ DialogPreferences::~DialogPreferences() {
 /***********************************************************************************/
 void DialogPreferences::SetPreferences(Preferences& settings) {
 	m_ui->lineEditInstallDir->setText(settings.ONInstallDir);
-	m_ui->switchUpdateDoryDatasetsOnStart->setChecked(settings.UpdateDoryListOnStart);
+	m_ui->lineEditRemoteURL->setText(settings.RemoteURL);
+	m_ui->switchUpdateDoryDatasetsOnStart->setChecked(settings.UpdateRemoteListOnStart);
 	m_ui->switchAutoStartServers->setChecked(settings.AutoStartServers);
 	m_ui->switchOnlineOffline->setChecked(settings.IsOnline);
 }
@@ -25,6 +26,7 @@ void DialogPreferences::SetPreferences(Preferences& settings) {
 auto DialogPreferences::GetPreferences() const noexcept -> Preferences {
 	return {
 		m_ui->lineEditInstallDir->text(),
+		m_ui->lineEditRemoteURL->text(),
 		m_ui->switchUpdateDoryDatasetsOnStart->isChecked(),
 		m_ui->switchAutoStartServers->isChecked(),
 		m_ui->switchOnlineOffline->isChecked()
@@ -46,3 +48,4 @@ void DialogPreferences::on_pushButtonBrowseInstallDir_clicked() {
 		m_ui->lineEditInstallDir->setText(dir);
 	}
 }
+

@@ -10,13 +10,14 @@ struct Preferences {
 
 	auto operator==(const Preferences& rhs) const noexcept {
 		return ONInstallDir == rhs.ONInstallDir &&
-				UpdateDoryListOnStart == rhs.UpdateDoryListOnStart &&
+				UpdateRemoteListOnStart == rhs.UpdateRemoteListOnStart &&
 				AutoStartServers == rhs.AutoStartServers &&
 				IsOnline == rhs.IsOnline;
 	}
 
 	QString ONInstallDir;				// Ocean Navigator installation directory
-	bool UpdateDoryListOnStart{true};	// Should we update dataset list from dory when starting
+	QString RemoteURL;
+	bool UpdateRemoteListOnStart{true};	// Should we update dataset list from dory when starting
 	bool AutoStartServers{false};		// Should we start gUnicorn and THREDDS on program start?
 	bool IsOnline{true};				// Online or Offline? This determines the active config file.
 };

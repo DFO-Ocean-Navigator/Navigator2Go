@@ -182,12 +182,12 @@
              <item row="2" column="0">
               <widget class="QLabel" name="label_17">
                <property name="text">
-                <string>Dory Uplink:</string>
+                <string>Remote Uplink:</string>
                </property>
               </widget>
              </item>
              <item row="2" column="1">
-              <widget class="QLabel" name="labelDoryUplink">
+              <widget class="QLabel" name="labelRemoteUplink">
                <property name="text">
                 <string>TextLabel</string>
                </property>
@@ -254,12 +254,12 @@
            <item row="3" column="0">
             <widget class="QLabel" name="label_16">
              <property name="text">
-              <string>Check Dory Uplink:</string>
+              <string>Check Remote Uplink:</string>
              </property>
             </widget>
            </item>
            <item row="3" column="1">
-            <widget class="QPushButton" name="pushButtonCheckDoryUplink">
+            <widget class="QPushButton" name="pushButtonCheckRemoteUplink">
              <property name="text">
               <string>Test</string>
              </property>
