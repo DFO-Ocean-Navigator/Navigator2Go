@@ -73,6 +73,7 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 	checkForUpdates();
 
 	setDefaultConfigFile();
+	updateConfigTargetUI();
 
 	if (m_prefs.UpdateDoryListOnStart) {
 		updateDoryDatasetList();
@@ -81,7 +82,7 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 
 	checkAndStartServers();
 
-	setWindowTitle(tr("Navigator2Go"));
+	setWindowTitle(tr("Navigator2Go - Beta Build"));
 
 	setInitialLayout();
 }
@@ -377,7 +378,7 @@ void MainWindow::updateActiveDatasetListWidget() {
 	}
 
 	m_ui->labelActiveConfigFile->setVisible(true);
-	m_ui->labelActiveConfigFile->setText(QString("Active Config File: ") + QFileInfo(m_activeConfigFile).fileName());
+	m_ui->labelActiveConfigFile->setText(tr("Active Config File: ") + QFileInfo(m_activeConfigFile).fileName());
 	m_ui->buttonAddDataset->setEnabled(true);
 	m_ui->pushButtonDeleteDataset->setEnabled(true);
 }
@@ -644,6 +645,16 @@ void MainWindow::checkAndStartServers() {
 }
 
 /***********************************************************************************/
+void MainWindow::updateConfigTargetUI() {
+	if (m_prefs.IsOnline) {
+		m_ui->labelDatasetTarget->setText(tr("Remote Storage (Dory)"));
+	}
+	else {
+		m_ui->labelDatasetTarget->setText(tr("Local Storage"));
+	}
+}
+
+/***********************************************************************************/
 void MainWindow::setDefaultConfigFile() {
 	const static auto onlineConfig{ m_prefs.ONInstallDir+"/oceannavigator/datasetconfigONLINE.json" };
 	const static auto offlineConfig{ m_prefs.ONInstallDir+"/oceannavigator/datasetconfigOFFLINE.json" };
@@ -661,6 +672,18 @@ void MainWindow::setDefaultConfigFile() {
 	if (doc.isNull()) {
 #ifdef QT_DEBUG
 		qDebug() << "Config file not found: " << newConfigFile;
+#endif
+		QMessageBox box{this};
+		box.setWindowTitle(tr("File not found..."));
+		box.setText(tr("No default config file was found. Do you want to create one at: ")
+					+ m_prefs.ONInstallDir+"/oceannavigator/"+newConfigFile);
+		box.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+		box.setIcon(QMessageBox::Question);
+
+		if (box.exec() != QMessageBox::Yes) {
+			return;
+		}
+#ifdef QT_DEBUG
 		qDebug() << "Creating it...";
 #endif
 		// File doesn't exist so create it
@@ -668,18 +691,11 @@ void MainWindow::setDefaultConfigFile() {
 
 		// And now load it
 		doc = IO::LoadJSONFile(newConfigFile);
+
 	}
 
 	m_activeConfigFile = newConfigFile;
 	m_documentRootObject = doc.object();
-
-	// Update UI text
-	if (m_prefs.IsOnline) {
-		m_ui->labelDatasetTarget->setText(tr("Remote Storage (Dory)"));
-	}
-	else {
-		m_ui->labelDatasetTarget->setText(tr("Local Storage"));
-	}
 
 	statusBar()->showMessage(tr("Config file loaded: ") + m_activeConfigFile, STATUS_BAR_MSG_TIMEOUT);
 }
@@ -751,13 +767,14 @@ void MainWindow::checkDoryConnection() {
 				box.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
 
 				if (box.exec() == QMessageBox::Yes) {
-					qDebug() << "changing to online";
+					this->setOnline();
 				}
 			}
 
 			this->m_ui->labelDoryUplink->setText(tr("Online"));
 			this->m_ui->labelDoryUplink->setStyleSheet(COLOR_GREEN);
 			this->statusBar()->showMessage(tr("Dory uplink test successful."), STATUS_BAR_MSG_TIMEOUT);
+			this->updateDoryDatasetList();
 		}
 		else {
 			if (m_hasDoryUplink) {
@@ -769,7 +786,7 @@ void MainWindow::checkDoryConnection() {
 				box.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
 
 				if (box.exec() == QMessageBox::Yes) {
-					qDebug() << "YEET";
+					this->setOffline();
 				}
 			}
 
@@ -787,6 +804,26 @@ void MainWindow::checkDoryConnection() {
 	m_ui->pushButtonCheckDoryUplink->setText(tr("Checking..."));
 
 	QThreadPool::globalInstance()->start(task);
+}
+
+/***********************************************************************************/
+void MainWindow::setOnline() {
+#ifdef QT_DEBUG
+	qDebug() << "Changing to online.";
+#endif
+	m_prefs.IsOnline = true;
+	setDefaultConfigFile();
+	updateConfigTargetUI();
+}
+
+/***********************************************************************************/
+void MainWindow::setOffline() {
+#ifdef QT_DEBUG
+	qDebug() << "Changing to offline.";
+#endif
+	m_prefs.IsOnline = false;
+	setDefaultConfigFile();
+	updateConfigTargetUI();
 }
 
 /***********************************************************************************/
@@ -879,6 +916,7 @@ void MainWindow::on_pushButtonLoadDefaultConfig_clicked() {
 	}
 
 	setDefaultConfigFile();
+	updateConfigTargetUI();
 	updateActiveDatasetListWidget();
 }
 

@@ -108,6 +108,12 @@ private:
 	void checkForUpdates();
 	//
 	void checkDoryConnection();
+	//
+	void setOnline();
+	//
+	void setOffline();
+	//
+	void updateConfigTargetUI();
 
 	Ui::MainWindow* m_ui{nullptr};
 
