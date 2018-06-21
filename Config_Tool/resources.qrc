@@ -14,5 +14,6 @@
         <file>icons/bbox.png</file>
         <file>icons/pencil</file>
         <file>icons/folder.png</file>
+        <file>icons/terminal.png</file>
     </qresource>
 </RCC>

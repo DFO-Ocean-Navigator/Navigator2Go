@@ -62,7 +62,7 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 
 	checkRemoteConnection();
 
-	m_uplinkTimer.setInterval(300000); // Check for Dory uplink every 5 minutes.
+	m_uplinkTimer.setInterval(300000); // Check for remote uplink every 5 minutes.
 	QObject::connect(&m_uplinkTimer, &QTimer::timeout, this, &MainWindow::checkRemoteConnection);
 	m_uplinkTimer.start();
 
@@ -166,8 +166,9 @@ void MainWindow::closeEvent(QCloseEvent* event) {
 
 /***********************************************************************************/
 void MainWindow::readSettings() {
-	QSettings settings{"OceanNavigator", "Config Tool"};
+	QSettings settings{"Fisheries and Oceans Canada", "Navigator2Go"};
 
+	// General
 	settings.beginGroup("General");
 
 	if (!settings.contains("FirstRun")) {
@@ -178,7 +179,7 @@ void MainWindow::readSettings() {
 		m_prefs.ONInstallDir = settings.value("ONInstallDir").toString();
 	}
 	else {
-		m_prefs.ONInstallDir = "/opt/tools/Ocean-Data-Map-Project/";
+		m_prefs.ONInstallDir = "/opt/Ocean-Data-Map-Project/";
 	}
 
 	if (settings.contains("RemoteURL")) {
@@ -210,12 +211,26 @@ void MainWindow::readSettings() {
 	}
 
 	settings.endGroup();
+
+	// DataOrder
+	settings.beginGroup("DataOrder");
+
+	// If the settings has MinLat, it has all the points
+	if (settings.contains("MinLat")) {
+		m_ui->spinboxMinLat->setValue(settings.value("MinLat").toDouble());
+		m_ui->spinboxMaxLat->setValue(settings.value("MaxLat").toDouble());
+		m_ui->spinboxMinLon->setValue(settings.value("MinLon").toDouble());
+		m_ui->spinboxMaxLon->setValue(settings.value("MaxLon").toDouble());
+	}
+
+	settings.endGroup();
 }
 
 /***********************************************************************************/
 void MainWindow::writeSettings() const {
-	QSettings settings{"OceanNavigator", "Config Tool"};
+	QSettings settings{"Fisheries and Oceans Canada", "Navigator2Go"};
 
+	// General
 	settings.beginGroup("General");
 
 	settings.setValue("FirstRun", false);
@@ -223,6 +238,16 @@ void MainWindow::writeSettings() const {
 	settings.setValue("UpdateRemoteListOnStart", m_prefs.UpdateRemoteListOnStart);
 	settings.setValue("AutoStartServers", m_prefs.AutoStartServers);
 	settings.setValue("IsOnline", m_prefs.IsOnline);
+
+	settings.endGroup();
+
+	// DataOrder
+	settings.beginGroup("DataOrder");
+
+	settings.setValue("MinLat", m_ui->spinboxMinLat->value());
+	settings.setValue("MaxLat", m_ui->spinboxMaxLat->value());
+	settings.setValue("MinLon", m_ui->spinboxMinLon->value());
+	settings.setValue("MaxLon", m_ui->spinboxMaxLon->value());
 
 	settings.endGroup();
 }
@@ -404,6 +429,8 @@ void MainWindow::on_actionPreferences_triggered() {
 		setDefaultConfigFile();
 
 		updateActiveDatasetListWidget();
+
+		updateConfigTargetUI();
 
 		// Show a notification to restart gUnicorn
 		// is network status changed
@@ -654,7 +681,7 @@ void MainWindow::checkAndStartServers() {
 /***********************************************************************************/
 void MainWindow::updateConfigTargetUI() {
 	if (m_prefs.IsOnline) {
-		m_ui->labelDatasetTarget->setText(tr("Remote Storage (Dory)"));
+		m_ui->labelDatasetTarget->setText(tr("Remote Storage: \n") + m_prefs.RemoteURL);
 	}
 	else {
 		m_ui->labelDatasetTarget->setText(tr("Local Storage"));
@@ -929,7 +956,7 @@ void MainWindow::on_pushButtonLoadDefaultConfig_clicked() {
 
 /***********************************************************************************/
 void MainWindow::on_actionCheck_for_Updates_triggered() {
-
+	checkForUpdates();
 }
 
 /***********************************************************************************/

@@ -10,6 +10,7 @@ struct Preferences {
 
 	auto operator==(const Preferences& rhs) const noexcept {
 		return ONInstallDir == rhs.ONInstallDir &&
+				RemoteURL == rhs.RemoteURL &&
 				UpdateRemoteListOnStart == rhs.UpdateRemoteListOnStart &&
 				AutoStartServers == rhs.AutoStartServers &&
 				IsOnline == rhs.IsOnline;
