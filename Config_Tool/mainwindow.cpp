@@ -729,7 +729,7 @@ void MainWindow::setDefaultConfigFile() {
 		QMessageBox box{this};
 		box.setWindowTitle(tr("File not found..."));
 		box.setText(tr("No default config file was found. Do you want to create one at: ")
-					+ m_prefs.ONInstallDir+"/oceannavigator/"+newConfigFile);
+					+ newConfigFile);
 		box.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
 		box.setIcon(QMessageBox::Question);
 
