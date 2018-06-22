@@ -82,7 +82,7 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 
 	checkAndStartServers();
 
-	setWindowTitle(tr("Navigator2Go - Beta Build"));
+	setWindowTitle(tr("Navigator2Go - Alpha Build"));
 
 	setInitialLayout();
 }

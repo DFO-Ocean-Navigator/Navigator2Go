@@ -144,13 +144,6 @@ private:
 
 	QHash<QString, DataDownloadDesc> m_downloadQueue;
 
-	// Location for THREDDS datasets
-#ifdef QT_DEBUG
-	QString m_threddsRootDatasetLocation{"/home/nabil/"};
-#else
-	QString m_threddsRootDatasetLocation{""}
-#endif
-
 	std::size_t m_numDownloadsComplete{0};
 
 	// Which servers are running locally
