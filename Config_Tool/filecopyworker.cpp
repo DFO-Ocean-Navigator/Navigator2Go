@@ -14,8 +14,8 @@ FileCopyWorker::FileCopyWorker(const QStringList& fileList, QObject* parent) :	Q
 /***********************************************************************************/
 void FileCopyWorker::copyFiles() {
 
-	const auto stepSize = 100 * (1 / static_cast<std::size_t>(m_fileList.size()));
-	std::size_t currentStep = 0;
+	const auto stepSize{ 100 * (1 / static_cast<std::size_t>(m_fileList.size())) };
+	std::size_t currentStep{ 0 };
 
 	for (const auto& filePath : m_fileList) {
 		const auto fileName{ QFileInfo{filePath}.fileName() };

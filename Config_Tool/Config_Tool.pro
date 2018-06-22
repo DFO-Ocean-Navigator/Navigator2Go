@@ -42,13 +42,13 @@ SOURCES += \
     htmlhighlighter.cpp \
     dialogpreferences.cpp \
     QEasyDownloader.cc \
-    downloaddata.cpp \
     process.cpp \
     switchwidget.cpp \
     filecopyworker.cpp \
     jsonio.cpp \
     ioutils.cpp \
-    network.cpp
+    network.cpp \
+    datadownloaddesc.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -56,7 +56,6 @@ HEADERS += \
     htmlhighlighter.h \
     dialogpreferences.h \
     preferences.h \
-    downloaddata.h \
     defines.h \
     QEasyDownloader.hpp \
     process.h \
@@ -64,7 +63,8 @@ HEADERS += \
     filecopyworker.h \
     jsonio.h \
     ioutils.h \
-    network.h
+    network.h \
+    datadownloaddesc.h
 
 FORMS += \
         mainwindow.ui \

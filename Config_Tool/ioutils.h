@@ -1,7 +1,7 @@
 #ifndef IOUTILS_H
 #define IOUTILS_H
 
-#include "downloaddata.h"
+#include "datadownloaddesc.h"
 
 #include <QString>
 
@@ -16,7 +16,7 @@ const constexpr auto THREDDS_DATA_DIR{ "" };
 // can read it
 QString FindPathForDataset(const QString& filename);
 
-QString FindPathForDataset(const DownloadData& data);
+QString FindPathForDataset(const DataDownloadDesc& data);
 
 } // namespace IO
 

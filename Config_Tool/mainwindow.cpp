@@ -189,6 +189,13 @@ void MainWindow::readSettings() {
 		m_prefs.RemoteURL = "http://www.navigator.oceansdata.ca/";
 	}
 
+	if (settings.contains("THREDDSDataLocation")) {
+		m_prefs.THREDDSDataLocation = settings.value("THREDDSDataLocation").toString();
+	}
+	else {
+		m_prefs.THREDDSDataLocation = "";
+	}
+
 	if (settings.contains("UpdateRemoteListOnStart")) {
 		m_prefs.UpdateRemoteListOnStart = settings.value("UpdateRemoteListOnStart").toBool();
 	}
@@ -235,6 +242,8 @@ void MainWindow::writeSettings() const {
 
 	settings.setValue("FirstRun", false);
 	settings.setValue("ONInstallDir", m_prefs.ONInstallDir);
+	settings.setValue("RemoteURL", m_prefs.RemoteURL);
+	settings.setValue("THREDDSDataLocation", m_prefs.THREDDSDataLocation);
 	settings.setValue("UpdateRemoteListOnStart", m_prefs.UpdateRemoteListOnStart);
 	settings.setValue("AutoStartServers", m_prefs.AutoStartServers);
 	settings.setValue("IsOnline", m_prefs.IsOnline);
@@ -285,7 +294,7 @@ void MainWindow::configureNetwork() {
 						this->statusBar()->showMessage(tr(" download complete."), STATUS_BAR_MSG_TIMEOUT);
 
 						++this->m_numDownloadsComplete;
-						const auto percent = 100 * (this->m_numDownloadsComplete / static_cast<std::size_t>(this->m_downloadQueue.size()));
+						const auto percent{ 100 * (this->m_numDownloadsComplete / static_cast<std::size_t>(this->m_downloadQueue.size())) };
 						this->m_ui->progressBarDownload->setValue(static_cast<int>(percent));
 					}
 	);
@@ -369,13 +378,13 @@ void MainWindow::updateRemoteDatasetList() {
 	statusBar()->showMessage(tr("Updating remote dataset list..."), STATUS_BAR_MSG_TIMEOUT);
 
 	const std::function<void(QJsonDocument)> replyHandler = [&](const auto& doc) {
-		const auto root = doc.array();
+		const auto root{ doc.array() };
 
 		m_ui->listWidgetDoryDatasets->clear();
 		m_datasetsAPIResultCache.clear();
 
 		for (const auto& dataset : root) {
-			const auto valueString = dataset["value"].toString();
+			const auto valueString{ dataset["value"].toString() };
 			m_ui->listWidgetDoryDatasets->addItem(valueString);
 
 			m_datasetsAPIResultCache.insert(valueString, dataset.toObject());
@@ -423,7 +432,7 @@ void MainWindow::on_actionPreferences_triggered() {
 
 	if (prefsDialog.exec()) {
 		// Store previous network state
-		const auto prevIsOnline = m_prefs.IsOnline;
+		const auto prevIsOnline{ m_prefs.IsOnline };
 		m_prefs = prefsDialog.GetPreferences();
 
 		setDefaultConfigFile();
@@ -516,10 +525,15 @@ void MainWindow::on_listWidgetDoryDatasets_itemDoubleClicked(QListWidgetItem* it
 /***********************************************************************************/
 void MainWindow::on_pushButtonDownload_clicked() {
 	m_ui->listWidgetDownloadQueue->selectAll();
-	const auto items = m_ui->listWidgetDownloadQueue->selectedItems();
+	const auto items{ m_ui->listWidgetDownloadQueue->selectedItems() };
 
 	if (items.empty()) {
 		QMessageBox::information(this, tr("Download queue empty"), tr("Your download queue is empty! Add some stuff to download!"));
+		return;
+	}
+
+	if (m_prefs.THREDDSDataLocation.isEmpty()) {
+		QMessageBox::information(this, tr("THREDDS location not set..."), tr("Go to Preferences (CTRL + SHIFT + P) to set the location on disk."));
 		return;
 	}
 
@@ -887,7 +901,7 @@ void MainWindow::on_pushButtonImportNetCDF_clicked() {
 	}
 
 	m_workerThread = new QThread;
-	auto* worker = new IO::FileCopyWorker(files);
+	auto* worker{ new IO::FileCopyWorker(files) };
 	worker->moveToThread(m_workerThread);
 
 	QObject::connect(worker, &IO::FileCopyWorker::error, this, [&](const auto& error) {

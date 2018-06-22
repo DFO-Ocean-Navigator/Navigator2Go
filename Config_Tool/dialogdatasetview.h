@@ -2,7 +2,7 @@
 #define DATASETVIEW_H
 
 #include "defines.h"
-#include "downloaddata.h"
+#include "datadownloaddesc.h"
 
 #include <QDialog>
 #include <QJsonObject>
@@ -31,13 +31,13 @@ public:
 	//
 	void SetData(const QJsonObject& datasetObj, QNetworkAccessManager& nam);
 	//
-	void SetData(const DownloadData& data);
+	void SetData(const DataDownloadDesc& data);
 
 	// Serializes values from the UI into a JSON object.
 	// Returns the dataset key, and JSON object.
 	NODISCARD std::pair<QString, QJsonObject> GetData() const;
 
-	NODISCARD DownloadData GetDownloadData() const;
+	NODISCARD DataDownloadDesc GetDownloadData() const;
 
 private slots:
 	void on_tableWidgetVariables_cellDoubleClicked(int row, int column);

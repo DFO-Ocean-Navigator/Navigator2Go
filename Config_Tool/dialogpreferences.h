@@ -28,6 +28,8 @@ public:
 private slots:
 	void on_pushButtonBrowseInstallDir_clicked();
 
+	void on_pushButtonBroweseTHREDDS_clicked();
+
 private:
 	Ui::DialogPreferences* m_ui{nullptr};
 

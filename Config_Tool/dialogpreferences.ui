@@ -50,7 +50,7 @@
          <item row="1" column="0">
           <widget class="QLabel" name="label">
            <property name="text">
-            <string>Ocean Navigator Install Directory:</string>
+            <string>Ocean Navigator install directory:</string>
            </property>
           </widget>
          </item>
@@ -75,34 +75,34 @@
            </item>
           </layout>
          </item>
-         <item row="3" column="0">
+         <item row="4" column="0">
           <widget class="QLabel" name="label_2">
            <property name="text">
             <string>Update remote dataset list on startup:</string>
            </property>
           </widget>
          </item>
-         <item row="4" column="0">
+         <item row="5" column="0">
           <widget class="QLabel" name="label_3">
            <property name="text">
             <string>Auto-start servers (if not already running):</string>
            </property>
           </widget>
          </item>
-         <item row="3" column="1">
+         <item row="4" column="1">
           <widget class="SwitchWidget" name="switchUpdateDoryDatasetsOnStart" native="true"/>
          </item>
-         <item row="4" column="1">
+         <item row="5" column="1">
           <widget class="SwitchWidget" name="switchAutoStartServers" native="true"/>
          </item>
-         <item row="5" column="0">
+         <item row="6" column="0">
           <widget class="QLabel" name="label_4">
            <property name="text">
             <string>Online/Offline:</string>
            </property>
           </widget>
          </item>
-         <item row="5" column="1">
+         <item row="6" column="1">
           <widget class="SwitchWidget" name="switchOnlineOffline" native="true"/>
          </item>
          <item row="2" column="0">
@@ -121,6 +121,31 @@
             <bool>true</bool>
            </property>
           </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>THREDDS datasets location:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QLineEdit" name="lineEditTHREDDSDataLocation">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButtonBroweseTHREDDS">
+             <property name="text">
+              <string>Browse...</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </widget>

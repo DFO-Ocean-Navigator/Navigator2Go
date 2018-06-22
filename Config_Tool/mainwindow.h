@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include "QEasyDownloader.hpp"
-#include "downloaddata.h"
+#include "datadownloaddesc.h"
 #include "preferences.h"
 
 #include <QMainWindow>
@@ -142,7 +142,7 @@ private:
 	// http://navigator.oceansdata.ca/api/datasets/
 	QHash<QString, QJsonObject> m_datasetsAPIResultCache;
 
-	QHash<QString, DownloadData> m_downloadQueue;
+	QHash<QString, DataDownloadDesc> m_downloadQueue;
 
 	// Location for THREDDS datasets
 #ifdef QT_DEBUG

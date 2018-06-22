@@ -5,9 +5,9 @@
 #include <QStringList>
 
 /***********************************************************************************/
-struct DownloadData {
+struct DataDownloadDesc {
 
-	auto operator==(const DownloadData& rhs) const Q_DECL_NOTHROW {
+	auto operator==(const DataDownloadDesc& rhs) const Q_DECL_NOTHROW {
 		return ID == rhs.ID;
 	}
 
@@ -19,7 +19,7 @@ struct DownloadData {
 };
 
 /***********************************************************************************/
-inline auto qHash(const DownloadData& dlData) Q_DECL_NOTHROW {
+inline auto qHash(const DataDownloadDesc& dlData) Q_DECL_NOTHROW {
 	return qHash(dlData.ID);
 }
 

@@ -172,7 +172,7 @@ std::pair<QString, QJsonObject> DialogDatasetView::GetData() const {
 }
 
 /***********************************************************************************/
-DownloadData DialogDatasetView::GetDownloadData() const {
+DataDownloadDesc DialogDatasetView::GetDownloadData() const {
 
 	QStringList vars;
 

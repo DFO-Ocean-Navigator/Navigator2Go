@@ -1,8 +1,8 @@
-#include "downloaddata.h"
+#include "datadownloaddesc.h"
 
 #include <QUrlQuery>
 /***********************************************************************************/
-QString DownloadData::ToAPIURL() const {
+QString DataDownloadDesc::ToAPIURL() const {
 	QUrlQuery q{"http://localhost:5000/subset/?"};
 	q.addQueryItem("output_format", "NETCDF4");
 	q.addQueryItem("variables", SelectedVariables.join(","));

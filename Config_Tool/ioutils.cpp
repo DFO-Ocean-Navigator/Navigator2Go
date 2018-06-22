@@ -8,7 +8,7 @@ QString FindPathForDataset(const QString& filename) {
 }
 
 /***********************************************************************************/
-QString FindPathForDataset(const DownloadData& data) {
+QString FindPathForDataset(const DataDownloadDesc& data) {
 	return {};
 }
 
