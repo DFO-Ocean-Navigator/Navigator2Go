@@ -8,15 +8,6 @@
 struct Preferences {
 	Preferences() noexcept = default;
 
-	auto operator==(const Preferences& rhs) const noexcept {
-		return ONInstallDir == rhs.ONInstallDir &&
-				RemoteURL == rhs.RemoteURL &&
-				THREDDSDataLocation == rhs.THREDDSDataLocation &&
-				UpdateRemoteListOnStart == rhs.UpdateRemoteListOnStart &&
-				AutoStartServers == rhs.AutoStartServers &&
-				IsOnline == rhs.IsOnline;
-	}
-
 	QString ONInstallDir;				// Ocean Navigator installation directory
 	QString RemoteURL;
 	QString THREDDSDataLocation;		// Location on disk of THREDDS datasets

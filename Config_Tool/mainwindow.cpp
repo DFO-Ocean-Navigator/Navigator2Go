@@ -378,13 +378,12 @@ void MainWindow::updateRemoteDatasetList() {
 	statusBar()->showMessage(tr("Updating remote dataset list..."), STATUS_BAR_MSG_TIMEOUT);
 
 	const std::function<void(QJsonDocument)> replyHandler = [&](const auto& doc) {
-		const auto root{ doc.array() };
+		const auto root = doc.array();
 
 		m_ui->listWidgetDoryDatasets->clear();
 		m_datasetsAPIResultCache.clear();
-
 		for (const auto& dataset : root) {
-			const auto valueString{ dataset["value"].toString() };
+			const auto valueString = dataset["value"].toString();
 			m_ui->listWidgetDoryDatasets->addItem(valueString);
 
 			m_datasetsAPIResultCache.insert(valueString, dataset.toObject());
