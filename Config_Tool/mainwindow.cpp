@@ -296,6 +296,11 @@ void MainWindow::configureNetwork() {
 						++this->m_numDownloadsComplete;
 						const auto percent{ 100 * (this->m_numDownloadsComplete / static_cast<std::size_t>(this->m_downloadQueue.size())) };
 						this->m_ui->progressBarDownload->setValue(static_cast<int>(percent));
+
+						if (percent == 100) {
+							// Prevent divide-by-zero if this is in the below lambda
+							m_downloadQueue.clear();
+						}
 					}
 	);
 
@@ -308,8 +313,7 @@ void MainWindow::configureNetwork() {
 						m_ui->pushButtonUpdateAggConfig->setEnabled(true);
 						m_ui->listWidgetDownloadQueue->clear();
 						m_ui->progressBarDownload->setVisible(false);
-
-						m_downloadQueue.clear();
+						m_ui->labelDownloadProgress->setVisible(false);
 
 						QMessageBox box{this};
 						box.setWindowTitle(tr("Downloads completed..."));
@@ -554,7 +558,9 @@ void MainWindow::on_pushButtonDownload_clicked() {
 		for (const auto& item : m_downloadQueue) {
 			const auto url{ item.ToAPIURL() + min_range + max_range };
 
-			m_downloader.Download(url, "/home/nabil/download.nc");
+			qDebug() << IO::FindPathForDataset(item);
+
+			m_downloader.Download(url, IO::FindPathForDataset(item) + ".nc");
 		}
 
 		// Show download stuff
