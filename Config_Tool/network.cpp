@@ -2,6 +2,7 @@
 
 #include <QNetworkReply>
 #include <QMessageBox>
+#include <QTcpSocket>
 
 #include <memory>
 

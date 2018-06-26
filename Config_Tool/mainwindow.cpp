@@ -67,7 +67,9 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 	m_uplinkTimer.start();
 
 	if (m_firstRun) {
+#ifdef QT_DEBUG
 		qDebug() << "First run";
+#endif
 	}
 
 	checkForUpdates();
@@ -280,8 +282,10 @@ void MainWindow::configureNetwork() {
 	// Full Download Progress. Emitted on every download.
 	QObject::connect(&m_downloader, &QEasyDownloader::DownloadProgress, this,
 					 [&](const auto bytesReceived, const auto percent, const auto speed, const auto& unit, const auto& url, const auto& filename) {
+#ifdef QT_DEBUG
 						qDebug() << percent;
 						qDebug() << speed;
+#endif
 					}
 	);
 
@@ -557,8 +561,9 @@ void MainWindow::on_pushButtonDownload_clicked() {
 
 		for (const auto& item : m_downloadQueue) {
 			const auto url{ item.ToAPIURL() + min_range + max_range };
-
+#ifdef QT_DEBUG
 			qDebug() << IO::FindPathForDataset(item);
+#endif
 
 			m_downloader.Download(url, IO::FindPathForDataset(item) + ".nc");
 		}

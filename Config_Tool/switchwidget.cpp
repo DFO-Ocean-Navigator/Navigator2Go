@@ -1,12 +1,12 @@
 #include "switchwidget.h"
 
+#include <QObject>
 #include <QPropertyAnimation>
 #include <QPainter>
 #include <QMouseEvent>
-#include <QDebug>
 
 /***********************************************************************************/
-SwitchWidget::SwitchWidget(QWidget* parent) : QAbstractButton{parent}, m_anim{new QPropertyAnimation(this, "offset", this)} {
+SwitchWidget::SwitchWidget(QWidget* parent) : QAbstractButton{parent}, m_anim{new QPropertyAnimation{this, "offset", this}} {
 	const auto offset = m_height / 2;
 	setOffset(offset);
 	m_y = offset;

@@ -41,6 +41,7 @@
 #include <QNetworkReply>
 #include <QMutex>
 #include <QFile>
+#include <QTime>
 #include <QTimer>
 #include <QQueue>
 
