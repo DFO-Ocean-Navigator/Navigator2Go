@@ -43,7 +43,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>3</number>
       </property>
       <property name="documentMode">
        <bool>false</bool>
@@ -200,43 +200,6 @@
            </widget>
           </item>
          </layout>
-        </item>
-        <item row="1" column="0">
-         <widget class="QGroupBox" name="groupBox_3">
-          <property name="title">
-           <string>Current Tasks</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_3">
-           <item>
-            <widget class="QLabel" name="label_19">
-             <property name="font">
-              <font>
-               <family>Purisa</family>
-               <pointsize>15</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>Coming soon...</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="verticalSpacer">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </widget>
         </item>
         <item row="0" column="1">
          <widget class="QGroupBox" name="groupBox_2">
@@ -814,39 +777,6 @@
          </spacer>
         </item>
        </layout>
-      </widget>
-      <widget class="QWidget" name="taskManager">
-       <attribute name="icon">
-        <iconset resource="resources.qrc">
-         <normaloff>:/icons/icons/terminal.png</normaloff>:/icons/icons/terminal.png</iconset>
-       </attribute>
-       <attribute name="title">
-        <string>Task Manager</string>
-       </attribute>
-       <attribute name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Create/manage recurring tasks that run in the background of Navigator2Go.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </attribute>
-       <widget class="QLabel" name="label_18">
-        <property name="geometry">
-         <rect>
-          <x>470</x>
-          <y>280</y>
-          <width>261</width>
-          <height>81</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <family>Purisa</family>
-          <pointsize>15</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Coming soon...</string>
-        </property>
-       </widget>
       </widget>
      </widget>
     </item>

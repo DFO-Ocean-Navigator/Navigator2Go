@@ -803,60 +803,62 @@ void MainWindow::checkForUpdates() {
 
 /***********************************************************************************/
 void MainWindow::checkRemoteConnection() {
-	// QThreadPool deletes automatically
-	auto* task{ new Network::URLExistsRunnable{m_prefs.RemoteURL} };
+	if (m_prefs.IsOnline) {
+		// QThreadPool deletes automatically
+		auto* task{ new Network::URLExistsRunnable{m_prefs.RemoteURL} };
 
-	// Setup connection
-	QObject::connect(task, &Network::URLExistsRunnable::urlResult, this, [&](const auto success) {
-		QMessageBox box{this};
+		// Setup connection
+		QObject::connect(task, &Network::URLExistsRunnable::urlResult, this, [&](const auto success) {
+			QMessageBox box{this};
 
-		if (success) {
-			if (!m_hasRemoteUplink) {
-				m_hasRemoteUplink = true;
+			if (success) {
+				if (!m_hasRemoteUplink) {
+					m_hasRemoteUplink = true;
 
-				box.setWindowTitle(tr("Remote uplink restored..."));
-				box.setIcon(QMessageBox::Information);
-				box.setText(tr("You have restored connection to the remote server. Nice job! Would you like to switch to your remote server's datasets?"));
-				box.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+					box.setWindowTitle(tr("Remote uplink restored..."));
+					box.setIcon(QMessageBox::Information);
+					box.setText(tr("You have restored connection to the remote server. Nice job! Would you like to switch to your remote server's datasets?"));
+					box.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
 
-				if (box.exec() == QMessageBox::Yes) {
-					this->setOnline();
+					if (box.exec() == QMessageBox::Yes) {
+						this->setOnline();
+					}
 				}
+
+				this->m_ui->labelRemoteUplink->setText(tr("Online"));
+				this->m_ui->labelRemoteUplink->setStyleSheet(COLOR_GREEN);
+				this->statusBar()->showMessage(tr("Remote uplink test successful."), STATUS_BAR_MSG_TIMEOUT);
+				this->updateRemoteDatasetList();
+			}
+			else {
+				if (m_hasRemoteUplink) {
+					m_hasRemoteUplink = false;
+
+					box.setWindowTitle(tr("Remote uplink lost..."));
+					box.setIcon(QMessageBox::Warning);
+					box.setText(tr("You have lost connection to the remote server. Would you like to switch to your local datasets?"));
+					box.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+
+					if (box.exec() == QMessageBox::Yes) {
+						this->setOffline();
+					}
+				}
+
+				this->m_ui->labelRemoteUplink->setText(tr("Offline"));
+				this->m_ui->labelRemoteUplink->setStyleSheet(COLOR_RED);
+				this->statusBar()->showMessage(tr("Remote uplink test failed"), STATUS_BAR_MSG_TIMEOUT);
 			}
 
-			this->m_ui->labelRemoteUplink->setText(tr("Online"));
-			this->m_ui->labelRemoteUplink->setStyleSheet(COLOR_GREEN);
-			this->statusBar()->showMessage(tr("Remote uplink test successful."), STATUS_BAR_MSG_TIMEOUT);
-			this->updateRemoteDatasetList();
-		}
-		else {
-			if (m_hasRemoteUplink) {
-				m_hasRemoteUplink = false;
+			m_ui->pushButtonCheckRemoteUplink->setEnabled(true);
+			m_ui->pushButtonCheckRemoteUplink->setText(tr("Test"));
 
-				box.setWindowTitle(tr("Remote uplink lost..."));
-				box.setIcon(QMessageBox::Warning);
-				box.setText(tr("You have lost connection to the remote server. Would you like to switch to your local datasets?"));
-				box.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+		}, Qt::BlockingQueuedConnection); // <-- Check out this magic...this would segfault otherwise
 
-				if (box.exec() == QMessageBox::Yes) {
-					this->setOffline();
-				}
-			}
+		m_ui->pushButtonCheckRemoteUplink->setEnabled(false);
+		m_ui->pushButtonCheckRemoteUplink->setText(tr("Checking..."));
 
-			this->m_ui->labelRemoteUplink->setText(tr("Offline"));
-			this->m_ui->labelRemoteUplink->setStyleSheet(COLOR_RED);
-			this->statusBar()->showMessage(tr("Remote uplink test failed"), STATUS_BAR_MSG_TIMEOUT);
-		}
-
-		m_ui->pushButtonCheckRemoteUplink->setEnabled(true);
-		m_ui->pushButtonCheckRemoteUplink->setText(tr("Test"));
-
-	}, Qt::BlockingQueuedConnection); // <-- Check out this magic...this would segfault otherwise
-
-	m_ui->pushButtonCheckRemoteUplink->setEnabled(false);
-	m_ui->pushButtonCheckRemoteUplink->setText(tr("Checking..."));
-
-	QThreadPool::globalInstance()->start(task);
+		QThreadPool::globalInstance()->start(task);
+	}
 }
 
 /***********************************************************************************/
