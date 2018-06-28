@@ -6,7 +6,6 @@
 #include "network.h"
 #include "jsonio.h"
 #include "process.h"
-#include "filecopyworker.h"
 #include "ioutils.h"
 
 #include <QMessageBox>
@@ -19,6 +18,9 @@
 #include <QProcess>
 #include <QThread>
 #include <QThreadPool>
+#include <QInputDialog>
+
+#include <netcdf4/ncFile.h>
 
 #ifdef QT_DEBUG
 	#include <QDebug>
@@ -122,11 +124,27 @@ void MainWindow::on_actionClose_triggered() {
 }
 
 /***********************************************************************************/
-void MainWindow::on_buttonAddDataset_clicked() {
-	m_hasUnsavedData = true;
-	m_ui->pushButtonSaveConfigFile->setEnabled(true);
+void MainWindow::addDatasetToConfigList() {
+	bool ok;
+	const auto name{ QInputDialog::getText(this,
+										   tr("New dataset key"),
+										   tr("Dataset key (e.g. giops_day):"),
+										   QLineEdit::Normal,
+										   "new_dataset_" + QString::number(qrand()),
+										   &ok
+				   )};
 
-	m_ui->listWidgetActiveDatasets->addItem("new_dataset_" + QString::number(qrand()));
+	if (ok) {
+		m_hasUnsavedData = true;
+		m_ui->pushButtonSaveConfigFile->setEnabled(true);
+		m_ui->listWidgetActiveDatasets->addItem(name);
+	}
+}
+
+/***********************************************************************************/
+void MainWindow::on_buttonAddDataset_clicked() {
+
+	addDatasetToConfigList();
 }
 
 /***********************************************************************************/
@@ -904,7 +922,7 @@ void MainWindow::on_pushButtonSaveConfigFile_clicked() {
 
 /***********************************************************************************/
 void MainWindow::on_pushButtonImportNetCDF_clicked() {
-	const auto files = QFileDialog::getOpenFileNames(this,
+	auto files = QFileDialog::getOpenFileNames(this,
 													 tr("Select NetCDF files to import..."),
 													 QDir::currentPath(),
 													 "NetCDF Files (*.nc)"
@@ -913,25 +931,27 @@ void MainWindow::on_pushButtonImportNetCDF_clicked() {
 		return;
 	}
 
-	m_workerThread = new QThread;
-	auto* worker{ new IO::FileCopyWorker(files) };
-	worker->moveToThread(m_workerThread);
+	auto* task{ new IO::CopyFilesRunnable(std::move(files)) };
 
-	QObject::connect(worker, &IO::FileCopyWorker::error, this, [&](const auto& error) {
-#ifdef QT_DEBUG
-		qDebug() << error;
-#endif
-		QMessageBox::critical(this, tr("File copy error..."), error);
+	QObject::connect(task, &IO::CopyFilesRunnable::finished, this, [&](const auto errorList) {
+		if (!errorList.empty()) {
+			qDebug() << "ERRORS OCCOURED";
+		}
+		else {
+
+		}
+
+		m_ui->pushButtonImportNetCDF->setEnabled(true);
 	});
 
-	QObject::connect(m_workerThread, &QThread::started, worker, &IO::FileCopyWorker::copyFiles);
-	// Resource clean-up connections
-	QObject::connect(worker, &IO::FileCopyWorker::finished, m_workerThread, &QThread::quit);
-	QObject::connect(worker, &IO::FileCopyWorker::finished, worker, &IO::FileCopyWorker::deleteLater);
-	QObject::connect(m_workerThread, &QThread::finished, m_workerThread, &QThread::deleteLater);
+	QObject::connect(task, &IO::CopyFilesRunnable::progress, this, [&](const auto progress) {
+		qDebug() << progress;
+	});
+
+	m_ui->pushButtonImportNetCDF->setEnabled(false);
 
 	// Run it
-	m_workerThread->start(QThread::HighestPriority);
+	QThreadPool::globalInstance()->start(task);
 }
 
 /***********************************************************************************/

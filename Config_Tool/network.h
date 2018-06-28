@@ -23,7 +23,7 @@ void MakeAPIRequest(QNetworkAccessManager& nam,
 class URLExistsRunnable : public QObject, public QRunnable {
 	Q_OBJECT
 public:
-	URLExistsRunnable(const QString& urlString);
+	explicit URLExistsRunnable(const QString& urlString);
 
 	void run() override;
 

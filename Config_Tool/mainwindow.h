@@ -18,7 +18,6 @@ class MainWindow;
 }
 class QListWidgetItem;
 class QObject;
-class QThread;
 
 /***********************************************************************************/
 class MainWindow : public QMainWindow {
@@ -114,10 +113,10 @@ private:
 	void setOffline();
 	//
 	void updateConfigTargetUI();
+	//
+	void addDatasetToConfigList();
 
 	Ui::MainWindow* m_ui{nullptr};
-
-	QThread* m_workerThread{nullptr};
 
 	QTimer m_uplinkTimer{this};
 	bool m_hasRemoteUplink{true};

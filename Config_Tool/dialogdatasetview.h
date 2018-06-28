@@ -48,6 +48,8 @@ private slots:
 	void on_lineEditURL_editingFinished();
 
 	void keyPressEvent(QKeyEvent* e) override;
+	void on_pushButtonMagicScan_clicked();
+
 private:
 	void addEmptyVariable();
 	void checkInputEmpty(const QString& inputLabel, const QString& inputText);

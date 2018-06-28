@@ -7,6 +7,11 @@
 #include <QJsonValueRef>
 #include <QJsonArray>
 #include <QMessageBox>
+#include <QThreadPool>
+
+#include <netcdf4/ncDim.h>
+#include <netcdf4/ncVar.h>
+#include <netcdf4/ncFile.h>
 
 /***********************************************************************************/
 DialogDatasetView::DialogDatasetView(QWidget* parent) :	QDialog(parent), m_ui(new Ui::DatasetView) {
@@ -181,11 +186,13 @@ DataDownloadDesc DialogDatasetView::GetDownloadData() const {
 		vars << m_variableMap[var->text()];
 	}
 
-	return {m_ui->lineEditKey->text(),
-			m_ui->lineEditName->text(),
-			m_ui->calendarWidgetStart->selectedDate(),
-			m_ui->calendarWidgetEnd->selectedDate(),
-			vars};
+	return {
+		m_ui->lineEditKey->text(),
+		m_ui->lineEditName->text(),
+		m_ui->calendarWidgetStart->selectedDate(),
+		m_ui->calendarWidgetEnd->selectedDate(),
+		vars
+	};
 }
 
 /***********************************************************************************/
@@ -202,7 +209,7 @@ void DialogDatasetView::on_pushButtonAddVariable_clicked() {
 void DialogDatasetView::addEmptyVariable() {
 	m_ui->tableWidgetVariables->insertRow(m_ui->tableWidgetVariables->rowCount());
 
-	const auto rowIdx = m_ui->tableWidgetVariables->rowCount() - 1;
+	const auto rowIdx{ m_ui->tableWidgetVariables->rowCount() - 1 };
 
 	// Key
 	m_ui->tableWidgetVariables->setItem(rowIdx, 0, new QTableWidgetItem());
@@ -219,7 +226,7 @@ void DialogDatasetView::addEmptyVariable() {
 
 	// Hidden
 	// Gonna use a checkbox
-	auto* hidden = new QTableWidgetItem();
+	auto* hidden{ new QTableWidgetItem() };
 	hidden->setCheckState(Qt::Unchecked);
 	m_ui->tableWidgetVariables->setItem(rowIdx, 6, hidden);
 
@@ -250,6 +257,9 @@ void DialogDatasetView::setReadOnlyUI() {
 	m_ui->labelClimaURL->setVisible(false);
 	m_ui->lineEditClima->setVisible(false);
 	m_ui->lineEditClima->setEnabled(false);
+
+	m_ui->pushButtonMagicScan->setVisible(false);
+	m_ui->pushButtonMagicScan->setEnabled(false);
 
 	m_ui->labelCache->setVisible(false);
 	m_ui->spinBoxCache->setVisible(false);
@@ -302,4 +312,62 @@ void DialogDatasetView::keyPressEvent(QKeyEvent* e) {
 		return;
 	}
 	QDialog::keyPressEvent(e);
+}
+
+/***********************************************************************************/
+void DialogDatasetView::on_pushButtonMagicScan_clicked() {
+	if (m_ui->lineEditURL->text().isEmpty()) {
+		return;
+	}
+
+	m_ui->pushButtonMagicScan->setEnabled(false);
+
+	auto* task{ new Network::URLExistsRunnable{m_ui->lineEditURL->text()} };
+
+	QObject::connect(task, &Network::URLExistsRunnable::urlResult, this, [&](const auto success) {
+		if (success) {
+
+			netCDF::NcFile ds{m_ui->lineEditURL->text().toStdString(), netCDF::NcFile::read};
+			if (ds.isNull()) {
+				return;
+			}
+
+			const QSet<QString> variableFilter {
+				"nav_lat", "nav_lon",
+				"latitude", "longitude",
+				"polar_stereographic"
+			};
+
+			QSet<QString> dimSet;
+			const auto dims{ ds.getDims() };
+			const auto vars{ ds.getVars() };
+
+			for (const auto& var : dims) {
+				dimSet << var.first.c_str();
+				qDebug() << var.first.c_str();
+			}
+			qDebug() << dimSet;
+			qDebug() << "---------";
+			// TODO: CHECK THREAD ID FOR GUI AND THIS LAMBDA
+			for (const auto& var : vars) {
+				const auto varStr{ var.first.c_str() };
+
+				if (!dimSet.contains(varStr) && !variableFilter.contains(varStr)) {
+					qDebug() << var.first.c_str();
+				}
+			}
+		}
+		else {
+
+		}
+
+		qDebug() << QThread::currentThreadId();
+
+		m_ui->pushButtonMagicScan->setEnabled(true);
+
+	});
+
+	qDebug() << QThread::currentThreadId();
+
+	QThreadPool::globalInstance()->start(task);
 }

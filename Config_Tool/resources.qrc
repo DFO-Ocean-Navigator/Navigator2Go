@@ -15,5 +15,6 @@
         <file>icons/pencil</file>
         <file>icons/folder.png</file>
         <file>icons/terminal.png</file>
+        <file>icons/cat.png</file>
     </qresource>
 </RCC>
