@@ -9,7 +9,7 @@
 namespace Network {
 
 /***********************************************************************************/
-void MakeAPIRequest(QNetworkAccessManager& nam, const QString& APIURL, const std::function<void(QJsonDocument)> replyHandler, const std::function<void()> errorHandler) {
+void MakeAPIRequest(QNetworkAccessManager& nam, const QString& APIURL, std::function<void(QJsonDocument)>&& replyHandler, std::function<void()>&& errorHandler) {
 
 	const QNetworkRequest request{APIURL};
 	// Send our request
@@ -21,7 +21,7 @@ void MakeAPIRequest(QNetworkAccessManager& nam, const QString& APIURL, const std
 	// to the following lambda. This allows the Access Manager
 	// to handle simultaneous requests
 	QObject::connect(reply, &QNetworkReply::finished, pcontext,
-		[context = std::move(context), replyHandler, errorHandler, reply]() mutable {
+		[context = std::move(context), replyHandler = std::move(replyHandler), errorHandler = std::move(errorHandler), reply]() mutable {
 			context.reset(); // Clear context
 
 			// Check for errors

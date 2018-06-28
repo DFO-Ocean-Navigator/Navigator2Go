@@ -91,37 +91,38 @@ void DialogDatasetView::SetData(const QJsonObject& datasetObj, QNetworkAccessMan
 	m_ui->plainTextEditHelp->document()->setHtml(datasetObj["help"].toString());
 
 	// Get variables from api
-	const std::function<void(QJsonDocument)> variableReplyHandler = [&](const auto& doc) {
-		const auto root = doc.array();
+	Network::MakeAPIRequest(nam, "http://navigator.oceansdata.ca/api/variables/?dataset="+datasetIDString,
+							[&](const auto& doc) {
+								const auto root = doc.array();
 
-		for (const auto& variable : root) {
-			const auto value = variable["value"].toString();
+								for (const auto& variable : root) {
+									const auto value = variable["value"].toString();
 
-			m_ui->listWidgetVariables->addItem(value);
-			m_variableMap.insert(value, variable["id"].toString());
-		}
-	};
-
-	Network::MakeAPIRequest(nam, "http://navigator.oceansdata.ca/api/variables/?dataset="+datasetIDString, variableReplyHandler);
+									m_ui->listWidgetVariables->addItem(value);
+									m_variableMap.insert(value, variable["id"].toString());
+								}
+							}
+	);
 
 	// Figure out date range
-	const std::function<void(QJsonDocument)> timestampReplyHandler = [&](const auto& doc) {
-		const auto root = doc.array();
-		const auto quantum = datasetObj["quantum"].toString();
-		const auto start = root.first()["value"].toString();
-		const auto end = root.last()["value"].toString();
+	Network::MakeAPIRequest(nam, "http://navigator.oceansdata.ca/api/timestamps/?dataset="+datasetIDString,
+							[&](const auto& doc) {
 
-		const auto startDate = QDate::fromString(start, Qt::DateFormat::ISODate);
-		const auto endDate =  QDate::fromString(end, Qt::DateFormat::ISODate);
+								const auto root = doc.array();
+								const auto quantum{ datasetObj["quantum"].toString() };
+								const auto start{ root.first()["value"].toString() };
+								const auto end{ root.last()["value"].toString() };
 
-		m_ui->calendarWidgetStart->setDateRange(startDate, endDate);
-		m_ui->calendarWidgetStart->setSelectedDate(startDate);
+								const auto startDate{ QDate::fromString(start, Qt::DateFormat::ISODate) };
+								const auto endDate{ QDate::fromString(end, Qt::DateFormat::ISODate) };
 
-		m_ui->calendarWidgetEnd->setDateRange(startDate, endDate);
-		m_ui->calendarWidgetEnd->setSelectedDate(endDate);
-	};
+								m_ui->calendarWidgetStart->setDateRange(startDate, endDate);
+								m_ui->calendarWidgetStart->setSelectedDate(startDate);
 
-	Network::MakeAPIRequest(nam, "http://navigator.oceansdata.ca/api/timestamps/?dataset="+datasetIDString, timestampReplyHandler);
+								m_ui->calendarWidgetEnd->setDateRange(startDate, endDate);
+								m_ui->calendarWidgetEnd->setSelectedDate(endDate);
+							}
+	);
 
 	setReadOnlyUI();
 }

@@ -385,35 +385,36 @@ void MainWindow::configureNetwork() {
 void MainWindow::updateRemoteDatasetList() {
 	statusBar()->showMessage(tr("Updating remote dataset list..."), STATUS_BAR_MSG_TIMEOUT);
 
-	const std::function<void(QJsonDocument)> replyHandler = [&](const auto& doc) {
-		const auto root = doc.array();
-
-		m_ui->listWidgetDoryDatasets->clear();
-		m_datasetsAPIResultCache.clear();
-		for (const auto& dataset : root) {
-			const auto valueString = dataset["value"].toString();
-			m_ui->listWidgetDoryDatasets->addItem(valueString);
-
-			m_datasetsAPIResultCache.insert(valueString, dataset.toObject());
-		}
-
-		m_ui->pushButtonUpdateDoryList->setEnabled(true);
-		m_ui->pushButtonUpdateDoryList->setText(tr("Update List"));
-
-		this->statusBar()->showMessage(tr("Remote dataset list updated."), STATUS_BAR_MSG_TIMEOUT);
-	};
-
-	const std::function<void()> errorHandler = [&]() {
-		m_ui->pushButtonUpdateDoryList->setEnabled(true);
-		m_ui->pushButtonUpdateDoryList->setText(tr("Update List"));
-
-		this->statusBar()->showMessage(tr("Failed to update remote dataset list."), STATUS_BAR_MSG_TIMEOUT);
-	};
-
 	m_ui->pushButtonUpdateDoryList->setEnabled(false);
 	m_ui->pushButtonUpdateDoryList->setText(tr("Updating..."));
 
-	Network::MakeAPIRequest(m_networkManager, m_prefs.RemoteURL+"/api/datasets/", replyHandler, errorHandler);
+	Network::MakeAPIRequest(m_networkManager, m_prefs.RemoteURL+"/api/datasets/",
+							// Success handler
+							[&](const auto& doc) {
+								const auto root = doc.array();
+
+								m_ui->listWidgetDoryDatasets->clear();
+								m_datasetsAPIResultCache.clear();
+								for (const auto& dataset : root) {
+									const auto valueString = dataset["value"].toString();
+									m_ui->listWidgetDoryDatasets->addItem(valueString);
+
+									m_datasetsAPIResultCache.insert(valueString, dataset.toObject());
+								}
+
+								m_ui->pushButtonUpdateDoryList->setEnabled(true);
+								m_ui->pushButtonUpdateDoryList->setText(tr("Update List"));
+
+								this->statusBar()->showMessage(tr("Remote dataset list updated."), STATUS_BAR_MSG_TIMEOUT);
+							},
+							// Error handler
+							[&]() {
+								m_ui->pushButtonUpdateDoryList->setEnabled(true);
+								m_ui->pushButtonUpdateDoryList->setText(tr("Update List"));
+
+								this->statusBar()->showMessage(tr("Failed to update remote dataset list."), STATUS_BAR_MSG_TIMEOUT);
+							}
+	);
 }
 
 /***********************************************************************************/

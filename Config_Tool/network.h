@@ -15,8 +15,8 @@ namespace Network {
 // error-checking. The given replyHandler is invoked on success.
 void MakeAPIRequest(QNetworkAccessManager& nam,
 					const QString& APIURL,
-					const std::function<void(QJsonDocument)> replyHandler,
-					const std::function<void()> errorHandler = nullptr
+					std::function<void(QJsonDocument)>&& replyHandler,
+					std::function<void()>&& errorHandler = nullptr
 					);
 
 /***********************************************************************************/
