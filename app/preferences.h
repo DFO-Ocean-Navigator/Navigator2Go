@@ -13,7 +13,8 @@ struct Preferences {
 	QString THREDDSDataLocation;		// Location on disk of THREDDS datasets
 	bool UpdateRemoteListOnStart{true};	// Should we update dataset list from dory when starting
 	bool AutoStartServers{false};		// Should we start gUnicorn and THREDDS on program start?
-	bool IsOnline{true};				// Online or Offline? This determines the active config file.
+	bool IsNetworkOnline{true};			// Online or Offline? This determines the active config file.
+	bool DatasetTargetRemote{true};
 };
 
 #endif // PREFERENCES_H

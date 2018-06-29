@@ -131,8 +131,8 @@ private:
 	QJsonObject m_documentRootObject;
 
 	// Network stuff
-	QNetworkAccessManager m_networkManager{this};
-	QEasyDownloader m_downloader{this, &m_networkManager};
+	QNetworkAccessManager m_networkAccessManager{this};
+	QEasyDownloader m_downloader{this, &m_networkAccessManager};
 
 	bool m_hasUnsavedData{false};
 

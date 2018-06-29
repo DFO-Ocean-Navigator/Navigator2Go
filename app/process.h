@@ -3,6 +3,11 @@
 
 #include <QString>
 
+namespace System {
+
 bool IsProcessRunning(const QString& processName);
+
+} // namespace System
+
 
 #endif // PROCESS_H

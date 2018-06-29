@@ -19,21 +19,21 @@ QString FindPathForDataset(const DataDownloadDesc& data) {
 
 /***********************************************************************************/
 CopyFilesRunnable::CopyFilesRunnable(QStringList&& fileList) : m_fileList{std::move(fileList)} {
-
 }
 
 /***********************************************************************************/
 void CopyFilesRunnable::run() {
-	const auto stepSize{ 100 * (1 / static_cast<std::size_t>(m_fileList.size())) };
-	std::size_t currentStep{ 0 };
+	const auto stepSize{ 100 * (1 / static_cast<qint64>(m_fileList.size())) };
+	qint64 currentStep{ 0 };
 
-	std::vector<QString> errorList, desFileLocs;
+	QStringList errorList;
 
-	std::size_t idx = 0;
 	for (const auto& file : m_fileList) {
 
-		if (!QFile::rename(file, desFileLocs[idx])) {
-			errorList.emplace_back(file);
+		const auto fileName{ QFileInfo{file}.fileName() };
+
+		if (!QFile::rename(file, FindPathForDataset(fileName))) {
+			errorList.append(file);
 		}
 		else {
 			QFile::remove(file);
@@ -41,7 +41,6 @@ void CopyFilesRunnable::run() {
 
 		currentStep += stepSize;
 		emit progress(currentStep);
-		++idx;
 	}
 
 	emit finished(errorList);

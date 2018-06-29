@@ -34,8 +34,8 @@ public:
 	void run() override;
 
 signals:
-	void progress(const std::size_t percentDone);
-	void finished(const std::vector<QString> failedFiles);
+	void progress(const qint64 percentDone);
+	void finished(const QStringList failedFiles);
 
 private:
 	const QStringList m_fileList;

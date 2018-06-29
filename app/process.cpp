@@ -2,6 +2,8 @@
 
 #include <QProcess>
 
+namespace System {
+
 /***********************************************************************************/
 // Checks if a named process is running on a UNIX or Windows system
 #ifdef __linux__
@@ -17,7 +19,7 @@ bool IsProcessRunning(const QString& processName) {
 	process.waitForFinished();
 
 	// Capture output from bash script
-	const QString output =  process.readAll();
+	const QString output{ process.readAll() };
 	if (output.contains("true", Qt::CaseInsensitive)) {
 		return true;
 	}
@@ -29,3 +31,5 @@ auto IsProcessRunning(const QString& processName) {
 	return false;
 }
 #endif
+
+} // namespace System

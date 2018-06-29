@@ -20,7 +20,8 @@ void DialogPreferences::SetPreferences(Preferences& settings) {
 	m_ui->lineEditTHREDDSDataLocation->setText(settings.THREDDSDataLocation);
 	m_ui->switchUpdateDoryDatasetsOnStart->setChecked(settings.UpdateRemoteListOnStart);
 	m_ui->switchAutoStartServers->setChecked(settings.AutoStartServers);
-	m_ui->switchOnlineOffline->setChecked(settings.IsOnline);
+	m_ui->switchOnlineOffline->setChecked(settings.IsNetworkOnline);
+	m_ui->switchDatasetTarget->setChecked(settings.DatasetTargetRemote);
 }
 
 /***********************************************************************************/
@@ -31,7 +32,8 @@ auto DialogPreferences::GetPreferences() const noexcept -> Preferences {
 		m_ui->lineEditTHREDDSDataLocation->text(),
 		m_ui->switchUpdateDoryDatasetsOnStart->isChecked(),
 		m_ui->switchAutoStartServers->isChecked(),
-		m_ui->switchOnlineOffline->isChecked()
+		m_ui->switchOnlineOffline->isChecked(),
+		m_ui->switchDatasetTarget->isChecked()
 	};
 }
 

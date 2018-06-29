@@ -75,5 +75,7 @@ INCLUDEPATH += \
     $$PWD \
     $$PWD/netcdf4/include
 
+DISTFILES +=
+
 
 

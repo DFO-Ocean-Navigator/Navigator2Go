@@ -16,7 +16,6 @@
 #include <QSettings>
 #include <QNetworkReply>
 #include <QProcess>
-#include <QThread>
 #include <QThreadPool>
 #include <QInputDialog>
 
@@ -72,6 +71,15 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 #ifdef QT_DEBUG
 		qDebug() << "First run";
 #endif
+		DialogPreferences prefsDialog{this};
+		prefsDialog.setWindowTitle(tr("Navigator2Go Initial Setup..."));
+		prefsDialog.SetPreferences(m_prefs);
+
+		while(prefsDialog.GetPreferences().THREDDSDataLocation.isEmpty()) {
+			prefsDialog.exec();
+		}
+
+		m_prefs = prefsDialog.GetPreferences();
 	}
 
 	checkForUpdates();
@@ -212,29 +220,21 @@ void MainWindow::readSettings() {
 	if (settings.contains("THREDDSDataLocation")) {
 		m_prefs.THREDDSDataLocation = settings.value("THREDDSDataLocation").toString();
 	}
-	else {
-		m_prefs.THREDDSDataLocation = "";
-	}
 
 	if (settings.contains("UpdateRemoteListOnStart")) {
 		m_prefs.UpdateRemoteListOnStart = settings.value("UpdateRemoteListOnStart").toBool();
-	}
-	else {
-		m_prefs.UpdateRemoteListOnStart = true;
 	}
 
 	if (settings.contains("AutoStartServers")) {
 		m_prefs.AutoStartServers = settings.value("AutoStartServers").toBool();
 	}
-	else {
-		m_prefs.AutoStartServers = false;
+
+	if (settings.contains("IsNetworkOnline")) {
+		m_prefs.IsNetworkOnline = settings.value("IsNetworkOnline").toBool();
 	}
 
-	if (settings.contains("IsOnline")) {
-		m_prefs.IsOnline = settings.value("IsOnline").toBool();
-	}
-	else {
-		m_prefs.IsOnline = false;
+	if (settings.contains("DatasetTargetRemote")) {
+		m_prefs.DatasetTargetRemote = settings.value("DatasetTargetRemote").toBool();
 	}
 
 	settings.endGroup();
@@ -266,7 +266,7 @@ void MainWindow::writeSettings() const {
 	settings.setValue("THREDDSDataLocation", m_prefs.THREDDSDataLocation);
 	settings.setValue("UpdateRemoteListOnStart", m_prefs.UpdateRemoteListOnStart);
 	settings.setValue("AutoStartServers", m_prefs.AutoStartServers);
-	settings.setValue("IsOnline", m_prefs.IsOnline);
+	settings.setValue("IsNetworkOnline", m_prefs.IsNetworkOnline);
 
 	settings.endGroup();
 
@@ -284,7 +284,11 @@ void MainWindow::writeSettings() const {
 /***********************************************************************************/
 void MainWindow::configureNetwork() {
 	// Follow server redirects for same domain only
-	m_networkManager.setRedirectPolicy(QNetworkRequest::RedirectPolicy::SameOriginRedirectPolicy);
+	m_networkAccessManager.setRedirectPolicy(QNetworkRequest::RedirectPolicy::SameOriginRedirectPolicy);
+
+	if (m_prefs.IsNetworkOnline) {
+		m_networkAccessManager.connectToHost(m_prefs.RemoteURL);
+	}
 
 	// Configure downloader
 #ifdef QT_DEBUG
@@ -406,7 +410,7 @@ void MainWindow::updateRemoteDatasetList() {
 	m_ui->pushButtonUpdateDoryList->setEnabled(false);
 	m_ui->pushButtonUpdateDoryList->setText(tr("Updating..."));
 
-	Network::MakeAPIRequest(m_networkManager, m_prefs.RemoteURL+"/api/datasets/",
+	Network::MakeAPIRequest(m_networkAccessManager, m_prefs.RemoteURL+"/api/datasets/",
 							// Success handler
 							[&](const auto& doc) {
 								const auto root = doc.array();
@@ -458,7 +462,7 @@ void MainWindow::on_actionPreferences_triggered() {
 
 	if (prefsDialog.exec()) {
 		// Store previous network state
-		const auto prevIsOnline{ m_prefs.IsOnline };
+		const auto prevIsOnline{ m_prefs.IsNetworkOnline };
 		m_prefs = prefsDialog.GetPreferences();
 
 		setDefaultConfigFile();
@@ -469,7 +473,7 @@ void MainWindow::on_actionPreferences_triggered() {
 
 		// Show a notification to restart gUnicorn
 		// is network status changed
-		if (m_prefs.IsOnline != prevIsOnline) {
+		if (m_prefs.IsNetworkOnline != prevIsOnline) {
 			QMessageBox box{this};
 			box.setWindowTitle(tr("Online status changed..."));
 			box.setText(tr("You've changed the network status of Navigator2Go.\
@@ -515,7 +519,7 @@ void MainWindow::on_listWidgetDoryDatasets_itemDoubleClicked(QListWidgetItem* it
 		isUpdatingDownload = true;
 	}
 
-	dialog.SetData(datasetID, m_networkManager);
+	dialog.SetData(datasetID, m_networkAccessManager);
 
 	if (dialog.exec()) {
 		const auto data = dialog.GetDownloadData();
@@ -699,7 +703,7 @@ void MainWindow::on_pushButtonStopApache_clicked() {
 /***********************************************************************************/
 void MainWindow::checkAndStartServers() {
 	// gUnicorn
-	m_gunicornRunning = IsProcessRunning("gunicorn");
+	m_gunicornRunning = System::IsProcessRunning("gunicorn");
 	if (!m_gunicornRunning && m_prefs.AutoStartServers) {
 		on_pushButtonStartWebServer_clicked();
 		m_gunicornRunning = true;
@@ -710,7 +714,7 @@ void MainWindow::checkAndStartServers() {
 	}
 
 	// Apache tomcat
-	m_apacheRunning = IsProcessRunning("java");
+	m_apacheRunning = System::IsProcessRunning("java");
 	if (!m_apacheRunning && m_prefs.AutoStartServers) {
 		on_pushButtonStartApache_clicked();
 		m_apacheRunning = true;
@@ -723,7 +727,7 @@ void MainWindow::checkAndStartServers() {
 
 /***********************************************************************************/
 void MainWindow::updateConfigTargetUI() {
-	if (m_prefs.IsOnline) {
+	if (m_prefs.IsNetworkOnline) {
 		m_ui->labelDatasetTarget->setText(tr("Remote Storage: \n") + m_prefs.RemoteURL);
 	}
 	else {
@@ -737,7 +741,7 @@ void MainWindow::setDefaultConfigFile() {
 	const static auto offlineConfig{ m_prefs.ONInstallDir+"/oceannavigator/datasetconfigOFFLINE.json" };
 
 	QString newConfigFile;
-	if (m_prefs.IsOnline) {
+	if (m_prefs.IsNetworkOnline) {
 		newConfigFile = onlineConfig;
 	}
 	else {
@@ -827,7 +831,7 @@ void MainWindow::checkForUpdates() {
 
 /***********************************************************************************/
 void MainWindow::checkRemoteConnection() {
-	if (m_prefs.IsOnline) {
+	if (m_prefs.IsNetworkOnline) {
 		// QThreadPool deletes automatically
 		auto* task{ new Network::URLExistsRunnable{m_prefs.RemoteURL} };
 
@@ -890,7 +894,8 @@ void MainWindow::setOnline() {
 #ifdef QT_DEBUG
 	qDebug() << "Changing to online.";
 #endif
-	m_prefs.IsOnline = true;
+	m_networkAccessManager.setNetworkAccessible(QNetworkAccessManager::Accessible);
+	m_prefs.IsNetworkOnline = true;
 	setDefaultConfigFile();
 	updateConfigTargetUI();
 }
@@ -900,7 +905,8 @@ void MainWindow::setOffline() {
 #ifdef QT_DEBUG
 	qDebug() << "Changing to offline.";
 #endif
-	m_prefs.IsOnline = false;
+	m_networkAccessManager.setNetworkAccessible(QNetworkAccessManager::NotAccessible);
+	m_prefs.IsNetworkOnline = false;
 	setDefaultConfigFile();
 	updateConfigTargetUI();
 }
@@ -927,6 +933,7 @@ void MainWindow::on_pushButtonImportNetCDF_clicked() {
 													 QDir::currentPath(),
 													 "NetCDF Files (*.nc)"
 													 );
+	qDebug() << files;
 	if (files.empty()) {
 		return;
 	}
