@@ -1,15 +1,23 @@
-# Ocean-Navigator-Config-Tool
+# Navigator2Go
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/32d9cc8cd9784783afc17c4e9bd3490e)](https://www.codacy.com/app/htmlboss/Ocean-Navigator-Config-Tool?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=DFO-Ocean-Navigator/Ocean-Navigator-Config-Tool&amp;utm_campaign=Badge_Grade)
 
-Tool to help with customising the Navigator's config files.
+Tool to manage your local Ocean Navigator installation.
 
 ## Intro
-The config tool is built in C++17 with a Qt 5.11 UI. This wiki page will list how to make changes to the code, and subsequently re-build a standalone executable for Linux.
+This tool is built in C++17 (mostly) with a Qt 5.11 UI. Qt Creator 4.6 is in a strange spot where it doesn't really "support" C++17, while GCC obviously does. The `CONFIG += c++1z` found in `Config_Tool.pro` is a temporary workaround.
+
+### Features
+* Control local gUnicorn and Apache Tomcat (THREDDS) servers.
+* Apply the full power of the Ocean Navigator to your own data by importing as a netCDF.
+* Download netCDF datasets from remote Navigator servers.
+* Very high performance.
+* Multi-threading where needed.
+
+## Getting Started
 
 For more details about the following build process go here: [http://doc.qt.io/qt-5/linux-building.html](http://doc.qt.io/qt-5/linux-building.html)
 
-## Getting Started
 1. Install dependencies using the following:
 ```shell
 sudo apt install build-essential libgl1-mesa-dev libfontconfig1-dev libfreetype6-dev libx11-dev libxext-dev libxfixes-dev libxi-dev libxrender-dev libxcb1-dev libx11-xcb-dev libxcb-glx0-dev libxcb-keysyms1-dev libxcb-image0-dev libxcb-shm0-dev libxcb-icccm4-dev libxcb-sync0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-randr0-dev libxcb-render-util0-dev
@@ -34,6 +42,6 @@ git clone https://github.com/DFO-Ocean-Navigator/Ocean-Navigator-Config-Tool.git
 So, you've made some changes to my lovely code that made it even more awesome. Time to send it out to the masses.
 1. Navigate to the source folder `Ocean-Navigator-Config-Tool/Config_Tool/`.
 2. Run the following: `$QT_INSTALL_DIRECTORY/static/bin/qmake -config release`.
-3. `make clean`.
-4. `make`.
+3. `make -j12 clean`.
+4. `make -j12`.
 5. You can now run the tool like so `./Config_Tool`.
