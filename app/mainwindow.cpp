@@ -3,10 +3,13 @@
 
 #include "dialogdatasetview.h"
 #include "dialogpreferences.h"
+#include "widgetdashboard.h"
+
 #include "network.h"
 #include "jsonio.h"
 #include "process.h"
 #include "ioutils.h"
+#include "defines.h"
 
 #include <QMessageBox>
 #include <QFile>
@@ -15,7 +18,6 @@
 #include <QJsonArray>
 #include <QSettings>
 #include <QNetworkReply>
-#include <QProcess>
 #include <QThreadPool>
 #include <QInputDialog>
 
@@ -24,15 +26,6 @@
 #ifdef QT_DEBUG
 	#include <QDebug>
 #endif
-
-/***********************************************************************************/
-// Timeout for status bar messages
-const constexpr int STATUS_BAR_MSG_TIMEOUT{2000};
-
-/***********************************************************************************/
-// Colours for server status labels
-const constexpr auto COLOR_GREEN{"color: rgb(115, 210, 22);"};
-const constexpr auto COLOR_RED{"color: rgb(239, 41, 41);"};
 
 /***********************************************************************************/
 enum UITabs : int {
@@ -59,6 +52,9 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 
 	readSettings();
 
+	// Init widgets
+	m_widgetDashboard = new WidgetDashboard(m_ui->tabWidget, this, &m_prefs);
+
 	configureNetwork();
 
 	checkRemoteConnection();
@@ -71,28 +67,21 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 #ifdef QT_DEBUG
 		qDebug() << "First run";
 #endif
-		DialogPreferences prefsDialog{this};
-		prefsDialog.setWindowTitle(tr("Navigator2Go Initial Setup..."));
-		prefsDialog.SetPreferences(m_prefs);
+		showFirstRunConfiguration();
+	}
 
-		while(prefsDialog.GetPreferences().THREDDSDataLocation.isEmpty()) {
-			prefsDialog.exec();
-		}
-
-		m_prefs = prefsDialog.GetPreferences();
+	if (m_prefs.IsNetworkOnline) {
+		setOnline();
+	} else {
+		setOffline();
 	}
 
 	checkForUpdates();
-
-	setDefaultConfigFile();
-	updateConfigTargetUI();
 
 	if (m_prefs.UpdateRemoteListOnStart) {
 		updateRemoteDatasetList();
 	}
 	updateActiveDatasetListWidget();
-
-	checkAndStartServers();
 
 	setWindowTitle(tr("Navigator2Go - Alpha Build"));
 
@@ -102,6 +91,11 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 /***********************************************************************************/
 MainWindow::~MainWindow() {
 	delete m_ui;
+}
+
+/***********************************************************************************/
+void MainWindow::showStatusBarMessage(const char* text) const {
+	statusBar()->showMessage(tr(text), STATUS_BAR_MSG_TIMEOUT);
 }
 
 /***********************************************************************************/
@@ -233,10 +227,6 @@ void MainWindow::readSettings() {
 		m_prefs.IsNetworkOnline = settings.value("IsNetworkOnline").toBool();
 	}
 
-	if (settings.contains("DatasetTargetRemote")) {
-		m_prefs.DatasetTargetRemote = settings.value("DatasetTargetRemote").toBool();
-	}
-
 	settings.endGroup();
 
 	// DataOrder
@@ -287,6 +277,7 @@ void MainWindow::configureNetwork() {
 	m_networkAccessManager.setRedirectPolicy(QNetworkRequest::RedirectPolicy::SameOriginRedirectPolicy);
 
 	if (m_prefs.IsNetworkOnline) {
+		// Reduce latency by connecting to remote first
 		m_networkAccessManager.connectToHost(m_prefs.RemoteURL);
 	}
 
@@ -462,18 +453,19 @@ void MainWindow::on_actionPreferences_triggered() {
 
 	if (prefsDialog.exec()) {
 		// Store previous network state
-		const auto prevIsOnline{ m_prefs.IsNetworkOnline };
+		const auto prevNetworkState{ m_prefs.IsNetworkOnline };
 		m_prefs = prefsDialog.GetPreferences();
 
-		setDefaultConfigFile();
+		// Has the network state changed?
+		if (m_prefs.IsNetworkOnline != prevNetworkState) {
 
-		updateActiveDatasetListWidget();
+			if (!m_prefs.IsNetworkOnline) {
+				setOffline();
+			}
+			else {
+				setOnline();
+			}
 
-		updateConfigTargetUI();
-
-		// Show a notification to restart gUnicorn
-		// is network status changed
-		if (m_prefs.IsNetworkOnline != prevIsOnline) {
 			QMessageBox box{this};
 			box.setWindowTitle(tr("Online status changed..."));
 			box.setText(tr("You've changed the network status of Navigator2Go.\
@@ -607,132 +599,8 @@ void MainWindow::setInitialLayout() {
 	m_ui->labelDownloadProgress->setVisible(false);
 	m_ui->progressBarDownload->setVisible(false);
 
-	m_ui->labelDatasetTarget->setStyleSheet(COLOR_GREEN);
-
-	m_ui->labelUpdate->setStyleSheet(COLOR_GREEN);
-	m_ui->labelUpdate->setVisible(false);
-	m_ui->pushButtonUpdate->setEnabled(false);
-	m_ui->pushButtonUpdate->setVisible(false);
-}
-
-/***********************************************************************************/
-void MainWindow::on_pushButtonStartWebServer_clicked() {
-	if (!m_gunicornRunning) {
-		QProcess process{this};
-		process.setProgram("/bin/sh");
-		process.setWorkingDirectory(m_prefs.ONInstallDir);
-		process.setArguments({"runserver.sh", QFileInfo("datasetconfigONLINE.json").fileName()});
-
-		if (!process.startDetached(nullptr)) {
-			QMessageBox box{this};
-			box.setWindowTitle(tr("Error"));
-			box.setText(tr("Failed to start gUnicorn."));
-			box.setDetailedText(tr("Check the permissions of the /tmp/oceannavigator folder."));
-			box.setIcon(QMessageBox::Critical);
-
-			box.exec();
-
-			return;
-		}
-
-		m_ui->labelStatusWebServer->setText(tr("Running"));
-		m_ui->labelStatusWebServer->setStyleSheet(COLOR_GREEN);
-		m_gunicornRunning = true;
-	}
-}
-
-/***********************************************************************************/
-void MainWindow::on_pushButtonStopWebServer_clicked() {
-	if (m_gunicornRunning) {
-		if (!QProcess::startDetached("pkill", {"gunicorn"})) {
-			QMessageBox box{this};
-			box.setWindowTitle(tr("Error"));
-			box.setText(tr("Failed to kill gUnicorn process. It might already be stopped. Use ps -aux | grep gunicorn to verify."));
-			box.setIcon(QMessageBox::Critical);
-
-			box.exec();
-
-			return;
-		}
-		m_ui->labelStatusWebServer->setText(tr("Stopped"));
-		m_ui->labelStatusWebServer->setStyleSheet(COLOR_RED);
-		m_gunicornRunning = false;
-	}
-}
-
-/***********************************************************************************/
-void MainWindow::on_pushButtonStartApache_clicked() {
-	if (!m_apacheRunning) {
-		QProcess process{this};
-		process.setProgram("/bin/sh");
-		process.setWorkingDirectory(IO::TOMCAT_BIN_DIR);
-		process.setArguments({"startup.sh"});
-
-		if (!process.startDetached()) {
-			QMessageBox::critical(this, tr("Error"), tr("Failed to start THREDDS server."));
-
-			return;
-		}
-
-		m_ui->labelStatusApache->setText(tr("Running"));
-		m_ui->labelStatusApache->setStyleSheet(COLOR_GREEN);
-		m_apacheRunning = true;
-	}
-}
-
-/***********************************************************************************/
-void MainWindow::on_pushButtonStopApache_clicked() {
-	if (m_apacheRunning) {
-		QProcess process{this};
-		process.setProgram("/bin/sh");
-		process.setWorkingDirectory(IO::TOMCAT_BIN_DIR);
-		process.setArguments({"shutdown.sh"});
-
-		if (!process.startDetached()) {
-			QMessageBox::critical(this, tr("Error"), tr("Failed to stop THREDDS server."));
-
-			return;
-		}
-
-		m_ui->labelStatusApache->setText(tr("Stopped"));
-		m_ui->labelStatusApache->setStyleSheet(COLOR_RED);
-		m_apacheRunning = false;
-	}
-}
-
-/***********************************************************************************/
-void MainWindow::checkAndStartServers() {
-	// gUnicorn
-	m_gunicornRunning = System::IsProcessRunning("gunicorn");
-	if (!m_gunicornRunning && m_prefs.AutoStartServers) {
-		on_pushButtonStartWebServer_clicked();
-		m_gunicornRunning = true;
-	}
-	if (m_gunicornRunning) {
-		m_ui->labelStatusWebServer->setText(tr("Running"));
-		m_ui->labelStatusWebServer->setStyleSheet(COLOR_GREEN);
-	}
-
-	// Apache tomcat
-	m_apacheRunning = System::IsProcessRunning("java");
-	if (!m_apacheRunning && m_prefs.AutoStartServers) {
-		on_pushButtonStartApache_clicked();
-		m_apacheRunning = true;
-	}
-	if (m_apacheRunning) {
-		m_ui->labelStatusApache->setText(tr("Running"));
-		m_ui->labelStatusApache->setStyleSheet(COLOR_GREEN);
-	}
-}
-
-/***********************************************************************************/
-void MainWindow::updateConfigTargetUI() {
-	if (m_prefs.IsNetworkOnline) {
-		m_ui->labelDatasetTarget->setText(tr("Remote Storage: \n") + m_prefs.RemoteURL);
-	}
-	else {
-		m_ui->labelDatasetTarget->setText(tr("Local Storage"));
-	}
+	// Add widgets to their tabs
+	m_ui->dashboardLayout->addWidget(m_widgetDashboard);
 }
 
 /***********************************************************************************/
@@ -816,7 +684,7 @@ void MainWindow::saveConfigFile() {
 }
 
 /***********************************************************************************/
-int MainWindow::showUnsavedDataMessageBox() {
+auto MainWindow::showUnsavedDataMessageBox() {
 
 	return QMessageBox::question(this,
 								 tr("Confirm continue..."),
@@ -827,6 +695,28 @@ int MainWindow::showUnsavedDataMessageBox() {
 
 /***********************************************************************************/
 void MainWindow::checkForUpdates() {
+}
+
+/***********************************************************************************/
+void MainWindow::setOnline() {
+#ifdef QT_DEBUG
+	qDebug() << "Changing to online.";
+#endif
+	m_networkAccessManager.setNetworkAccessible(QNetworkAccessManager::Accessible);
+	setDefaultConfigFile();
+	m_widgetDashboard->showOnlineText();
+	updateActiveDatasetListWidget();
+}
+
+/***********************************************************************************/
+void MainWindow::setOffline() {
+#ifdef QT_DEBUG
+	qDebug() << "Changing to offline.";
+#endif
+	m_networkAccessManager.setNetworkAccessible(QNetworkAccessManager::NotAccessible);
+	setDefaultConfigFile();
+	m_widgetDashboard->showOfflineText();
+	updateActiveDatasetListWidget();
 }
 
 /***********************************************************************************/
@@ -849,13 +739,13 @@ void MainWindow::checkRemoteConnection() {
 					box.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
 
 					if (box.exec() == QMessageBox::Yes) {
+						m_prefs.IsNetworkOnline = true;
 						this->setOnline();
 					}
 				}
 
-				this->m_ui->labelRemoteUplink->setText(tr("Online"));
-				this->m_ui->labelRemoteUplink->setStyleSheet(COLOR_GREEN);
-				this->statusBar()->showMessage(tr("Remote uplink test successful."), STATUS_BAR_MSG_TIMEOUT);
+				m_widgetDashboard->showOnlineText();
+				this->showStatusBarMessage("Remote uplink test successful.");
 				this->updateRemoteDatasetList();
 			}
 			else {
@@ -864,51 +754,25 @@ void MainWindow::checkRemoteConnection() {
 
 					box.setWindowTitle(tr("Remote uplink lost..."));
 					box.setIcon(QMessageBox::Warning);
-					box.setText(tr("You have lost connection to the remote server. Would you like to switch to your local datasets?"));
-					box.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+					box.setText(tr("You have lost connection to the remote server. Local datasets will now be used."));
+					box.setStandardButtons(QMessageBox::Ok);
 
-					if (box.exec() == QMessageBox::Yes) {
-						this->setOffline();
-					}
+					m_prefs.IsNetworkOnline = false;
+
+					this->setOffline();
 				}
 
-				this->m_ui->labelRemoteUplink->setText(tr("Offline"));
-				this->m_ui->labelRemoteUplink->setStyleSheet(COLOR_RED);
-				this->statusBar()->showMessage(tr("Remote uplink test failed"), STATUS_BAR_MSG_TIMEOUT);
+				this->showStatusBarMessage("Remote uplink test failed");
 			}
 
-			m_ui->pushButtonCheckRemoteUplink->setEnabled(true);
-			m_ui->pushButtonCheckRemoteUplink->setText(tr("Test"));
+			m_widgetDashboard->enableUplinkTestButton();
 
 		}, Qt::BlockingQueuedConnection); // <-- Check out this magic...this would segfault otherwise
 
-		m_ui->pushButtonCheckRemoteUplink->setEnabled(false);
-		m_ui->pushButtonCheckRemoteUplink->setText(tr("Checking..."));
+		m_widgetDashboard->disableUplinkTestButton();
 
 		QThreadPool::globalInstance()->start(task);
 	}
-}
-
-/***********************************************************************************/
-void MainWindow::setOnline() {
-#ifdef QT_DEBUG
-	qDebug() << "Changing to online.";
-#endif
-	m_networkAccessManager.setNetworkAccessible(QNetworkAccessManager::Accessible);
-	m_prefs.IsNetworkOnline = true;
-	setDefaultConfigFile();
-	updateConfigTargetUI();
-}
-
-/***********************************************************************************/
-void MainWindow::setOffline() {
-#ifdef QT_DEBUG
-	qDebug() << "Changing to offline.";
-#endif
-	m_networkAccessManager.setNetworkAccessible(QNetworkAccessManager::NotAccessible);
-	m_prefs.IsNetworkOnline = false;
-	setDefaultConfigFile();
-	updateConfigTargetUI();
 }
 
 /***********************************************************************************/
@@ -927,41 +791,6 @@ void MainWindow::on_pushButtonSaveConfigFile_clicked() {
 }
 
 /***********************************************************************************/
-void MainWindow::on_pushButtonImportNetCDF_clicked() {
-	auto files = QFileDialog::getOpenFileNames(this,
-													 tr("Select NetCDF files to import..."),
-													 QDir::currentPath(),
-													 "NetCDF Files (*.nc)"
-													 );
-	qDebug() << files;
-	if (files.empty()) {
-		return;
-	}
-
-	auto* task{ new IO::CopyFilesRunnable(std::move(files)) };
-
-	QObject::connect(task, &IO::CopyFilesRunnable::finished, this, [&](const auto errorList) {
-		if (!errorList.empty()) {
-			qDebug() << "ERRORS OCCOURED";
-		}
-		else {
-
-		}
-
-		m_ui->pushButtonImportNetCDF->setEnabled(true);
-	});
-
-	QObject::connect(task, &IO::CopyFilesRunnable::progress, this, [&](const auto progress) {
-		qDebug() << progress;
-	});
-
-	m_ui->pushButtonImportNetCDF->setEnabled(false);
-
-	// Run it
-	QThreadPool::globalInstance()->start(task);
-}
-
-/***********************************************************************************/
 void MainWindow::on_pushButtonLoadCustomConfig_clicked() {
 	if (m_hasUnsavedData) {
 		switch(showUnsavedDataMessageBox()) {
@@ -972,6 +801,8 @@ void MainWindow::on_pushButtonLoadCustomConfig_clicked() {
 			break;
 		case QMessageBox::Cancel:
 			return;
+		default:
+			break;
 		}
 	}
 
@@ -1000,11 +831,13 @@ void MainWindow::on_pushButtonLoadDefaultConfig_clicked() {
 			break;
 		case QMessageBox::Cancel:
 			return;
+		default:
+			break;
 		}
 	}
 
 	setDefaultConfigFile();
-	updateConfigTargetUI();
+	m_widgetDashboard->update();
 	updateActiveDatasetListWidget();
 }
 
@@ -1014,11 +847,14 @@ void MainWindow::on_actionCheck_for_Updates_triggered() {
 }
 
 /***********************************************************************************/
-void MainWindow::on_pushButtonUpdate_clicked() {
-	checkForUpdates();
-}
+void MainWindow::showFirstRunConfiguration() {
+	DialogPreferences prefsDialog{this};
+	prefsDialog.setWindowTitle(tr("Navigator2Go Initial Setup..."));
+	prefsDialog.SetPreferences(m_prefs);
 
-/***********************************************************************************/
-void MainWindow::on_pushButtonCheckRemoteUplink_clicked() {
-	checkRemoteConnection();
+	while(prefsDialog.GetPreferences().THREDDSDataLocation.isEmpty()) {
+		prefsDialog.exec();
+	}
+
+	m_prefs = prefsDialog.GetPreferences();
 }

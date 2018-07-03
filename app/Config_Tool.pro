@@ -34,8 +34,9 @@ RESOURCES += \
 
 FORMS += \
     mainwindow.ui \
-    datasetview.ui \
-    dialogpreferences.ui
+    dialogpreferences.ui \
+    widgetdashboard.ui \
+    dialogdatasetview.ui
 
 unix:!macx: LIBS += -L$$PWD/netcdf4/lib/ -lnetcdf_c++4
 unix:!macx: PRE_TARGETDEPS += $$PWD/netcdf4/lib/libnetcdf_c++4.a
@@ -55,7 +56,8 @@ HEADERS += \
    $$PWD/preferences.h \
    $$PWD/process.h \
    $$PWD/QEasyDownloader.hpp \
-   $$PWD/switchwidget.h
+   $$PWD/switchwidget.h \
+    widgetdashboard.h
 
 SOURCES += \
    $$PWD/datadownloaddesc.cpp \
@@ -69,7 +71,8 @@ SOURCES += \
    $$PWD/network.cpp \
    $$PWD/process.cpp \
    $$PWD/QEasyDownloader.cc \
-   $$PWD/switchwidget.cpp
+   $$PWD/switchwidget.cpp \
+    widgetdashboard.cpp
 
 INCLUDEPATH += \
     $$PWD \

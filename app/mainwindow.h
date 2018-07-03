@@ -18,6 +18,7 @@ class MainWindow;
 }
 class QListWidgetItem;
 class QObject;
+class WidgetDashboard;
 
 /***********************************************************************************/
 class MainWindow : public QMainWindow {
@@ -26,6 +27,12 @@ class MainWindow : public QMainWindow {
 public:
 	explicit MainWindow(QWidget* parent = nullptr);
 	~MainWindow() override;
+
+	void showStatusBarMessage(const char* text) const;
+
+	void checkRemoteConnection();
+
+	void updateRemoteDatasetList();
 
 protected:
 	void closeEvent(QCloseEvent* event) override;
@@ -58,27 +65,15 @@ private slots:
 	// Download data in queue
 	void on_pushButtonDownload_clicked();
 
-	// Start/Stop servers
-	void on_pushButtonStartWebServer_clicked(); // gUnicorn
-	void on_pushButtonStopWebServer_clicked();
-	void on_pushButtonStopApache_clicked();	// Apache Tomcat
-	void on_pushButtonStartApache_clicked();
-
 	// Updates THREDDS aggregate files
 	// and datasetconfigOFFLINE
 	void on_pushButtonUpdateAggConfig_clicked();
-
-	void on_pushButtonImportNetCDF_clicked();
 
 	void on_pushButtonLoadCustomConfig_clicked();
 
 	void on_pushButtonLoadDefaultConfig_clicked();
 
 	void on_actionCheck_for_Updates_triggered();
-
-	void on_pushButtonUpdate_clicked();
-
-	void on_pushButtonCheckRemoteUplink_clicked();
 
 private:
 	//
@@ -88,13 +83,9 @@ private:
 	//
 	void configureNetwork();
 	//
-	void updateRemoteDatasetList();
-	//
 	void updateActiveDatasetListWidget();
 	//
 	void setInitialLayout();
-	//
-	void checkAndStartServers();
 	//
 	void setDefaultConfigFile();
 	//
@@ -102,21 +93,20 @@ private:
 	//
 	void saveConfigFile();
 	//
-	int showUnsavedDataMessageBox();
-	//
-	void checkForUpdates();
-	//
-	void checkRemoteConnection();
-	//
 	void setOnline();
 	//
 	void setOffline();
 	//
-	void updateConfigTargetUI();
+	auto showUnsavedDataMessageBox();
+	//
+	void checkForUpdates();
 	//
 	void addDatasetToConfigList();
+	//
+	void showFirstRunConfiguration();
 
 	Ui::MainWindow* m_ui{nullptr};
+	WidgetDashboard* m_widgetDashboard{nullptr};
 
 	QTimer m_uplinkTimer{this};
 	bool m_hasRemoteUplink{true};
