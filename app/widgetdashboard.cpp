@@ -138,26 +138,6 @@ void WidgetDashboard::on_pushButtonStopWebServer_clicked() {
 
 /***********************************************************************************/
 void WidgetDashboard::on_pushButtonStopApache_clicked() {
-	if (!m_apacheRunning) {
-		QProcess process{this};
-		process.setProgram("/bin/sh");
-		process.setWorkingDirectory(IO::TOMCAT_BIN_DIR);
-		process.setArguments({"startup.sh"});
-
-		if (!process.startDetached()) {
-			QMessageBox::critical(this, tr("Error"), tr("Failed to start THREDDS server."));
-
-			return;
-		}
-
-		m_ui->labelStatusApache->setText(tr("Running"));
-		m_ui->labelStatusApache->setStyleSheet(COLOR_GREEN);
-		m_apacheRunning = true;
-	}
-}
-
-/***********************************************************************************/
-void WidgetDashboard::on_pushButtonStartApache_clicked() {
 	if (m_apacheRunning) {
 		QProcess process{this};
 		process.setProgram("/bin/sh");
@@ -173,6 +153,26 @@ void WidgetDashboard::on_pushButtonStartApache_clicked() {
 		m_ui->labelStatusApache->setText(tr("Stopped"));
 		m_ui->labelStatusApache->setStyleSheet(COLOR_RED);
 		m_apacheRunning = false;
+	}
+}
+
+/***********************************************************************************/
+void WidgetDashboard::on_pushButtonStartApache_clicked() {
+	if (!m_apacheRunning) {
+		QProcess process{this};
+		process.setProgram("/bin/sh");
+		process.setWorkingDirectory(IO::TOMCAT_BIN_DIR);
+		process.setArguments({"startup.sh"});
+
+		if (!process.startDetached()) {
+			QMessageBox::critical(this, tr("Error"), tr("Failed to start THREDDS server."));
+
+			return;
+		}
+
+		m_ui->labelStatusApache->setText(tr("Running"));
+		m_ui->labelStatusApache->setStyleSheet(COLOR_GREEN);
+		m_apacheRunning = true;
 	}
 }
 
