@@ -10,15 +10,18 @@
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QHash>
+#include <QPointer>
 
 /***********************************************************************************/
 // Forward declarations
 namespace Ui {
 class MainWindow;
 }
+
 class QListWidgetItem;
 class QObject;
 class WidgetDashboard;
+class WidgetConfigEditor;
 
 /***********************************************************************************/
 class MainWindow : public QMainWindow {
@@ -44,15 +47,7 @@ private slots:
 	void on_actionPreferences_triggered();
 	void on_actionAbout_triggered();
 
-	// Add Dataset button callback
-	void on_buttonAddDataset_clicked();
-	// Delete Dataset button callback
-	void on_pushButtonDeleteDataset_clicked();
-	// Save button callback
-	void on_pushButtonSaveConfigFile_clicked();
-
 	// List item is double clicked
-	void on_listWidgetActiveDatasets_itemDoubleClicked(QListWidgetItem* item);
 	void on_listWidgetDoryDatasets_itemDoubleClicked(QListWidgetItem* item);
 	void on_listWidgetDownloadQueue_itemDoubleClicked(QListWidgetItem *item);
 
@@ -69,10 +64,6 @@ private slots:
 	// and datasetconfigOFFLINE
 	void on_pushButtonUpdateAggConfig_clicked();
 
-	void on_pushButtonLoadCustomConfig_clicked();
-
-	void on_pushButtonLoadDefaultConfig_clicked();
-
 	void on_actionCheck_for_Updates_triggered();
 
 private:
@@ -83,30 +74,21 @@ private:
 	//
 	void configureNetwork();
 	//
-	void updateActiveDatasetListWidget();
-	//
 	void setInitialLayout();
 	//
-	void setDefaultConfigFile();
-	//
 	void setCustomConfigFile(const QString& filePath);
-	//
-	void saveConfigFile();
 	//
 	void setOnline();
 	//
 	void setOffline();
 	//
-	auto showUnsavedDataMessageBox();
-	//
 	void checkForUpdates();
-	//
-	void addDatasetToConfigList();
 	//
 	void showFirstRunConfiguration();
 
 	Ui::MainWindow* m_ui{nullptr};
-	WidgetDashboard* m_widgetDashboard{nullptr};
+	QPointer<WidgetDashboard> m_widgetDashboard;
+	QPointer<WidgetConfigEditor> m_widgetConfigEditor;
 
 	QTimer m_uplinkTimer{this};
 	bool m_hasRemoteUplink{true};
@@ -115,16 +97,9 @@ private:
 
 	Preferences m_prefs;
 
-	// Path to the currently loaded config file
-	QString m_activeConfigFile;
-	// Root JSON object of active config file
-	QJsonObject m_documentRootObject;
-
 	// Network stuff
 	QNetworkAccessManager m_networkAccessManager{this};
 	QEasyDownloader m_downloader{this, &m_networkAccessManager};
-
-	bool m_hasUnsavedData{false};
 
 	// Stores the resulting JSON objects for each dataset
 	// returned by a call to:
@@ -134,9 +109,6 @@ private:
 	QHash<QString, DataDownloadDesc> m_downloadQueue;
 
 	std::size_t m_numDownloadsComplete{0};
-
-	// Which servers are running locally
-	bool m_gunicornRunning{false}, m_apacheRunning{false};
 };
 
 #endif // MAINWINDOW_H

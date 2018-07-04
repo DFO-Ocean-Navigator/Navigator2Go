@@ -10,7 +10,7 @@ class WidgetDashboard;
 }
 
 class MainWindow;
-class Preferences;
+struct Preferences;
 
 /***********************************************************************************/
 class WidgetDashboard : public QWidget {
@@ -43,7 +43,8 @@ private:
 
 	Ui::WidgetDashboard* m_ui{nullptr};
 	MainWindow* m_mainWindow{nullptr};
-	const Preferences* m_prefs{nullptr};
+
+	const Preferences* m_prefs;
 
 	// Which servers are running locally
 	bool m_isGunicornRunning{false}, m_apacheRunning{false};

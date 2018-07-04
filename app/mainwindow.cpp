@@ -4,6 +4,7 @@
 #include "dialogdatasetview.h"
 #include "dialogpreferences.h"
 #include "widgetdashboard.h"
+#include "widgetconfigeditor.h"
 
 #include "network.h"
 #include "jsonio.h"
@@ -19,7 +20,6 @@
 #include <QSettings>
 #include <QNetworkReply>
 #include <QThreadPool>
-#include <QInputDialog>
 
 #include <netcdf4/ncFile.h>
 
@@ -52,8 +52,16 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 
 	readSettings();
 
+	if (m_firstRun) {
+#ifdef QT_DEBUG
+		qDebug() << "First run";
+#endif
+		showFirstRunConfiguration();
+	}
+
 	// Init widgets
 	m_widgetDashboard = new WidgetDashboard(m_ui->tabWidget, this, &m_prefs);
+	m_widgetConfigEditor = new WidgetConfigEditor(m_ui->tabWidget, this, &m_prefs);
 
 	configureNetwork();
 
@@ -63,12 +71,6 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 	QObject::connect(&m_uplinkTimer, &QTimer::timeout, this, &MainWindow::checkRemoteConnection);
 	m_uplinkTimer.start();
 
-	if (m_firstRun) {
-#ifdef QT_DEBUG
-		qDebug() << "First run";
-#endif
-		showFirstRunConfiguration();
-	}
 
 	if (m_prefs.IsNetworkOnline) {
 		setOnline();
@@ -81,7 +83,6 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 	if (m_prefs.UpdateRemoteListOnStart) {
 		updateRemoteDatasetList();
 	}
-	updateActiveDatasetListWidget();
 
 	setWindowTitle(tr("Navigator2Go - Alpha Build"));
 
@@ -106,13 +107,13 @@ void MainWindow::on_actionAbout_Qt_triggered() {
 /***********************************************************************************/
 void MainWindow::on_actionClose_triggered() {
 
-	if (m_hasUnsavedData) {
-		const auto reply = QMessageBox::question(this, tr("Confirm Action"), tr("Close without saving?"),
-										QMessageBox::Yes | QMessageBox::Save | QMessageBox::Cancel);
+	if (m_widgetConfigEditor->hasUnsavedData()) {
+		const auto reply{ QMessageBox::question(this, tr("Confirm Action"), tr("Close without saving?"),
+										QMessageBox::Yes | QMessageBox::Save | QMessageBox::Cancel) };
 
 		switch (reply) {
 		case QMessageBox::Save:
-			on_pushButtonSaveConfigFile_clicked();
+			m_widgetConfigEditor->saveConfigFile();
 			break;
 		case QMessageBox::Cancel:
 			return;
@@ -123,62 +124,6 @@ void MainWindow::on_actionClose_triggered() {
 	}
 
 	close();
-}
-
-/***********************************************************************************/
-void MainWindow::addDatasetToConfigList() {
-	bool ok;
-	const auto name{ QInputDialog::getText(this,
-										   tr("New dataset key"),
-										   tr("Dataset key (e.g. giops_day):"),
-										   QLineEdit::Normal,
-										   "new_dataset_" + QString::number(qrand()),
-										   &ok
-				   )};
-
-	if (ok) {
-		m_hasUnsavedData = true;
-		m_ui->pushButtonSaveConfigFile->setEnabled(true);
-		m_ui->listWidgetActiveDatasets->addItem(name);
-	}
-}
-
-/***********************************************************************************/
-void MainWindow::on_buttonAddDataset_clicked() {
-
-	addDatasetToConfigList();
-}
-
-/***********************************************************************************/
-void MainWindow::on_listWidgetActiveDatasets_itemDoubleClicked(QListWidgetItem* item) {
-
-	DialogDatasetView dialog{this};
-	const auto datasetKey = item->text();
-	dialog.SetData(datasetKey, m_documentRootObject[datasetKey].toObject());
-
-	if (dialog.exec()) {
-		const auto data = dialog.GetData();
-
-		m_documentRootObject[datasetKey] = data.second;
-	}
-}
-
-/***********************************************************************************/
-void MainWindow::on_pushButtonDeleteDataset_clicked() {
-	const auto items = m_ui->listWidgetActiveDatasets->selectedItems();
-
-	if (!items.empty())	{
-		const auto reply = QMessageBox::question(this, tr("Confirm Action"), tr("Delete selected dataset(s)?"),
-												 QMessageBox::Yes | QMessageBox::No);
-		if (reply == QMessageBox::Yes) {
-			for (auto* item : items) {
-				delete m_ui->listWidgetActiveDatasets->takeItem(m_ui->listWidgetActiveDatasets->row(item));
-			}
-		}
-	}
-
-	m_hasUnsavedData = true;
-	m_ui->pushButtonSaveConfigFile->setEnabled(true);
 }
 
 /***********************************************************************************/
@@ -431,21 +376,6 @@ void MainWindow::updateRemoteDatasetList() {
 }
 
 /***********************************************************************************/
-void MainWindow::updateActiveDatasetListWidget() {
-
-	m_ui->listWidgetActiveDatasets->clear();
-
-	for (const auto& datasetName : m_documentRootObject.keys()) {
-		m_ui->listWidgetActiveDatasets->addItem(datasetName);
-	}
-
-	m_ui->labelActiveConfigFile->setVisible(true);
-	m_ui->labelActiveConfigFile->setText(tr("Active Config File: ") + QFileInfo(m_activeConfigFile).fileName());
-	m_ui->buttonAddDataset->setEnabled(true);
-	m_ui->pushButtonDeleteDataset->setEnabled(true);
-}
-
-/***********************************************************************************/
 void MainWindow::on_actionPreferences_triggered() {
 	DialogPreferences prefsDialog{this};
 
@@ -459,12 +389,7 @@ void MainWindow::on_actionPreferences_triggered() {
 		// Has the network state changed?
 		if (m_prefs.IsNetworkOnline != prevNetworkState) {
 
-			if (!m_prefs.IsNetworkOnline) {
-				setOffline();
-			}
-			else {
-				setOnline();
-			}
+			m_prefs.IsNetworkOnline ? setOnline() : setOffline();
 
 			QMessageBox box{this};
 			box.setWindowTitle(tr("Online status changed..."));
@@ -592,8 +517,6 @@ void MainWindow::on_pushButtonDownload_clicked() {
 
 /***********************************************************************************/
 void MainWindow::setInitialLayout() {
-	m_ui->buttonAddDataset->setText(tr("Add Dataset"));
-	m_ui->pushButtonDeleteDataset->setText(tr("Delete Dataset"));
 	m_ui->tabWidget->setCurrentIndex(UITabs::HOME);
 
 	m_ui->labelDownloadProgress->setVisible(false);
@@ -601,96 +524,7 @@ void MainWindow::setInitialLayout() {
 
 	// Add widgets to their tabs
 	m_ui->dashboardLayout->addWidget(m_widgetDashboard);
-}
-
-/***********************************************************************************/
-void MainWindow::setDefaultConfigFile() {
-	const static auto onlineConfig{ m_prefs.ONInstallDir+"/oceannavigator/datasetconfigONLINE.json" };
-	const static auto offlineConfig{ m_prefs.ONInstallDir+"/oceannavigator/datasetconfigOFFLINE.json" };
-
-	QString newConfigFile;
-	if (m_prefs.IsNetworkOnline) {
-		newConfigFile = onlineConfig;
-	}
-	else {
-		newConfigFile = offlineConfig;
-	}
-
-	// Validate file
-	auto doc = IO::LoadJSONFile(newConfigFile);
-	if (doc.isNull()) {
-#ifdef QT_DEBUG
-		qDebug() << "Config file not found: " << newConfigFile;
-#endif
-		QMessageBox box{this};
-		box.setWindowTitle(tr("File not found..."));
-		box.setText(tr("No default config file was found. Do you want to create one at: ")
-					+ newConfigFile);
-		box.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-		box.setIcon(QMessageBox::Question);
-
-		if (box.exec() != QMessageBox::Yes) {
-			return;
-		}
-#ifdef QT_DEBUG
-		qDebug() << "Creating it...";
-#endif
-		// File doesn't exist so create it
-		IO::WriteJSONFile(newConfigFile);
-
-		// And now load it
-		doc = IO::LoadJSONFile(newConfigFile);
-
-	}
-
-	m_activeConfigFile = newConfigFile;
-	m_documentRootObject = doc.object();
-
-	statusBar()->showMessage(tr("Config file loaded: ") + m_activeConfigFile, STATUS_BAR_MSG_TIMEOUT);
-}
-
-/***********************************************************************************/
-void MainWindow::setCustomConfigFile(const QString& filePath) {
-
-	// Validate file
-	const auto doc = IO::LoadJSONFile(filePath);
-
-	if (doc.isNull()) {
-		return;
-	}
-
-	m_activeConfigFile = filePath;
-	m_documentRootObject = doc.object();
-
-	statusBar()->showMessage(tr("Config file loaded: ") + m_activeConfigFile, STATUS_BAR_MSG_TIMEOUT);
-}
-
-/***********************************************************************************/
-void MainWindow::saveConfigFile() {
-	const QJsonDocument doc{m_documentRootObject};
-
-	IO::WriteJSONFile(
-		#ifdef QT_DEBUG
-				"/home/nabil/dory.json"
-		#else
-				m_activeConfigFile
-		#endif
-				, m_documentRootObject);
-
-	statusBar()->showMessage(tr("Config file saved: ") + m_activeConfigFile, STATUS_BAR_MSG_TIMEOUT);
-
-	m_hasUnsavedData = false;
-	m_ui->pushButtonSaveConfigFile->setEnabled(false);
-}
-
-/***********************************************************************************/
-auto MainWindow::showUnsavedDataMessageBox() {
-
-	return QMessageBox::question(this,
-								 tr("Confirm continue..."),
-								 tr("You have unsaved changes. Do you want to save them?"),
-								 QMessageBox::No | QMessageBox::Save | QMessageBox::Cancel
-								 );
+	m_ui->configEditorLayout->addWidget(m_widgetConfigEditor);
 }
 
 /***********************************************************************************/
@@ -703,9 +537,9 @@ void MainWindow::setOnline() {
 	qDebug() << "Changing to online.";
 #endif
 	m_networkAccessManager.setNetworkAccessible(QNetworkAccessManager::Accessible);
-	setDefaultConfigFile();
 	m_widgetDashboard->showOnlineText();
-	updateActiveDatasetListWidget();
+	m_widgetConfigEditor->setDefaultConfigFile();
+	m_widgetConfigEditor->updateDatasetListWidget();
 }
 
 /***********************************************************************************/
@@ -714,9 +548,9 @@ void MainWindow::setOffline() {
 	qDebug() << "Changing to offline.";
 #endif
 	m_networkAccessManager.setNetworkAccessible(QNetworkAccessManager::NotAccessible);
-	setDefaultConfigFile();
 	m_widgetDashboard->showOfflineText();
-	updateActiveDatasetListWidget();
+	m_widgetConfigEditor->setDefaultConfigFile();
+	m_widgetConfigEditor->updateDatasetListWidget();
 }
 
 /***********************************************************************************/
@@ -783,62 +617,6 @@ void MainWindow::on_listWidgetDownloadQueue_itemDoubleClicked(QListWidgetItem* i
 /***********************************************************************************/
 void MainWindow::on_pushButtonUpdateAggConfig_clicked() {
 	m_ui->pushButtonUpdateAggConfig->setEnabled(false);
-}
-
-/***********************************************************************************/
-void MainWindow::on_pushButtonSaveConfigFile_clicked() {
-	saveConfigFile();
-}
-
-/***********************************************************************************/
-void MainWindow::on_pushButtonLoadCustomConfig_clicked() {
-	if (m_hasUnsavedData) {
-		switch(showUnsavedDataMessageBox()) {
-		case QMessageBox::Yes:
-			saveConfigFile();
-			break;
-		case QMessageBox::No:
-			break;
-		case QMessageBox::Cancel:
-			return;
-		default:
-			break;
-		}
-	}
-
-	const auto filePath{ QFileDialog::getOpenFileName(this,
-													   tr("Select a dataset config file..."),
-													   QDir::currentPath(),
-													   "Config Files (*.json)"
-													   )
-					   };
-	if (filePath.isNull()) {
-		return;
-	}
-
-	setCustomConfigFile(filePath);
-	updateActiveDatasetListWidget();
-}
-
-/***********************************************************************************/
-void MainWindow::on_pushButtonLoadDefaultConfig_clicked() {
-	if (m_hasUnsavedData) {
-		switch(showUnsavedDataMessageBox()) {
-		case QMessageBox::Yes:
-			saveConfigFile();
-			break;
-		case QMessageBox::No:
-			break;
-		case QMessageBox::Cancel:
-			return;
-		default:
-			break;
-		}
-	}
-
-	setDefaultConfigFile();
-	m_widgetDashboard->update();
-	updateActiveDatasetListWidget();
 }
 
 /***********************************************************************************/

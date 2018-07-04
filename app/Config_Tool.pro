@@ -13,7 +13,7 @@ TEMPLATE = app
 QMAKE_CXXFLAGS_RELEASE -= -O
 QMAKE_CXXFLAGS_RELEASE -= -O1
 QMAKE_CXXFLAGS_RELEASE -= -O2
-QMAKE_CXXFLAGS_RELEASE *= -Os # optimize for size
+QMAKE_CXXFLAGS_RELEASE += -O3
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -36,7 +36,8 @@ FORMS += \
     mainwindow.ui \
     dialogpreferences.ui \
     widgetdashboard.ui \
-    dialogdatasetview.ui
+    dialogdatasetview.ui \
+    widgetconfigeditor.ui
 
 unix:!macx: LIBS += -L$$PWD/netcdf4/lib/ -lnetcdf_c++4
 unix:!macx: PRE_TARGETDEPS += $$PWD/netcdf4/lib/libnetcdf_c++4.a
@@ -57,7 +58,8 @@ HEADERS += \
    $$PWD/process.h \
    $$PWD/QEasyDownloader.hpp \
    $$PWD/switchwidget.h \
-    widgetdashboard.h
+    widgetdashboard.h \
+    widgetconfigeditor.h
 
 SOURCES += \
    $$PWD/datadownloaddesc.cpp \
@@ -72,7 +74,8 @@ SOURCES += \
    $$PWD/process.cpp \
    $$PWD/QEasyDownloader.cc \
    $$PWD/switchwidget.cpp \
-    widgetdashboard.cpp
+    widgetdashboard.cpp \
+    widgetconfigeditor.cpp
 
 INCLUDEPATH += \
     $$PWD \

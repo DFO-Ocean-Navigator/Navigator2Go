@@ -1,4 +1,4 @@
-#include "ui_datasetview.h"
+#include "ui_dialogdatasetview.h"
 #include "dialogdatasetview.h"
 
 #include "htmlhighlighter.h"
