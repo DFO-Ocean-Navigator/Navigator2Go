@@ -76,8 +76,6 @@ private:
 	//
 	void setInitialLayout();
 	//
-	void setCustomConfigFile(const QString& filePath);
-	//
 	void setOnline();
 	//
 	void setOffline();
