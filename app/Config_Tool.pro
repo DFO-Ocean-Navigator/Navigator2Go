@@ -38,7 +38,8 @@ FORMS += \
     widgetdashboard.ui \
     dialogdatasetview.ui \
     widgetconfigeditor.ui \
-    widgetdataorder.ui
+    widgetdataorder.ui \
+    widgetthreddsconfig.ui
 
 unix:!macx: LIBS += -L$$PWD/netcdf4/lib/ -lnetcdf_c++4
 unix:!macx: PRE_TARGETDEPS += $$PWD/netcdf4/lib/libnetcdf_c++4.a
@@ -61,7 +62,8 @@ HEADERS += \
    $$PWD/switchwidget.h \
     widgetdashboard.h \
     widgetconfigeditor.h \
-    widgetdataorder.h
+    widgetdataorder.h \
+    widgetthreddsconfig.h
 
 SOURCES += \
    $$PWD/datadownloaddesc.cpp \
@@ -78,7 +80,8 @@ SOURCES += \
    $$PWD/switchwidget.cpp \
     widgetdashboard.cpp \
     widgetconfigeditor.cpp \
-    widgetdataorder.cpp
+    widgetdataorder.cpp \
+    widgetthreddsconfig.cpp
 
 INCLUDEPATH += \
     $$PWD \

@@ -18,6 +18,17 @@ QString FindPathForDataset(const DataDownloadDesc& data) {
 }
 
 /***********************************************************************************/
+bool FileExists(const QString& path) {
+	const QFileInfo f{path};
+
+	if (f.exists() && f.isFile()) {
+		return true;
+	}
+
+	return false;
+}
+
+/***********************************************************************************/
 CopyFilesRunnable::CopyFilesRunnable(QStringList&& fileList) : m_fileList{std::move(fileList)} {
 }
 
@@ -45,5 +56,6 @@ void CopyFilesRunnable::run() {
 
 	emit finished(errorList);
 }
+
 
 } // namespace IO

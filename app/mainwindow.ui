@@ -43,7 +43,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>4</number>
       </property>
       <property name="documentMode">
        <bool>false</bool>
@@ -141,6 +141,16 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="threddsconfig">
+       <attribute name="title">
+        <string>THREDDS Config</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="threddsConfigLayout"/>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
     <item>
@@ -151,7 +161,7 @@
       <item>
        <widget class="QLabel" name="labelProgressBar">
         <property name="text">
-         <string>Download Progress:</string>
+         <string>Progress:</string>
         </property>
        </widget>
       </item>

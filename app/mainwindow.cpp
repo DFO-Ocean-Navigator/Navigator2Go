@@ -6,6 +6,7 @@
 #include "widgetdashboard.h"
 #include "widgetconfigeditor.h"
 #include "widgetdataorder.h"
+#include "widgetthreddsconfig.h"
 
 #include "network.h"
 #include "jsonio.h"
@@ -136,6 +137,8 @@ void MainWindow::initWidgets() {
 
 	m_widgetDataOrder = new WidgetDataOrder(m_ui->tabWidget, this, &m_prefs);
 	setDataOrderRegion();
+
+	m_widgetThreddsConfig = new WidgetThreddsConfig(m_ui->tabWidget);
 }
 
 /***********************************************************************************/
@@ -162,8 +165,8 @@ void MainWindow::readSettings() {
 		m_prefs.RemoteURL = "http://www.navigator.oceansdata.ca/";
 	}
 
-	if (m_settings.contains("THREDDSDataLocation")) {
-		m_prefs.THREDDSDataLocation = m_settings.value("THREDDSDataLocation").toString();
+	if (m_settings.contains("THREDDSCatalogLocation")) {
+		m_prefs.THREDDSCatalogLocation = m_settings.value("THREDDSCatalogLocation").toString();
 	}
 
 	if (m_settings.contains("UpdateRemoteListOnStart")) {
@@ -189,7 +192,7 @@ void MainWindow::writeSettings() {
 	m_settings.setValue("FirstRun", false);
 	m_settings.setValue("ONInstallDir", m_prefs.ONInstallDir);
 	m_settings.setValue("RemoteURL", m_prefs.RemoteURL);
-	m_settings.setValue("THREDDSDataLocation", m_prefs.THREDDSDataLocation);
+	m_settings.setValue("THREDDSCatalogLocation", m_prefs.THREDDSCatalogLocation);
 	m_settings.setValue("UpdateRemoteListOnStart", m_prefs.UpdateRemoteListOnStart);
 	m_settings.setValue("AutoStartServers", m_prefs.AutoStartServers);
 	m_settings.setValue("IsNetworkOnline", m_prefs.IsNetworkOnline);
@@ -268,7 +271,6 @@ void MainWindow::on_tabWidget_currentChanged(int index) {
 	default:
 		break;
 	}
-
 }
 
 /***********************************************************************************/
@@ -281,6 +283,7 @@ void MainWindow::setInitialLayout() {
 	m_ui->dashboardLayout->addWidget(m_widgetDashboard);
 	m_ui->dataOrderLayout->addWidget(m_widgetDataOrder);
 	m_ui->configEditorLayout->addWidget(m_widgetConfigEditor);
+	m_ui->threddsConfigLayout->addWidget(m_widgetThreddsConfig);
 }
 
 /***********************************************************************************/
@@ -396,7 +399,7 @@ void MainWindow::showFirstRunConfiguration() {
 	prefsDialog.setWindowTitle(tr("Navigator2Go Initial Setup..."));
 	prefsDialog.SetPreferences(m_prefs);
 
-	while(prefsDialog.GetPreferences().THREDDSDataLocation.isEmpty()) {
+	while(prefsDialog.GetPreferences().THREDDSCatalogLocation.isEmpty()) {
 		prefsDialog.exec();
 	}
 

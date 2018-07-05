@@ -1,7 +1,10 @@
 #include "dialogpreferences.h"
 #include "ui_dialogpreferences.h"
 
+#include "ioutils.h"
+
 #include <QFileDialog>
+#include <QMessageBox>
 
 /***********************************************************************************/
 DialogPreferences::DialogPreferences(QWidget* parent) : QDialog{parent},
@@ -15,13 +18,13 @@ DialogPreferences::~DialogPreferences() {
 }
 
 /***********************************************************************************/
-void DialogPreferences::SetPreferences(Preferences& settings) {
-	m_ui->lineEditInstallDir->setText(settings.ONInstallDir);
-	m_ui->lineEditRemoteURL->setText(settings.RemoteURL);
-	m_ui->lineEditTHREDDSDataLocation->setText(settings.THREDDSDataLocation);
-	m_ui->switchUpdateDoryDatasetsOnStart->setChecked(settings.UpdateRemoteListOnStart);
-	m_ui->switchAutoStartServers->setChecked(settings.AutoStartServers);
-	m_ui->switchOnlineOffline->setChecked(settings.IsNetworkOnline);
+void DialogPreferences::SetPreferences(Preferences& prefs) {
+	m_ui->lineEditInstallDir->setText(prefs.ONInstallDir);
+	m_ui->lineEditRemoteURL->setText(prefs.RemoteURL);
+	m_ui->lineEditTHREDDSDataLocation->setText(prefs.THREDDSCatalogLocation);
+	m_ui->switchUpdateDoryDatasetsOnStart->setChecked(prefs.UpdateRemoteListOnStart);
+	m_ui->switchAutoStartServers->setChecked(prefs.AutoStartServers);
+	m_ui->switchOnlineOffline->setChecked(prefs.IsNetworkOnline);
 }
 
 /***********************************************************************************/
@@ -54,9 +57,18 @@ void DialogPreferences::on_pushButtonBrowseInstallDir_clicked() {
 
 /***********************************************************************************/
 void DialogPreferences::on_pushButtonBroweseTHREDDS_clicked() {
-	const auto dir = QFileDialog::getExistingDirectory(this, tr("Open THREDDS Dataset Folder..."));
+	const auto dir = QFileDialog::getExistingDirectory(this, tr("Open THREDDS catalog.xml folder..."));
 
 	if (!dir.isEmpty()) {
-		m_ui->lineEditTHREDDSDataLocation->setText(dir);
+		if (IO::FileExists(dir+"/catalog.xml")) {
+			m_ui->lineEditTHREDDSDataLocation->setText(dir);
+			return;
+		}
+
+		QMessageBox::critical(this,
+							  tr("Error..."),
+							  tr("catalog.xml not found in this directory: ") +
+							  dir
+							  );
 	}
 }

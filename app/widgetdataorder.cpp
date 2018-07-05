@@ -58,7 +58,7 @@ void WidgetDataOrder::on_pushButtonDownload_clicked() {
 		return;
 	}
 
-	if (m_prefs->THREDDSDataLocation.isEmpty()) {
+	if (m_prefs->THREDDSCatalogLocation.isEmpty()) {
 		QMessageBox::information(this, tr("THREDDS location not set..."), tr("Go to Preferences (CTRL + SHIFT + P) to set the location on disk."));
 		return;
 	}

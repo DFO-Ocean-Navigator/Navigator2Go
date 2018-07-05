@@ -19,6 +19,7 @@ class MainWindow;
 class WidgetDashboard;
 class WidgetConfigEditor;
 class WidgetDataOrder;
+class WidgetThreddsConfig;
 
 /***********************************************************************************/
 class MainWindow : public QMainWindow {
@@ -75,6 +76,7 @@ private:
 	QPointer<WidgetDashboard> m_widgetDashboard;
 	QPointer<WidgetConfigEditor> m_widgetConfigEditor;
 	QPointer<WidgetDataOrder> m_widgetDataOrder;
+	QPointer<WidgetThreddsConfig> m_widgetThreddsConfig;
 
 	QSettings m_settings{"Fisheries and Oceans Canada", "Navigator2Go"};
 

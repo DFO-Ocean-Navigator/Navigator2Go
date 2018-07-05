@@ -25,6 +25,9 @@ QString FindPathForDataset(const QString& filename);
 QString FindPathForDataset(const DataDownloadDesc& data);
 
 /***********************************************************************************/
+bool FileExists(const QString& path);
+
+/***********************************************************************************/
 class CopyFilesRunnable : public QObject, public QRunnable {
 	Q_OBJECT
 

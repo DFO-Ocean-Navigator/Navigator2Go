@@ -120,10 +120,10 @@
          <item row="4" column="0">
           <widget class="QLabel" name="label_6">
            <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disk location for where your datasets will be stored and referenced by THREDDS.&lt;/p&gt;&lt;p&gt;This value should have been set during the installtion of THREDDS.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DIsk location of THREDDS catalog.xml file.&lt;/p&gt;&lt;p&gt;This value will have been set during the THREDDS installation process.&lt;/p&gt;&lt;p&gt;Default location is /opt/thredds_content/thredds/&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="text">
-            <string>THREDDS datasets location:</string>
+            <string>THREDDS catalog.xml location:</string>
            </property>
           </widget>
          </item>
