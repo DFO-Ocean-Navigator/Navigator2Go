@@ -178,11 +178,11 @@ void WidgetDashboard::on_pushButtonStartApache_clicked() {
 
 /***********************************************************************************/
 void WidgetDashboard::on_pushButtonImportNetCDF_clicked() {
-	auto files = QFileDialog::getOpenFileNames(this,
-													 tr("Select NetCDF files to import..."),
-													 QDir::currentPath(),
-													 "NetCDF Files (*.nc)"
-													 );
+	auto files{ QFileDialog::getOpenFileNames(	this,
+												tr("Select NetCDF files to import..."),
+												QDir::currentPath(),
+												"NetCDF Files (*.nc)"
+												)};
 	qDebug() << files;
 	if (files.empty()) {
 		return;

@@ -1,15 +1,13 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "QEasyDownloader.hpp"
 #include "datadownloaddesc.h"
 #include "preferences.h"
 
 #include <QMainWindow>
 #include <QJsonObject>
-#include <QNetworkAccessManager>
-#include <QNetworkRequest>
-#include <QHash>
+#include <QTimer>
+#include <QSettings>
 #include <QPointer>
 
 /***********************************************************************************/
@@ -18,10 +16,9 @@ namespace Ui {
 class MainWindow;
 }
 
-class QListWidgetItem;
-class QObject;
 class WidgetDashboard;
 class WidgetConfigEditor;
+class WidgetDataOrder;
 
 /***********************************************************************************/
 class MainWindow : public QMainWindow {
@@ -35,7 +32,9 @@ public:
 
 	void checkRemoteConnection();
 
-	void updateRemoteDatasetList();
+	void showProgressBar(const char* labelText);
+	void updateProgressBar(const int value);
+	void hideProgressBar();
 
 protected:
 	void closeEvent(QCloseEvent* event) override;
@@ -47,32 +46,20 @@ private slots:
 	void on_actionPreferences_triggered();
 	void on_actionAbout_triggered();
 
-	// List item is double clicked
-	void on_listWidgetDoryDatasets_itemDoubleClicked(QListWidgetItem* item);
-	void on_listWidgetDownloadQueue_itemDoubleClicked(QListWidgetItem *item);
-
 	// Current tab changed
 	void on_tabWidget_currentChanged(int index);
-
-	// Update Dory dataset list
-	void on_pushButtonUpdateDoryList_clicked();
-
-	// Download data in queue
-	void on_pushButtonDownload_clicked();
-
-	// Updates THREDDS aggregate files
-	// and datasetconfigOFFLINE
-	void on_pushButtonUpdateAggConfig_clicked();
 
 	void on_actionCheck_for_Updates_triggered();
 
 private:
 	//
+	void initWidgets();
+	//
 	void readSettings();
 	//
-	void writeSettings() const;
+	void writeSettings();
 	//
-	void configureNetwork();
+	void setDataOrderRegion();
 	//
 	void setInitialLayout();
 	//
@@ -87,6 +74,9 @@ private:
 	Ui::MainWindow* m_ui{nullptr};
 	QPointer<WidgetDashboard> m_widgetDashboard;
 	QPointer<WidgetConfigEditor> m_widgetConfigEditor;
+	QPointer<WidgetDataOrder> m_widgetDataOrder;
+
+	QSettings m_settings{"Fisheries and Oceans Canada", "Navigator2Go"};
 
 	QTimer m_uplinkTimer{this};
 	bool m_hasRemoteUplink{true};
@@ -94,19 +84,6 @@ private:
 	bool m_firstRun{false};
 
 	Preferences m_prefs;
-
-	// Network stuff
-	QNetworkAccessManager m_networkAccessManager{this};
-	QEasyDownloader m_downloader{this, &m_networkAccessManager};
-
-	// Stores the resulting JSON objects for each dataset
-	// returned by a call to:
-	// http://navigator.oceansdata.ca/api/datasets/
-	QHash<QString, QJsonObject> m_datasetsAPIResultCache;
-
-	QHash<QString, DataDownloadDesc> m_downloadQueue;
-
-	std::size_t m_numDownloadsComplete{0};
 };
 
 #endif // MAINWINDOW_H
