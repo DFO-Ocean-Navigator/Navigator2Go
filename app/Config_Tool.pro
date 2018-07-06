@@ -3,12 +3,14 @@ QT += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+QMAKE_CXX = g++-7
+
 CONFIG += c++1z
+QMAKE_CXXFLAGS += -std=c++17
 
 TARGET = Config_Tool
 TEMPLATE = app
 
-#QMAKE_CXXFLAGS += -std=c++17
 # remove possible other optimization flags
 QMAKE_CXXFLAGS_RELEASE -= -O
 QMAKE_CXXFLAGS_RELEASE -= -O1
