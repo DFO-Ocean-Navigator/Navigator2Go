@@ -22,7 +22,7 @@
      <item>
       <widget class="QLabel" name="labelActiveConfigFile">
        <property name="text">
-        <string>Active Config File.....</string>
+        <string>Active Config File: None</string>
        </property>
       </widget>
      </item>

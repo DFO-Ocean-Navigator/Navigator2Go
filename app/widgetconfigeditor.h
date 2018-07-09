@@ -1,6 +1,8 @@
 #ifndef WIDGETCONFIGEDITOR_H
 #define WIDGETCONFIGEDITOR_H
 
+#include "nodiscard.h"
+
 #include <QWidget>
 #include <QJsonObject>
 
@@ -27,7 +29,7 @@ public:
 	void updateDatasetListWidget();
 	void setDefaultConfigFile();
 
-	auto hasUnsavedData() const noexcept { return m_hasUnsavedData; }
+	NODISCARD auto hasUnsavedData() const noexcept { return m_hasUnsavedData; }
 
 private slots:
 

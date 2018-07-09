@@ -32,7 +32,7 @@ public:
 	void setNAMOffline();
 
 	void setRegion(const double MinLat, const double MaxLat, const double MinLon, const double MaxLon);
-	std::tuple<double, double, double, double> getRegion() const;
+	NODISCARD std::tuple<double, double, double, double> getRegion() const;
 
 private slots:
 	void on_pushButtonDownload_clicked();

@@ -12,7 +12,7 @@
 #include "jsonio.h"
 #include "process.h"
 #include "ioutils.h"
-#include "defines.h"
+#include "constants.h"
 
 #include <QMessageBox>
 #include <QFile>
@@ -138,7 +138,7 @@ void MainWindow::initWidgets() {
 	m_widgetDataOrder = new WidgetDataOrder(m_ui->tabWidget, this, &m_prefs);
 	setDataOrderRegion();
 
-	m_widgetThreddsConfig = new WidgetThreddsConfig(m_ui->tabWidget);
+	m_widgetThreddsConfig = new WidgetThreddsConfig(m_ui->tabWidget, &m_prefs);
 }
 
 /***********************************************************************************/

@@ -1,7 +1,7 @@
 #ifndef DATASETVIEW_H
 #define DATASETVIEW_H
 
-#include "defines.h"
+#include "constants.h"
 #include "datadownloaddesc.h"
 
 #include <QDialog>

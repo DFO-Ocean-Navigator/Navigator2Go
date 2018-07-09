@@ -1,8 +1,9 @@
 #ifndef DIALOGPREFERENCES_H
 #define DIALOGPREFERENCES_H
 
-#include "defines.h"
+#include "constants.h"
 
+#include "nodiscard.h"
 #include "preferences.h"
 
 #include <QDialog>

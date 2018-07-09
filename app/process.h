@@ -1,11 +1,13 @@
 #ifndef PROCESS_H
 #define PROCESS_H
 
+#include "nodiscard.h"
+
 #include <QString>
 
 namespace System {
 
-bool IsProcessRunning(const QString& processName);
+NODISCARD bool IsProcessRunning(const QString& processName);
 
 } // namespace System
 

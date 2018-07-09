@@ -142,8 +142,12 @@
        </layout>
       </widget>
       <widget class="QWidget" name="threddsconfig">
+       <attribute name="icon">
+        <iconset resource="resources.qrc">
+         <normaloff>:/icons/icons/pencil</normaloff>:/icons/icons/pencil</iconset>
+       </attribute>
        <attribute name="title">
-        <string>THREDDS Config</string>
+        <string>THREDDS Config Editor</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_5">
         <item row="0" column="0">

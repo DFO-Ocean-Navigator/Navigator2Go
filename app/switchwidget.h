@@ -1,6 +1,8 @@
 #ifndef SWITCH_H
 #define SWITCH_H
 
+#include "nodiscard.h"
+
 #include <QAbstractButton>
 
 /***********************************************************************************/
@@ -22,11 +24,11 @@ public:
 		m_brush = brsh;
 	}
 
-	auto brush() const noexcept {
+	NODISCARD auto brush() const noexcept {
 		return m_brush;
 	}
 
-	auto offset() const noexcept {
+	NODISCARD auto offset() const noexcept {
 		return m_x;
 	}
 

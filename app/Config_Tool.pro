@@ -46,48 +46,53 @@ FORMS += \
 unix:!macx: LIBS += -L$$PWD/netcdf4/lib/ -lnetcdf_c++4
 unix:!macx: PRE_TARGETDEPS += $$PWD/netcdf4/lib/libnetcdf_c++4.a
 
-DEPENDPATH += $$PWD/netcdf4/include
+DEPENDPATH += \
+    $$PWD/netcdf4/include \
+    $$PWD/pugixml/
 
 HEADERS += \
-   $$PWD/datadownloaddesc.h \
-   $$PWD/defines.h \
-   $$PWD/dialogdatasetview.h \
-   $$PWD/dialogpreferences.h \
-   $$PWD/htmlhighlighter.h \
-   $$PWD/ioutils.h \
-   $$PWD/jsonio.h \
-   $$PWD/mainwindow.h \
-   $$PWD/network.h \
-   $$PWD/preferences.h \
-   $$PWD/process.h \
-   $$PWD/QEasyDownloader.hpp \
-   $$PWD/switchwidget.h \
+    datadownloaddesc.h \
+    dialogdatasetview.h \
+    dialogpreferences.h \
+    htmlhighlighter.h \
+    ioutils.h \
+    jsonio.h \
+    mainwindow.h \
+    network.h \
+    preferences.h \
+    process.h \
+    QEasyDownloader.hpp \
+    switchwidget.h \
     widgetdashboard.h \
     widgetconfigeditor.h \
     widgetdataorder.h \
-    widgetthreddsconfig.h
+    widgetthreddsconfig.h \
+    nodiscard.h \
+    constants.h
 
 SOURCES += \
-   $$PWD/datadownloaddesc.cpp \
-   $$PWD/dialogdatasetview.cpp \
-   $$PWD/dialogpreferences.cpp \
-   $$PWD/htmlhighlighter.cpp \
-   $$PWD/ioutils.cpp \
-   $$PWD/jsonio.cpp \
-   $$PWD/main.cpp \
-   $$PWD/mainwindow.cpp \
-   $$PWD/network.cpp \
-   $$PWD/process.cpp \
-   $$PWD/QEasyDownloader.cc \
-   $$PWD/switchwidget.cpp \
+    datadownloaddesc.cpp \
+    dialogdatasetview.cpp \
+    dialogpreferences.cpp \
+    htmlhighlighter.cpp \
+    ioutils.cpp \
+    jsonio.cpp \
+    main.cpp \
+    mainwindow.cpp \
+    network.cpp \
+    process.cpp \
+    QEasyDownloader.cc \
+    switchwidget.cpp \
     widgetdashboard.cpp \
     widgetconfigeditor.cpp \
     widgetdataorder.cpp \
-    widgetthreddsconfig.cpp
+    widgetthreddsconfig.cpp \
+    $$PWD/pugixml/pugixml.cpp
 
 INCLUDEPATH += \
     $$PWD \
-    $$PWD/netcdf4/include
+    $$PWD/netcdf4/include \
+    $$PWD/pugixml/
 
 DISTFILES +=
 

@@ -1,17 +1,19 @@
 #ifndef DOWNLOADDATA_H
 #define DOWNLOADDATA_H
 
+#include "nodiscard.h"
+
 #include <QDate>
 #include <QStringList>
 
 /***********************************************************************************/
-struct DataDownloadDesc {
+NODISCARD struct DataDownloadDesc {
 
-	auto operator==(const DataDownloadDesc& rhs) const Q_DECL_NOTHROW {
+	NODISCARD auto operator==(const DataDownloadDesc& rhs) const Q_DECL_NOTHROW {
 		return ID == rhs.ID;
 	}
 
-	QString ToAPIURL() const;
+	NODISCARD QString ToAPIURL() const;
 
 	QString ID, Name;
 	QDate StartDate, EndDate;

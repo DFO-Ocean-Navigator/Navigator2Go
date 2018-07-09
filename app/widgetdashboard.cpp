@@ -3,7 +3,7 @@
 
 #include "mainwindow.h"
 
-#include "defines.h"
+#include "constants.h"
 #include "ioutils.h"
 #include "process.h"
 #include "preferences.h"
@@ -26,8 +26,8 @@ WidgetDashboard::WidgetDashboard(QWidget* parent, MainWindow* mainWindow, const 
 
 	checkAndStartServers();
 
-	m_ui->labelDatasetTarget->setStyleSheet(COLOR_GREEN);
-	m_ui->labelUpdate->setStyleSheet(COLOR_GREEN);
+	m_ui->labelDatasetTarget->setStyleSheet(QSS_COLOR_GREEN);
+	m_ui->labelUpdate->setStyleSheet(QSS_COLOR_GREEN);
 	m_ui->labelUpdate->setVisible(false);
 	m_ui->pushButtonUpdate->setEnabled(false);
 	m_ui->pushButtonUpdate->setVisible(false);
@@ -48,7 +48,7 @@ void WidgetDashboard::checkAndStartServers() {
 	}
 	if (m_isGunicornRunning) {
 		m_ui->labelStatusWebServer->setText(tr("Running"));
-		m_ui->labelStatusWebServer->setStyleSheet(COLOR_GREEN);
+		m_ui->labelStatusWebServer->setStyleSheet(QSS_COLOR_GREEN);
 	}
 
 	// Apache tomcat
@@ -59,14 +59,14 @@ void WidgetDashboard::checkAndStartServers() {
 	}
 	if (m_apacheRunning) {
 		m_ui->labelStatusApache->setText(tr("Running"));
-		m_ui->labelStatusApache->setStyleSheet(COLOR_GREEN);
+		m_ui->labelStatusApache->setStyleSheet(QSS_COLOR_GREEN);
 	}
 }
 
 /***********************************************************************************/
 void WidgetDashboard::showOnlineText() {
 	m_ui->labelRemoteUplink->setText(tr("Online"));
-	m_ui->labelRemoteUplink->setStyleSheet(COLOR_GREEN);
+	m_ui->labelRemoteUplink->setStyleSheet(QSS_COLOR_GREEN);
 
 	m_ui->labelDatasetTarget->setText(tr("Remote Storage: \n") + m_prefs->RemoteURL);
 }
@@ -74,7 +74,7 @@ void WidgetDashboard::showOnlineText() {
 /***********************************************************************************/
 void WidgetDashboard::showOfflineText() {
 	m_ui->labelRemoteUplink->setText(tr("Offline"));
-	m_ui->labelRemoteUplink->setStyleSheet(COLOR_RED);
+	m_ui->labelRemoteUplink->setStyleSheet(QSS_COLOR_RED);
 
 	m_ui->labelDatasetTarget->setText(tr("Local Storage"));
 }
@@ -112,7 +112,7 @@ void WidgetDashboard::on_pushButtonStartWebServer_clicked() {
 		}
 
 		m_ui->labelStatusWebServer->setText(tr("Running"));
-		m_ui->labelStatusWebServer->setStyleSheet(COLOR_GREEN);
+		m_ui->labelStatusWebServer->setStyleSheet(QSS_COLOR_GREEN);
 		m_isGunicornRunning = true;
 	}
 }
@@ -131,7 +131,7 @@ void WidgetDashboard::on_pushButtonStopWebServer_clicked() {
 			return;
 		}
 		m_ui->labelStatusWebServer->setText(tr("Stopped"));
-		m_ui->labelStatusWebServer->setStyleSheet(COLOR_RED);
+		m_ui->labelStatusWebServer->setStyleSheet(QSS_COLOR_RED);
 		m_isGunicornRunning = false;
 	}
 }
@@ -151,7 +151,7 @@ void WidgetDashboard::on_pushButtonStopApache_clicked() {
 		}
 
 		m_ui->labelStatusApache->setText(tr("Stopped"));
-		m_ui->labelStatusApache->setStyleSheet(COLOR_RED);
+		m_ui->labelStatusApache->setStyleSheet(QSS_COLOR_RED);
 		m_apacheRunning = false;
 	}
 }
@@ -171,7 +171,7 @@ void WidgetDashboard::on_pushButtonStartApache_clicked() {
 		}
 
 		m_ui->labelStatusApache->setText(tr("Running"));
-		m_ui->labelStatusApache->setStyleSheet(COLOR_GREEN);
+		m_ui->labelStatusApache->setStyleSheet(QSS_COLOR_GREEN);
 		m_apacheRunning = true;
 	}
 }
