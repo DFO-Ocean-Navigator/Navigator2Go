@@ -13,10 +13,10 @@ void MakeAPIRequest(QNetworkAccessManager& nam, const QString& APIURL, std::func
 
 	const QNetworkRequest request{APIURL};
 	// Send our request
-	const auto reply = nam.get(request);
+	const auto& reply = nam.get(request);
 
-	auto context = std::make_unique<QObject>(new QObject);
-	const auto pcontext = context.get();
+	auto context{ std::make_unique<QObject>(new QObject) };
+	const auto* const pcontext = context.get();
 	// Connect the "finished" signal from our reply
 	// to the following lambda. This allows the Access Manager
 	// to handle simultaneous requests
@@ -38,11 +38,11 @@ void MakeAPIRequest(QNetworkAccessManager& nam, const QString& APIURL, std::func
 			}
 
 			// Read raw data stream
-			const auto data{ reply->readAll() };
+			const auto& data{ reply->readAll() };
 
 			// Parse JSON response
 			QJsonParseError error;
-			const auto document{ QJsonDocument::fromJson(data, &error) };
+			const auto& document{ QJsonDocument::fromJson(data, &error) };
 
 			// Check for errors
 			if (document.isNull() || error.error != QJsonParseError::NoError) {

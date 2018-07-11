@@ -42,14 +42,16 @@ auto DialogPreferences::GetPreferences() const noexcept -> Preferences {
 /***********************************************************************************/
 void DialogPreferences::on_pushButtonBrowseInstallDir_clicked() {
 #ifdef QT_DEBUG
-	const auto path = "/home/nabil/";
+	const constexpr auto path = "/home/nabil/";
 #else
-	const auto path = "/opt/tools/";
+	const constexpr auto path = "/opt/tools/";
 #endif
-	const auto dir = QFileDialog::getExistingDirectory(this,
+	const auto& dir{ QFileDialog::getExistingDirectory(this,
 													   tr("Open Ocean Navigator Installation Folder..."),
 													   path,
-													   QFileDialog::ShowDirsOnly);
+													   QFileDialog::ShowDirsOnly)
+				   };
+
 	if (!dir.isEmpty()) {
 		m_ui->lineEditInstallDir->setText(dir);
 	}
@@ -57,7 +59,7 @@ void DialogPreferences::on_pushButtonBrowseInstallDir_clicked() {
 
 /***********************************************************************************/
 void DialogPreferences::on_pushButtonBroweseTHREDDS_clicked() {
-	const auto dir = QFileDialog::getExistingDirectory(this, tr("Open THREDDS catalog.xml folder..."));
+	const auto& dir{ QFileDialog::getExistingDirectory(this, tr("Open THREDDS catalog.xml folder...")) };
 
 	if (!dir.isEmpty()) {
 		if (IO::FileExists(dir+"/catalog.xml")) {

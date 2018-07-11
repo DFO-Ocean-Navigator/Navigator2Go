@@ -51,7 +51,7 @@ void WidgetDataOrder::on_pushButtonUpdateRemoteList_clicked() {
 /***********************************************************************************/
 void WidgetDataOrder::on_pushButtonDownload_clicked() {
 	m_ui->listWidgetDownloadQueue->selectAll();
-	const auto items{ m_ui->listWidgetDownloadQueue->selectedItems() };
+	const auto& items{ m_ui->listWidgetDownloadQueue->selectedItems() };
 
 	if (items.empty()) {
 		QMessageBox::information(this, tr("Download queue empty"), tr("Your download queue is empty! Add some stuff to download!"));
@@ -79,7 +79,7 @@ void WidgetDataOrder::on_pushButtonDownload_clicked() {
 		const QString max_range{ "&max_range=" + QString::number(m_ui->spinboxMaxLat->value()) + "," + QString::number(m_ui->spinboxMaxLon->value()) };
 
 		for (const auto& item : m_downloadQueue) {
-			const auto url{ item.ToAPIURL() + min_range + max_range };
+			const auto& url{ item.ToAPIURL() + min_range + max_range };
 #ifdef QT_DEBUG
 			qDebug() << IO::FindPathForDataset(item);
 #endif
@@ -94,7 +94,7 @@ void WidgetDataOrder::on_pushButtonDownload_clicked() {
 
 /***********************************************************************************/
 void WidgetDataOrder::on_listWidgetRemoteDatasets_itemDoubleClicked(QListWidgetItem* item) {
-	const auto datasetID{m_datasetsAPIResultCache[item->text()]};
+	const auto& datasetID{m_datasetsAPIResultCache[item->text()]};
 	DialogDatasetView dialog{this};
 
 	auto isUpdatingDownload{false};
@@ -105,7 +105,7 @@ void WidgetDataOrder::on_listWidgetRemoteDatasets_itemDoubleClicked(QListWidgetI
 	dialog.SetData(datasetID, m_networkAccessManager);
 
 	if (dialog.exec()) {
-		const auto data = dialog.GetDownloadData();
+		const auto& data{ dialog.GetDownloadData() };
 		// Only add to queue if variables were selected.
 		if (!data.SelectedVariables.empty()) {
 
@@ -220,7 +220,7 @@ void WidgetDataOrder::configureNetwork() {
 						qDebug() << "Error: " << errorCode << " " << url;
 #endif
 						++this->m_numDownloadsComplete;
-						const auto percent = 100 * (this->m_numDownloadsComplete / static_cast<std::size_t>(this->m_downloadQueue.size()));
+						const auto percent{ 100 * (this->m_numDownloadsComplete / static_cast<std::size_t>(this->m_downloadQueue.size())) };
 						this->m_mainWindow->updateProgressBar(static_cast<int>(percent));
 
 						QMessageBox box{this};
@@ -274,12 +274,12 @@ void WidgetDataOrder::updateRemoteDatasetListWidget() {
 	Network::MakeAPIRequest(m_networkAccessManager, m_prefs->RemoteURL+"/api/datasets/",
 							// Success handler
 							[&](const auto& doc) {
-								const auto root = doc.array();
+								const auto& root = doc.array();
 
 								m_ui->listWidgetRemoteDatasets->clear();
 								m_datasetsAPIResultCache.clear();
 								for (const auto& dataset : root) {
-									const auto valueString = dataset["value"].toString();
+									const auto& valueString = dataset["value"].toString();
 									m_ui->listWidgetRemoteDatasets->addItem(valueString);
 
 									m_datasetsAPIResultCache.insert(valueString, dataset.toObject());

@@ -70,7 +70,7 @@ void WidgetConfigEditor::on_pushButtonAddDataset_clicked() {
 
 /***********************************************************************************/
 void WidgetConfigEditor::on_pushButtonDeleteDataset_clicked() {
-	const auto items = m_ui->listWidgetActiveDatasets->selectedItems();
+	const auto& items{ m_ui->listWidgetActiveDatasets->selectedItems() };
 
 	if (!items.empty())	{
 		const auto reply = QMessageBox::question(this, tr("Confirm Action"), tr("Delete selected dataset(s)?"),
@@ -120,7 +120,7 @@ void WidgetConfigEditor::on_pushButtonLoadCustomConfig_clicked() {
 	}
 
 	// Validate file
-	const auto doc = IO::LoadJSONFile(filePath);
+	const auto& doc = IO::LoadJSONFile(filePath);
 	if (doc.isNull()) {
 		return;
 	}
@@ -157,11 +157,11 @@ void WidgetConfigEditor::on_pushButtonLoadDefaultConfig_clicked() {
 /***********************************************************************************/
 void WidgetConfigEditor::on_listWidgetActiveDatasets_itemDoubleClicked(QListWidgetItem* item) {
 	DialogDatasetView dialog{this};
-	const auto datasetKey = item->text();
+	const auto& datasetKey{ item->text() };
 	dialog.SetData(datasetKey, m_documentRootObject[datasetKey].toObject());
 
 	if (dialog.exec()) {
-		const auto data = dialog.GetData();
+		const auto& data{ dialog.GetData() };
 
 		m_documentRootObject[datasetKey] = data.second;
 	}
@@ -171,7 +171,8 @@ void WidgetConfigEditor::on_listWidgetActiveDatasets_itemDoubleClicked(QListWidg
 void WidgetConfigEditor::updateDatasetListWidget() {
 	m_ui->listWidgetActiveDatasets->clear();
 
-	for (const auto& datasetName : m_documentRootObject.keys()) {
+	const auto& keys{ m_documentRootObject.keys() };
+	for (const auto& datasetName : keys) {
 		m_ui->listWidgetActiveDatasets->addItem(datasetName);
 	}
 

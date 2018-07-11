@@ -114,7 +114,7 @@ void HTMLHighlighter::highlightBlock(const QString& text) {
 		// We are looking for an end-tag
 		const auto endIndex = m_closeTag.indexIn(text, startIndex);
 
-		std::size_t tagLength;
+		int tagLength;
 		// If the end tag is not found, then we set the block state
 		if (endIndex == -1) {
 			setCurrentBlockState(HTMLHighlighter::Tag);
@@ -150,7 +150,7 @@ void HTMLHighlighter::highlightBlock(const QString& text) {
 		// Highlights all quotes within the tag
 		while (startQuoteIndex >= 0 && ((startQuoteIndex < endIndex) || (endIndex == -1))) {
 			const auto endQuoteIndex = m_quotes.indexIn(text, startQuoteIndex + 1);
-			std::size_t quoteLength;
+			int quoteLength;
 			if (endQuoteIndex == -1) {
 				// If a closing quotation mark is found, set the state for the block Quote
 				setCurrentBlockState(HTMLHighlighter::Quote);

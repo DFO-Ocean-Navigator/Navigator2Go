@@ -7,7 +7,7 @@
 #include <QStringList>
 
 /***********************************************************************************/
-NODISCARD struct DataDownloadDesc {
+struct NODISCARD DataDownloadDesc {
 
 	NODISCARD auto operator==(const DataDownloadDesc& rhs) const Q_DECL_NOTHROW {
 		return ID == rhs.ID;
@@ -21,7 +21,7 @@ NODISCARD struct DataDownloadDesc {
 };
 
 /***********************************************************************************/
-inline auto qHash(const DataDownloadDesc& dlData) Q_DECL_NOTHROW {
+NODISCARD inline auto qHash(const DataDownloadDesc& dlData) Q_DECL_NOTHROW {
 	return qHash(dlData.ID);
 }
 

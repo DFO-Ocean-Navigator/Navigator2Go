@@ -6,16 +6,12 @@
 #include <QObject>
 #include <QRunnable>
 #include <QString>
-#include <QVector>
 
 namespace IO {
 
 /***********************************************************************************/
 // Location of Tomcat bin/ folder
 const constexpr auto TOMCAT_BIN_DIR{ "/opt/tomcat9/bin" };
-
-// Root location of where THREDDS datasets are stored
-const constexpr auto THREDDS_DATA_DIR{ "" };
 
 /***********************************************************************************/
 // Computes the disk location for a given dataset so THREDDS
@@ -26,6 +22,17 @@ QString FindPathForDataset(const DataDownloadDesc& data);
 
 /***********************************************************************************/
 NODISCARD bool FileExists(const QString& path);
+
+/***********************************************************************************/
+// Create a directory with necessary parents if needed.
+void CreateDir(const QString& path);
+
+/***********************************************************************************/
+// Recursively remove a directory
+void RemoveDir(const QString& path);
+
+/***********************************************************************************/
+NODISCARD QString FindTimeDimension(const QString& netcdfFilePath);
 
 /***********************************************************************************/
 class CopyFilesRunnable : public QObject, public QRunnable {

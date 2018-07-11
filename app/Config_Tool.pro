@@ -11,11 +11,13 @@ QMAKE_CXXFLAGS += -std=c++17
 TARGET = Config_Tool
 TEMPLATE = app
 
+QMAKE_CXXFLAGS_DEBUG += -Og # optimized debug
+
 # remove possible other optimization flags
 QMAKE_CXXFLAGS_RELEASE -= -O
 QMAKE_CXXFLAGS_RELEASE -= -O1
 QMAKE_CXXFLAGS_RELEASE -= -O2
-QMAKE_CXXFLAGS_RELEASE += -O3
+QMAKE_CXXFLAGS_RELEASE += -O3 -DNDEBUG -msse2
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings

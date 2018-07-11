@@ -30,12 +30,12 @@ QJsonDocument LoadJSONFile(const QString& path, const bool showMsgBox) {
 
 		return QJsonDocument();
 	}
-	const QString contents{ f.readAll() }; // Get file contents
+	const QString& contents{ f.readAll() }; // Get file contents
 	f.close();
 
 	// Parse json
 	QJsonParseError error; // catch errors
-	const auto jsonDocument{ QJsonDocument::fromJson(contents.toUtf8(), &error) };
+	const auto& jsonDocument{ QJsonDocument::fromJson(contents.toUtf8(), &error) };
 	// Check for errors
 	if (jsonDocument.isNull()) {
 #ifdef QT_DEBUG

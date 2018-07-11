@@ -56,17 +56,17 @@ void DialogDatasetView::SetData(const QString& datasetKey, const QJsonObject& ob
 		// Units
 		m_ui->tableWidgetVariables->setItem(rowIdx, 2, new QTableWidgetItem(variables[key]["unit"].toString()));
 		// Scale
-		const auto scaleArray = variables[key]["scale"].toArray();
+		const auto& scaleArray = variables[key]["scale"].toArray();
 		m_ui->tableWidgetVariables->setItem(rowIdx, 3, new QTableWidgetItem(QString::number(scaleArray[0].toDouble())));
 		m_ui->tableWidgetVariables->setItem(rowIdx, 4, new QTableWidgetItem(QString::number(scaleArray[1].toDouble())));
 
 		// Scale factor
-		const auto factor = variables[key]["scale_factor"];
+		const auto& factor = variables[key]["scale_factor"];
 		m_ui->tableWidgetVariables->setItem(rowIdx, 5, new QTableWidgetItem(QString::number( !factor.isUndefined() ? factor.toDouble() : 1.0)));
 
 		// Hidden
 		// Gonna use a checkbox
-		auto* hidden = new QTableWidgetItem();
+		auto* const hidden = new QTableWidgetItem();
 		hidden->setCheckState(variables[key]["hide"].toBool() ? Qt::Checked : Qt::Unchecked);
 		m_ui->tableWidgetVariables->setItem(rowIdx, 6, hidden);
 	}
@@ -83,25 +83,25 @@ void DialogDatasetView::SetData(const QString& datasetKey, const QJsonObject& ob
 /***********************************************************************************/
 void DialogDatasetView::SetData(const QJsonObject& datasetObj, QNetworkAccessManager& nam) {
 
-	const auto nameString = datasetObj["value"].toString();
+	const auto& nameString = datasetObj["value"].toString();
 	setWindowTitle(tr("Viewing ") + nameString);
 
-	const auto datasetIDString = datasetObj["id"].toString();
+	const auto& datasetIDString = datasetObj["id"].toString();
 
 	m_ui->lineEditKey->setText(datasetIDString);
 	m_ui->lineEditName->setText(nameString);
 	m_ui->lineEditAttribution->setText(datasetObj["attribution"].toString());
-	const auto idx = m_ui->comboBoxQuantum->findText(datasetObj["quantum"].toString());
+	const auto& idx = m_ui->comboBoxQuantum->findText(datasetObj["quantum"].toString());
 	m_ui->comboBoxQuantum->setCurrentIndex(idx);
 	m_ui->plainTextEditHelp->document()->setHtml(datasetObj["help"].toString());
 
 	// Get variables from api
 	Network::MakeAPIRequest(nam, "http://navigator.oceansdata.ca/api/variables/?dataset="+datasetIDString,
 							[&](const auto& doc) {
-								const auto root = doc.array();
+								const auto& root = doc.array();
 
 								for (const auto& variable : root) {
-									const auto value = variable["value"].toString();
+									const auto& value = variable["value"].toString();
 
 									m_ui->listWidgetVariables->addItem(value);
 									m_variableMap.insert(value, variable["id"].toString());
@@ -113,13 +113,13 @@ void DialogDatasetView::SetData(const QJsonObject& datasetObj, QNetworkAccessMan
 	Network::MakeAPIRequest(nam, "http://navigator.oceansdata.ca/api/timestamps/?dataset="+datasetIDString,
 							[&](const auto& doc) {
 
-								const auto root = doc.array();
-								const auto quantum{ datasetObj["quantum"].toString() };
-								const auto start{ root.first()["value"].toString() };
-								const auto end{ root.last()["value"].toString() };
+								const auto& root = doc.array();
+								const auto& quantum{ datasetObj["quantum"].toString() };
+								const auto& start{ root.first()["value"].toString() };
+								const auto& end{ root.last()["value"].toString() };
 
-								const auto startDate{ QDate::fromString(start, Qt::DateFormat::ISODate) };
-								const auto endDate{ QDate::fromString(end, Qt::DateFormat::ISODate) };
+								const auto& startDate{ QDate::fromString(start, Qt::DateFormat::ISODate) };
+								const auto& endDate{ QDate::fromString(end, Qt::DateFormat::ISODate) };
 
 								m_ui->calendarWidgetStart->setDateRange(startDate, endDate);
 								m_ui->calendarWidgetStart->setSelectedDate(startDate);
@@ -153,10 +153,10 @@ std::pair<QString, QJsonObject> DialogDatasetView::GetData() const {
 	for (auto i = 0; i < rowCount; ++i) {
 		QJsonObject var;
 
-		const auto nameText = m_ui->tableWidgetVariables->item(i, 1)->text();
+		const auto& nameText = m_ui->tableWidgetVariables->item(i, 1)->text();
 		var.insert("name", nameText);
 
-		const auto unitsText = m_ui->tableWidgetVariables->item(i, 2)->text();
+		const auto& unitsText = m_ui->tableWidgetVariables->item(i, 2)->text();
 		var.insert("unit", unitsText);
 
 		const auto scaleMin = m_ui->tableWidgetVariables->item(i, 3)->text().toDouble();
@@ -169,7 +169,7 @@ std::pair<QString, QJsonObject> DialogDatasetView::GetData() const {
 		const auto isHidden = m_ui->tableWidgetVariables->item(i, 6)->checkState();
 		var.insert("hide", isHidden ? "true" : "false");
 
-		const auto keyText = m_ui->tableWidgetVariables->item(i, 0)->text().toLower();
+		const auto& keyText = m_ui->tableWidgetVariables->item(i, 0)->text().toLower();
 		variables.insert(keyText, var);
 	}
 	obj.insert("variables", variables);
@@ -182,7 +182,8 @@ DataDownloadDesc DialogDatasetView::GetDownloadData() const {
 
 	QStringList vars;
 
-	for (const auto& var : m_ui->listWidgetVariables->selectedItems()) {
+	const auto& selectedItems{ m_ui->listWidgetVariables->selectedItems() };
+	for (const auto& var : selectedItems) {
 		vars << m_variableMap[var->text()];
 	}
 
@@ -226,7 +227,7 @@ void DialogDatasetView::addEmptyVariable() {
 
 	// Hidden
 	// Gonna use a checkbox
-	auto* hidden{ new QTableWidgetItem() };
+	auto* const hidden{ new QTableWidgetItem() };
 	hidden->setCheckState(Qt::Unchecked);
 	m_ui->tableWidgetVariables->setItem(rowIdx, 6, hidden);
 
@@ -279,8 +280,9 @@ void DialogDatasetView::setReadOnlyUI() {
 
 /***********************************************************************************/
 void DialogDatasetView::on_pushButtonDeleteVariable_clicked() {
-	const auto reply = QMessageBox::question(this, tr("Confirm Action"), tr("Delete selected variable?"),
-									QMessageBox::Yes | QMessageBox::No);
+	const auto& reply{ QMessageBox::question(this, tr("Confirm Action"), tr("Delete selected variable?"),
+									QMessageBox::Yes | QMessageBox::No)
+					};
 
 	if (reply == QMessageBox::Yes) {
 		m_ui->tableWidgetVariables->removeRow(m_ui->tableWidgetVariables->currentRow());
@@ -290,7 +292,7 @@ void DialogDatasetView::on_pushButtonDeleteVariable_clicked() {
 /***********************************************************************************/
 void DialogDatasetView::on_lineEditKey_editingFinished() {
 
-	const auto text = m_ui->lineEditKey->text();
+	const auto& text{ m_ui->lineEditKey->text() };
 	checkInputEmpty(tr("Dataset Key"), text);
 
 	setWindowTitle(tr("Editing: ") + text);
@@ -322,7 +324,7 @@ void DialogDatasetView::on_pushButtonMagicScan_clicked() {
 
 	m_ui->pushButtonMagicScan->setEnabled(false);
 
-	auto* task{ new Network::URLExistsRunnable{m_ui->lineEditURL->text()} };
+	auto* const task{ new Network::URLExistsRunnable{m_ui->lineEditURL->text()} };
 
 	QObject::connect(task, &Network::URLExistsRunnable::urlResult, this, [&](const auto success) {
 		if (success) {
@@ -332,42 +334,14 @@ void DialogDatasetView::on_pushButtonMagicScan_clicked() {
 				return;
 			}
 
-			const QSet<QString> variableFilter {
-				"nav_lat", "nav_lon",
-				"latitude", "longitude",
-				"polar_stereographic"
-			};
-
-			QSet<QString> dimSet;
-			const auto dims{ ds.getDims() };
-			const auto vars{ ds.getVars() };
-
-			for (const auto& var : dims) {
-				dimSet << var.first.c_str();
-				qDebug() << var.first.c_str();
-			}
-			qDebug() << dimSet;
-			qDebug() << "---------";
-			// TODO: CHECK THREAD ID FOR GUI AND THIS LAMBDA
-			for (const auto& var : vars) {
-				const auto varStr{ var.first.c_str() };
-
-				if (!dimSet.contains(varStr) && !variableFilter.contains(varStr)) {
-					qDebug() << var.first.c_str();
-				}
-			}
 		}
 		else {
 
 		}
 
-		qDebug() << QThread::currentThreadId();
-
 		m_ui->pushButtonMagicScan->setEnabled(true);
 
 	});
-
-	qDebug() << QThread::currentThreadId();
 
 	QThreadPool::globalInstance()->start(task);
 }

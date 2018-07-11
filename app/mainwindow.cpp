@@ -316,7 +316,7 @@ void MainWindow::setOffline() {
 void MainWindow::checkRemoteConnection() {
 	if (m_prefs.IsNetworkOnline) {
 		// QThreadPool deletes automatically
-		auto* task{ new Network::URLExistsRunnable{m_prefs.RemoteURL} };
+		auto* const task{ new Network::URLExistsRunnable{m_prefs.RemoteURL} };
 
 		// Setup connection
 		QObject::connect(task, &Network::URLExistsRunnable::urlResult, this, [&](const auto success) {

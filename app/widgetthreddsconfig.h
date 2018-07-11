@@ -7,8 +7,6 @@
 
 #include <optional>
 
-#include <pugixml/pugixml.hpp>
-
 /***********************************************************************************/
 // Forward declarations
 namespace Ui {
@@ -33,8 +31,6 @@ private slots:
 
 	void on_pushButtonRemoveDataset_clicked();
 
-	void on_pushButtonSaveConfig_clicked();
-
 private:
 	//
 	void buildTable();
@@ -43,12 +39,14 @@ private:
 	//
 	NODISCARD bool validateDatasetName(const QString& datasetName);
 	//
-	void createRow(const QString& datasetName);
+	void createRow(const QString& datasetName, const QString& dataPath);
+	//
+	void addDataset(const QString& datasetName, const QString& dataPath);
+	//
+	void removeDataset(const QString& datasetName, const QString& dataPath);
 
 	Ui::WidgetThreddsConfig* m_ui{nullptr};
 	const Preferences* m_prefs{nullptr};
-
-	std::optional<pugi::xml_document> m_catalogDoc;
 };
 
 #endif // WIDGETTHREDDSCONFIG_H

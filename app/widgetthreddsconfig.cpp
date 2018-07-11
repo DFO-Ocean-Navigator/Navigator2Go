@@ -3,6 +3,7 @@
 
 #include "preferences.h"
 #include "constants.h"
+#include "ioutils.h"
 
 #include <QFile>
 #include <QPushButton>
@@ -10,6 +11,8 @@
 #include <QDir>
 #include <QInputDialog>
 #include <QRegularExpression>
+
+#include <pugixml/pugixml.hpp>
 
 #include <cstring>
 #include <optional>
@@ -22,9 +25,96 @@
 NODISCARD auto readXML(const QString& path) {
 	pugi::xml_document doc;
 
-	const auto result{ doc.load_file(path.toStdString().c_str()) };
+	const auto& result{ doc.load_file(path.toStdString().c_str()) };
 
 	return result ? std::make_optional(std::move(doc)) : std::nullopt;
+}
+
+/***********************************************************************************/
+// Creates a new catalog document with required headers/attributes
+NODISCARD auto createNewCatalogFile() {
+	pugi::xml_document doc;
+
+	// Header declaration
+	auto header{ doc.prepend_child(pugi::node_declaration) };
+	header.append_attribute("version") = 1.0;
+	header.append_attribute("encoding") = "UTF-8";
+
+	// Top-level <catalog></catalog> tags
+	auto catalog{ doc.append_child() };
+	catalog.set_name("catalog");
+	catalog.append_attribute("xmlns") = "http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0";
+	catalog.append_attribute("xmlns:xlink") = "http://www.w3.org/1999/xlink";
+	catalog.append_attribute("name") = "Unidata THREDDS-IDD NetCDF-OpenDAP Server";
+	catalog.append_attribute("version") = "1.0.1";
+
+	{
+		// Service tags
+		auto services{ catalog.append_child() };
+		services.set_name("service");
+		services.append_attribute("name") = "all";
+		services.append_attribute("base") = "";
+		services.append_attribute("serviceType") = "compound";
+
+
+		auto odapService{ services.append_child( ) };
+		odapService.set_name("service");
+		odapService.append_attribute("name") = "odap";
+		odapService.append_attribute("serviceType") = "OpenDAP";
+		odapService.append_attribute("base") = "/thredds/dodsC/";
+
+		auto dap4Service{ services.append_child( ) };
+		dap4Service.set_name("service");
+		dap4Service.append_attribute("name") = "dap4";
+		dap4Service.append_attribute("serviceType") = "DAP4";
+		dap4Service.append_attribute("base") = "/thredds/dap4/";
+
+		auto httpService{ services.append_child() };
+		httpService.set_name("service");
+		httpService.append_attribute("name") = "http";
+		httpService.append_attribute("serviceType") = "HTTPServer";
+		httpService.append_attribute("base") = "/thredds/fileServer/";
+
+		auto ncssService{ services.append_child() };
+		ncssService.set_name("service");
+		ncssService.append_attribute("name") = "ncss";
+		ncssService.append_attribute("serviceType") = "NetcdfSubset";
+		ncssService.append_attribute("base") = "/thredds/ncss/";
+	}
+
+	{
+		auto service{ catalog.append_child() };
+		service.set_name("service");
+		service.append_attribute("name") = "dap";
+		service.append_attribute("serviceType") = "compound";
+		service.append_attribute("base") = "";
+
+		auto odapService{ service.append_child() };
+		odapService.set_name("service");
+		odapService.append_attribute("name") = "odap";
+		odapService.append_attribute("serviceType") = "OpenDAP";
+		odapService.append_attribute("base") = "/thredds/dodsC/";
+
+		auto dap4Service{ service.append_child( ) };
+		dap4Service.set_name("service");
+		dap4Service.append_attribute("name") = "dap4";
+		dap4Service.append_attribute("serviceType") = "DAP4";
+		dap4Service.append_attribute("base") = "/thredds/dap4/";
+	}
+
+	return doc;
+}
+
+/***********************************************************************************/
+// Creates a new empty aggregate file with required tags.
+NODISCARD auto createNewAggregateFile() {
+	pugi::xml_document doc;
+
+	auto netCDFRoot{ doc.append_child() };
+	netCDFRoot.set_name("netcdf");
+	netCDFRoot.append_attribute("xmlns") = "http://www.unidata.ucar.edu/namespaces/netcdf/ncml-2.2";
+
+	return doc;
 }
 
 /***********************************************************************************/
@@ -71,18 +161,32 @@ void WidgetThreddsConfig::on_tableWidget_cellChanged(int row, int column) {
 
 /***********************************************************************************/
 void WidgetThreddsConfig::on_pushButtonAddDataset_clicked() {
-	bool ok;
-	const auto datasetName { QInputDialog::getText(	this,
+
+	bool ok_dsname;
+	const auto& datasetName{ QInputDialog::getText(	this,
 													tr("Add THREDDS Dataset..."),
 													tr("Enter a dataset name.\nNo whitespace, /, \\, +, *, ., characters allowed."),
 													QLineEdit::Normal,
 													"my_dataset_" + QString::number(qrand()),
-													&ok)
+													&ok_dsname)
 						   };
 
-	if (ok && validateDatasetName(datasetName)) {
-		createRow(datasetName);
-		return;
+	bool ok_dspath;
+	const auto& datasetPath{ QInputDialog::getText( this,
+												   tr("Dataset Path..."),
+												   tr("Enter the path for the folder containing the dataset."),
+												   QLineEdit::Normal,
+												   "",
+												   &ok_dspath)
+						  };
+
+	if (ok_dsname && validateDatasetName(datasetName) && ok_dspath) {
+		createRow(datasetName, datasetPath);
+		addDataset(datasetName, datasetPath);
+
+		QMessageBox::information(this,
+								 tr("Success..."),
+								 tr("Your dataset has been added to THREDDS! Go to the Dashboard to Stop and Start the Apache server to apply your changes."));
 	}
 }
 
@@ -92,32 +196,30 @@ void WidgetThreddsConfig::on_pushButtonRemoveDataset_clicked() {
 
 	if (currentRow != -1) {
 
-		const auto reply{ QMessageBox::question(this, tr("Confirm Action"), tr("Delete selected dataset?"),
-												 QMessageBox::Yes | QMessageBox::No)
+		const auto reply{ QMessageBox::warning(this,
+											   tr("Confirm Action"),
+											   tr("Delete selected dataset? Warning: this will remove the netCDF files too!"),
+											   QMessageBox::Yes | QMessageBox::No)
 						};
 
 		if (reply == QMessageBox::Yes) {
+			removeDataset(m_ui->tableWidget->item(currentRow, 0)->text(),
+						  m_ui->tableWidget->item(currentRow, 2)->text()
+						  );
+
 			m_ui->tableWidget->removeRow(m_ui->tableWidget->currentRow());
 		}
 	}
 }
 
 /***********************************************************************************/
-void WidgetThreddsConfig::on_pushButtonSaveConfig_clicked() {
-
-	QMessageBox::information(this,
-							 tr("Success..."),
-							 tr("THREDDS config successfully updated! Please restart the THREDDS server from the Dashboard."));
-}
-
-/***********************************************************************************/
 void WidgetThreddsConfig::buildTable() {
 
-	const auto catalogFile{ m_prefs->THREDDSCatalogLocation + QString("/catalog.xml") };
+	const auto& catalogFile{ m_prefs->THREDDSCatalogLocation + QString("/catalog.xml") };
 
-	m_catalogDoc = readXML(catalogFile);
+	const auto doc{ readXML(catalogFile) };
 
-	if (!m_catalogDoc.has_value()) {
+	if (!doc.has_value()) {
 		QMessageBox box{this};
 		box.setWindowTitle(tr("THREDDS catalog error..."));
 		box.setText(tr("Failed to load THREDDS catalog file: ") + catalogFile);
@@ -128,7 +230,7 @@ void WidgetThreddsConfig::buildTable() {
 		return;
 	}
 
-	const auto rootNode{ m_catalogDoc->child("catalog") };
+	const auto& rootNode{ doc->child("catalog") };
 
 	if (!rootNode.select_node("catalogRef")) {
 		// Check if the primary catalog doesn't have any dataset references
@@ -143,27 +245,27 @@ void WidgetThreddsConfig::buildTable() {
 			m_ui->tableWidget->insertRow(m_ui->tableWidget->rowCount());
 			const auto rowIdx{ m_ui->tableWidget->rowCount() - 1 };
 
-			auto* nameItem{ new QTableWidgetItem(node.attribute("xlink:title").as_string()) };
+			auto* const nameItem{ new QTableWidgetItem(node.attribute("xlink:title").as_string()) };
 
-			const auto catalogPath{ node.attribute("xlink:href").as_string() };
-			auto* pathItem{ new QTableWidgetItem(catalogPath) };
+			const auto& catalogPath{ node.attribute("xlink:href").as_string() };
+			auto* const pathItem{ new QTableWidgetItem(catalogPath) };
 			pathItem->setFlags(pathItem->flags() ^ Qt::ItemIsEditable); // Make read-only
 
 			m_ui->tableWidget->setItem(rowIdx, 0, nameItem);
 			m_ui->tableWidget->setItem(rowIdx, 1, pathItem);
 
 
-			const auto datasetCatalog{ readXML(m_prefs->THREDDSCatalogLocation + "/" + catalogPath) };
+			const auto& datasetCatalog{ readXML(m_prefs->THREDDSCatalogLocation + "/" + catalogPath) };
 			if (!datasetCatalog.has_value()) {
 				continue;
 			}
 
-			const auto datasetScanNode{ datasetCatalog->child("catalog").child("datasetScan") };
+			const auto& datasetScanNode{ datasetCatalog->child("catalog").child("datasetScan") };
 			if (!datasetScanNode) {
 				continue;
 			}
 
-			auto* locationItem{ new QTableWidgetItem(datasetScanNode.attribute("location").as_string()) };
+			auto* const locationItem{ new QTableWidgetItem(datasetScanNode.attribute("location").as_string()) };
 			m_ui->tableWidget->setItem(rowIdx, 2, locationItem);
 		}
 	}
@@ -190,22 +292,114 @@ bool WidgetThreddsConfig::validateDatasetName(const QString& datasetName) {
 	// https://regex101.com/r/2MfejI/3
 	const QRegularExpression re{"[\\.,;'`+*\\s/]+", QRegularExpression::CaseInsensitiveOption};
 
-	const auto matchResult{ re.match(datasetName) };
+	const auto& matchResult{ re.match(datasetName) };
 
 	return !matchResult.hasMatch();
 }
 
 /***********************************************************************************/
-void WidgetThreddsConfig::createRow(const QString& datasetName) {
+void WidgetThreddsConfig::createRow(const QString& datasetName, const QString& dataPath) {
 
 	m_ui->tableWidget->insertRow(m_ui->tableWidget->rowCount());
 	const auto rowIdx{ m_ui->tableWidget->rowCount() - 1 };
 
-	auto* nameItem{ new QTableWidgetItem(datasetName) };
+	auto* const nameItem{ new QTableWidgetItem(datasetName) };
 
-	const auto catalogPath{ "catalogs/"+datasetName+".xml" };
-	auto* pathItem{ new QTableWidgetItem(catalogPath) };
+	const auto& catalogPath{ "catalogs/"+datasetName+".xml" };
+	auto* const pathItem{ new QTableWidgetItem(catalogPath) };
+
+	auto* const dataPathItem{ new QTableWidgetItem(dataPath) };
 
 	m_ui->tableWidget->setItem(rowIdx, 0, nameItem);
 	m_ui->tableWidget->setItem(rowIdx, 1, pathItem);
+	m_ui->tableWidget->setItem(rowIdx, 2, dataPathItem);
+}
+
+/***********************************************************************************/
+void WidgetThreddsConfig::addDataset(const QString& datasetName, const QString& dataPath) {
+
+	const auto& path{ QString("catalogs/") + datasetName };
+
+	// Modify catalog.xml
+	{
+		const auto& catalogPath{ m_prefs->THREDDSCatalogLocation + QString("/catalog.xml") };
+		const auto doc{ readXML(catalogPath) };
+		auto child{ doc->child("catalog").append_child("catalogRef") };
+		child.append_attribute("xlink:title") = datasetName.toStdString().c_str();
+		child.append_attribute("xlink:href") = path.toStdString().c_str();
+
+		doc->save_file(catalogPath.toStdString().c_str());
+	}
+
+	const auto& fileName{ "/home/nabil/" + path + ".xml"};
+	if (!IO::FileExists(fileName)) {
+		IO::CreateDir(fileName);
+	}
+
+	// Create dataset catalog file (giops_day.xml for example)
+	auto catalog{ readXML(path) };
+	if (!catalog.has_value()) {
+		catalog = createNewCatalogFile();
+
+		auto datasetScan{ catalog->child("catalog").append_child() };
+		datasetScan.set_name("datasetScan");
+		datasetScan.append_attribute("name") = datasetName.toStdString().c_str();
+		datasetScan.append_attribute("ID") = datasetName.toLower().toStdString().c_str();
+		datasetScan.append_attribute("path") = datasetName.toLower().toStdString().c_str();
+		datasetScan.append_attribute("location") = dataPath.toStdString().c_str();
+
+		auto serviceName{ datasetScan.append_child() };
+		serviceName.set_name("serviceName");
+		serviceName.text().set("all");
+
+		catalog->save_file(fileName.toStdString().c_str());
+	}
+
+	// Create dataset aggregate file
+	const auto aggregatePath{ dataPath + "/aggregated.ncml "};
+	auto aggregate{ readXML(aggregatePath) };
+	if (!aggregate.has_value()) {
+		aggregate = createNewAggregateFile();
+
+		auto aggregation{ aggregate->child("netcdf").append_child() };
+		aggregation.set_name("aggregation");
+		aggregation.append_attribute("type") = "joinExisting";
+		aggregation.append_attribute("recheckEvery") = "1 hour";
+
+		// Find netCDF files in target directory
+		QDir dir{dataPath};
+		dir.setNameFilters({"*.nc"});
+
+		// Find the name of time dimension of first file.
+		// I assume the folder contains netCDF files for the same dataset.
+		aggregation.append_attribute("dimName") = IO::FindTimeDimension(dir.entryInfoList()[0].absoluteFilePath()).toStdString().c_str();
+
+		auto scan{ aggregation.append_child() };
+		scan.set_name("scan");
+		scan.append_attribute("location") = ".";
+		scan.append_attribute("regExp") = "^.*\\.nc$";
+		scan.append_attribute("recheckEvery") = "1 hour";
+
+		aggregate->save_file(aggregatePath.toStdString().c_str());
+	}
+}
+
+/***********************************************************************************/
+void WidgetThreddsConfig::removeDataset(const QString& datasetName, const QString& dataPath) {
+
+	// Modify catalog.xml
+	{
+		const auto& catalogPath{ m_prefs->THREDDSCatalogLocation + QString("/catalog.xml") };
+		auto doc{ readXML(catalogPath) };
+		const auto nodeToRemove{ doc->find_child_by_attribute("catalogRef", "xlink:title", datasetName.toStdString().c_str()) };
+		doc->remove_child(nodeToRemove);
+
+		doc->save_file(catalogPath.toStdString().c_str());
+	}
+
+	// Remove dataset catalog
+	QFile::remove("catalogs/" + datasetName + ".xml");
+
+	// Remove datasets + aggregated file
+	IO::RemoveDir(dataPath);
 }
