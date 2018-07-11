@@ -257,7 +257,10 @@ void MainWindow::on_actionPreferences_triggered() {
 
 /***********************************************************************************/
 void MainWindow::on_actionAbout_triggered() {
-	QMessageBox::information(this, tr("About Navigator2Go"), tr(""));
+	QMessageBox::information(this,
+							 tr("About Navigator2Go"),
+							 QString("Git commit hash: %1\nCompiled from branch: %2").arg(GIT_CURRENT_SHA1).arg(GIT_CURRENT_BRANCH)
+							 );
 }
 
 /***********************************************************************************/

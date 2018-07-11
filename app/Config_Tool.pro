@@ -3,6 +3,9 @@ QT += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+DEFINES += GIT_CURRENT_SHA1="\\\"$(shell git -C \""$$_PRO_FILE_PWD_"\" rev-parse HEAD)\\\""
+DEFINES += GIT_CURRENT_BRANCH="\\\"$(shell git -C \""$$_PRO_FILE_PWD_"\" branch | sed -n 's/^[*][ ]//p')\\\""
+
 QMAKE_CXX = g++-7
 
 CONFIG += c++1z
@@ -11,7 +14,7 @@ QMAKE_CXXFLAGS += -std=c++17
 TARGET = Config_Tool
 TEMPLATE = app
 
-QMAKE_CXXFLAGS_DEBUG += -Og # optimized debug
+QMAKE_CXXFLAGS_DEBUG += -Og # The OG optimized debug ;)
 
 # remove possible other optimization flags
 QMAKE_CXXFLAGS_RELEASE -= -O

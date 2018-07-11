@@ -5,8 +5,6 @@
 
 #include <QWidget>
 
-#include <optional>
-
 /***********************************************************************************/
 // Forward declarations
 namespace Ui {
