@@ -79,7 +79,7 @@ void WidgetDataOrder::on_pushButtonDownload_clicked() {
 		const QString max_range{ "&max_range=" + QString::number(m_ui->spinboxMaxLat->value()) + "," + QString::number(m_ui->spinboxMaxLon->value()) };
 
 		for (const auto& item : m_downloadQueue) {
-			const auto& url{ item.ToAPIURL() + min_range + max_range };
+			const auto& url{ item.ToAPIURL() + min_range + max_range + "&output_format=" + m_prefs->DataDownloadFormat};
 #ifdef QT_DEBUG
 			qDebug() << IO::FindPathForDataset(item);
 #endif
@@ -110,7 +110,7 @@ void WidgetDataOrder::on_listWidgetRemoteDatasets_itemDoubleClicked(QListWidgetI
 		if (!data.SelectedVariables.empty()) {
 
 			// Don't accept a giant date range
-			std::size_t dayLimit = 60;
+			std::size_t dayLimit{ 60 };
 			if (m_datasetsAPIResultCache[data.ID]["quantum"] == "month") {
 				dayLimit = 1825; // 5 years of monthly data only
 			}
@@ -150,7 +150,7 @@ void WidgetDataOrder::configureNetwork() {
 		m_networkAccessManager.connectToHost(m_prefs->RemoteURL);
 	}
 
-	m_downloader.setTimeoutTime(30000); // 30 sec timeout
+	m_downloader.setTimeoutTime(300000); // 30 sec timeout
 
 	// Configure downloader
 #ifdef QT_DEBUG
@@ -167,8 +167,6 @@ void WidgetDataOrder::configureNetwork() {
 	QObject::connect(&m_downloader, &QEasyDownloader::DownloadProgress, this,
 					 [&](const auto bytesReceived, const auto percent, const auto speed, const auto& unit, const auto& url, const auto& filename) {
 #ifdef QT_DEBUG
-						qDebug() << percent;
-						qDebug() << speed;
 #endif
 					}
 	);
@@ -176,9 +174,6 @@ void WidgetDataOrder::configureNetwork() {
 	// Emitted when a single file is downloaded.
 	QObject::connect(&m_downloader, &QEasyDownloader::DownloadFinished, this,
 					 [&](const auto& url, const auto& filename) {
-#ifdef QT_DEBUG
-						qDebug() << "Downloaded: " << url;
-#endif
 						this->m_mainWindow->showStatusBarMessage("File downloaded.");
 
 						++this->m_numDownloadsComplete;

@@ -10,6 +10,13 @@
 DialogPreferences::DialogPreferences(QWidget* parent) : QDialog{parent},
 														m_ui{new Ui::DialogPreferences} {
 	m_ui->setupUi(this);
+
+	const QStringList downloadFormats {
+		"NETCDF4", "NETCDF4_CLASSIC", "NETCDF3_64BIT",
+		"NETCDF3_CLASSIC", "NETCDF3_NC"
+	};
+
+	m_ui->comboBoxDownloadFormat->addItems(downloadFormats);
 }
 
 /***********************************************************************************/
@@ -22,6 +29,7 @@ void DialogPreferences::SetPreferences(Preferences& prefs) {
 	m_ui->lineEditInstallDir->setText(prefs.ONInstallDir);
 	m_ui->lineEditRemoteURL->setText(prefs.RemoteURL);
 	m_ui->lineEditTHREDDSDataLocation->setText(prefs.THREDDSCatalogLocation);
+	m_ui->comboBoxDownloadFormat->setCurrentText(prefs.DataDownloadFormat);
 	m_ui->switchUpdateDoryDatasetsOnStart->setChecked(prefs.UpdateRemoteListOnStart);
 	m_ui->switchAutoStartServers->setChecked(prefs.AutoStartServers);
 	m_ui->switchOnlineOffline->setChecked(prefs.IsNetworkOnline);
@@ -33,6 +41,7 @@ auto DialogPreferences::GetPreferences() const noexcept -> Preferences {
 		m_ui->lineEditInstallDir->text(),
 		m_ui->lineEditRemoteURL->text(),
 		m_ui->lineEditTHREDDSDataLocation->text(),
+		m_ui->comboBoxDownloadFormat->currentText(),
 		m_ui->switchUpdateDoryDatasetsOnStart->isChecked(),
 		m_ui->switchAutoStartServers->isChecked(),
 		m_ui->switchOnlineOffline->isChecked()

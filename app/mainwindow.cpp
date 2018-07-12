@@ -182,6 +182,15 @@ void MainWindow::readSettings() {
 	}
 
 	m_settings.endGroup();
+
+	//
+	m_settings.beginGroup("DataOrder");
+
+	if (m_settings.contains("DataDownloadFormat")) {
+		m_prefs.DataDownloadFormat = m_settings.value("DataDownloadFormat").toString();
+	}
+
+	m_settings.endGroup();
 }
 
 /***********************************************************************************/
@@ -207,6 +216,8 @@ void MainWindow::writeSettings() {
 	m_settings.setValue("MaxLat", std::get<1>(region));
 	m_settings.setValue("MinLon", std::get<2>(region));
 	m_settings.setValue("MaxLon", std::get<3>(region));
+
+	m_settings.setValue("DataDownloadFormat", m_prefs.DataDownloadFormat);
 
 	m_settings.endGroup();
 }
