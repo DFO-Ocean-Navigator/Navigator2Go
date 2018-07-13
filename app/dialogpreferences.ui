@@ -189,6 +189,9 @@
          </item>
          <item row="8" column="0">
           <widget class="QLabel" name="label_7">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The NetCDF version the downloaded files from the remote server will be in.&lt;/p&gt;&lt;p&gt;Default is NetCDF-4 for best compression and data accuracy.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
            <property name="text">
             <string>Dataset download format:</string>
            </property>

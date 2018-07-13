@@ -164,6 +164,9 @@ void WidgetConfigEditor::on_listWidgetActiveDatasets_itemDoubleClicked(QListWidg
 		const auto& data{ dialog.GetData() };
 
 		m_documentRootObject[datasetKey] = data.second;
+
+		m_hasUnsavedData = true;
+		m_ui->pushButtonSaveConfigFile->setEnabled(true);
 	}
 }
 
@@ -184,16 +187,10 @@ void WidgetConfigEditor::updateDatasetListWidget() {
 
 /***********************************************************************************/
 void WidgetConfigEditor::setDefaultConfigFile() {
-	const static auto onlineConfig{ m_prefs->ONInstallDir+"/oceannavigator/datasetconfigONLINE.json" };
-	const static auto offlineConfig{ m_prefs->ONInstallDir+"/oceannavigator/datasetconfigOFFLINE.json" };
+	const auto& onlineConfig{ m_prefs->ONInstallDir+"/oceannavigator/datasetconfigONLINE.json" };
+	const auto& offlineConfig{ m_prefs->ONInstallDir+"/oceannavigator/datasetconfigOFFLINE.json" };
 
-	QString newConfigFile;
-	if (m_prefs->IsNetworkOnline) {
-		newConfigFile = onlineConfig;
-	}
-	else {
-		newConfigFile = offlineConfig;
-	}
+	const auto& newConfigFile = m_prefs->IsNetworkOnline ? onlineConfig : offlineConfig;
 
 	// Validate file
 	auto doc = IO::LoadJSONFile(newConfigFile);

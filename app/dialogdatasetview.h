@@ -40,7 +40,6 @@ public:
 	NODISCARD DataDownloadDesc GetDownloadData() const;
 
 private slots:
-	void on_tableWidgetVariables_cellDoubleClicked(int row, int column);
 	void on_pushButtonAddVariable_clicked();
 	void on_pushButtonDeleteVariable_clicked();
 	void on_lineEditKey_editingFinished();

@@ -81,10 +81,10 @@ void WidgetDataOrder::on_pushButtonDownload_clicked() {
 		for (const auto& item : m_downloadQueue) {
 			const auto& url{ item.ToAPIURL() + min_range + max_range + "&output_format=" + m_prefs->DataDownloadFormat};
 #ifdef QT_DEBUG
-			qDebug() << IO::FindPathForDataset(item);
+			qDebug() << IO::FindPathForDataset(m_prefs->THREDDSCatalogLocation, item);
 #endif
 
-			m_downloader.Download(url, IO::FindPathForDataset(item) + ".nc");
+			m_downloader.Download(url, IO::FindPathForDataset(m_prefs->THREDDSCatalogLocation, item) + ".nc");
 		}
 
 		// Show download stuff

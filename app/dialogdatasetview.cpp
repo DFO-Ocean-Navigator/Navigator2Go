@@ -18,6 +18,9 @@ DialogDatasetView::DialogDatasetView(QWidget* parent) :	QDialog(parent), m_ui(ne
 	m_ui->setupUi(this);
 
 	m_highlighter = new HTMLHighlighter(m_ui->plainTextEditHelp->document());
+
+	m_ui->calendarWidgetStart->setVisible(false);
+	m_ui->calendarWidgetEnd->setVisible(false);
 }
 
 /***********************************************************************************/
@@ -121,11 +124,22 @@ void DialogDatasetView::SetData(const QJsonObject& datasetObj, QNetworkAccessMan
 								const auto& startDate{ QDate::fromString(start, Qt::DateFormat::ISODate) };
 								const auto& endDate{ QDate::fromString(end, Qt::DateFormat::ISODate) };
 
-								m_ui->calendarWidgetStart->setDateRange(startDate, endDate);
-								m_ui->calendarWidgetStart->setSelectedDate(startDate);
+								if (quantum == "day") {
+									m_ui->calendarWidgetStart->setVisible(true);
+									m_ui->calendarWidgetStart->setDateRange(startDate, endDate);
+									m_ui->calendarWidgetStart->setSelectedDate(startDate);
 
-								m_ui->calendarWidgetEnd->setDateRange(startDate, endDate);
-								m_ui->calendarWidgetEnd->setSelectedDate(endDate);
+									m_ui->calendarWidgetEnd->setVisible(true);
+									m_ui->calendarWidgetEnd->setDateRange(startDate, endDate);
+									m_ui->calendarWidgetEnd->setSelectedDate(endDate);
+									return;
+								}
+								if (quantum == "month") {
+									return;
+								}
+								if (quantum == "hour") {
+									return;
+								}
 							}
 	);
 
@@ -149,27 +163,27 @@ std::pair<QString, QJsonObject> DialogDatasetView::GetData() const {
 
 	// Serialize variables
 	QJsonObject variables;
-	const auto rowCount = m_ui->tableWidgetVariables->rowCount();
+	const auto rowCount{ m_ui->tableWidgetVariables->rowCount() };
 	for (auto i = 0; i < rowCount; ++i) {
 		QJsonObject var;
 
-		const auto& nameText = m_ui->tableWidgetVariables->item(i, 1)->text();
+		const auto& nameText{ m_ui->tableWidgetVariables->item(i, 1)->text() };
 		var.insert("name", nameText);
 
-		const auto& unitsText = m_ui->tableWidgetVariables->item(i, 2)->text();
+		const auto& unitsText{ m_ui->tableWidgetVariables->item(i, 2)->text() };
 		var.insert("unit", unitsText);
 
-		const auto scaleMin = m_ui->tableWidgetVariables->item(i, 3)->text().toDouble();
-		const auto scaleMax = m_ui->tableWidgetVariables->item(i, 4)->text().toDouble();
+		const auto scaleMin{ m_ui->tableWidgetVariables->item(i, 3)->text().toDouble() };
+		const auto scaleMax{ m_ui->tableWidgetVariables->item(i, 4)->text().toDouble() };
 		var.insert("scale", QJsonArray({scaleMin, scaleMax}));
 
-		const auto factor = m_ui->tableWidgetVariables->item(i, 5)->text().toDouble();
+		const auto factor{ m_ui->tableWidgetVariables->item(i, 5)->text().toDouble() };
 		var.insert("scale_factor", factor);
 
-		const auto isHidden = m_ui->tableWidgetVariables->item(i, 6)->checkState();
-		var.insert("hide", isHidden ? "true" : "false");
+		const auto isHidden{ m_ui->tableWidgetVariables->item(i, 6)->checkState() };
+		var.insert("hide", isHidden ? true : false);
 
-		const auto& keyText = m_ui->tableWidgetVariables->item(i, 0)->text().toLower();
+		const auto& keyText{ m_ui->tableWidgetVariables->item(i, 0)->text().toLower() };
 		variables.insert(keyText, var);
 	}
 	obj.insert("variables", variables);
@@ -194,11 +208,6 @@ DataDownloadDesc DialogDatasetView::GetDownloadData() const {
 		m_ui->calendarWidgetEnd->selectedDate(),
 		vars
 	};
-}
-
-/***********************************************************************************/
-void DialogDatasetView::on_tableWidgetVariables_cellDoubleClicked(int row, int column) {
-
 }
 
 /***********************************************************************************/

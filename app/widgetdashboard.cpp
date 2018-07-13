@@ -188,7 +188,7 @@ void WidgetDashboard::on_pushButtonImportNetCDF_clicked() {
 		return;
 	}
 
-	auto* const task{ new IO::CopyFilesRunnable(std::move(files)) };
+	auto* const task{ new IO::CopyFilesRunnable(m_prefs->THREDDSCatalogLocation, std::move(files)) };
 
 	QObject::connect(task, &IO::CopyFilesRunnable::finished, this, [&](const auto errorList) {
 		if (!errorList.empty()) {

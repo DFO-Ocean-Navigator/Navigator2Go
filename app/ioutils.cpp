@@ -1,5 +1,7 @@
 #include "ioutils.h"
 
+#include "datadownloaddesc.h"
+
 #include <QFileInfo>
 #include <QDir>
 #include <QRegularExpression>
@@ -10,12 +12,12 @@
 namespace IO {
 
 /***********************************************************************************/
-QString FindPathForDataset(const QString& filename) {
-	return {};
+QString FindPathForDataset(const QString& threddsContentDir, const QString& sourceFilePath) {
+
 }
 
 /***********************************************************************************/
-QString FindPathForDataset(const DataDownloadDesc& data) {
+QString FindPathForDataset(const QString& threddsContentDir, const DataDownloadDesc& data) {
 	return	data.ID + "_" +
 			data.SelectedVariables.join(",") + "_" +
 			data.StartDate.toString(Qt::DateFormat::ISODate) +
@@ -69,7 +71,8 @@ QString FindTimeDimension(const QString& netcdfFilePath) {
 }
 
 /***********************************************************************************/
-CopyFilesRunnable::CopyFilesRunnable(QStringList&& fileList) : m_fileList{std::move(fileList)} {
+CopyFilesRunnable::CopyFilesRunnable(const QString threddsContentDir, QStringList&& fileList) : m_contentDir{std::move(threddsContentDir)},
+																							m_fileList{std::move(fileList)} {
 }
 
 /***********************************************************************************/
@@ -83,7 +86,7 @@ void CopyFilesRunnable::run() {
 
 		const auto& fileName{ QFileInfo{file}.fileName() };
 
-		if (!QFile::rename(file, FindPathForDataset(fileName))) {
+		if (!QFile::rename(file, FindPathForDataset(m_contentDir, fileName))) {
 			errorList.append(file);
 		}
 		else {
