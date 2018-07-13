@@ -1,6 +1,7 @@
 #include "widgetthreddsconfig.h"
 #include "ui_widgetthreddsconfig.h"
 
+#include "xmlio.h"
 #include "preferences.h"
 #include "constants.h"
 #include "ioutils.h"
@@ -21,101 +22,6 @@
 	#include <QDebug>
 #endif
 
-/***********************************************************************************/
-NODISCARD auto readXML(const QString& path) {
-	pugi::xml_document doc;
-
-	const auto& result{ doc.load_file(path.toStdString().c_str()) };
-
-	return result ? std::make_optional(std::move(doc)) : std::nullopt;
-}
-
-/***********************************************************************************/
-// Creates a new catalog document with required headers/attributes
-NODISCARD auto createNewCatalogFile() {
-	pugi::xml_document doc;
-
-	// Header declaration
-	auto header{ doc.prepend_child(pugi::node_declaration) };
-	header.append_attribute("version") = 1.0;
-	header.append_attribute("encoding") = "UTF-8";
-
-	// Top-level <catalog></catalog> tags
-	auto catalog{ doc.append_child() };
-	catalog.set_name("catalog");
-	catalog.append_attribute("xmlns") = "http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0";
-	catalog.append_attribute("xmlns:xlink") = "http://www.w3.org/1999/xlink";
-	catalog.append_attribute("name") = "Unidata THREDDS-IDD NetCDF-OpenDAP Server";
-	catalog.append_attribute("version") = "1.0.1";
-
-	{
-		// Service tags
-		auto services{ catalog.append_child() };
-		services.set_name("service");
-		services.append_attribute("name") = "all";
-		services.append_attribute("base") = "";
-		services.append_attribute("serviceType") = "compound";
-
-
-		auto odapService{ services.append_child( ) };
-		odapService.set_name("service");
-		odapService.append_attribute("name") = "odap";
-		odapService.append_attribute("serviceType") = "OpenDAP";
-		odapService.append_attribute("base") = "/thredds/dodsC/";
-
-		auto dap4Service{ services.append_child( ) };
-		dap4Service.set_name("service");
-		dap4Service.append_attribute("name") = "dap4";
-		dap4Service.append_attribute("serviceType") = "DAP4";
-		dap4Service.append_attribute("base") = "/thredds/dap4/";
-
-		auto httpService{ services.append_child() };
-		httpService.set_name("service");
-		httpService.append_attribute("name") = "http";
-		httpService.append_attribute("serviceType") = "HTTPServer";
-		httpService.append_attribute("base") = "/thredds/fileServer/";
-
-		auto ncssService{ services.append_child() };
-		ncssService.set_name("service");
-		ncssService.append_attribute("name") = "ncss";
-		ncssService.append_attribute("serviceType") = "NetcdfSubset";
-		ncssService.append_attribute("base") = "/thredds/ncss/";
-	}
-
-	{
-		auto service{ catalog.append_child() };
-		service.set_name("service");
-		service.append_attribute("name") = "dap";
-		service.append_attribute("serviceType") = "compound";
-		service.append_attribute("base") = "";
-
-		auto odapService{ service.append_child() };
-		odapService.set_name("service");
-		odapService.append_attribute("name") = "odap";
-		odapService.append_attribute("serviceType") = "OpenDAP";
-		odapService.append_attribute("base") = "/thredds/dodsC/";
-
-		auto dap4Service{ service.append_child( ) };
-		dap4Service.set_name("service");
-		dap4Service.append_attribute("name") = "dap4";
-		dap4Service.append_attribute("serviceType") = "DAP4";
-		dap4Service.append_attribute("base") = "/thredds/dap4/";
-	}
-
-	return doc;
-}
-
-/***********************************************************************************/
-// Creates a new empty aggregate file with required tags.
-NODISCARD auto createNewAggregateFile() {
-	pugi::xml_document doc;
-
-	auto netCDFRoot{ doc.append_child() };
-	netCDFRoot.set_name("netcdf");
-	netCDFRoot.append_attribute("xmlns") = "http://www.unidata.ucar.edu/namespaces/netcdf/ncml-2.2";
-
-	return doc;
-}
 
 /***********************************************************************************/
 WidgetThreddsConfig::WidgetThreddsConfig(QWidget* parent, const Preferences* prefs) :	QWidget{parent},
@@ -217,7 +123,7 @@ void WidgetThreddsConfig::buildTable() {
 
 	const auto& catalogFile{ m_prefs->THREDDSCatalogLocation + QString("/catalog.xml") };
 
-	const auto doc{ readXML(catalogFile) };
+	const auto doc{ IO::readXML(catalogFile) };
 
 	if (!doc.has_value()) {
 		QMessageBox box{this};
@@ -255,7 +161,7 @@ void WidgetThreddsConfig::buildTable() {
 			m_ui->tableWidget->setItem(rowIdx, 1, pathItem);
 
 
-			const auto& datasetCatalog{ readXML(m_prefs->THREDDSCatalogLocation + "/" + catalogPath) };
+			const auto& datasetCatalog{ IO::readXML(m_prefs->THREDDSCatalogLocation + "/" + catalogPath) };
 			if (!datasetCatalog.has_value()) {
 				continue;
 			}
@@ -323,7 +229,7 @@ void WidgetThreddsConfig::addDataset(const QString& datasetName, const QString& 
 	// Modify catalog.xml
 	{
 		const auto& catalogPath{ m_prefs->THREDDSCatalogLocation + QString("/catalog.xml") };
-		const auto doc{ readXML(catalogPath) };
+		const auto doc{ IO::readXML(catalogPath) };
 		auto child{ doc->child("catalog").append_child("catalogRef") };
 		child.append_attribute("xlink:title") = datasetName.toStdString().c_str();
 		child.append_attribute("xlink:href") = path.toStdString().c_str();
@@ -337,9 +243,9 @@ void WidgetThreddsConfig::addDataset(const QString& datasetName, const QString& 
 	}
 
 	// Create dataset catalog file (giops_day.xml for example)
-	auto catalog{ readXML(path) };
+	auto catalog{ IO::readXML(path) };
 	if (!catalog.has_value()) {
-		catalog = createNewCatalogFile();
+		catalog = IO::createNewCatalogFile();
 
 		auto datasetScan{ catalog->child("catalog").append_child() };
 		datasetScan.set_name("datasetScan");
@@ -357,9 +263,9 @@ void WidgetThreddsConfig::addDataset(const QString& datasetName, const QString& 
 
 	// Create dataset aggregate file
 	const auto aggregatePath{ dataPath + "/aggregated.ncml "};
-	auto aggregate{ readXML(aggregatePath) };
+	auto aggregate{ IO::readXML(aggregatePath) };
 	if (!aggregate.has_value()) {
-		aggregate = createNewAggregateFile();
+		aggregate = IO::createNewAggregateFile();
 
 		auto aggregation{ aggregate->child("netcdf").append_child() };
 		aggregation.set_name("aggregation");
@@ -390,7 +296,7 @@ void WidgetThreddsConfig::removeDataset(const QString& datasetName, const QStrin
 	// Modify catalog.xml
 	{
 		const auto& catalogPath{ m_prefs->THREDDSCatalogLocation + QString("/catalog.xml") };
-		auto doc{ readXML(catalogPath) };
+		auto doc{ IO::readXML(catalogPath) };
 		const auto nodeToRemove{ doc->find_child_by_attribute("catalogRef", "xlink:title", datasetName.toStdString().c_str()) };
 		doc->remove_child(nodeToRemove);
 

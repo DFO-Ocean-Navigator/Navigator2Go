@@ -71,8 +71,8 @@ QString FindTimeDimension(const QString& netcdfFilePath) {
 }
 
 /***********************************************************************************/
-CopyFilesRunnable::CopyFilesRunnable(const QString threddsContentDir, QStringList&& fileList) : m_contentDir{std::move(threddsContentDir)},
-																							m_fileList{std::move(fileList)} {
+CopyFilesRunnable::CopyFilesRunnable(const QString threddsContentDir, QStringList&& fileList) : m_contentDir{threddsContentDir},
+																								m_fileList{std::move(fileList)} {
 }
 
 /***********************************************************************************/

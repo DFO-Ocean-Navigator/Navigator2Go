@@ -73,7 +73,8 @@ HEADERS += \
     widgetdataorder.h \
     widgetthreddsconfig.h \
     nodiscard.h \
-    constants.h
+    constants.h \
+    xmlio.h
 
 SOURCES += \
     datadownloaddesc.cpp \
@@ -92,7 +93,8 @@ SOURCES += \
     widgetconfigeditor.cpp \
     widgetdataorder.cpp \
     widgetthreddsconfig.cpp \
-    $$PWD/pugixml/pugixml.cpp
+    $$PWD/pugixml/pugixml.cpp \
+    xmlio.cpp
 
 INCLUDEPATH += \
     $$PWD \
