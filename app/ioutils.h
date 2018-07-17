@@ -22,7 +22,6 @@ struct NODISCARD THREDDSFileDesc {
 
 /***********************************************************************************/
 // Figures out the correct filename + path for a dataset
-NODISCARD THREDDSFileDesc GetTHREDDSFilename(const QString& threddsContentDir, const QString& sourceFilePath);
 NODISCARD THREDDSFileDesc GetTHREDDSFilename(const QString& threddsContentDir, const DataDownloadDesc& data);
 
 /***********************************************************************************/
@@ -46,7 +45,7 @@ class CopyFilesRunnable : public QObject, public QRunnable {
 	Q_OBJECT
 
 public:
-	CopyFilesRunnable(const QString threddsContentDir, QVector<NetCDFImportDesc>&& fileList);
+	CopyFilesRunnable(const QString threddsContentDir, const bool removeSourceFiles, QVector<NetCDFImportDesc>&& fileList);
 
 	void run() override;
 
@@ -56,6 +55,7 @@ signals:
 
 private:
 	const QString m_contentDir;
+	const bool m_removeSourceNCFiles;
 	const QVector<NetCDFImportDesc> m_fileList;
 };
 

@@ -51,7 +51,6 @@ FORMS += \
     dialogimportnc.ui
 
 unix:!macx: LIBS += -lnetcdf_c++4
-#unix:!macx: PRE_TARGETDEPS += $$PWD/netcdf4/lib/libnetcdf_c++4.a
 
 HEADERS += \
     datadownloaddesc.h \

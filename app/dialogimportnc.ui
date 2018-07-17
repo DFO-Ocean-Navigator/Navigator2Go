@@ -106,6 +106,13 @@
     </widget>
    </item>
    <item>
+    <widget class="QCheckBox" name="checkBoxRemoveSourceFiles">
+     <property name="text">
+      <string>Remove original netCDF files?</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>

@@ -7,6 +7,8 @@
 
 /***********************************************************************************/
 struct NODISCARD NetCDFImportDesc {
+	NetCDFImportDesc() noexcept = default;
+
 	const QString File;
 	const QString DatasetToAppendTo;
 };

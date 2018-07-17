@@ -13,15 +13,6 @@
 namespace IO {
 
 /***********************************************************************************/
-THREDDSFileDesc GetTHREDDSFilename(const QString& threddsContentDir, const QString& sourceFilePath) {
-	using namespace netCDF;
-	// Create filename
-
-
-
-}
-
-/***********************************************************************************/
 THREDDSFileDesc GetTHREDDSFilename(const QString& threddsContentDir, const DataDownloadDesc& data) {
 
 	// Create filename
@@ -86,8 +77,9 @@ QString FindTimeDimension(const QString& netcdfFilePath) {
 }
 
 /***********************************************************************************/
-CopyFilesRunnable::CopyFilesRunnable(const QString threddsContentDir, QVector<NetCDFImportDesc>&& fileList) : m_contentDir{threddsContentDir},
-																								m_fileList{std::move(fileList)} {
+CopyFilesRunnable::CopyFilesRunnable(const QString threddsContentDir, const bool removeSourceFiles, QVector<NetCDFImportDesc>&& fileList) : m_contentDir{threddsContentDir},
+																																			m_removeSourceNCFiles{removeSourceFiles},
+																																			m_fileList{std::move(fileList)} {
 }
 
 /***********************************************************************************/
@@ -95,24 +87,22 @@ void CopyFilesRunnable::run() {
 	const auto stepSize{ 100 * (1 / static_cast<qint64>(m_fileList.size())) };
 	qint64 currentStep{ 0 };
 
+	const auto& catalog{ IO::readXML(m_contentDir+"/catalog.xml")->child("catalog") };
 	QStringList errorList;
 
 	for (const auto& file : m_fileList) {
-
 		const auto& fileName{ QFileInfo{file.File}.fileName() };
-		auto fileDesc{ GetTHREDDSFilename(m_contentDir, fileName) };
+		const auto* dsCatalogPath{ catalog.find_child_by_attribute("catalogRef", "xlink:href", file.DatasetToAppendTo.toStdString().c_str()).attribute("xlink:href").as_string() };
+		const auto* dsLocation{ IO::readXML(m_contentDir+"/"+dsCatalogPath)->child("catalog").child("datasetScan").attribute("location").as_string() };
 
-		if (fileDesc.Path.isEmpty()) {
-			// MAKE PATH AND STUFF
-//#error
-			fileDesc.Path = "CHANGE THIS THING";
-		}
 
-		if (!QFile::rename(file.File, fileDesc.Path + fileDesc.Filename)) {
+		if (!QFile::rename(file.File, QString(dsLocation) + "/" + fileName)) {
 			errorList.append(file.File);
 		}
 		else {
-			QFile::remove(file.File);
+			if (m_removeSourceNCFiles) {
+				QFile::remove(file.File);
+			}
 		}
 
 		currentStep += stepSize;

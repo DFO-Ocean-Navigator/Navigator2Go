@@ -20,6 +20,7 @@ public:
 	~DialogImportNC();
 
 	NODISCARD QVector<NetCDFImportDesc> GetImportList() const;
+	NODISCARD bool RemoveSourceNCFiles() const;
 
 private slots:
 	void on_pushButtonAdd_clicked();

@@ -183,7 +183,7 @@ void WidgetDashboard::on_pushButtonImportNetCDF_clicked() {
 
 	if (dlg.exec()) {
 
-		auto* const task{ new IO::CopyFilesRunnable(m_prefs->THREDDSCatalogLocation, dlg.GetImportList()) };
+		auto* const task{ new IO::CopyFilesRunnable(m_prefs->THREDDSCatalogLocation, dlg.RemoveSourceNCFiles(), dlg.GetImportList()) };
 
 		QObject::connect(task, &IO::CopyFilesRunnable::finished, this, [&](const auto errorList) {
 			QMessageBox box{this};
