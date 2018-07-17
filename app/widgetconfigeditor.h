@@ -51,8 +51,8 @@ private:
 	int showUnsavedDataMessageBox();
 
 	Ui::WidgetConfigEditor* m_ui{nullptr};
-	const MainWindow* m_mainWindow{nullptr};
-	const Preferences* m_prefs{nullptr};
+	const MainWindow* const m_mainWindow{nullptr};
+	const Preferences* const m_prefs{nullptr};
 
 	// Path to the currently loaded config file
 	QString m_activeConfigFile;

@@ -1,11 +1,12 @@
 #ifndef IOUTILS_H
 #define IOUTILS_H
 
+#include "netcdfimportdesc.h"
 #include "datadownloaddesc.h"
 
 #include <QObject>
+#include <QVector>
 #include <QRunnable>
-#include <QString>
 
 namespace IO {
 
@@ -45,7 +46,7 @@ class CopyFilesRunnable : public QObject, public QRunnable {
 	Q_OBJECT
 
 public:
-	CopyFilesRunnable(const QString threddsContentDir, QStringList&& fileList);
+	CopyFilesRunnable(const QString threddsContentDir, QVector<NetCDFImportDesc>&& fileList);
 
 	void run() override;
 
@@ -55,7 +56,7 @@ signals:
 
 private:
 	const QString m_contentDir;
-	const QStringList m_fileList;
+	const QVector<NetCDFImportDesc> m_fileList;
 };
 
 } // namespace IO

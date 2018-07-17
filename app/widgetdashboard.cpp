@@ -2,6 +2,7 @@
 #include "ui_widgetdashboard.h"
 
 #include "mainwindow.h"
+#include "dialogimportnc.h"
 
 #include "constants.h"
 #include "ioutils.h"
@@ -178,37 +179,43 @@ void WidgetDashboard::on_pushButtonStartApache_clicked() {
 
 /***********************************************************************************/
 void WidgetDashboard::on_pushButtonImportNetCDF_clicked() {
-	auto files{ QFileDialog::getOpenFileNames(	this,
-												tr("Select NetCDF files to import..."),
-												QDir::currentPath(),
-												"NetCDF Files (*.nc)"
-												)};
-	qDebug() << files;
-	if (files.empty()) {
-		return;
+	DialogImportNC dlg{m_prefs->THREDDSCatalogLocation, this};
+
+	if (dlg.exec()) {
+
+		auto* const task{ new IO::CopyFilesRunnable(m_prefs->THREDDSCatalogLocation, dlg.GetImportList()) };
+
+		QObject::connect(task, &IO::CopyFilesRunnable::finished, this, [&](const auto errorList) {
+			QMessageBox box{this};
+			if (!errorList.empty()) {
+				box.setWindowTitle(tr("Errors occoured..."));
+				box.setIcon(QMessageBox::Warning);
+				box.setText(tr("The following files failed to import: "));
+				box.setDetailedText(errorList.join('\n'));
+			}
+			else {
+				box.setWindowTitle(tr("Import successful!"));
+				box.setIcon(QMessageBox::Information);
+				box.setText(tr("Your files have successfully been imported into the THREDDS server. Please go to the THREDDS Config tab to verify. Then add your datasets in the Dataset Config Editor"));
+			}
+			box.exec();
+
+			m_ui->pushButtonImportNetCDF->setEnabled(true);
+			m_mainWindow->hideProgressBar();
+		});
+
+		// Update progress bar state
+		QObject::connect(task, &IO::CopyFilesRunnable::progress, this, [&](const auto progress) {
+			m_mainWindow->updateProgressBar(static_cast<int>(progress));
+		});
+
+		m_ui->pushButtonImportNetCDF->setEnabled(false);
+
+		m_mainWindow->showProgressBar("NetCDF Import Progress:");
+
+		// Run it
+		QThreadPool::globalInstance()->start(task);
 	}
-
-	auto* const task{ new IO::CopyFilesRunnable(m_prefs->THREDDSCatalogLocation, std::move(files)) };
-
-	QObject::connect(task, &IO::CopyFilesRunnable::finished, this, [&](const auto errorList) {
-		if (!errorList.empty()) {
-			qDebug() << "ERRORS OCCOURED";
-		}
-		else {
-
-		}
-
-		m_ui->pushButtonImportNetCDF->setEnabled(true);
-	});
-
-	QObject::connect(task, &IO::CopyFilesRunnable::progress, this, [&](const auto progress) {
-		qDebug() << progress;
-	});
-
-	m_ui->pushButtonImportNetCDF->setEnabled(false);
-
-	// Run it
-	QThreadPool::globalInstance()->start(task);
 }
 
 /***********************************************************************************/

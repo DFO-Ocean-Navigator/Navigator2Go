@@ -23,6 +23,10 @@ NODISCARD pugi::xml_document createNewCatalogFile();
 // Creates a new empty aggregate file with required tags.
 NODISCARD pugi::xml_document createNewAggregateFile();
 
+/***********************************************************************************/
+// Returns a list of datasets from an opened catalog file.
+NODISCARD QStringList getTHREDDSDatasetList(const pugi::xml_document& doc);
+
 } // namespace IO
 
 #endif // XMLIO_H

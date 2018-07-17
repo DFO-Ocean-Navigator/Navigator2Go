@@ -48,8 +48,8 @@ private:
 	void configureNetwork();
 
 	Ui::WidgetDataOrder* m_ui{nullptr};
-	MainWindow* m_mainWindow{nullptr};
-	const Preferences* m_prefs{nullptr};
+	MainWindow* const m_mainWindow{nullptr};
+	const Preferences* const m_prefs{nullptr};
 
 	// Stores the resulting JSON objects for each dataset
 	// returned by a call to:

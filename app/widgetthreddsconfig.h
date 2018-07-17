@@ -44,7 +44,7 @@ private:
 	void removeDataset(const QString& datasetName, const QString& dataPath);
 
 	Ui::WidgetThreddsConfig* m_ui{nullptr};
-	const Preferences* m_prefs{nullptr};
+	const Preferences* const m_prefs{nullptr};
 };
 
 #endif // WIDGETTHREDDSCONFIG_H

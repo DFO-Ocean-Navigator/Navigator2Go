@@ -1,5 +1,9 @@
 #include "xmlio.h"
 
+#include <QStringList>
+
+#include <cstring>
+
 namespace IO {
 
 /***********************************************************************************/
@@ -94,6 +98,19 @@ pugi::xml_document createNewAggregateFile() {
 	netCDFRoot.append_attribute("xmlns") = "http://www.unidata.ucar.edu/namespaces/netcdf/ncml-2.2";
 
 	return doc;
+}
+
+/***********************************************************************************/
+QStringList getTHREDDSDatasetList(const pugi::xml_document& doc) {
+	QStringList dsList;
+
+	for (const auto& child : doc.child("catalog")) {
+		if (std::strcmp(child.name(), "catalogRef") == 0) {
+			dsList << child.attribute("xlink:title").as_string();
+		}
+	}
+
+	return dsList;
 }
 
 } // namespace IO

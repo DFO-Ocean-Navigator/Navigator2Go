@@ -3,7 +3,6 @@
 #include "datadownloaddesc.h"
 #include "xmlio.h"
 
-
 #include <QFileInfo>
 #include <QDir>
 #include <QRegularExpression>
@@ -15,6 +14,10 @@ namespace IO {
 
 /***********************************************************************************/
 THREDDSFileDesc GetTHREDDSFilename(const QString& threddsContentDir, const QString& sourceFilePath) {
+	using namespace netCDF;
+	// Create filename
+
+
 
 }
 
@@ -83,7 +86,7 @@ QString FindTimeDimension(const QString& netcdfFilePath) {
 }
 
 /***********************************************************************************/
-CopyFilesRunnable::CopyFilesRunnable(const QString threddsContentDir, QStringList&& fileList) : m_contentDir{threddsContentDir},
+CopyFilesRunnable::CopyFilesRunnable(const QString threddsContentDir, QVector<NetCDFImportDesc>&& fileList) : m_contentDir{threddsContentDir},
 																								m_fileList{std::move(fileList)} {
 }
 
@@ -96,7 +99,7 @@ void CopyFilesRunnable::run() {
 
 	for (const auto& file : m_fileList) {
 
-		const auto& fileName{ QFileInfo{file}.fileName() };
+		const auto& fileName{ QFileInfo{file.File}.fileName() };
 		auto fileDesc{ GetTHREDDSFilename(m_contentDir, fileName) };
 
 		if (fileDesc.Path.isEmpty()) {
@@ -105,11 +108,11 @@ void CopyFilesRunnable::run() {
 			fileDesc.Path = "CHANGE THIS THING";
 		}
 
-		if (!QFile::rename(file, fileDesc.Path + fileDesc.Filename)) {
-			errorList.append(file);
+		if (!QFile::rename(file.File, fileDesc.Path + fileDesc.Filename)) {
+			errorList.append(file.File);
 		}
 		else {
-			QFile::remove(file);
+			QFile::remove(file.File);
 		}
 
 		currentStep += stepSize;

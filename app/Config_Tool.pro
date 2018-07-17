@@ -47,7 +47,8 @@ FORMS += \
     widgetconfigeditor.ui \
     widgetdataorder.ui \
     widgetthreddsconfig.ui \
-    dialogselectvars.ui
+    dialogselectvars.ui \
+    dialogimportnc.ui
 
 unix:!macx: LIBS += -lnetcdf_c++4
 #unix:!macx: PRE_TARGETDEPS += $$PWD/netcdf4/lib/libnetcdf_c++4.a
@@ -72,7 +73,9 @@ HEADERS += \
     nodiscard.h \
     constants.h \
     xmlio.h \
-    dialogselectvars.h
+    dialogselectvars.h \
+    dialogimportnc.h \
+    netcdfimportdesc.h
 
 SOURCES += \
     datadownloaddesc.cpp \
@@ -93,7 +96,8 @@ SOURCES += \
     widgetthreddsconfig.cpp \
     $$PWD/pugixml/pugixml.cpp \
     xmlio.cpp \
-    dialogselectvars.cpp
+    dialogselectvars.cpp \
+    dialogimportnc.cpp
 
 INCLUDEPATH += \
     $$PWD/netcdf4/include \
