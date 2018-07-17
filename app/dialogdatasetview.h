@@ -50,8 +50,11 @@ private slots:
 	void on_pushButtonMagicScan_clicked();
 
 private:
-	void addEmptyVariable();
+	// Adds a new variable row with empty values. Returns new row index.
+	int addEmptyVariable();
+	//
 	void checkInputEmpty(const QString& inputLabel, const QString& inputText);
+	//
 	void setReadOnlyUI();
 
 	Ui::DatasetView* m_ui{nullptr};

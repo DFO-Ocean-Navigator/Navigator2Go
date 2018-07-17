@@ -1,6 +1,8 @@
 #include "ui_dialogdatasetview.h"
 #include "dialogdatasetview.h"
 
+#include "dialogselectvars.h"
+
 #include "htmlhighlighter.h"
 #include "network.h"
 
@@ -216,7 +218,7 @@ void DialogDatasetView::on_pushButtonAddVariable_clicked() {
 }
 
 /***********************************************************************************/
-void DialogDatasetView::addEmptyVariable() {
+int DialogDatasetView::addEmptyVariable() {
 	m_ui->tableWidgetVariables->insertRow(m_ui->tableWidgetVariables->rowCount());
 
 	const auto rowIdx{ m_ui->tableWidgetVariables->rowCount() - 1 };
@@ -240,6 +242,7 @@ void DialogDatasetView::addEmptyVariable() {
 	hidden->setCheckState(Qt::Unchecked);
 	m_ui->tableWidgetVariables->setItem(rowIdx, 6, hidden);
 
+	return rowIdx;
 }
 
 /***********************************************************************************/
@@ -338,14 +341,44 @@ void DialogDatasetView::on_pushButtonMagicScan_clicked() {
 	QObject::connect(task, &Network::URLExistsRunnable::urlResult, this, [&](const auto success) {
 		if (success) {
 
-			netCDF::NcFile ds{m_ui->lineEditURL->text().toStdString(), netCDF::NcFile::read};
+			const netCDF::NcFile ds{m_ui->lineEditURL->text().toStdString(), netCDF::NcFile::read};
 			if (ds.isNull()) {
 				return;
 			}
 
+			if (DialogSelectVars dlg{ds, this}; dlg.exec()) {
+				const auto& selectedVars{ dlg.GetSelectedVars() };
+				const auto& dsVars{ ds.getVars() };
+
+				for (const auto& var : selectedVars) {
+					const auto rowIdx{ addEmptyVariable() };
+					const auto& ncVar{ dsVars.find(var.toStdString())->second };
+
+					// Key
+					m_ui->tableWidgetVariables->item(rowIdx, 0)->setText(var);
+					// Name
+					const auto& name_att{ ncVar.getAtt("long_name") };
+					if (!name_att.isNull()) {
+						std::string long_name;
+						name_att.getValues(long_name);
+						m_ui->tableWidgetVariables->item(rowIdx, 1)->setText(QString::fromStdString(long_name));
+					}
+					// Units
+					const auto& units_att{ ncVar.getAtt("units") };
+					if (!units_att.isNull()) {
+						std::string units;
+						ncVar.getAtt("units").getValues(units);
+						m_ui->tableWidgetVariables->item(rowIdx, 2)->setText(QString::fromStdString(units));
+					}
+				}
+
+			}
 		}
 		else {
-
+			QMessageBox::critical(this,
+								  tr("Error..."),
+								  tr("Magic scan failed :( There could be a network issue, or the URL is wrong.")
+								  );
 		}
 
 		m_ui->pushButtonMagicScan->setEnabled(true);

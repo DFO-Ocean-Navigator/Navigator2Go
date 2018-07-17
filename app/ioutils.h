@@ -14,9 +14,15 @@ namespace IO {
 const constexpr auto TOMCAT_BIN_DIR{ "/opt/tomcat9/bin" };
 
 /***********************************************************************************/
+struct NODISCARD THREDDSFileDesc {
+	QString Path;
+	const QString Filename;
+};
+
+/***********************************************************************************/
 // Figures out the correct filename + path for a dataset
-NODISCARD QString FindPathForDataset(const QString& threddsContentDir, const QString& sourceFilePath);
-NODISCARD QString FindPathForDataset(const QString& threddsContentDir, const DataDownloadDesc& data);
+NODISCARD THREDDSFileDesc GetTHREDDSFilename(const QString& threddsContentDir, const QString& sourceFilePath);
+NODISCARD THREDDSFileDesc GetTHREDDSFilename(const QString& threddsContentDir, const DataDownloadDesc& data);
 
 /***********************************************************************************/
 // Checks if a file exists at a given path

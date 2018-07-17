@@ -1,6 +1,8 @@
 #include "ioutils.h"
 
 #include "datadownloaddesc.h"
+#include "xmlio.h"
+
 
 #include <QFileInfo>
 #include <QDir>
@@ -12,16 +14,34 @@
 namespace IO {
 
 /***********************************************************************************/
-QString FindPathForDataset(const QString& threddsContentDir, const QString& sourceFilePath) {
+THREDDSFileDesc GetTHREDDSFilename(const QString& threddsContentDir, const QString& sourceFilePath) {
 
 }
 
 /***********************************************************************************/
-QString FindPathForDataset(const QString& threddsContentDir, const DataDownloadDesc& data) {
-	return	data.ID + "_" +
-			data.SelectedVariables.join(",") + "_" +
-			data.StartDate.toString(Qt::DateFormat::ISODate) +
-			(data.StartDate != data.EndDate ? "_" + data.EndDate.toString(Qt::DateFormat::ISODate) : "");
+THREDDSFileDesc GetTHREDDSFilename(const QString& threddsContentDir, const DataDownloadDesc& data) {
+
+	// Create filename
+	const auto& fileName{
+		data.ID + "_" +
+		data.StartDate.toString(Qt::DateFormat::ISODate) +
+		(data.StartDate != data.EndDate ? "-" + data.EndDate.toString(Qt::DateFormat::ISODate) : "") +
+		".nc"
+	};
+
+	// Find dataset location from thredds catalogs
+	const auto& doc{ readXML(threddsContentDir+"/catalog.xml") };
+	const auto& ds{ doc->child("catalog").find_child_by_attribute("catalogRef", "xlink:title", data.ID.toStdString().c_str())};
+	if (ds) {
+		const auto& ds_catalog{ IO::readXML(ds.attribute("xlink:href").as_string()) };
+
+		const auto& path{ ds_catalog->child("catalog").child("datasetScan").attribute("location").as_string() };
+
+		return { QString(path), "/" + fileName };
+	}
+
+	// Dataset not found
+
 }
 
 /***********************************************************************************/
@@ -48,21 +68,13 @@ void RemoveDir(const QString& path) {
 /***********************************************************************************/
 QString FindTimeDimension(const QString& netcdfFilePath) {
 	using namespace netCDF;
-	NcFile f;
-
-	try {
-		f.open(netcdfFilePath.toStdString(), NcFile::FileMode::read);
-	} catch (const netCDF::exceptions::NcException& e) {
-		qDebug() << e.what();
-	}
+	NcFile f(netcdfFilePath.toStdString(), NcFile::FileMode::read);
 
 	const QRegularExpression rxp{"(time)", QRegularExpression::CaseInsensitiveOption};
 
 	const auto& variableList{ f.getCoordVars() };
 	for (const auto& variable : variableList) {
-		const auto& result{ rxp.match(variable.first.c_str()) };
-
-		if (result.hasMatch()) {
+		if (const auto& result{ rxp.match(variable.first.c_str()) }; result.hasMatch()) {
 			return variable.first.c_str();
 		}
 	}
@@ -85,8 +97,15 @@ void CopyFilesRunnable::run() {
 	for (const auto& file : m_fileList) {
 
 		const auto& fileName{ QFileInfo{file}.fileName() };
+		auto fileDesc{ GetTHREDDSFilename(m_contentDir, fileName) };
 
-		if (!QFile::rename(file, FindPathForDataset(m_contentDir, fileName))) {
+		if (fileDesc.Path.isEmpty()) {
+			// MAKE PATH AND STUFF
+//#error
+			fileDesc.Path = "CHANGE THIS THING";
+		}
+
+		if (!QFile::rename(file, fileDesc.Path + fileDesc.Filename)) {
 			errorList.append(file);
 		}
 		else {

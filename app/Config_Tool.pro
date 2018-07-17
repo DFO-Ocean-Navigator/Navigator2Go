@@ -46,14 +46,11 @@ FORMS += \
     dialogdatasetview.ui \
     widgetconfigeditor.ui \
     widgetdataorder.ui \
-    widgetthreddsconfig.ui
+    widgetthreddsconfig.ui \
+    dialogselectvars.ui
 
-unix:!macx: LIBS += -L$$PWD/netcdf4/lib/ -lnetcdf_c++4
-unix:!macx: PRE_TARGETDEPS += $$PWD/netcdf4/lib/libnetcdf_c++4.a
-
-DEPENDPATH += \
-    $$PWD/netcdf4/include \
-    $$PWD/pugixml/
+unix:!macx: LIBS += -lnetcdf_c++4
+#unix:!macx: PRE_TARGETDEPS += $$PWD/netcdf4/lib/libnetcdf_c++4.a
 
 HEADERS += \
     datadownloaddesc.h \
@@ -74,7 +71,8 @@ HEADERS += \
     widgetthreddsconfig.h \
     nodiscard.h \
     constants.h \
-    xmlio.h
+    xmlio.h \
+    dialogselectvars.h
 
 SOURCES += \
     datadownloaddesc.cpp \
@@ -94,14 +92,11 @@ SOURCES += \
     widgetdataorder.cpp \
     widgetthreddsconfig.cpp \
     $$PWD/pugixml/pugixml.cpp \
-    xmlio.cpp
+    xmlio.cpp \
+    dialogselectvars.cpp
 
 INCLUDEPATH += \
-    $$PWD \
     $$PWD/netcdf4/include \
     $$PWD/pugixml/
 
 DISTFILES +=
-
-
-

@@ -75,16 +75,21 @@ void WidgetDataOrder::on_pushButtonDownload_clicked() {
 		m_ui->pushButtonDownload->setEnabled(false);
 
 		// Get given region of interest
-		const QString min_range{ "&min_range=" + QString::number(m_ui->spinboxMinLat->value()) + "," + QString::number(m_ui->spinboxMinLon->value()) };
-		const QString max_range{ "&max_range=" + QString::number(m_ui->spinboxMaxLat->value()) + "," + QString::number(m_ui->spinboxMaxLon->value()) };
+		const QString& min_range{ "&min_range=" + QString::number(m_ui->spinboxMinLat->value()) + "," + QString::number(m_ui->spinboxMinLon->value()) };
+		const QString& max_range{ "&max_range=" + QString::number(m_ui->spinboxMaxLat->value()) + "," + QString::number(m_ui->spinboxMaxLon->value()) };
 
 		for (const auto& item : m_downloadQueue) {
 			const auto& url{ item.ToAPIURL() + min_range + max_range + "&output_format=" + m_prefs->DataDownloadFormat};
-#ifdef QT_DEBUG
-			qDebug() << IO::FindPathForDataset(m_prefs->THREDDSCatalogLocation, item);
-#endif
 
-			m_downloader.Download(url, IO::FindPathForDataset(m_prefs->THREDDSCatalogLocation, item) + ".nc");
+			auto fileDesc{ IO::GetTHREDDSFilename(m_prefs->THREDDSCatalogLocation, item) };
+
+			if (fileDesc.Path.isEmpty()) {
+				// FIX FILE PATH
+//#error
+				fileDesc.Path = "CHANGE THIS THING";
+			}
+
+			m_downloader.Download(url, fileDesc.Path + fileDesc.Filename);
 		}
 
 		// Show download stuff
@@ -105,9 +110,8 @@ void WidgetDataOrder::on_listWidgetRemoteDatasets_itemDoubleClicked(QListWidgetI
 	dialog.SetData(datasetID, m_networkAccessManager);
 
 	if (dialog.exec()) {
-		const auto& data{ dialog.GetDownloadData() };
 		// Only add to queue if variables were selected.
-		if (!data.SelectedVariables.empty()) {
+		if (const auto& data{ dialog.GetDownloadData() }; !data.SelectedVariables.empty()) {
 
 			// Don't accept a giant date range
 			std::size_t dayLimit{ 60 };
