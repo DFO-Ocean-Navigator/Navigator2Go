@@ -16,7 +16,6 @@
 #include <pugixml/pugixml.hpp>
 
 #include <cstring>
-#include <optional>
 
 #ifdef QT_DEBUG
 	#include <QDebug>
@@ -98,9 +97,8 @@ void WidgetThreddsConfig::on_pushButtonAddDataset_clicked() {
 
 /***********************************************************************************/
 void WidgetThreddsConfig::on_pushButtonRemoveDataset_clicked() {
-	const auto currentRow{ m_ui->tableWidget->currentRow() };
 
-	if (currentRow != -1) {
+	if (const auto currentRow{ m_ui->tableWidget->currentRow() }; currentRow != -1) {
 
 		const auto reply{ QMessageBox::warning(this,
 											   tr("Confirm Action"),
@@ -152,6 +150,7 @@ void WidgetThreddsConfig::buildTable() {
 			const auto rowIdx{ m_ui->tableWidget->rowCount() - 1 };
 
 			auto* const nameItem{ new QTableWidgetItem(node.attribute("xlink:title").as_string()) };
+			nameItem->setFlags(nameItem->flags() ^ Qt::ItemIsEditable); // Make read-only
 
 			const auto& catalogPath{ node.attribute("xlink:href").as_string() };
 			auto* const pathItem{ new QTableWidgetItem(catalogPath) };
@@ -172,6 +171,7 @@ void WidgetThreddsConfig::buildTable() {
 			}
 
 			auto* const locationItem{ new QTableWidgetItem(datasetScanNode.attribute("location").as_string()) };
+			locationItem->setFlags(locationItem->flags() ^ Qt::ItemIsEditable); // Make read-only
 			m_ui->tableWidget->setItem(rowIdx, 2, locationItem);
 		}
 	}
@@ -179,8 +179,7 @@ void WidgetThreddsConfig::buildTable() {
 
 /***********************************************************************************/
 void WidgetThreddsConfig::checkCatalogsPath() {
-	const QDir dir{m_prefs->THREDDSCatalogLocation+"/catalogs/"};
-	if (!dir.exists()) {
+	if (const QDir dir{m_prefs->THREDDSCatalogLocation+"/catalogs/"}; !dir.exists()) {
 #ifdef QT_DEBUG
 	qDebug() << "Creating catalogs folder at: " << m_prefs->THREDDSCatalogLocation << "/catalogs/";
 #endif
@@ -210,11 +209,14 @@ void WidgetThreddsConfig::createRow(const QString& datasetName, const QString& d
 	const auto rowIdx{ m_ui->tableWidget->rowCount() - 1 };
 
 	auto* const nameItem{ new QTableWidgetItem(datasetName) };
+	nameItem->setFlags(nameItem->flags() ^ Qt::ItemIsEditable);
 
 	const auto& catalogPath{ "catalogs/"+datasetName+".xml" };
 	auto* const pathItem{ new QTableWidgetItem(catalogPath) };
+	pathItem->setFlags(pathItem->flags() ^ Qt::ItemIsEditable);
 
 	auto* const dataPathItem{ new QTableWidgetItem(dataPath) };
+	dataPathItem->setFlags(dataPathItem->flags() ^ Qt::ItemIsEditable);
 
 	m_ui->tableWidget->setItem(rowIdx, 0, nameItem);
 	m_ui->tableWidget->setItem(rowIdx, 1, pathItem);
@@ -237,7 +239,7 @@ void WidgetThreddsConfig::addDataset(const QString& datasetName, const QString& 
 		doc->save_file(catalogPath.toStdString().c_str());
 	}
 
-	const auto& fileName{ "/home/nabil/" + path + ".xml"};
+	const auto& fileName{ m_prefs->THREDDSCatalogLocation + "/" + path + ".xml"};
 	if (!IO::FileExists(fileName)) {
 		IO::CreateDir(fileName);
 	}
@@ -265,6 +267,28 @@ void WidgetThreddsConfig::addDataset(const QString& datasetName, const QString& 
 	const auto aggregatePath{ dataPath + "/aggregated.ncml "};
 	auto aggregate{ IO::readXML(aggregatePath) };
 	if (!aggregate.has_value()) {
+		// Find netCDF files in target directory
+		QDir dir{dataPath};
+		if (!dir.exists()) {
+			dir.mkpath(".");
+		}
+		dir.setNameFilters({"*.nc"});
+
+		QString timeDimension;
+		if (dir.entryInfoList().empty()) {
+			timeDimension = QInputDialog::getText(this,
+												  tr("Enter time dimension"),
+												  tr("The folder you specified is empty. Please enter the name of the time dimension for your dataset. Alternatively, add a netCDF file to this directory and re-run this wizard."));
+
+			if (timeDimension.isEmpty()) {
+				return;
+			}
+		}
+		else {
+			// Find the name of time dimension of first file.
+			timeDimension = IO::FindTimeDimension(dir.entryInfoList()[0].absoluteFilePath());
+		}
+
 		aggregate = IO::createNewAggregateFile();
 
 		auto aggregation{ aggregate->child("netcdf").append_child() };
@@ -272,14 +296,7 @@ void WidgetThreddsConfig::addDataset(const QString& datasetName, const QString& 
 		aggregation.append_attribute("type") = "joinExisting";
 		aggregation.append_attribute("recheckEvery") = "1 hour";
 
-		// Find netCDF files in target directory
-		QDir dir{dataPath};
-		dir.setNameFilters({"*.nc"});
-
-		// Find the name of time dimension of first file.
-		// I assume the folder contains netCDF files for the same dataset.
-		aggregation.append_attribute("dimName") = IO::FindTimeDimension(dir.entryInfoList()[0].absoluteFilePath()).toStdString().c_str();
-
+		aggregation.append_attribute("dimName") = timeDimension.toStdString().c_str();
 		auto scan{ aggregation.append_child() };
 		scan.set_name("scan");
 		scan.append_attribute("location") = ".";
@@ -297,14 +314,14 @@ void WidgetThreddsConfig::removeDataset(const QString& datasetName, const QStrin
 	{
 		const auto& catalogPath{ m_prefs->THREDDSCatalogLocation + QString("/catalog.xml") };
 		auto doc{ IO::readXML(catalogPath) };
-		const auto nodeToRemove{ doc->find_child_by_attribute("catalogRef", "xlink:title", datasetName.toStdString().c_str()) };
-		doc->remove_child(nodeToRemove);
+		const auto& nodeToRemove{ doc->child("catalog").find_child_by_attribute("catalogRef", "xlink:title", datasetName.toStdString().c_str()) };
+		nodeToRemove.parent().remove_child(nodeToRemove);
 
 		doc->save_file(catalogPath.toStdString().c_str());
 	}
 
 	// Remove dataset catalog
-	QFile::remove("catalogs/" + datasetName + ".xml");
+	QFile::remove(m_prefs->THREDDSCatalogLocation + "/catalogs/" + datasetName + ".xml");
 
 	// Remove datasets + aggregated file
 	IO::RemoveDir(dataPath);
