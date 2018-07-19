@@ -21,7 +21,7 @@ pugi::xml_document createNewCatalogFile() {
 
 	// Header declaration
 	auto header{ doc.prepend_child(pugi::node_declaration) };
-	header.append_attribute("version") = 1.0;
+	header.append_attribute("version") = "1.0";
 	header.append_attribute("encoding") = "UTF-8";
 
 	// Top-level <catalog></catalog> tags
@@ -29,8 +29,8 @@ pugi::xml_document createNewCatalogFile() {
 	catalog.set_name("catalog");
 	catalog.append_attribute("xmlns") = "http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0";
 	catalog.append_attribute("xmlns:xlink") = "http://www.w3.org/1999/xlink";
-	catalog.append_attribute("name") = "Unidata THREDDS-IDD NetCDF-OpenDAP Server";
-	catalog.append_attribute("version") = "1.0.1";
+	catalog.append_attribute("name") = "Navigator2Go THREDDS Server";
+	catalog.append_attribute("version") = "1.0";
 
 	{
 		// Service tags

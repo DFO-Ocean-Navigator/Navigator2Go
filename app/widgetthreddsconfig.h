@@ -29,6 +29,8 @@ private slots:
 
 	void on_pushButtonRemoveDataset_clicked();
 
+	void on_pushButtonShowLogs_clicked();
+
 private:
 	//
 	void buildTable();

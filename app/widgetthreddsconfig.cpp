@@ -117,6 +117,11 @@ void WidgetThreddsConfig::on_pushButtonRemoveDataset_clicked() {
 }
 
 /***********************************************************************************/
+void WidgetThreddsConfig::on_pushButtonShowLogs_clicked() {
+
+}
+
+/***********************************************************************************/
 void WidgetThreddsConfig::buildTable() {
 
 	const auto& catalogFile{ m_prefs->THREDDSCatalogLocation + QString("/catalog.xml") };
@@ -234,7 +239,8 @@ void WidgetThreddsConfig::addDataset(const QString& datasetName, const QString& 
 		const auto doc{ IO::readXML(catalogPath) };
 		auto child{ doc->child("catalog").append_child("catalogRef") };
 		child.append_attribute("xlink:title") = datasetName.toStdString().c_str();
-		child.append_attribute("xlink:href") = path.toStdString().c_str();
+		child.append_attribute("xlink:href") = std::strcat(path.toLatin1().data(),".xml");
+		child.append_attribute("name") = "";
 
 		doc->save_file(catalogPath.toStdString().c_str());
 	}
@@ -326,3 +332,5 @@ void WidgetThreddsConfig::removeDataset(const QString& datasetName, const QStrin
 	// Remove datasets + aggregated file
 	IO::RemoveDir(dataPath);
 }
+
+
