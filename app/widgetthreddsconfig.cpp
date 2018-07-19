@@ -305,8 +305,8 @@ void WidgetThreddsConfig::addDataset(const QString& datasetName, const QString& 
 		aggregation.append_attribute("dimName") = timeDimension.toStdString().c_str();
 		auto scan{ aggregation.append_child() };
 		scan.set_name("scan");
-		scan.append_attribute("location") = ".";
-		scan.append_attribute("regExp") = "^.*\\.nc$";
+		scan.append_attribute("location") = dataPath.toStdString().c_str();
+		scan.append_attribute("suffix") = ".nc";
 		scan.append_attribute("recheckEvery") = "1 hour";
 
 		aggregate->save_file(aggregatePath.toStdString().c_str());

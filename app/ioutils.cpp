@@ -92,11 +92,11 @@ void CopyFilesRunnable::run() {
 
 	for (const auto& file : m_fileList) {
 		const auto& fileName{ QFileInfo{file.File}.fileName() };
-		const auto* dsCatalogPath{ catalog.find_child_by_attribute("catalogRef", "xlink:href", file.DatasetToAppendTo.toStdString().c_str()).attribute("xlink:href").as_string() };
+		const auto& href{ "catalogs/" + file.DatasetToAppendTo + ".xml" };
+		const auto* dsCatalogPath{ catalog.find_child_by_attribute("catalogRef", "xlink:href", href.toStdString().c_str()).attribute("xlink:href").as_string() };
 		const auto* dsLocation{ IO::readXML(m_contentDir+"/"+dsCatalogPath)->child("catalog").child("datasetScan").attribute("location").as_string() };
 
-
-		if (!QFile::rename(file.File, QString(dsLocation) + "/" + fileName)) {
+		if (!QFile::copy(file.File, QString(dsLocation) + "/" + fileName)) {
 			errorList.append(file.File);
 		}
 		else {
