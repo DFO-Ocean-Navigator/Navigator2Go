@@ -41,8 +41,6 @@ private:
 	//
 	void createRow(const QString& datasetName, const QString& dataPath);
 	//
-	void addDataset(const QString& datasetName, const QString& dataPath);
-	//
 	void removeDataset(const QString& datasetName, const QString& dataPath);
 
 	Ui::WidgetThreddsConfig* m_ui{nullptr};

@@ -12,12 +12,31 @@
 namespace IO {
 
 /***********************************************************************************/
+struct NODISCARD DatasetScanDesc {
+	const QString DatasetName;
+	const QString Location;
+};
+
+/***********************************************************************************/
 // Reads an xml file from path. Returns std::nullopt on failure
 NODISCARD std::optional<pugi::xml_document> readXML(const QString& path);
 
 /***********************************************************************************/
+// Appends a catalogRef tag to a catalog file.
+// Returns the xlink:href to the dataset catalog to be created.
+void appendDatasetToCatalog(pugi::xml_document& doc, const QString& datasetName);
+
+/***********************************************************************************/
+//
+void addDataset(const QString& threddsCatalogLoc, const QString& datasetName, const QString& dataPath);
+
+/***********************************************************************************/
+// Checks if a named dataset exists in catalog.xml
+NODISCARD bool datasetExists(const QString& threddsCatalogLoc, const QString& datasetName);
+
+/***********************************************************************************/
 // Creates a new catalog document with required headers/attributes
-NODISCARD pugi::xml_document createNewCatalogFile();
+void createNewCatalogFile(const QString& threddsContentPath, const DatasetScanDesc& dataset);
 
 /***********************************************************************************/
 // Creates a new empty aggregate file with required tags.

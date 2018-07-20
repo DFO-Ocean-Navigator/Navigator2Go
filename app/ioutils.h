@@ -22,7 +22,7 @@ struct NODISCARD THREDDSFileDesc {
 
 /***********************************************************************************/
 // Figures out the correct filename + path for a dataset
-NODISCARD THREDDSFileDesc GetTHREDDSFilename(const QString& threddsContentDir, const DataDownloadDesc& data);
+NODISCARD THREDDSFileDesc GetNCFilename(const QString& threddsContentDir, const DataDownloadDesc& data);
 
 /***********************************************************************************/
 // Checks if a file exists at a given path

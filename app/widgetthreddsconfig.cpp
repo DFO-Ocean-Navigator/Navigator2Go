@@ -88,7 +88,7 @@ void WidgetThreddsConfig::on_pushButtonAddDataset_clicked() {
 
 	if (ok_dsname && validateDatasetName(datasetName) && ok_dspath) {
 		createRow(datasetName, datasetPath);
-		addDataset(datasetName, datasetPath);
+		IO::addDataset(m_prefs->THREDDSCatalogLocation, datasetName, datasetPath);
 
 		QMessageBox::information(this,
 								 tr("Success..."),
@@ -229,91 +229,6 @@ void WidgetThreddsConfig::createRow(const QString& datasetName, const QString& d
 	m_ui->tableWidget->setItem(rowIdx, 0, nameItem);
 	m_ui->tableWidget->setItem(rowIdx, 1, pathItem);
 	m_ui->tableWidget->setItem(rowIdx, 2, dataPathItem);
-}
-
-/***********************************************************************************/
-void WidgetThreddsConfig::addDataset(const QString& datasetName, const QString& dataPath) {
-
-	const auto& path{ QString("catalogs/") + datasetName };
-
-	// Modify catalog.xml
-	{
-		const auto& catalogPath{ m_prefs->THREDDSCatalogLocation + QString("/catalog.xml") };
-		const auto doc{ IO::readXML(catalogPath) };
-		auto child{ doc->child("catalog").append_child("catalogRef") };
-		child.append_attribute("xlink:title") = datasetName.toStdString().c_str();
-		child.append_attribute("xlink:href") = std::strcat(path.toLatin1().data(),".xml");
-		child.append_attribute("name") = "";
-
-		doc->save_file(catalogPath.toStdString().c_str());
-	}
-
-	const auto& fileName{ m_prefs->THREDDSCatalogLocation + "/" + path + ".xml"};
-	if (!IO::FileExists(fileName)) {
-		IO::CreateDir(fileName);
-	}
-
-	// Create dataset catalog file (giops_day.xml for example)
-	auto catalog{ IO::readXML(path) };
-	if (!catalog.has_value()) {
-		catalog = IO::createNewCatalogFile();
-
-		auto datasetScan{ catalog->child("catalog").append_child() };
-		datasetScan.set_name("datasetScan");
-		datasetScan.append_attribute("name") = datasetName.toStdString().c_str();
-		datasetScan.append_attribute("ID") = datasetName.toLower().toStdString().c_str();
-		datasetScan.append_attribute("path") = datasetName.toLower().toStdString().c_str();
-		datasetScan.append_attribute("location") = dataPath.toStdString().c_str();
-
-		auto serviceName{ datasetScan.append_child() };
-		serviceName.set_name("serviceName");
-		serviceName.text().set("all");
-
-		catalog->save_file(fileName.toStdString().c_str());
-	}
-
-	// Create dataset aggregate file
-	const auto aggregatePath{ dataPath + "/aggregated.ncml "};
-	auto aggregate{ IO::readXML(aggregatePath) };
-	if (!aggregate.has_value()) {
-		// Find netCDF files in target directory
-		QDir dir{dataPath};
-		if (!dir.exists()) {
-			dir.mkpath(".");
-		}
-		dir.setNameFilters({"*.nc"});
-
-		QString timeDimension;
-		if (dir.entryInfoList().empty()) {
-			timeDimension = QInputDialog::getText(this,
-												  tr("Enter time dimension"),
-												  tr("The folder you specified is empty. Please enter the name of the time dimension for your dataset. Alternatively, add a netCDF file to this directory and re-run this wizard."));
-
-			if (timeDimension.isEmpty()) {
-				return;
-			}
-		}
-		else {
-			// Find the name of time dimension of first file.
-			timeDimension = IO::FindTimeDimension(dir.entryInfoList()[0].absoluteFilePath());
-		}
-
-		aggregate = IO::createNewAggregateFile();
-
-		auto aggregation{ aggregate->child("netcdf").append_child() };
-		aggregation.set_name("aggregation");
-		aggregation.append_attribute("type") = "joinExisting";
-		aggregation.append_attribute("recheckEvery") = "1 hour";
-
-		aggregation.append_attribute("dimName") = timeDimension.toStdString().c_str();
-		auto scan{ aggregation.append_child() };
-		scan.set_name("scan");
-		scan.append_attribute("location") = dataPath.toStdString().c_str();
-		scan.append_attribute("suffix") = ".nc";
-		scan.append_attribute("recheckEvery") = "1 hour";
-
-		aggregate->save_file(aggregatePath.toStdString().c_str());
-	}
 }
 
 /***********************************************************************************/

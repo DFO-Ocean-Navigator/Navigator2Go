@@ -13,7 +13,7 @@
 namespace IO {
 
 /***********************************************************************************/
-THREDDSFileDesc GetTHREDDSFilename(const QString& threddsContentDir, const DataDownloadDesc& data) {
+THREDDSFileDesc GetNCFilename(const QString& threddsContentDir, const DataDownloadDesc& data) {
 
 	// Create filename
 	const auto& fileName{
@@ -27,14 +27,14 @@ THREDDSFileDesc GetTHREDDSFilename(const QString& threddsContentDir, const DataD
 	const auto& doc{ readXML(threddsContentDir+"/catalog.xml") };
 	const auto& ds{ doc->child("catalog").find_child_by_attribute("catalogRef", "xlink:title", data.ID.toStdString().c_str())};
 	if (ds) {
-		const auto& ds_catalog{ IO::readXML(ds.attribute("xlink:href").as_string()) };
-
+		const auto& ds_catalog{ IO::readXML(threddsContentDir + "/" + ds.attribute("xlink:href").as_string()) };
 		const auto& path{ ds_catalog->child("catalog").child("datasetScan").attribute("location").as_string() };
 
 		return { QString(path), "/" + fileName };
 	}
 
 	// Dataset not found
+	return { QString(), "/" + fileName };
 
 }
 

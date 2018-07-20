@@ -62,6 +62,7 @@ private:
 	QEasyDownloader m_downloader{this, &m_networkAccessManager};
 
 	std::size_t m_numDownloadsComplete{0};
+	std::size_t m_downloadedSize{ 0 };
 };
 
 #endif // WIDGETDATAORDER_H

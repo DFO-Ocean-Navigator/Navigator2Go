@@ -5,9 +5,11 @@
 #include "dialogdatasetview.h"
 #include "ioutils.h"
 #include "network.h"
+#include "xmlio.h"
 
 #include <QMessageBox>
 #include <QJsonArray>
+#include <QInputDialog>
 #include <QJsonDocument>
 
 /***********************************************************************************/
@@ -16,6 +18,8 @@ WidgetDataOrder::WidgetDataOrder(QWidget* parent, MainWindow* mainWindow, const 
 																										m_mainWindow{mainWindow},
 																										m_prefs{prefs} {
 	m_ui->setupUi(this);
+
+	m_ui->groupBoxDownloadStats->setVisible(false);
 
 	configureNetwork();
 }
@@ -81,17 +85,24 @@ void WidgetDataOrder::on_pushButtonDownload_clicked() {
 		for (const auto& item : m_downloadQueue) {
 			const auto& url{ item.ToAPIURL() + min_range + max_range + "&output_format=" + m_prefs->DataDownloadFormat};
 
-			auto fileDesc{ IO::GetTHREDDSFilename(m_prefs->THREDDSCatalogLocation, item) };
+			auto fileDesc{ IO::GetNCFilename(m_prefs->THREDDSCatalogLocation, item) };
 
 			if (fileDesc.Path.isEmpty()) {
-				// FIX FILE PATH
-//#error
-				fileDesc.Path = "CHANGE THIS THING";
+				const auto& location{ QInputDialog::getText(this,
+													  tr("Enter location for dataset"),
+													  item.ID + tr("  does not exist locally. Please enter the enter the directory to download this dataset's netCDF files to."))
+										 };
+
+				// Dataset doesn't have a catalog file so create it.
+				IO::addDataset(m_prefs->THREDDSCatalogLocation, item.ID, location);
+
+				fileDesc.Path = location;
 			}
 
 			m_downloader.Download(url, fileDesc.Path + fileDesc.Filename);
 		}
 
+		m_ui->groupBoxDownloadStats->setVisible(true);
 		// Show download stuff
 		m_mainWindow->showProgressBar("Download Progress: ");
 	}
@@ -162,7 +173,6 @@ void WidgetDataOrder::configureNetwork() {
 	QObject::connect(&m_downloader, &QEasyDownloader::Debugger, this,
 					 [&](const auto& msg) {
 						qDebug() << msg;
-						return;
 					}
 	);
 #endif
@@ -170,8 +180,10 @@ void WidgetDataOrder::configureNetwork() {
 	// Full Download Progress. Emitted on every download.
 	QObject::connect(&m_downloader, &QEasyDownloader::DownloadProgress, this,
 					 [&](const auto bytesReceived, const auto percent, const auto speed, const auto& unit, const auto& url, const auto& filename) {
-#ifdef QT_DEBUG
-#endif
+
+						m_downloadedSize += (static_cast<std::size_t>(bytesReceived) >> 20); // Bytes to MB
+						m_ui->labelDownloadedSizeValue->setText(QString::number(m_downloadedSize));
+						m_ui->labelDownSpeedValue->setText(QString::number(speed));
 					}
 	);
 
@@ -197,10 +209,11 @@ void WidgetDataOrder::configureNetwork() {
 #ifdef QT_DEBUG
 						qDebug() << "All downloads complete";
 #endif
-						m_ui->pushButtonUpdateAggConfig->setEnabled(true);
 						m_ui->listWidgetDownloadQueue->clear();
 						m_ui->pushButtonDownload->setEnabled(true);
 						this->m_mainWindow->hideProgressBar();
+						m_ui->groupBoxDownloadStats->setVisible(false);
+						m_downloadedSize = 0.0;
 
 						QMessageBox box{this};
 						box.setWindowTitle(tr("Downloads completed..."));
@@ -239,9 +252,10 @@ void WidgetDataOrder::configureNetwork() {
 							m_downloader.Next();
 						}
 						else {
-							m_ui->pushButtonUpdateAggConfig->setEnabled(true);
 							m_ui->listWidgetDownloadQueue->clear();
 							this->m_mainWindow->hideProgressBar();
+							m_ui->groupBoxDownloadStats->setVisible(false);
+							m_downloadedSize = 0.0;
 
 							m_downloadQueue.clear();
 						}
@@ -255,7 +269,6 @@ void WidgetDataOrder::configureNetwork() {
 						box.setWindowTitle(tr("Download has timed out..."));
 						box.setInformativeText("URL: " + url.toString());
 						box.setDetailedText(filename);
-
 						box.setIcon(QMessageBox::Warning);
 
 						box.exec();
