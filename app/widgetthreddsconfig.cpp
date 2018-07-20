@@ -1,6 +1,7 @@
 #include "widgetthreddsconfig.h"
 #include "ui_widgetthreddsconfig.h"
 
+#include "dialogthreddslogs.h"
 #include "xmlio.h"
 #include "preferences.h"
 #include "constants.h"
@@ -118,7 +119,9 @@ void WidgetThreddsConfig::on_pushButtonRemoveDataset_clicked() {
 
 /***********************************************************************************/
 void WidgetThreddsConfig::on_pushButtonShowLogs_clicked() {
+	DialogTHREDDSLogs dlg{ m_prefs->THREDDSCatalogLocation + "/logs", this};
 
+	dlg.exec();
 }
 
 /***********************************************************************************/
