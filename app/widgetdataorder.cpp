@@ -83,7 +83,7 @@ void WidgetDataOrder::on_pushButtonDownload_clicked() {
 		const QString& max_range{ "&max_range=" + QString::number(m_ui->spinboxMaxLat->value()) + "," + QString::number(m_ui->spinboxMaxLon->value()) };
 
 		for (const auto& item : m_downloadQueue) {
-			const auto& url{ item.ToAPIURL() + min_range + max_range + "&output_format=" + m_prefs->DataDownloadFormat};
+			const auto& url{ item.GetAPIQuery(m_prefs->RemoteURL) + min_range + max_range + "&output_format=" + m_prefs->DataDownloadFormat};
 
 			auto fileDesc{ IO::GetNCFilename(m_prefs->THREDDSCatalogLocation, item) };
 
@@ -93,7 +93,7 @@ void WidgetDataOrder::on_pushButtonDownload_clicked() {
 													  item.ID + tr("  does not exist locally. Please enter the enter the directory to download this dataset's netCDF files to."))
 										 };
 
-				// Dataset doesn't have a catalog file so create it.
+				// Dataset doesn't exist so create it
 				IO::addDataset(m_prefs->THREDDSCatalogLocation, item.ID, location);
 
 				fileDesc.Path = location;
@@ -211,6 +211,7 @@ void WidgetDataOrder::configureNetwork() {
 #endif
 						m_ui->listWidgetDownloadQueue->clear();
 						m_ui->pushButtonDownload->setEnabled(true);
+						m_ui->pushButtonUpdateRemoteList->setEnabled(true);
 						this->m_mainWindow->hideProgressBar();
 						m_ui->groupBoxDownloadStats->setVisible(false);
 						m_downloadedSize = 0.0;
@@ -254,6 +255,8 @@ void WidgetDataOrder::configureNetwork() {
 						else {
 							m_ui->listWidgetDownloadQueue->clear();
 							this->m_mainWindow->hideProgressBar();
+							m_ui->pushButtonUpdateRemoteList->setEnabled(true);
+							m_ui->pushButtonDownload->setEnabled(true);
 							m_ui->groupBoxDownloadStats->setVisible(false);
 							m_downloadedSize = 0.0;
 

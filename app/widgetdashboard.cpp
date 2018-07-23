@@ -16,7 +16,9 @@
 #include <QFileDialog>
 #include <QThreadPool>
 
-#include <QDebug>
+#ifdef QT_DEBUG
+	#include <QDebug>
+#endif
 
 /***********************************************************************************/
 WidgetDashboard::WidgetDashboard(QWidget* parent, MainWindow* mainWindow, const Preferences* prefs) :	QWidget{parent},
@@ -94,11 +96,13 @@ void WidgetDashboard::disableUplinkTestButton() {
 
 /***********************************************************************************/
 void WidgetDashboard::on_pushButtonStartWebServer_clicked() {
+	const auto& datasetConfigFile{ m_prefs->IsNetworkOnline ? "datasetconfigONLINE.json" : "datasetconfigOFFLINE.json" };
+
 	if (!m_isGunicornRunning) {
 		QProcess process{this};
 		process.setProgram("/bin/sh");
 		process.setWorkingDirectory(m_prefs->ONInstallDir);
-		process.setArguments({"runserver.sh", QFileInfo("datasetconfigONLINE.json").fileName()});
+		process.setArguments({"runserver.sh", datasetConfigFile});
 
 		if (!process.startDetached(nullptr)) {
 			QMessageBox box{this};

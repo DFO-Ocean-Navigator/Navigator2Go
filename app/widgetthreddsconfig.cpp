@@ -77,6 +77,9 @@ void WidgetThreddsConfig::on_pushButtonAddDataset_clicked() {
 													&ok_dsname)
 						   };
 
+	if (!ok_dsname) {
+		return;
+	}
 	bool ok_dspath;
 	const auto& datasetPath{ QInputDialog::getText( this,
 												   tr("Dataset Path..."),
@@ -86,7 +89,7 @@ void WidgetThreddsConfig::on_pushButtonAddDataset_clicked() {
 												   &ok_dspath)
 						  };
 
-	if (ok_dsname && validateDatasetName(datasetName) && ok_dspath) {
+	if (validateDatasetName(datasetName) && ok_dspath) {
 		createRow(datasetName, datasetPath);
 		IO::addDataset(m_prefs->THREDDSCatalogLocation, datasetName, datasetPath);
 
