@@ -51,3 +51,10 @@ void DialogTHREDDSLogs::loadLogFile(const QString& filename) {
 
 	m_ui->textBrowser->append(ts.readAll());
 }
+
+/***********************************************************************************/
+void DialogTHREDDSLogs::on_pushButtonReloadLogFile_clicked() {
+	m_ui->comboBoxLogFiles->setEnabled(false);
+	loadLogFile(m_ui->comboBoxLogFiles->currentText());
+	m_ui->comboBoxLogFiles->setEnabled(true);
+}

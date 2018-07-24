@@ -23,6 +23,8 @@ private slots:
 
 	void on_comboBoxLogFiles_currentIndexChanged(const QString& arg1);
 
+	void on_pushButtonReloadLogFile_clicked();
+
 private:
 	//
 	void loadLogFile(const QString& filename);

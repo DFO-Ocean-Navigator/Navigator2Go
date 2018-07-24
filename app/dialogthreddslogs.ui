@@ -49,6 +49,13 @@
       </spacer>
      </item>
      <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Current log file is reloaded every 30 secs.</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QLabel" name="label">
        <property name="text">
         <string>Filename:</string>
@@ -66,6 +73,17 @@
        <property name="icon">
         <iconset resource="resources.qrc">
          <normaloff>:/icons/icons/folder.png</normaloff>:/icons/icons/folder.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonReloadLogFile">
+       <property name="text">
+        <string>Reload Log File</string>
+       </property>
+       <property name="icon">
+        <iconset resource="resources.qrc">
+         <normaloff>:/icons/icons/sync.png</normaloff>:/icons/icons/sync.png</iconset>
        </property>
       </widget>
      </item>
