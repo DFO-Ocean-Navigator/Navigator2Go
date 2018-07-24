@@ -18,6 +18,10 @@ DialogTHREDDSLogs::DialogTHREDDSLogs(const QString& threddsLogFolder, QWidget* p
 	for (const auto& log : logList) {
 		m_ui->comboBoxLogFiles->addItem(log.fileName());
 	}
+
+	m_reloadLogFileTimer.setInterval(30000); // Reload log file every 30 secs.
+	QObject::connect(&m_reloadLogFileTimer, &QTimer::timeout, this, [this](){ this->loadLogFile(this->m_ui->comboBoxLogFiles->currentText()); });
+	m_reloadLogFileTimer.start();
 }
 
 /***********************************************************************************/
@@ -33,9 +37,14 @@ void DialogTHREDDSLogs::on_pushButtonOpenLogFolder_clicked() {
 
 /***********************************************************************************/
 void DialogTHREDDSLogs::on_comboBoxLogFiles_currentIndexChanged(const QString& arg1) {
+	loadLogFile(arg1);
+}
+
+/***********************************************************************************/
+void DialogTHREDDSLogs::loadLogFile(const QString& filename) {
 	m_ui->textBrowser->clear();
 
-	QFile f{ m_logFolder + "/" + arg1 };
+	QFile f{ m_logFolder + "/" + filename };
 	f.open(QFile::ReadOnly | QFile::Text);
 
 	QTextStream ts{ &f };

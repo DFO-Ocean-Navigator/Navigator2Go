@@ -2,6 +2,7 @@
 #define DIALOGTHREDDSLOGS_H
 
 #include <QDialog>
+#include <QTimer>
 
 /***********************************************************************************/
 // Forward declarations
@@ -23,7 +24,12 @@ private slots:
 	void on_comboBoxLogFiles_currentIndexChanged(const QString& arg1);
 
 private:
+	//
+	void loadLogFile(const QString& filename);
+
 	Ui::DialogTHREDDSLogs* m_ui{nullptr};
+
+	QTimer m_reloadLogFileTimer{this};
 
 	const QString m_logFolder;
 };
