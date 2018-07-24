@@ -12,9 +12,14 @@
 
 #include <QProcess>
 #include <QMessageBox>
+#include <QStorageInfo>
 #include <QFileInfo>
 #include <QFileDialog>
 #include <QThreadPool>
+
+#include <QtCharts/QChartView>
+#include <QtCharts/QPieSeries>
+#include <QtCharts/QPieSlice>
 
 #ifdef QT_DEBUG
 	#include <QDebug>
@@ -34,6 +39,8 @@ WidgetDashboard::WidgetDashboard(QWidget* parent, MainWindow* mainWindow, const 
 	m_ui->labelUpdate->setVisible(false);
 	m_ui->pushButtonUpdate->setEnabled(false);
 	m_ui->pushButtonUpdate->setVisible(false);
+
+	updateDriveInfo();
 }
 
 /***********************************************************************************/
@@ -225,4 +232,35 @@ void WidgetDashboard::on_pushButtonImportNetCDF_clicked() {
 /***********************************************************************************/
 void WidgetDashboard::on_pushButtonCheckRemoteUplink_clicked() {
 	m_mainWindow->checkRemoteConnection();
+}
+
+/***********************************************************************************/
+void WidgetDashboard::updateDriveInfo() {
+	QT_CHARTS_USE_NAMESPACE
+
+	const auto& storage{ QStorageInfo::root() };
+	const auto total{ storage.bytesTotal()/1000/1000/1000 };
+	const auto available{ storage.bytesAvailable()/1000/1000/1000 };
+	const auto used{ total - available };
+
+	auto* const series{ new QPieSeries() };
+	series->append(QString("Used: %1 %2").arg(QString::number(used), "GB"), used);
+	series->append(QString("Available: %1 %2").arg(QString::number(available), "GB"), available );
+	series->setLabelsVisible(true);
+
+	auto* const sliceUsed{ series->slices().at(0) };
+	sliceUsed->setExploded();
+
+	auto* const sliceAvailable{ series->slices().at(1) };
+	sliceAvailable->setBrush(Qt::green);
+
+	auto* const chart{ new QChart() };
+	chart->addSeries(series);
+	chart->setTitle(storage.name());
+	chart->legend()->hide();
+
+	auto* chartView{ new QChartView(chart) };
+	chartView->setRenderHint(QPainter::Antialiasing);
+
+	m_ui->groupBoxHDD->layout()->addWidget(chartView);
 }

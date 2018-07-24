@@ -40,6 +40,8 @@ private slots:
 private:
 	//
 	void checkAndStartServers();
+	//
+	void updateDriveInfo();
 
 	Ui::WidgetDashboard* m_ui{nullptr};
 	MainWindow* const m_mainWindow{nullptr};
