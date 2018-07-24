@@ -23,8 +23,6 @@
 #include <QNetworkReply>
 #include <QThreadPool>
 
-#include <netcdf4/ncFile.h>
-
 #ifdef QT_DEBUG
 	#include <QDebug>
 #endif
@@ -191,6 +189,10 @@ void MainWindow::readSettings() {
 	}
 
 	m_settings.endGroup();
+
+	//
+	m_settings.beginGroup("Jobs");
+	m_settings.endGroup();
 }
 
 /***********************************************************************************/
@@ -219,6 +221,10 @@ void MainWindow::writeSettings() {
 
 	m_settings.setValue("DataDownloadFormat", m_prefs.DataDownloadFormat);
 
+	m_settings.endGroup();
+
+	// Jobs
+	m_settings.beginGroup("Jobs");
 	m_settings.endGroup();
 }
 

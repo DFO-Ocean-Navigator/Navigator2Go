@@ -10,6 +10,7 @@
 #include <QMessageBox>
 #include <QJsonArray>
 #include <QInputDialog>
+#include <QFileInfo>
 #include <QJsonDocument>
 
 /***********************************************************************************/
@@ -179,27 +180,18 @@ void WidgetDataOrder::configureNetwork() {
 
 	// Full Download Progress. Emitted on every download.
 	QObject::connect(&m_downloader, &QEasyDownloader::DownloadProgress, this,
-					 [&](const auto bytesReceived, const auto percent, const auto speed, const auto& unit, const auto& url, const auto& filename) {
+					 [&](const auto bytesReceived, const auto total, const auto percent, const auto speed, const auto& unit, const auto& url, const auto& filename) {
 
-						m_downloadedSize += (static_cast<std::size_t>(bytesReceived) >> 20); // Bytes to MB
-						m_ui->labelDownloadedSizeValue->setText(QString::number(m_downloadedSize));
-						m_ui->labelDownSpeedValue->setText(QString::number(speed));
+						m_ui->labelCurrentFile->setText(QFileInfo(filename).fileName());
+						m_ui->labelDownSpeedValue->setText(QString::number(speed) + " " + unit);
+						m_ui->labelFileSize->setText(QString::number(total >> 20) + " MB"); // Bytes to MB
+						m_mainWindow->updateProgressBar(percent);
 					}
 	);
 
 	// Emitted when a single file is downloaded.
 	QObject::connect(&m_downloader, &QEasyDownloader::DownloadFinished, this,
 					 [&](const auto& url, const auto& filename) {
-						this->m_mainWindow->showStatusBarMessage("File downloaded.");
-
-						++this->m_numDownloadsComplete;
-						const auto percent{ 100 * (this->m_numDownloadsComplete / static_cast<std::size_t>(this->m_downloadQueue.size())) };
-						this->m_mainWindow->updateProgressBar(static_cast<int>(percent));
-
-						if (percent == 100) {
-							// Prevent divide-by-zero if this is in the below lambda
-							m_downloadQueue.clear();
-						}
 					}
 	);
 
@@ -214,7 +206,6 @@ void WidgetDataOrder::configureNetwork() {
 						m_ui->pushButtonUpdateRemoteList->setEnabled(true);
 						this->m_mainWindow->hideProgressBar();
 						m_ui->groupBoxDownloadStats->setVisible(false);
-						m_downloadedSize = 0.0;
 
 						QMessageBox box{this};
 						box.setWindowTitle(tr("Downloads completed..."));
@@ -232,10 +223,6 @@ void WidgetDataOrder::configureNetwork() {
 #ifdef QT_DEBUG
 						qDebug() << "Error: " << errorCode << " " << url;
 #endif
-						++this->m_numDownloadsComplete;
-						const auto percent{ 100 * (this->m_numDownloadsComplete / static_cast<std::size_t>(this->m_downloadQueue.size())) };
-						this->m_mainWindow->updateProgressBar(static_cast<int>(percent));
-
 						QMessageBox box{this};
 						box.setIcon(QMessageBox::Critical);
 						box.setWindowTitle(tr("Download error..."));
@@ -258,7 +245,6 @@ void WidgetDataOrder::configureNetwork() {
 							m_ui->pushButtonUpdateRemoteList->setEnabled(true);
 							m_ui->pushButtonDownload->setEnabled(true);
 							m_ui->groupBoxDownloadStats->setVisible(false);
-							m_downloadedSize = 0.0;
 
 							m_downloadQueue.clear();
 						}
