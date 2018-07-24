@@ -13,7 +13,7 @@ struct NODISCARD DataDownloadDesc {
 		return ID == rhs.ID;
 	}
 
-	NODISCARD QString ToAPIURL() const;
+	NODISCARD QString GetAPIQuery(const QString& remoteURL) const;
 
 	QString ID, Name;
 	QDate StartDate, EndDate;
