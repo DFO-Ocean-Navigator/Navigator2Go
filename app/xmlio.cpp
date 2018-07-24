@@ -56,7 +56,7 @@ void addDataset(const QString& threddsCatalogLoc, const QString& datasetName, co
 	}
 
 	// Create dataset aggregate file
-	const auto aggregatePath{ dataPath + "/aggregated.ncml "};
+	const auto aggregatePath{ dataPath + "/aggregated.ncml" };
 	auto aggregate{ IO::readXML(aggregatePath) };
 	if (!aggregate.has_value()) {
 		// Find netCDF files in target directory
