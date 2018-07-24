@@ -205,6 +205,7 @@ void WidgetDataOrder::configureNetwork() {
 						m_ui->pushButtonDownload->setEnabled(true);
 						m_ui->pushButtonUpdateRemoteList->setEnabled(true);
 						this->m_mainWindow->hideProgressBar();
+						m_downloadQueue.clear();
 						m_ui->groupBoxDownloadStats->setVisible(false);
 
 						QMessageBox box{this};
