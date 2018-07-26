@@ -276,7 +276,9 @@ void MainWindow::on_actionPreferences_triggered() {
 void MainWindow::on_actionAbout_triggered() {
 	QMessageBox::information(this,
 							 tr("About Navigator2Go"),
-							 QString("Git commit hash: %1\nCompiled from branch: %2").arg(GIT_CURRENT_SHA1).arg(GIT_CURRENT_BRANCH)
+							 QString("Navigator2Go Version: %1\nGit commit hash: %2\nCompiled from branch: %3").arg(APP_VERSION)
+																											   .arg(GIT_CURRENT_SHA1)
+																											   .arg(GIT_CURRENT_BRANCH)
 							 );
 }
 

@@ -43,6 +43,7 @@ WidgetDashboard::WidgetDashboard(QWidget* parent, MainWindow* mainWindow, const 
 
 	m_consoleProcess.setProgram("/bin/sh");
 	QObject::connect(&m_consoleProcess, &QProcess::readyReadStandardOutput, this, [&]() {
+		m_ui->textEdit->append(QDateTime::currentDateTime().toString());
 		m_ui->textEdit->append(m_consoleProcess.readAll());
 		m_ui->lineEditCommandPrompt->setEnabled(true);
 	});
