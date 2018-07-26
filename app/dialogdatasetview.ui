@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DatasetView</class>
+ <widget class="QDialog" name="DatasetView">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1280</width>
+    <height>720</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1280</width>
+    <height>720</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>3840</width>
+    <height>2160</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/icons/icons/compass.png</normaloff>:/icons/icons/compass.png</iconset>
+  </property>
+  <property name="sizeGripEnabled">
+   <bool>true</bool>
+  </property>
+  <property name="modal">
+   <bool>true</bool>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QScrollArea" name="scrollArea">
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAsNeeded</enum>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>-413</y>
+          <width>1244</width>
+          <height>1080</height>
+         </rect>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>1080</height>
+         </size>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QLabel" name="label_7">
+           <property name="text">
+            <string>Hover over each item label for more info.</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="8" column="1">
+            <widget class="QPlainTextEdit" name="plainTextEditHelp">
+             <property name="lineWrapMode">
+              <enum>QPlainTextEdit::NoWrap</enum>
+             </property>
+             <property name="placeholderText">
+              <string>Loading...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="labelKey">
+             <property name="toolTip">
+              <string>The JSON key for this dataset. Usually it is a simplified version of the Name. E.g. The dataset with Name Giops Daily could have the Key giops_day. No spaces are allowed here.</string>
+             </property>
+             <property name="text">
+              <string>Dataset Key:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QLabel" name="labelURL">
+             <property name="toolTip">
+              <string>URL to the aggregated.ncml file for this dataset. This is passed to THREDDS.</string>
+             </property>
+             <property name="text">
+              <string>URL:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="0">
+            <widget class="QLabel" name="labelHelp">
+             <property name="toolTip">
+              <string>Detailed information about the dataset goes here. This is presented in the Ocean Navigator. HTML formatting is encouraged.</string>
+             </property>
+             <property name="text">
+              <string>Help:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="labelName">
+             <property name="toolTip">
+              <string>&quot;Nicely&quot; formatted name of the dataset. This is presented on the Ocean Navigator webpage.</string>
+             </property>
+             <property name="text">
+              <string>Name:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="lineEditName"/>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="lineEditKey"/>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="labelAttrib">
+             <property name="toolTip">
+              <string>Dataset attribution. Presented in bottom right corner of the map and in all plot figures in the Ocean Navigator.</string>
+             </property>
+             <property name="text">
+              <string>Attribution:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLineEdit" name="lineEditAttribution"/>
+           </item>
+           <item row="6" column="1">
+            <widget class="QLineEdit" name="lineEditClima"/>
+           </item>
+           <item row="6" column="0">
+            <widget class="QLabel" name="labelClimaURL">
+             <property name="toolTip">
+              <string>URL to the climatology aggregated.ncml file. This is passed to THREDDS.</string>
+             </property>
+             <property name="text">
+              <string>Climatology URL:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="QLineEdit" name="lineEditURL"/>
+           </item>
+           <item row="7" column="1">
+            <widget class="QComboBox" name="comboBoxQuantum">
+             <property name="focusPolicy">
+              <enum>Qt::StrongFocus</enum>
+             </property>
+             <property name="maxVisibleItems">
+              <number>5</number>
+             </property>
+             <item>
+              <property name="text">
+               <string>hour</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>day</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>month</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <widget class="QLabel" name="labelQuantum">
+             <property name="toolTip">
+              <string>Time scale of the data inside this dataset. Days, hours, monthly.</string>
+             </property>
+             <property name="text">
+              <string>Quantum:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="0">
+            <widget class="QLabel" name="labelVariables">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Variables found inside the dataset. &lt;/p&gt;&lt;p&gt;Key: the internal variable name (votemper, or salinity). &lt;/p&gt;&lt;p&gt;Name: the readable form of the Key (Temperature, Salinity). &lt;/p&gt;&lt;p&gt;Default Scale: Default min/max values for the variable. These are used when applying a colourmap.&lt;/p&gt;&lt;p&gt;Hidden: should the variable be hidden to the Ocean Navigator?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Variables:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="1">
+            <widget class="QTableWidget" name="tableWidgetVariables">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="editTriggers">
+              <set>QAbstractItemView::DoubleClicked</set>
+             </property>
+             <property name="alternatingRowColors">
+              <bool>true</bool>
+             </property>
+             <property name="sortingEnabled">
+              <bool>true</bool>
+             </property>
+             <attribute name="horizontalHeaderCascadingSectionResizes">
+              <bool>false</bool>
+             </attribute>
+             <attribute name="horizontalHeaderDefaultSectionSize">
+              <number>125</number>
+             </attribute>
+             <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+              <bool>true</bool>
+             </attribute>
+             <column>
+              <property name="text">
+               <string>Key</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Name</string>
+              </property>
+              <property name="font">
+               <font>
+                <stylestrategy>PreferAntialias</stylestrategy>
+               </font>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Units</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Default Min</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Default Max</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Scale Factor</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Hidden</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QSpinBox" name="spinBoxCache">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="labelCache">
+             <property name="text">
+              <string>Cache:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="labelEnabled">
+             <property name="toolTip">
+              <string>Should this dataset be visible in the Ocean Navigator?</string>
+             </property>
+             <property name="text">
+              <string>Enabled:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QCheckBox" name="checkBoxDatasetEnabled">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="2">
+            <layout class="QVBoxLayout" name="verticalLayout_5">
+             <property name="sizeConstraint">
+              <enum>QLayout::SetDefaultConstraint</enum>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QPushButton" name="pushButtonAddVariable">
+               <property name="text">
+                <string>Add</string>
+               </property>
+               <property name="icon">
+                <iconset resource="resources.qrc">
+                 <normaloff>:/icons/icons/add.png</normaloff>:/icons/icons/add.png</iconset>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButtonDeleteVariable">
+               <property name="text">
+                <string>Delete</string>
+               </property>
+               <property name="icon">
+                <iconset resource="resources.qrc">
+                 <normaloff>:/icons/icons/delete.png</normaloff>:/icons/icons/delete.png</iconset>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="11" column="1">
+            <layout class="QGridLayout" name="gridLayoutDateRange">
+             <item row="1" column="0">
+              <widget class="QLabel" name="labelStartDate">
+               <property name="text">
+                <string>Start Date:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="Line" name="line">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QLabel" name="labelEndDate">
+               <property name="text">
+                <string>End Date:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QCalendarWidget" name="calendarWidgetStart">
+               <property name="gridVisible">
+                <bool>true</bool>
+               </property>
+               <property name="verticalHeaderFormat">
+                <enum>QCalendarWidget::NoVerticalHeader</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QCalendarWidget" name="calendarWidgetEnd">
+               <property name="gridVisible">
+                <bool>true</bool>
+               </property>
+               <property name="verticalHeaderFormat">
+                <enum>QCalendarWidget::NoVerticalHeader</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="WidgetMonthPicker" name="widgetMonthPicker" native="true"/>
+             </item>
+            </layout>
+           </item>
+           <item row="11" column="0">
+            <widget class="QLabel" name="labelDateRange">
+             <property name="toolTip">
+              <string>The span of time for which this dataset has data.</string>
+             </property>
+             <property name="text">
+              <string>Date Range:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="10" column="0">
+            <widget class="QLabel" name="labelVarSelection">
+             <property name="toolTip">
+              <string>Select the variables you wish to download. Click + drag the mouse, or use CTRL + click to select multiple values.</string>
+             </property>
+             <property name="text">
+              <string>Variable Selection:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="10" column="1">
+            <widget class="QListWidget" name="listWidgetVariables">
+             <property name="editTriggers">
+              <set>QAbstractItemView::NoEditTriggers</set>
+             </property>
+             <property name="alternatingRowColors">
+              <bool>true</bool>
+             </property>
+             <property name="selectionMode">
+              <enum>QAbstractItemView::ExtendedSelection</enum>
+             </property>
+             <property name="selectionRectVisible">
+              <bool>true</bool>
+             </property>
+             <property name="sortingEnabled">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="2">
+            <widget class="QPushButton" name="pushButtonMagicScan">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Auto-populate the variables for this dataset.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Magic Scan</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resources.qrc">
+               <normaloff>:/icons/icons/cat.png</normaloff>:/icons/icons/cat.png</iconset>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>WidgetMonthPicker</class>
+   <extends>QWidget</extends>
+   <header>widgetmonthpicker.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>DatasetView</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>DatasetView</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

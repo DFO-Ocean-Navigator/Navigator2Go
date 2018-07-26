@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>icons/add.png</file>
+        <file>icons/delete.png</file>
+        <file>icons/download.png</file>
+        <file>icons/house.png</file>
+        <file>icons/wrench.png</file>
+        <file>icons/compass.png</file>
+        <file>icons/sync.png</file>
+        <file>icons/database.png</file>
+        <file>icons/light.png</file>
+        <file>icons/stop.png</file>
+        <file>icons/save.png</file>
+        <file>icons/bbox.png</file>
+        <file>icons/pencil</file>
+        <file>icons/folder.png</file>
+        <file>icons/terminal.png</file>
+        <file>icons/cat.png</file>
+    </qresource>
+</RCC>
