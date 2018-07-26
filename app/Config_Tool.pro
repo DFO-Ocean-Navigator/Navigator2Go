@@ -49,7 +49,8 @@ FORMS += \
     widgetthreddsconfig.ui \
     dialogselectvars.ui \
     dialogimportnc.ui \
-    dialogthreddslogs.ui
+    dialogthreddslogs.ui \
+    widgetmonthpicker.ui
 
 unix:!macx: LIBS += -lnetcdf_c++4
 
@@ -76,7 +77,8 @@ HEADERS += \
     dialogselectvars.h \
     dialogimportnc.h \
     netcdfimportdesc.h \
-    dialogthreddslogs.h
+    dialogthreddslogs.h \
+    widgetmonthpicker.h
 
 SOURCES += \
     datadownloaddesc.cpp \
@@ -99,7 +101,8 @@ SOURCES += \
     xmlio.cpp \
     dialogselectvars.cpp \
     dialogimportnc.cpp \
-    dialogthreddslogs.cpp
+    dialogthreddslogs.cpp \
+    widgetmonthpicker.cpp
 
 INCLUDEPATH += \
     $$PWD/netcdf4/include \

@@ -59,7 +59,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>-413</y>
           <width>1244</width>
           <height>1080</height>
          </rect>
@@ -346,7 +346,24 @@
            </item>
            <item row="11" column="1">
             <layout class="QGridLayout" name="gridLayoutDateRange">
-             <item row="0" column="2">
+             <item row="1" column="0">
+              <widget class="QLabel" name="labelStartDate">
+               <property name="text">
+                <string>Start Date:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="Line" name="line">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
               <widget class="QLabel" name="labelEndDate">
                <property name="text">
                 <string>End Date:</string>
@@ -356,7 +373,7 @@
                </property>
               </widget>
              </item>
-             <item row="1" column="0">
+             <item row="2" column="0">
               <widget class="QCalendarWidget" name="calendarWidgetStart">
                <property name="gridVisible">
                 <bool>true</bool>
@@ -366,7 +383,7 @@
                </property>
               </widget>
              </item>
-             <item row="1" column="2">
+             <item row="2" column="2">
               <widget class="QCalendarWidget" name="calendarWidgetEnd">
                <property name="gridVisible">
                 <bool>true</bool>
@@ -377,21 +394,7 @@
               </widget>
              </item>
              <item row="0" column="0">
-              <widget class="QLabel" name="labelStartDate">
-               <property name="text">
-                <string>Start Date:</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="Line" name="line">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-              </widget>
+              <widget class="WidgetMonthPicker" name="widgetMonthPicker" native="true"/>
              </item>
             </layout>
            </item>
@@ -468,6 +471,14 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>WidgetMonthPicker</class>
+   <extends>QWidget</extends>
+   <header>widgetmonthpicker.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="resources.qrc"/>
  </resources>

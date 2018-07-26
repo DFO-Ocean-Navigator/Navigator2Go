@@ -23,6 +23,10 @@ DialogDatasetView::DialogDatasetView(QWidget* parent) :	QDialog(parent), m_ui(ne
 
 	m_ui->calendarWidgetStart->setVisible(false);
 	m_ui->calendarWidgetEnd->setVisible(false);
+	m_ui->labelStartDate->setVisible(false);
+	m_ui->labelEndDate->setVisible(false);
+
+	m_ui->widgetMonthPicker->setVisible(false);
 }
 
 /***********************************************************************************/
@@ -134,9 +138,14 @@ void DialogDatasetView::SetData(const QJsonObject& datasetObj, QNetworkAccessMan
 									m_ui->calendarWidgetEnd->setVisible(true);
 									m_ui->calendarWidgetEnd->setDateRange(startDate, endDate);
 									m_ui->calendarWidgetEnd->setSelectedDate(endDate);
+
+									m_ui->labelStartDate->setVisible(true);
+									m_ui->labelEndDate->setVisible(true);
 									return;
 								}
 								if (quantum == "month") {
+									m_ui->widgetMonthPicker->setStartEndDate(startDate, endDate);
+									m_ui->widgetMonthPicker->setVisible(true);
 									return;
 								}
 								if (quantum == "hour") {

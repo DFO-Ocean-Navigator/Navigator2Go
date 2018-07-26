@@ -10,7 +10,6 @@
 #include "preferences.h"
 #include "network.h"
 
-#include <QProcess>
 #include <QMessageBox>
 #include <QStorageInfo>
 #include <QFileInfo>
@@ -41,6 +40,12 @@ WidgetDashboard::WidgetDashboard(QWidget* parent, MainWindow* mainWindow, const 
 	m_ui->pushButtonUpdate->setVisible(false);
 
 	updateDriveInfo();
+
+	m_consoleProcess.setProgram("/bin/sh");
+	QObject::connect(&m_consoleProcess, &QProcess::readyReadStandardOutput, this, [&]() {
+		m_ui->textEdit->append(m_consoleProcess.readAll());
+		m_ui->lineEditCommandPrompt->setEnabled(true);
+	});
 }
 
 /***********************************************************************************/
@@ -106,12 +111,10 @@ void WidgetDashboard::on_pushButtonStartWebServer_clicked() {
 	const auto& datasetConfigFile{ m_prefs->IsNetworkOnline ? "datasetconfigONLINE.json" : "datasetconfigOFFLINE.json" };
 
 	if (!m_isGunicornRunning) {
-		QProcess process{this};
-		process.setProgram("/bin/sh");
-		process.setWorkingDirectory(m_prefs->ONInstallDir);
-		process.setArguments({"runserver.sh", datasetConfigFile});
+		m_consoleProcess.setWorkingDirectory(m_prefs->ONInstallDir);
+		m_consoleProcess.setArguments({"runserver.sh", datasetConfigFile});
 
-		if (!process.startDetached(nullptr)) {
+		if (!m_consoleProcess.startDetached(nullptr)) {
 			QMessageBox box{this};
 			box.setWindowTitle(tr("Error"));
 			box.setText(tr("Failed to start gUnicorn."));
@@ -151,12 +154,10 @@ void WidgetDashboard::on_pushButtonStopWebServer_clicked() {
 /***********************************************************************************/
 void WidgetDashboard::on_pushButtonStopApache_clicked() {
 	if (m_apacheRunning) {
-		QProcess process{this};
-		process.setProgram("/bin/sh");
-		process.setWorkingDirectory(IO::TOMCAT_BIN_DIR);
-		process.setArguments({"shutdown.sh"});
+		m_consoleProcess.setWorkingDirectory(IO::TOMCAT_BIN_DIR);
+		m_consoleProcess.setArguments({"shutdown.sh"});
 
-		if (!process.startDetached()) {
+		if (!m_consoleProcess.startDetached()) {
 			QMessageBox::critical(this, tr("Error"), tr("Failed to stop THREDDS server."));
 
 			return;
@@ -171,12 +172,10 @@ void WidgetDashboard::on_pushButtonStopApache_clicked() {
 /***********************************************************************************/
 void WidgetDashboard::on_pushButtonStartApache_clicked() {
 	if (!m_apacheRunning) {
-		QProcess process{this};
-		process.setProgram("/bin/sh");
-		process.setWorkingDirectory(IO::TOMCAT_BIN_DIR);
-		process.setArguments({"startup.sh"});
+		m_consoleProcess.setWorkingDirectory(IO::TOMCAT_BIN_DIR);
+		m_consoleProcess.setArguments({"startup.sh"});
 
-		if (!process.startDetached()) {
+		if (!m_consoleProcess.startDetached()) {
 			QMessageBox::critical(this, tr("Error"), tr("Failed to start THREDDS server."));
 
 			return;
@@ -263,4 +262,12 @@ void WidgetDashboard::updateDriveInfo() {
 	chartView->setRenderHint(QPainter::Antialiasing);
 
 	m_ui->groupBoxHDD->layout()->addWidget(chartView);
+}
+
+/***********************************************************************************/
+void WidgetDashboard::on_lineEditCommandPrompt_returnPressed() {
+	m_ui->textEdit->append("//-----------------------------------------------------");
+	m_ui->lineEditCommandPrompt->setEnabled(false);
+	m_consoleProcess.start(m_ui->lineEditCommandPrompt->text());
+	m_ui->lineEditCommandPrompt->clear();
 }
