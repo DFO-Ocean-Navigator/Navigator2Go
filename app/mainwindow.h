@@ -20,6 +20,7 @@ class WidgetDashboard;
 class WidgetConfigEditor;
 class WidgetDataOrder;
 class WidgetThreddsConfig;
+class QNetworkReply;
 
 /***********************************************************************************/
 class MainWindow : public QMainWindow {
@@ -77,6 +78,7 @@ private:
 	QPointer<WidgetConfigEditor> m_widgetConfigEditor;
 	QPointer<WidgetDataOrder> m_widgetDataOrder;
 	QPointer<WidgetThreddsConfig> m_widgetThreddsConfig;
+	QPointer<QNetworkReply> m_updateReply;
 
 	QSettings m_settings{"Fisheries and Oceans Canada", "Navigator2Go"};
 

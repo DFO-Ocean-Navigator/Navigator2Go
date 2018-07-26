@@ -310,7 +310,33 @@ void MainWindow::setInitialLayout() {
 
 /***********************************************************************************/
 void MainWindow::checkForUpdates() {
+	auto* nam{ new QNetworkAccessManager{this} };
+	QNetworkRequest req{{"https://raw.githubusercontent.com/DFO-Ocean-Navigator/Navigator2Go/master/VERSION.txt"}};
 
+	m_updateReply = nam->get(req);
+
+	QObject::connect(m_updateReply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::error), this, [&](const auto errorCode) {
+		m_updateReply->deleteLater();
+	});
+	QObject::connect(m_updateReply, &QNetworkReply::finished, this, [&]() {
+		const QString& b{ m_updateReply->readAll() };
+		const auto number{ b.split("=", QString::SplitBehavior::SkipEmptyParts)[1].simplified() };
+
+		if (number == APP_VERSION) {
+			return;
+		}
+
+		QMessageBox msgBox{this};
+		msgBox.setWindowTitle(tr("Update Available!"));
+		msgBox.setTextFormat(Qt::RichText);
+		msgBox.setIcon(QMessageBox::Information);
+		msgBox.setText("<a href='https://github.com/DFO-Ocean-Navigator/Navigator2Go/releases'>https://github.com/DFO-Ocean-Navigator/Navigator2Go/releases</a>");
+
+		msgBox.exec();
+
+
+		m_updateReply->deleteLater();
+	});
 }
 
 /***********************************************************************************/
