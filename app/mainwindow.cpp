@@ -330,7 +330,7 @@ void MainWindow::checkForUpdates() {
 		msgBox.setWindowTitle(tr("Update Available!"));
 		msgBox.setTextFormat(Qt::RichText);
 		msgBox.setIcon(QMessageBox::Information);
-		msgBox.setText("<a href='https://github.com/DFO-Ocean-Navigator/Navigator2Go/releases'>https://github.com/DFO-Ocean-Navigator/Navigator2Go/releases</a>");
+		msgBox.setText("<a href='https://github.com/DFO-Ocean-Navigator/Navigator2Go/releases' style='color: #3daee9'>https://github.com/DFO-Ocean-Navigator/Navigator2Go/releases</a>");
 
 		msgBox.exec();
 

@@ -34,10 +34,6 @@ WidgetDashboard::WidgetDashboard(QWidget* parent, MainWindow* mainWindow, const 
 	checkAndStartServers();
 
 	m_ui->labelDatasetTarget->setStyleSheet(QSS_COLOR_GREEN);
-	m_ui->labelUpdate->setStyleSheet(QSS_COLOR_GREEN);
-	m_ui->labelUpdate->setVisible(false);
-	m_ui->pushButtonUpdate->setEnabled(false);
-	m_ui->pushButtonUpdate->setVisible(false);
 
 	updateDriveInfo();
 
