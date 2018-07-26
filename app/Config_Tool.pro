@@ -3,7 +3,7 @@ QT += core gui network charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-VERSION = 1.0
+include(../VERSION.txt)
 
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 DEFINES += GIT_CURRENT_SHA1="\\\"$(shell git -C \""$$_PRO_FILE_PWD_"\" rev-parse HEAD)\\\""
