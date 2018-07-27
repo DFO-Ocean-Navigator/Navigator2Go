@@ -32,20 +32,19 @@ git clone https://github.com/DFO-Ocean-Navigator/Navigator2Go.git
 7. `cd 5.11.0/Src/`
 8. Run the following to configure Qt:
 ```shell
-./configure -static -release -prefix $QT_INSTALL_DIRECTORY/static -skip qtdeclarative -skip qtremoteobjects -skip qtwebsockets -skip wayland -skip connectivity -skip multimedia -qt-xcb -nomake examples -nomake tests -opensource -confirm-license -no-feature-ftp -no-feature-pdf -no-feature-animation -no-feature-topleveldomain -no-feature-movie -no-feature-qt3d-extras -no-feature-qt3d-input -no-feature-qt3d-logic -no-feature-qt3d-opengl-renderer -no-feature-qt3d-render -no-feature-qt3d-simd-avx2 -no-feature-qt3d-simd-sse2  -skip location -no-accessibility -no-openssl -no-mips_dsp -no-mips_dspr2 
+./configure -static -release -verbose -opensource -confirm-license -prefix $QT_INSTALL_DIRECTORY/static -qt-xcb -no-glib -no-pulseaudio -no-alsa -opengl desktop -nomake examples -nomake tests -skip wayland -skip qtdeclarative -static-runtime
 ```
 9. Then run: `make -j12 clean`. The `-j12` tells make how many jobs it should spawn to build the project. Normally the number specified is the number of physical cores in your system.
-10. Assuming no errors occoured (which shouldn't), finally run `make -j12 install`.
-11. Et Voila! Vous avez terminé!
+10. Run `make -j12`.
+11. Assuming no errors occoured (which shouldn't), finally run `make -j12 install`.
+12. Et Voila! Vous avez terminé!
 
 ## Building for Release
 So, you've made some changes to my lovely code that made it even more awesome. Time to send it out to the masses.
-1. Navigate to the source folder `Navigator2Go/Config_Tool/`.
-2. Run the following: `$QT_INSTALL_DIRECTORY/static/bin/qmake -config release`.
-3. `make -j12 clean`.
-4. `make -j12`.
-5. Fix any compile errors that crop up.
-6. You can now run the tool like so `./Config_Tool`.
+1. Navigate to the source folder `Navigator2Go/app/`.
+2. Run `./Build.sh`.
+3. Fix any compile errors that crop up and run the above again.
+4. You can now run the tool like so `./Config_Tool`.
 
 ## Incrementing Version Number
 The program's version number is stored in `VERSION.txt`. This is included in `Config_Tool.pro` to make the number accessible to `qmake` and to C++.
