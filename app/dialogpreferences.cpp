@@ -33,6 +33,7 @@ void DialogPreferences::SetPreferences(Preferences& prefs) {
 	m_ui->switchUpdateDoryDatasetsOnStart->setChecked(prefs.UpdateRemoteListOnStart);
 	m_ui->switchAutoStartServers->setChecked(prefs.AutoStartServers);
 	m_ui->switchOnlineOffline->setChecked(prefs.IsNetworkOnline);
+	m_ui->switchWidgetCheckForUpdates->setChecked(prefs.CheckForUpdatesOnStart);
 }
 
 /***********************************************************************************/
@@ -44,7 +45,8 @@ auto DialogPreferences::GetPreferences() const noexcept -> Preferences {
 		m_ui->comboBoxDownloadFormat->currentText(),
 		m_ui->switchUpdateDoryDatasetsOnStart->isChecked(),
 		m_ui->switchAutoStartServers->isChecked(),
-		m_ui->switchOnlineOffline->isChecked()
+		m_ui->switchOnlineOffline->isChecked(),
+		m_ui->switchWidgetCheckForUpdates->isChecked()
 	};
 }
 

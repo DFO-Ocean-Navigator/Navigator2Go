@@ -9,7 +9,7 @@ HTMLHighlighter::HTMLHighlighter(QTextDocument* parent) : QSyntaxHighlighter(par
 	HighlightingRule rule;
 
 	m_edgeTagFormat.setForeground(QBrush(QColor("#32a9dd")));
-	m_insideTagFormat.setForeground(Qt::blue);
+	m_insideTagFormat.setForeground(Qt::green);
 	m_openTag = QRegExp("<");
 	m_closeTag = QRegExp(">");
 

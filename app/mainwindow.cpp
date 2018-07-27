@@ -77,7 +77,9 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 		setOffline();
 	}
 
-	checkForUpdates();
+	if (m_prefs.CheckForUpdatesOnStart) {
+		checkForUpdates();
+	}
 
 	setWindowTitle(tr("Navigator2Go - Alpha Build"));
 
@@ -179,6 +181,10 @@ void MainWindow::readSettings() {
 		m_prefs.IsNetworkOnline = m_settings.value("IsNetworkOnline").toBool();
 	}
 
+	if (m_settings.contains("CheckForUpdatesOnStart")) {
+		m_prefs.CheckForUpdatesOnStart = m_settings.value("CheckForUpdatesOnStart").toBool();
+	}
+
 	m_settings.endGroup();
 
 	//
@@ -207,6 +213,7 @@ void MainWindow::writeSettings() {
 	m_settings.setValue("UpdateRemoteListOnStart", m_prefs.UpdateRemoteListOnStart);
 	m_settings.setValue("AutoStartServers", m_prefs.AutoStartServers);
 	m_settings.setValue("IsNetworkOnline", m_prefs.IsNetworkOnline);
+	m_settings.setValue("CheckForUpdatesOnStart", m_prefs.CheckForUpdatesOnStart);
 
 	m_settings.endGroup();
 

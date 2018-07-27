@@ -17,6 +17,7 @@ struct NODISCARD Preferences {
 	bool UpdateRemoteListOnStart{true};	// Should we update dataset list from dory when starting
 	bool AutoStartServers{false};		// Should we start gUnicorn and THREDDS on program start?
 	bool IsNetworkOnline{true};			// Global network state (online or offline).
+	bool CheckForUpdatesOnStart{true};	// Check for program updates on start.
 };
 
 #endif // PREFERENCES_H
