@@ -34,15 +34,6 @@ WidgetDashboard::WidgetDashboard(QWidget* parent, MainWindow* mainWindow, const 
 	updateDriveInfo();
 
 	m_consoleProcess.setProgram("/bin/sh");
-	QObject::connect(&m_consoleProcess, &QProcess::readyReadStandardOutput, this, [&]() {
-		m_ui->textEdit->append(QDateTime::currentDateTime().toString());
-		m_ui->textEdit->append(m_consoleProcess.readAllStandardOutput());
-		m_ui->lineEditCommandPrompt->setEnabled(true);
-	});
-
-	QObject::connect(&m_consoleProcess, &QProcess::readyReadStandardError, this, [&]() {
-		m_ui->lineEditCommandPrompt->setEnabled(true);
-	});
 }
 
 /***********************************************************************************/
@@ -242,12 +233,4 @@ void WidgetDashboard::updateDriveInfo() {
 	m_ui->progressBarDriveSpace->setMinimum(0);
 	m_ui->progressBarDriveSpace->setMaximum(total);
 	m_ui->progressBarDriveSpace->setValue(used);
-}
-
-/***********************************************************************************/
-void WidgetDashboard::on_lineEditCommandPrompt_returnPressed() {
-	m_ui->textEdit->append("//-----------------------------------------------------");
-	m_ui->lineEditCommandPrompt->setEnabled(false);
-	m_consoleProcess.start(m_ui->lineEditCommandPrompt->text());
-	m_ui->lineEditCommandPrompt->clear();
 }

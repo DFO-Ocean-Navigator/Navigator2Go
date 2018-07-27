@@ -38,8 +38,6 @@ private slots:
 
 	void on_pushButtonCheckRemoteUplink_clicked();
 
-	void on_lineEditCommandPrompt_returnPressed();
-
 private:
 	//
 	void checkAndStartServers();
