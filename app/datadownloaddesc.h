@@ -15,7 +15,7 @@ struct NODISCARD DataDownloadDesc {
 
 	NODISCARD QString GetAPIQuery(const QString& remoteURL) const;
 
-	QString ID, Name;
+	QString ID, Name, Quantum;
 	QDate StartDate, EndDate;
 	QStringList SelectedVariables;
 };

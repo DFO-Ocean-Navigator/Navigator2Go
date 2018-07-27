@@ -13,6 +13,10 @@
 #include <QFileInfo>
 #include <QJsonDocument>
 
+#ifdef QT_DEBUG
+	#include <QDebug>
+#endif
+
 /***********************************************************************************/
 WidgetDataOrder::WidgetDataOrder(QWidget* parent, MainWindow* mainWindow, const Preferences* prefs) :	QWidget{parent},
 																										m_ui{new Ui::WidgetDataOrder},
@@ -111,7 +115,7 @@ void WidgetDataOrder::on_pushButtonDownload_clicked() {
 
 /***********************************************************************************/
 void WidgetDataOrder::on_listWidgetRemoteDatasets_itemDoubleClicked(QListWidgetItem* item) {
-	const auto& datasetID{m_datasetsAPIResultCache[item->text()]};
+	const auto& datasetID{ m_datasetsAPIResultCache[item->text()] };
 	DialogDatasetView dialog{this};
 
 	auto isUpdatingDownload{false};
@@ -127,7 +131,7 @@ void WidgetDataOrder::on_listWidgetRemoteDatasets_itemDoubleClicked(QListWidgetI
 
 			// Don't accept a giant date range
 			std::size_t dayLimit{ 60 };
-			if (m_datasetsAPIResultCache[data.ID]["quantum"] == "month") {
+			if (data.Quantum == "month") {
 				dayLimit = 1825; // 5 years of monthly data only
 			}
 

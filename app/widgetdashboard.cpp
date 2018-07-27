@@ -16,10 +16,6 @@
 #include <QFileDialog>
 #include <QThreadPool>
 
-#include <QtCharts/QChartView>
-#include <QtCharts/QPieSeries>
-#include <QtCharts/QPieSlice>
-
 #ifdef QT_DEBUG
 	#include <QDebug>
 #endif
@@ -40,7 +36,11 @@ WidgetDashboard::WidgetDashboard(QWidget* parent, MainWindow* mainWindow, const 
 	m_consoleProcess.setProgram("/bin/sh");
 	QObject::connect(&m_consoleProcess, &QProcess::readyReadStandardOutput, this, [&]() {
 		m_ui->textEdit->append(QDateTime::currentDateTime().toString());
-		m_ui->textEdit->append(m_consoleProcess.readAll());
+		m_ui->textEdit->append(m_consoleProcess.readAllStandardOutput());
+		m_ui->lineEditCommandPrompt->setEnabled(true);
+	});
+
+	QObject::connect(&m_consoleProcess, &QProcess::readyReadStandardError, this, [&]() {
 		m_ui->lineEditCommandPrompt->setEnabled(true);
 	});
 }
@@ -232,33 +232,16 @@ void WidgetDashboard::on_pushButtonCheckRemoteUplink_clicked() {
 
 /***********************************************************************************/
 void WidgetDashboard::updateDriveInfo() {
-	QT_CHARTS_USE_NAMESPACE
 
 	const auto& storage{ QStorageInfo::root() };
 	const auto total{ storage.bytesTotal()/1000/1000/1000 };
 	const auto available{ storage.bytesAvailable()/1000/1000/1000 };
 	const auto used{ total - available };
 
-	auto* const series{ new QPieSeries() };
-	series->append(QString("Used: %1 %2").arg(QString::number(used), "GB"), used);
-	series->append(QString("Available: %1 %2").arg(QString::number(available), "GB"), available );
-	series->setLabelsVisible(true);
-
-	auto* const sliceUsed{ series->slices().at(0) };
-	sliceUsed->setExploded();
-
-	auto* const sliceAvailable{ series->slices().at(1) };
-	sliceAvailable->setBrush(Qt::green);
-
-	auto* const chart{ new QChart() };
-	chart->addSeries(series);
-	chart->setTitle(storage.name());
-	chart->legend()->hide();
-
-	auto* chartView{ new QChartView(chart) };
-	chartView->setRenderHint(QPainter::Antialiasing);
-
-	m_ui->groupBoxHDD->layout()->addWidget(chartView);
+	m_ui->labelHDDName->setText(storage.name() + QString(" Usage: %1GB | Available: %2GB | Total: %3GB").arg(used).arg(available).arg(total));
+	m_ui->progressBarDriveSpace->setMinimum(0);
+	m_ui->progressBarDriveSpace->setMaximum(total);
+	m_ui->progressBarDriveSpace->setValue(used);
 }
 
 /***********************************************************************************/

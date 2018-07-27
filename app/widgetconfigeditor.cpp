@@ -11,6 +11,10 @@
 #include <QListWidgetItem>
 #include <QFileDialog>
 
+#ifdef QT_DEBUG
+	#include <QDebug>
+#endif
+
 /***********************************************************************************/
 WidgetConfigEditor::WidgetConfigEditor(QWidget* parent, const MainWindow* mainWindow, const Preferences* prefs) :	QWidget{parent},
 																													m_ui{new Ui::WidgetConfigEditor},

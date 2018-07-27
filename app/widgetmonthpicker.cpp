@@ -6,7 +6,7 @@
 
 /***********************************************************************************/
 // http://doc.qt.io/qt-5/qdate.html#month
-const QHash<int, QString> months {
+const QHash<int, QString> indexToMonth {
 	{1, "January"},
 	{2, "February"},
 	{3, "March"},
@@ -19,6 +19,21 @@ const QHash<int, QString> months {
 	{10, "October"},
 	{11, "November"},
 	{12, "December"}
+};
+
+const QHash<QString, int> monthToIndex {
+	{"January", 1},
+	{"February", 2},
+	{"March", 3},
+	{"April", 4},
+	{"May", 5},
+	{"June", 6},
+	{"July", 7},
+	{"August", 8},
+	{"September", 9},
+	{"October", 10},
+	{"November", 11},
+	{"December", 12}
 };
 
 /***********************************************************************************/
@@ -52,6 +67,23 @@ void WidgetMonthPicker::setStartEndDate(const QDate& start, const QDate& end) {
 }
 
 /***********************************************************************************/
+std::pair<QDate, QDate> WidgetMonthPicker::getStartEndDate() const {
+	return {
+		{
+			m_ui->comboBoxStartYear->currentText().toInt(),
+			monthToIndex[m_ui->comboBoxStartMonth->currentText()],
+			1
+		},
+		{
+			m_ui->comboBoxEndYear->currentText().toInt(),
+			monthToIndex[m_ui->comboBoxEndMonth->currentText()],
+			1
+		}
+
+	};
+}
+
+/***********************************************************************************/
 void WidgetMonthPicker::on_comboBoxStartMonth_currentIndexChanged(int index) {
 	validateMonthSelection();
 }
@@ -77,14 +109,14 @@ void WidgetMonthPicker::populateMonth(const int year, QComboBox* comboBox) {
 
 	if (year == m_startDate.year()) {
 		for (auto i = m_startDate.month(); i < 13; ++i) {
-			comboBox->addItem(months[i]);
+			comboBox->addItem(indexToMonth[i]);
 		}
 		return;
 	}
 
 	if (year == m_endDate.year()) {
 		for (auto i = 1; i < m_endDate.month() + 1; ++i) {
-			comboBox->addItem(months[i]);
+			comboBox->addItem(indexToMonth[i]);
 		}
 		// Set end month to be latest month.
 		comboBox->setCurrentIndex(comboBox->count() - 1);
@@ -92,7 +124,7 @@ void WidgetMonthPicker::populateMonth(const int year, QComboBox* comboBox) {
 	}
 
 	for (auto i = 1; i < 13; ++i) {
-		comboBox->addItem(months[i]);
+		comboBox->addItem(indexToMonth[i]);
 	}
 }
 

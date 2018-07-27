@@ -1,6 +1,8 @@
 #ifndef WIDGETMONTHPICKER_H
 #define WIDGETMONTHPICKER_H
 
+#include "nodiscard.h"
+
 #include <QWidget>
 #include <QDate>
 
@@ -20,6 +22,8 @@ public:
 	~WidgetMonthPicker();
 
 	void setStartEndDate(const QDate& start, const QDate& end);
+
+	NODISCARD std::pair<QDate, QDate> getStartEndDate() const;
 
 private slots:
 	void on_comboBoxStartMonth_currentIndexChanged(int index);

@@ -212,11 +212,27 @@ DataDownloadDesc DialogDatasetView::GetDownloadData() const {
 		vars << m_variableMap[var->text()];
 	}
 
+	QDate startDate, endDate;
+	const auto& quantum{ m_ui->comboBoxQuantum->currentText() };
+	if (quantum == "day") {
+		startDate = m_ui->calendarWidgetStart->selectedDate();
+		endDate = m_ui->calendarWidgetEnd->selectedDate();
+	}
+	else if (quantum == "month") {
+		const auto& range{ m_ui->widgetMonthPicker->getStartEndDate() };
+		startDate = range.first;
+		endDate = range.second;
+	}
+	else { // hour
+
+	}
+
 	return {
 		m_ui->lineEditKey->text(),
 		m_ui->lineEditName->text(),
-		m_ui->calendarWidgetStart->selectedDate(),
-		m_ui->calendarWidgetEnd->selectedDate(),
+		m_ui->comboBoxQuantum->currentText(),
+		startDate,
+		endDate,
 		vars
 	};
 }
