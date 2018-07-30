@@ -6,8 +6,13 @@
 #include <QVector>
 #include <QDir>
 #include <QInputDialog>
+#include <QMessageBox>
 
 #include <cstring>
+
+#ifdef QT_DEBUG
+	#include <QDebug>
+#endif
 
 namespace IO {
 
@@ -34,16 +39,14 @@ void addDataset(const QString& threddsCatalogLoc, const QString& datasetName, co
 	const auto& path{ QString("catalogs/") + datasetName };
 
 	// Modify catalog.xml
-	{
-		const auto& catalogPath{ threddsCatalogLoc + QString("/catalog.xml") };
-		const auto doc{ IO::readXML(catalogPath) };
-		auto child{ doc->child("catalog").append_child("catalogRef") };
-		child.append_attribute("xlink:title") = datasetName.toStdString().c_str();
-		child.append_attribute("xlink:href") = std::strcat(path.toLatin1().data(),".xml");
-		child.append_attribute("name") = "";
+	const auto catalogPath{ threddsCatalogLoc + QString("/catalog.xml") };
+	const auto doc{ IO::readXML(catalogPath) };
+	auto child{ doc->child("catalog").append_child("catalogRef") };
+	child.append_attribute("xlink:title") = datasetName.toStdString().c_str();
+	child.append_attribute("xlink:href") = QString(path + ".xml").toStdString().c_str();
+	child.append_attribute("name") = "";
 
-		doc->save_file(catalogPath.toStdString().c_str());
-	}
+	doc->save_file(catalogPath.toStdString().c_str());
 
 	const auto& fileName{ threddsCatalogLoc + "/" + path + ".xml"};
 	if (!FileExists(fileName)) {
@@ -97,6 +100,10 @@ void addDataset(const QString& threddsCatalogLoc, const QString& datasetName, co
 
 		aggregate->save_file(aggregatePath.toStdString().c_str());
 	}
+
+	QMessageBox::information(nullptr,
+							 QObject::tr("Dataset Aggregation URL"),
+							 QString("localhost:8080/thredds/dodsC/%1/aggregated.ncml").arg(datasetName));
 }
 
 /***********************************************************************************/
