@@ -41,6 +41,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButtonLoadCustomConfig">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Loads a non-default dataset config file for editing.&lt;/p&gt;&lt;p&gt;This does not affect the Navigator2Go.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>Load Custom File</string>
        </property>
@@ -52,6 +55,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButtonLoadDefaultConfig">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Loads the default dataset config file for the current network state: Online or Offline.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>Load Default File</string>
        </property>
@@ -80,6 +86,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButtonDeleteDataset">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Remove the selected dataset from this file.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>Remove Dataset</string>
        </property>
@@ -93,6 +102,9 @@
       <widget class="QPushButton" name="pushButtonSaveConfigFile">
        <property name="enabled">
         <bool>false</bool>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Save this file.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
         <string>Save</string>
