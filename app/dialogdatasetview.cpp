@@ -259,7 +259,7 @@ int DialogDatasetView::addEmptyVariable() {
 	m_ui->tableWidgetVariables->setItem(rowIdx, 4, new QTableWidgetItem());
 
 	// Scale factor
-	m_ui->tableWidgetVariables->setItem(rowIdx, 5, new QTableWidgetItem());
+	m_ui->tableWidgetVariables->setItem(rowIdx, 5, new QTableWidgetItem(QString::number(1)));
 
 	// Hidden
 	// Gonna use a checkbox
