@@ -65,15 +65,16 @@ void MakeAPIRequest(QNetworkAccessManager& nam, const QString& APIURL, std::func
 }
 
 /***********************************************************************************/
-URLExistsRunnable::URLExistsRunnable(const QString& urlString) :	QRunnable{},
-																	m_url{urlString} {}
+URLExistsRunnable::URLExistsRunnable(const QString& urlString, const quint16 port) :	QRunnable{},
+																						m_url{urlString},
+																						m_port{port} {}
 
 /***********************************************************************************/
 void URLExistsRunnable::run() {
 	bool succ{false};
 
 	QTcpSocket socket;
-	socket.connectToHost(m_url.host(), 80);
+	socket.connectToHost(m_url.host(), m_port);
 
 	if (socket.waitForConnected()) {
 		socket.write("HEAD " + m_url.path().toUtf8() + " HTTP/1.1\r\n"

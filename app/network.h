@@ -23,7 +23,7 @@ void MakeAPIRequest(QNetworkAccessManager& nam,
 class URLExistsRunnable : public QObject, public QRunnable {
 	Q_OBJECT
 public:
-	explicit URLExistsRunnable(const QString& urlString);
+	explicit URLExistsRunnable(const QString& urlString, const quint16 port);
 
 	void run() override;
 
@@ -32,6 +32,7 @@ signals:
 
 private:
 	const QUrl m_url;
+	const quint16 m_port;
 };
 
 } // namespace Network

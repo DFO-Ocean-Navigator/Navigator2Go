@@ -53,13 +53,7 @@ void WidgetConfigEditor::addDatasetToConfigList() {
 void WidgetConfigEditor::saveConfigFile() {
 	const QJsonDocument doc{m_documentRootObject};
 
-	IO::WriteJSONFile(
-		#ifdef QT_DEBUG
-				"/home/nabil/dory.json"
-		#else
-				m_activeConfigFile
-		#endif
-				, m_documentRootObject);
+	IO::WriteJSONFile(m_activeConfigFile, m_documentRootObject);
 
 	m_mainWindow->showStatusBarMessage("Config file saved: ");
 
@@ -114,7 +108,7 @@ void WidgetConfigEditor::on_pushButtonLoadCustomConfig_clicked() {
 
 	const auto filePath{ QFileDialog::getOpenFileName(this,
 													   tr("Select a dataset config file..."),
-													   QDir::currentPath(),
+													   m_prefs->ONInstallDir,
 													   "Config Files (*.json)"
 													   )
 					   };

@@ -361,7 +361,7 @@ void DialogDatasetView::on_pushButtonMagicScan_clicked() {
 
 	m_ui->pushButtonMagicScan->setEnabled(false);
 
-	auto* const task{ new Network::URLExistsRunnable{m_ui->lineEditURL->text()} };
+	auto* const task{ new Network::URLExistsRunnable{m_ui->lineEditURL->text(), 8080} };
 
 	QObject::connect(task, &Network::URLExistsRunnable::urlResult, this, [&](const auto success) {
 		if (success) {
