@@ -194,7 +194,7 @@ std::pair<QString, QJsonObject> DialogDatasetView::GetData() const {
 		const auto isHidden{ m_ui->tableWidgetVariables->item(i, 6)->checkState() };
 		var.insert("hide", isHidden ? true : false);
 
-		const auto& keyText{ m_ui->tableWidgetVariables->item(i, 0)->text().toLower() };
+		const auto& keyText{ m_ui->tableWidgetVariables->item(i, 0)->text() };
 		variables.insert(keyText, var);
 	}
 	obj.insert("variables", variables);
