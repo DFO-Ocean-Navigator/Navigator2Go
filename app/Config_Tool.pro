@@ -23,7 +23,7 @@ QMAKE_CXXFLAGS_DEBUG += -Og # The OG optimized debug ;)
 QMAKE_CXXFLAGS_RELEASE -= -O
 QMAKE_CXXFLAGS_RELEASE -= -O1
 QMAKE_CXXFLAGS_RELEASE -= -O2
-QMAKE_CXXFLAGS_RELEASE += -O3 -DNDEBUG -msse2
+QMAKE_CXXFLAGS_RELEASE += -O3 -pedantic -DNDEBUG -msse2 -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Winit-self -Wextra
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
