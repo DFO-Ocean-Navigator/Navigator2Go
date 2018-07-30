@@ -231,6 +231,6 @@ void WidgetDashboard::updateDriveInfo() {
 
 	m_ui->labelHDDName->setText(storage.name() + QString(" Usage: %1GB | Available: %2GB | Total: %3GB").arg(used).arg(available).arg(total));
 	m_ui->progressBarDriveSpace->setMinimum(0);
-	m_ui->progressBarDriveSpace->setMaximum(total);
-	m_ui->progressBarDriveSpace->setValue(used);
+	m_ui->progressBarDriveSpace->setMaximum(static_cast<int>(total));
+	m_ui->progressBarDriveSpace->setValue(static_cast<int>(used));
 }

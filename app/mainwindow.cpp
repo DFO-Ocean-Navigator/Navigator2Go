@@ -7,6 +7,7 @@
 #include "widgetconfigeditor.h"
 #include "widgetdataorder.h"
 #include "widgetthreddsconfig.h"
+#include "updaterunnable.h"
 
 #include "network.h"
 #include "jsonio.h"
@@ -317,7 +318,13 @@ void MainWindow::setInitialLayout() {
 
 /***********************************************************************************/
 void MainWindow::checkForUpdates() {
-	auto* const nam{ new QNetworkAccessManager{this} };
+	checkForAppUpdate();
+	checkForONUpdates();
+}
+
+/***********************************************************************************/
+void MainWindow::checkForAppUpdate() {
+	auto* const nam{ new QNetworkAccessManager };
 	QNetworkRequest req{{"https://raw.githubusercontent.com/DFO-Ocean-Navigator/Navigator2Go/master/VERSION.txt"}};
 
 	m_updateReply = nam->get(req);
@@ -328,15 +335,14 @@ void MainWindow::checkForUpdates() {
 	QObject::connect(m_updateReply, &QNetworkReply::finished, this, [&]() {
 		const QString& b{ m_updateReply->readAll() };
 		const auto number{ b.split("=", QString::SplitBehavior::SkipEmptyParts)[1].simplified() };
-
-		QMessageBox msgBox{this};
+		QMessageBox msgBox;
 		msgBox.setIcon(QMessageBox::Information);
 
 		if (number == APP_VERSION) {
 			msgBox.setWindowTitle(tr("Navigator2Go"));
 			msgBox.setText(tr("No updates available!"));
 		} else {
-			msgBox.setWindowTitle(tr("Update Available!"));
+			msgBox.setWindowTitle(tr("Navigator2Go Update Available!"));
 			msgBox.setTextFormat(Qt::RichText);
 			msgBox.setText("<a href='https://github.com/DFO-Ocean-Navigator/Navigator2Go/releases' style='color: #3daee9'>https://github.com/DFO-Ocean-Navigator/Navigator2Go/releases</a>");
 		}
@@ -346,6 +352,13 @@ void MainWindow::checkForUpdates() {
 
 		m_updateReply->deleteLater();
 	});
+}
+
+/***********************************************************************************/
+void MainWindow::checkForONUpdates() {
+	auto* const task{ new UpdateRunnable{m_prefs.ONInstallDir} };
+
+	QThreadPool::globalInstance()->start(task);
 }
 
 /***********************************************************************************/

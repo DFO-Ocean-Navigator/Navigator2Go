@@ -68,8 +68,12 @@ private:
 	void setOnline();
 	//
 	void setOffline();
-	//
+	// Calls both update functions for convenience
 	void checkForUpdates();
+	// Checks for updates for Navigator2Go.
+	void checkForAppUpdate();
+	// Updates Ocean Navigator code from git and rebuilds necessary code.
+	void checkForONUpdates();
 	//
 	void showFirstRunConfiguration();
 

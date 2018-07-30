@@ -81,7 +81,8 @@ HEADERS += \
     dialogimportnc.h \
     netcdfimportdesc.h \
     dialogthreddslogs.h \
-    widgetmonthpicker.h
+    widgetmonthpicker.h \
+    updaterunnable.h
 
 SOURCES += \
     datadownloaddesc.cpp \
@@ -105,7 +106,8 @@ SOURCES += \
     dialogselectvars.cpp \
     dialogimportnc.cpp \
     dialogthreddslogs.cpp \
-    widgetmonthpicker.cpp
+    widgetmonthpicker.cpp \
+    updaterunnable.cpp
 
 INCLUDEPATH += \
     $$PWD/netcdf4/include \
