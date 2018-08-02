@@ -75,6 +75,9 @@ void WidgetConfigEditor::on_pushButtonDeleteDataset_clicked() {
 												 QMessageBox::Yes | QMessageBox::No);
 		if (reply == QMessageBox::Yes) {
 			for (auto* item : items) {
+				const auto& key{ m_documentRootObject.find(item->text()) };
+				m_documentRootObject.erase(key);
+
 				delete m_ui->listWidgetActiveDatasets->takeItem(m_ui->listWidgetActiveDatasets->row(item));
 			}
 		}
