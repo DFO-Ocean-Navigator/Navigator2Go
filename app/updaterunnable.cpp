@@ -21,11 +21,12 @@ void UpdateRunnable::run() {
 
 	p.start("git", {"pull"});
 	p.waitForFinished();
-#ifdef QT_DEBUG
-	qDebug() << p.readAllStandardOutput();
-#endif
 
-	if (QString(p.readAllStandardOutput()).contains("Already up-to-date")) {
+	if (const QString output{p.readAllStandardOutput()}; output.contains("Already up-to-date")) {
+#ifdef QT_DEBUG
+		qDebug() << output;
+		qDebug() << "Nothing to update.";
+#endif
 		return;
 	}
 
