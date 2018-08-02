@@ -21,7 +21,14 @@ DialogSelectVars::DialogSelectVars(const netCDF::NcFile& ds, QWidget* parent) :	
 		auto* const hidden{ new QTableWidgetItem() };
 		hidden->setCheckState(Qt::Unchecked);
 		m_ui->tableWidget->setItem(rowIdx, 0, hidden);
-		m_ui->tableWidget->setItem(rowIdx, 1, new QTableWidgetItem(var.first.c_str()));
+
+
+		auto* const item{ new QTableWidgetItem(var.first.c_str())};
+		std::string long_name;
+		var.second.getAtt("long_name").getValues(long_name);
+		item->setToolTip(QString::fromStdString(long_name));
+
+		m_ui->tableWidget->setItem(rowIdx, 1, item);
 	}
 
 }
