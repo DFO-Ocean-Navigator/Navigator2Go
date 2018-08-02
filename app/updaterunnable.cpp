@@ -26,7 +26,7 @@ void UpdateRunnable::run() {
 #endif
 
 	if (QString(p.readAllStandardOutput()).contains("Already up-to-date")) {
-		//return;
+		return;
 	}
 
 	p.setWorkingDirectory(m_ONInstallDir + "/oceannavigator/frontend/");
