@@ -324,6 +324,7 @@ void MainWindow::checkForUpdates() {
 
 /***********************************************************************************/
 void MainWindow::checkForAppUpdate() {
+	showStatusBarMessage("Checking for Navigator2Go updates...");
 	auto* const nam{ new QNetworkAccessManager };
 	QNetworkRequest req{{"https://raw.githubusercontent.com/DFO-Ocean-Navigator/Navigator2Go/master/VERSION.txt"}};
 
@@ -356,7 +357,14 @@ void MainWindow::checkForAppUpdate() {
 
 /***********************************************************************************/
 void MainWindow::checkForONUpdates() {
+	showStatusBarMessage("Checking for Ocean Navigator updates...");
 	auto* const task{ new UpdateRunnable{m_prefs.ONInstallDir} };
+
+	QObject::connect(task, &UpdateRunnable::finished, this, [&](){
+		QMessageBox::information(this,
+								 tr("Update check complete..."),
+								 tr("Restart the gUnicorn server from the dashboard, and refresh your browser page to apply the changes."));
+	});
 
 	QThreadPool::globalInstance()->start(task);
 }

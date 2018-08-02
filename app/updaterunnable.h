@@ -14,6 +14,9 @@ public:
 
 	void run() override;
 
+signals:
+	void finished();
+
 private:
 	const QString m_ONInstallDir;
 };
