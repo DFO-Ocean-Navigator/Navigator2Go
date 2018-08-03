@@ -1,0 +1,11 @@
+{
+    "python.linting.pylintEnabled": false,
+    "files.associations": {
+        "ratio": "cpp",
+        "system_error": "cpp",
+        "type_traits": "cpp",
+        "*.ipp": "cpp",
+        "*.tcc": "cpp",
+        "slist": "cpp"
+    }
+}
