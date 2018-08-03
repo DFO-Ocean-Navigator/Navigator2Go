@@ -5,8 +5,8 @@
 #include <QRunnable>
 
 /***********************************************************************************/
-// Used to update Navigator code from git, and rebuild frontend files.
-// Always invoked by QThreadPool
+/// Used to update Navigator code from git, and rebuild frontend files.
+/** This is always invoked by QThreadPool */
 class UpdateRunnable : public QObject, public QRunnable {
 	Q_OBJECT
 public:

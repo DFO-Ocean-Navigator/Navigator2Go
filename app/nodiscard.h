@@ -1,6 +1,7 @@
 #ifndef NODISCARD_H
 #define NODISCARD_H
 
+/// Preprocessor checks for nodiscard attribute support
 #if __has_cpp_attribute(nodiscard)
 	#define NODISCARD [[nodiscard]]
 #elif __has_cpp_attribute(gnu::warn_unused_result)

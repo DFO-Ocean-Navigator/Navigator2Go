@@ -30,7 +30,6 @@ DialogSelectVars::DialogSelectVars(const netCDF::NcFile& ds, QWidget* parent) :	
 
 		m_ui->tableWidget->setItem(rowIdx, 1, item);
 	}
-
 }
 
 /***********************************************************************************/

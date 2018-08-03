@@ -10,13 +10,14 @@
 class QPropertyAnimation;
 
 /***********************************************************************************/
+/// A toggleable switch widget.
 class SwitchWidget : public QAbstractButton {
 	Q_OBJECT
 	Q_PROPERTY(int offset READ offset WRITE setOffset)
 	Q_PROPERTY(QBrush brush READ brush WRITE setBrush)
 
 public:
-	SwitchWidget(QWidget* parent = nullptr);
+	explicit SwitchWidget(QWidget* parent = nullptr);
 
 	QSize sizeHint() const override;
 

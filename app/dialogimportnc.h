@@ -12,6 +12,7 @@ class DialogImportNC;
 }
 
 /***********************************************************************************/
+/// Dialog window to import a netCDF file.
 class DialogImportNC : public QDialog {
 	Q_OBJECT
 
@@ -19,7 +20,10 @@ public:
 	DialogImportNC(const QString& threddsContentDir, QWidget* parent = nullptr);
 	~DialogImportNC();
 
+	/// Returns the list of files to import as NetCDFImportDesc.
 	NODISCARD QVector<NetCDFImportDesc> GetImportList() const;
+
+	/// Should the source file be removed?
 	NODISCARD bool RemoveSourceNCFiles() const;
 
 private slots:
@@ -28,7 +32,7 @@ private slots:
 	void on_tableWidget_doubleClicked(const QModelIndex& index);
 
 private:
-	//
+	///
 	void addDataset();
 
 	Ui::DialogImportNC* m_ui{nullptr};

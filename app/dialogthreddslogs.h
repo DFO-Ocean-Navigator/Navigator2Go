@@ -11,6 +11,7 @@ class DialogTHREDDSLogs;
 }
 
 /***********************************************************************************/
+/// Dialog window to view THREDDS log files.
 class DialogTHREDDSLogs : public QDialog {
 	Q_OBJECT
 
@@ -26,14 +27,14 @@ private slots:
 	void on_pushButtonReloadLogFile_clicked();
 
 private:
-	//
+	/// Loads a given log file into the UI.
 	void loadLogFile(const QString& filename);
 
 	Ui::DialogTHREDDSLogs* m_ui{nullptr};
 
-	QTimer m_reloadLogFileTimer{this};
+	QTimer m_reloadLogFileTimer{this}; ///< Timer to reload the current log file.
 
-	const QString m_logFolder;
+	const QString m_logFolder; ///< Folder containing THREDDS log files.
 };
 
 #endif // DIALOGTHREDDSLOGS_H

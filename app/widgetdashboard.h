@@ -51,8 +51,8 @@ private:
 
 	QProcess m_consoleProcess{this};
 
-	// Which servers are running locally
-	bool m_isGunicornRunning{false}, m_apacheRunning{false};
+	bool m_isGunicornRunning{false}; ///< gUnicorn server
+	bool m_apacheRunning{false}; ///< Apache tomcat server
 };
 
 #endif // DASHBOARDFORM_H

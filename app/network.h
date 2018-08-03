@@ -20,6 +20,8 @@ void MakeAPIRequest(QNetworkAccessManager& nam,
 					);
 
 /***********************************************************************************/
+/// Queries a remote url on a given port.
+/** This is always invoked by QThreadPool */
 class URLExistsRunnable : public QObject, public QRunnable {
 	Q_OBJECT
 public:

@@ -37,7 +37,7 @@ void DialogPreferences::SetPreferences(Preferences& prefs) {
 }
 
 /***********************************************************************************/
-auto DialogPreferences::GetPreferences() const noexcept -> Preferences {
+auto DialogPreferences::GetPreferences() const -> Preferences {
 	return {
 		m_ui->lineEditInstallDir->text(),
 		m_ui->lineEditRemoteURL->text(),

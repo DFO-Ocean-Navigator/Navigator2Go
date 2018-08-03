@@ -17,6 +17,7 @@ class MainWindow;
 struct Preferences;
 
 /***********************************************************************************/
+/// Dataset config editor widget in the Config Editor tab.
 class WidgetConfigEditor : public QWidget {
 	Q_OBJECT
 
@@ -33,31 +34,29 @@ public:
 
 private slots:
 
-	// Add Dataset button
+	/// Add Dataset button
 	void on_pushButtonAddDataset_clicked();
-	// Delete Dataset button
+	/// Delete Dataset button
 	void on_pushButtonDeleteDataset_clicked();
-	// Save button
+	/// Save button
 	void on_pushButtonSaveConfigFile_clicked();
-	// Load custom dataset config
+	/// Load custom dataset config
 	void on_pushButtonLoadCustomConfig_clicked();
-	// Load default dataset config
+	/// Load default dataset config
 	void on_pushButtonLoadDefaultConfig_clicked();
-
+	///
 	void on_listWidgetActiveDatasets_itemDoubleClicked(QListWidgetItem* item);
 
 private:
-	//
+	///
 	int showUnsavedDataMessageBox();
 
 	Ui::WidgetConfigEditor* m_ui{nullptr};
 	const MainWindow* const m_mainWindow{nullptr};
 	const Preferences* const m_prefs{nullptr};
 
-	// Path to the currently loaded config file
-	QString m_activeConfigFile;
-	// Root JSON object of active config file
-	QJsonObject m_documentRootObject;
+	QString m_activeConfigFile; ///< Path to the currently loaded config file
+	QJsonObject m_documentRootObject; ///< Root JSON object of active config file
 
 	bool m_hasUnsavedData{false};
 };

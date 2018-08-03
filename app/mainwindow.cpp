@@ -13,7 +13,6 @@
 #include "jsonio.h"
 #include "process.h"
 #include "ioutils.h"
-#include "constants.h"
 
 #include <QMessageBox>
 #include <QFile>

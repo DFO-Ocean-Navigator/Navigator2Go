@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['saveconfigfile',['saveConfigFile',['../class_widget_config_editor.html#ab0ed33fdd531d977f34e1788eac02c57',1,'WidgetConfigEditor']]],
+  ['setbrush',['setBrush',['../class_switch_widget.html#afbc1db53afaf2f301818f281723db76b',1,'SwitchWidget']]],
+  ['setdata',['SetData',['../class_dialog_dataset_view.html#a36e858d0a88cdc43d2460dbedfac5b74',1,'DialogDatasetView::SetData(const QString &amp;datasetKey, const QJsonObject &amp;object)'],['../class_dialog_dataset_view.html#ac9ef6fa72147c0a049e6d17d7d4159e6',1,'DialogDatasetView::SetData(const QJsonObject &amp;datasetObj, QNetworkAccessManager &amp;nam)'],['../class_dialog_dataset_view.html#a636f720535346d5c85c55f4064e37c86',1,'DialogDatasetView::SetData(const DataDownloadDesc &amp;data)']]],
+  ['setdebug',['setDebug',['../class_q_easy_downloader.html#ab53f8ed46f021736ff0040444b058421',1,'QEasyDownloader']]],
+  ['setdefaultconfigfile',['setDefaultConfigFile',['../class_widget_config_editor.html#acb8e9b2b50728dc06a61184e0e163b3d',1,'WidgetConfigEditor']]],
+  ['setdownloadpath',['setDownloadPath',['../class_q_easy_downloader.html#ab85d06bab265dce3c54bd59bc89166cf',1,'QEasyDownloader']]],
+  ['setiterated',['setIterated',['../class_q_easy_downloader.html#a816c7ab3f191fb7bd8c735f8a6c41a53',1,'QEasyDownloader']]],
+  ['setnamoffline',['setNAMOffline',['../class_widget_data_order.html#a20acca3885505404b0bcd825b954ec56',1,'WidgetDataOrder']]],
+  ['setnamonline',['setNAMOnline',['../class_widget_data_order.html#a0ff063e3ec98a38dfcdfccae4777be6f',1,'WidgetDataOrder']]],
+  ['setoffset',['setOffset',['../class_switch_widget.html#a63a0fd6680d366476e7e95e9ad3952ce',1,'SwitchWidget']]],
+  ['setpreferences',['SetPreferences',['../class_dialog_preferences.html#a9d280b88a5f40f552ee1bf21f26ac9c5',1,'DialogPreferences']]],
+  ['setregion',['setRegion',['../class_widget_data_order.html#a0eb7f69a699637e305b9f8c287c54358',1,'WidgetDataOrder']]],
+  ['setresumedownloads',['setResumeDownloads',['../class_q_easy_downloader.html#a834a07909ba8ba45c576b28da8d379be',1,'QEasyDownloader']]],
+  ['setretrytime',['setRetryTime',['../class_q_easy_downloader.html#a1574f019dc390f6fd6f1820c9527e323',1,'QEasyDownloader']]],
+  ['setstartenddate',['setStartEndDate',['../class_widget_month_picker.html#ac2d89e81a1748b88229ff4d646062812',1,'WidgetMonthPicker']]],
+  ['settimeouttime',['setTimeoutTime',['../class_q_easy_downloader.html#a1e8620a53c7ec7dfdda85a8457e9bd38',1,'QEasyDownloader']]],
+  ['showofflinetext',['showOfflineText',['../class_widget_dashboard.html#a4c9f0df2bf48cab0a011e4052da1da0a',1,'WidgetDashboard']]],
+  ['showonlinetext',['showOnlineText',['../class_widget_dashboard.html#ad67539ddeed6d0a2306ac5a894c690a7',1,'WidgetDashboard']]],
+  ['showprogressbar',['showProgressBar',['../class_main_window.html#a62be210d8008731f009ce6a31101cb69',1,'MainWindow']]],
+  ['showstatusbarmessage',['showStatusBarMessage',['../class_main_window.html#a9d37673e90ff7a642e3b73fb6097e130',1,'MainWindow']]],
+  ['sizehint',['sizeHint',['../class_switch_widget.html#a1b981fc3c66cd7ea23bc296985129af3',1,'SwitchWidget']]],
+  ['switchwidget',['SwitchWidget',['../class_switch_widget.html#a4c941830a9d60ba531f322335839ae2c',1,'SwitchWidget']]]
+];

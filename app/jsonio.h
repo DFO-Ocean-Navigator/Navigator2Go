@@ -8,11 +8,11 @@
 
 namespace IO {
 /***********************************************************************************/
-// Loads a JSON file from disk, checks for errors, and returns the QJsonDocument.
+/// Loads a JSON file from disk, checks for errors, and returns the QJsonDocument.
 NODISCARD QJsonDocument LoadJSONFile(const QString& path, const bool showMsgBox = true);
 
 /***********************************************************************************/
-// Writes a JSON file to the given path
+/// Writes a JSON file to the given path
 void WriteJSONFile(const QString& path, const QJsonObject& obj = QJsonObject());
 
 } // namespace IO

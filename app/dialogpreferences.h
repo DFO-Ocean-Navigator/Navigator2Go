@@ -16,6 +16,7 @@ class DialogPreferences;
 }
 
 /***********************************************************************************/
+/// Preferences dialog window
 class DialogPreferences : public QDialog {
 	Q_OBJECT
 
@@ -23,8 +24,11 @@ public:
 	explicit DialogPreferences(QWidget* parent = nullptr);
 	~DialogPreferences();
 
+	/// Sets the UI state from a Preferences object.
 	void SetPreferences(Preferences& settings);
-	NODISCARD auto GetPreferences() const noexcept -> Preferences;
+
+	/// Serializes UI values into a Preferences object.
+	NODISCARD auto GetPreferences() const -> Preferences;
 
 private slots:
 	void on_pushButtonBrowseInstallDir_clicked();
