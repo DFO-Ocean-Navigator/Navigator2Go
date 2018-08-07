@@ -1,6 +1,7 @@
 var searchData=
 [
   ['name',['Name',['../struct_data_download_desc.html#a5527c7a94721a7b60e9d2a05b36c542e',1,'DataDownloadDesc']]],
+  ['navigator2go_5fplugin_5fimport_2ecpp',['navigator2go_plugin_import.cpp',['../navigator2go__plugin__import_8cpp.html',1,'']]],
   ['netcdfimportdesc',['NetCDFImportDesc',['../struct_net_c_d_f_import_desc.html',1,'NetCDFImportDesc'],['../struct_net_c_d_f_import_desc.html#acd785c2c157b931610ce5e6d05b2b143',1,'NetCDFImportDesc::NetCDFImportDesc()']]],
   ['netcdfimportdesc_2eh',['netcdfimportdesc.h',['../netcdfimportdesc_8h.html',1,'']]],
   ['network',['Network',['../namespace_network.html',1,'']]],

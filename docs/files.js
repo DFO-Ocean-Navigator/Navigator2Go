@@ -37,6 +37,7 @@ var files =
     [ "mainwindow.h", "mainwindow_8h.html", [
       [ "MainWindow", "class_main_window.html", "class_main_window" ]
     ] ],
+    [ "navigator2go_plugin_import.cpp", "navigator2go__plugin__import_8cpp.html", null ],
     [ "netcdfimportdesc.h", "netcdfimportdesc_8h.html", [
       [ "NetCDFImportDesc", "struct_net_c_d_f_import_desc.html", "struct_net_c_d_f_import_desc" ]
     ] ],

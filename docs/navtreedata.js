@@ -37,7 +37,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_q_easy_downloader_8cc.html",
-"struct_preferences.html#aa129ad169f77f001050980d13ddc6565"
+"struct_preferences.html#a9e3b8fc13a80595d4bdf62f46023fbbb"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
