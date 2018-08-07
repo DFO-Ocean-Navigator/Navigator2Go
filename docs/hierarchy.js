@@ -2,6 +2,7 @@ var hierarchy =
 [
     [ "DataDownloadDesc", "struct_data_download_desc.html", null ],
     [ "IO::DatasetScanDesc", "struct_i_o_1_1_dataset_scan_desc.html", null ],
+    [ "HTMLHighlighter::HighlightingRule", "struct_h_t_m_l_highlighter_1_1_highlighting_rule.html", null ],
     [ "NetCDFImportDesc", "struct_net_c_d_f_import_desc.html", null ],
     [ "Preferences", "struct_preferences.html", null ],
     [ "QAbstractButton", null, [

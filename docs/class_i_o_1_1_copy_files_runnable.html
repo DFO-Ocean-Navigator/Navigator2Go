@@ -110,6 +110,7 @@ $(document).ready(function(){initNavTree('class_i_o_1_1_copy_files_runnable.html
   <div class="summary">
 <a href="#signals">Signals</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_i_o_1_1_copy_files_runnable-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">IO::CopyFilesRunnable Class Reference</div>  </div>
@@ -148,6 +149,15 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a91f462149507d35f4fc16e454bc9e121"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba7970b35a7428aba98c7f93d0b08b91"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_1_1_copy_files_runnable.html#aba7970b35a7428aba98c7f93d0b08b91">run</a> () override</td></tr>
 <tr class="separator:aba7970b35a7428aba98c7f93d0b08b91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a117ea6c913164f01e335995bda54123f"><td class="memItemLeft" align="right" valign="top">const QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_1_1_copy_files_runnable.html#a117ea6c913164f01e335995bda54123f">m_contentDir</a></td></tr>
+<tr class="separator:a117ea6c913164f01e335995bda54123f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3f1baa9d528811b047a7d24b18842a0"><td class="memItemLeft" align="right" valign="top">const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_1_1_copy_files_runnable.html#ae3f1baa9d528811b047a7d24b18842a0">m_removeSourceNCFiles</a></td></tr>
+<tr class="separator:ae3f1baa9d528811b047a7d24b18842a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1491a8e05125de9f366a15f531ff3f9"><td class="memItemLeft" align="right" valign="top">const QVector&lt; <a class="el" href="struct_net_c_d_f_import_desc.html">NetCDFImportDesc</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_o_1_1_copy_files_runnable.html#af1491a8e05125de9f366a15f531ff3f9">m_fileList</a></td></tr>
+<tr class="separator:af1491a8e05125de9f366a15f531ff3f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Copies (or moves) netCDF files to the THREDDS directory. </p>
@@ -251,6 +261,77 @@ Public Member Functions</h2></td></tr>
   </td>
   <td class="mlabels-right">
 <span class="mlabels"><span class="mlabel">override</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_i_o_1_1_copy_files_runnable_aba7970b35a7428aba98c7f93d0b08b91_cgraph.png" border="0" usemap="#class_i_o_1_1_copy_files_runnable_aba7970b35a7428aba98c7f93d0b08b91_cgraph" alt=""/></div>
+<map name="class_i_o_1_1_copy_files_runnable_aba7970b35a7428aba98c7f93d0b08b91_cgraph" id="class_i_o_1_1_copy_files_runnable_aba7970b35a7428aba98c7f93d0b08b91_cgraph">
+<area shape="rect" id="node2" href="namespace_i_o.html#aa4da319edb033251c43ab1f9d63a7cf2" title="Reads an xml file from path. Returns std::nullopt on failure. " alt="" coords="237,5,333,32"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="a117ea6c913164f01e335995bda54123f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const QString IO::CopyFilesRunnable::m_contentDir</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af1491a8e05125de9f366a15f531ff3f9"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const QVector&lt;<a class="el" href="struct_net_c_d_f_import_desc.html">NetCDFImportDesc</a>&gt; IO::CopyFilesRunnable::m_fileList</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae3f1baa9d528811b047a7d24b18842a0"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const bool IO::CopyFilesRunnable::m_removeSourceNCFiles</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

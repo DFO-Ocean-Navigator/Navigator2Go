@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['netcdfimportdesc',['NetCDFImportDesc',['../struct_net_c_d_f_import_desc.html#acd785c2c157b931610ce5e6d05b2b143',1,'NetCDFImportDesc']]],
-  ['next',['Next',['../class_q_easy_downloader.html#ae346fea83a6df1e1ffb0bd1846d31fb8',1,'QEasyDownloader']]]
+  ['main',['main',['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main.cpp']]],
+  ['mainwindow',['MainWindow',['../class_main_window.html#a996c5a2b6f77944776856f08ec30858d',1,'MainWindow']]],
+  ['makeapirequest',['MakeAPIRequest',['../namespace_network.html#a0957b7300d49fafac06b25efdb5ab7e0',1,'Network']]],
+  ['mousereleaseevent',['mouseReleaseEvent',['../class_switch_widget.html#ad3c8c0cdd7a34f9b8e1726f4cfeb0aa5',1,'SwitchWidget']]]
 ];

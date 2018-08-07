@@ -1,13 +1,9 @@
 var searchData=
 [
-  ['getapiquery',['GetAPIQuery',['../struct_data_download_desc.html#a0daff7b7a2277d00aacb64cd41825e5e',1,'DataDownloadDesc']]],
-  ['getdata',['GetData',['../class_dialog_dataset_view.html#ac03e5ac99d69e08f46c38f2db4d36f05',1,'DialogDatasetView']]],
-  ['getdownloaddata',['GetDownloadData',['../class_dialog_dataset_view.html#a9f62db32983631954cf17797ccf496b7',1,'DialogDatasetView']]],
-  ['getimportlist',['GetImportList',['../class_dialog_import_n_c.html#a983eaf9cdd9ab176a4d64c93dfb45a76',1,'DialogImportNC']]],
-  ['getncfilename',['GetNCFilename',['../namespace_i_o.html#a46b5e13da721b8233c925f7fb80dfd5f',1,'IO']]],
-  ['getpreferences',['GetPreferences',['../class_dialog_preferences.html#a0d299383cdbc4e68c1a9111ed93465e0',1,'DialogPreferences']]],
-  ['getregion',['getRegion',['../class_widget_data_order.html#ad6a5be4ee8770b97c6efd3a47301f966',1,'WidgetDataOrder']]],
-  ['getselectedvars',['GetSelectedVars',['../class_dialog_select_vars.html#ac1a7083205da744f8b4a03bba03198f2',1,'DialogSelectVars']]],
-  ['getstartenddate',['getStartEndDate',['../class_widget_month_picker.html#a5645fe14dc6fd75b6a3dbaa7417300c7',1,'WidgetMonthPicker']]],
-  ['getthreddsdatasetlist',['getTHREDDSDatasetList',['../namespace_i_o.html#aeb3af24cfec5d27c64a9adf09170979d',1,'IO']]]
+  ['file',['File',['../struct_net_c_d_f_import_desc.html#a63322376d91835daf4beafa50d4c19c3',1,'NetCDFImportDesc']]],
+  ['fileexists',['FileExists',['../namespace_i_o.html#a0aafb4eb40c0832c513e1bbc0602fa57',1,'IO']]],
+  ['filename',['Filename',['../struct_i_o_1_1_t_h_r_e_d_d_s_file_desc.html#ae1cb8c100a465df2834ba368c4c6143c',1,'IO::THREDDSFileDesc']]],
+  ['findtimedimension',['FindTimeDimension',['../namespace_i_o.html#a070a01ffb554ced647e444026edfd0c7',1,'IO']]],
+  ['finished',['finished',['../class_i_o_1_1_copy_files_runnable.html#a8bf0fb2b0e778797b91cfc676ed7b9ca',1,'IO::CopyFilesRunnable::finished()'],['../class_q_easy_downloader.html#aee7af67f05f89233d4e24a677648e468',1,'QEasyDownloader::finished()'],['../class_update_runnable.html#a5a551a90036c8b82ae7dcf8a68c6e0e6',1,'UpdateRunnable::finished()'],['../class_q_easy_downloader.html#a7d856fa0a9dc8382c0b6bbbbf127ae1d',1,'QEasyDownloader::Finished()']]],
+  ['format',['format',['../struct_h_t_m_l_highlighter_1_1_highlighting_rule.html#a0cff808900f93650e77e3808d11ea874',1,'HTMLHighlighter::HighlightingRule']]]
 ];

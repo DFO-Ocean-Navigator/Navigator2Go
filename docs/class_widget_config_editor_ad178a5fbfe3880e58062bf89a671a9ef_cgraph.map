@@ -1,0 +1,8 @@
+<map id="WidgetConfigEditor::on_pushButtonLoadCustomConfig_clicked" name="WidgetConfigEditor::on_pushButtonLoadCustomConfig_clicked">
+<area shape="rect" id="node2" href="$class_widget_config_editor.html#ab8e397d25c94be4bf0bec626789ffa5f" title="WidgetConfigEditor\l::showUnsavedDataMessageBox" alt="" coords="283,5,500,47"/>
+<area shape="rect" id="node3" href="$class_widget_config_editor.html#ab0ed33fdd531d977f34e1788eac02c57" title="WidgetConfigEditor\l::saveConfigFile" alt="" coords="324,71,459,112"/>
+<area shape="rect" id="node5" href="$class_main_window.html#a9d37673e90ff7a642e3b73fb6097e130" title="MainWindow::showStatusBar\lMessage" alt="" coords="548,129,743,171"/>
+<area shape="rect" id="node6" href="$namespace_i_o.html#a1fae692838a777c0cb5efc7bfd35ed3d" title="Loads a JSON file from disk, checks for errors, and returns the QJsonDocument. " alt="" coords="327,187,456,214"/>
+<area shape="rect" id="node7" href="$class_widget_config_editor.html#a02f1397a15614d6eacc04848a0ef4fd6" title="WidgetConfigEditor\l::updateDatasetListWidget" alt="" coords="303,239,480,280"/>
+<area shape="rect" id="node4" href="$namespace_i_o.html#ac86a15c73dae6f0332a90bf194abd8ca" title="Writes a JSON file to the given path. " alt="" coords="579,78,711,105"/>
+</map>

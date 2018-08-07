@@ -1,0 +1,5 @@
+<map id="MainWindow::checkRemoteConnection" name="MainWindow::checkRemoteConnection">
+<area shape="rect" id="node2" href="$class_main_window.html#a430bf119b39a7ed4ea31e9fc0d1dabcf" title="Set network state to online. " alt="" coords="323,5,483,32"/>
+<area shape="rect" id="node3" href="$class_main_window.html#a9d37673e90ff7a642e3b73fb6097e130" title="MainWindow::showStatusBar\lMessage" alt="" coords="305,57,500,98"/>
+<area shape="rect" id="node4" href="$class_main_window.html#a743de1d031e86b5da2e9701da5193483" title="Set network state to offline. " alt="" coords="322,123,483,149"/>
+</map>

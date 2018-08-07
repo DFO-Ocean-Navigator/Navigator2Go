@@ -1,0 +1,5 @@
+<map id="MainWindow::checkForUpdates" name="MainWindow::checkForUpdates">
+<area shape="rect" id="node2" href="$class_main_window.html#a0a741972d090ea2332e980e2bcbaf582" title="Checks for updates for Navigator2Go. " alt="" coords="263,5,487,32"/>
+<area shape="rect" id="node4" href="$class_main_window.html#a3738cfe4d199c40c137ee86a20871891" title="Updates Ocean Navigator code from git and rebuilds necessary code. " alt="" coords="261,56,489,83"/>
+<area shape="rect" id="node3" href="$class_main_window.html#a9d37673e90ff7a642e3b73fb6097e130" title="MainWindow::showStatusBar\lMessage" alt="" coords="537,23,732,65"/>
+</map>

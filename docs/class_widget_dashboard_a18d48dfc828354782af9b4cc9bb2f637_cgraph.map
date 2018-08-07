@@ -1,0 +1,7 @@
+<map id="WidgetDashboard::WidgetDashboard" name="WidgetDashboard::WidgetDashboard">
+<area shape="rect" id="node2" href="$class_widget_dashboard.html#a8f3491fdd0ff1e9ae8f949772506f95f" title="WidgetDashboard::checkAnd\lStartServers" alt="" coords="309,63,501,105"/>
+<area shape="rect" id="node6" href="$class_widget_dashboard.html#aea05d81ca63aa7adfa9c75a0d50dc81c" title="WidgetDashboard::updateDriveInfo" alt="" coords="292,129,519,156"/>
+<area shape="rect" id="node3" href="$namespace_system.html#ae3452ae458d1f931ba8fab0ec7472ab0" title="Queries the OS given a process name to check if it&#39;s running. " alt="" coords="569,5,752,32"/>
+<area shape="rect" id="node4" href="$class_widget_dashboard.html#ad40c771d6045c3f4b959174fb52b1fa6" title="WidgetDashboard::on\l_pushButtonStartWebServer\l_clicked" alt="" coords="567,56,755,112"/>
+<area shape="rect" id="node5" href="$class_widget_dashboard.html#ae45103079502668aea34816c4db15f6e" title="WidgetDashboard::on\l_pushButtonStartApache\l_clicked" alt="" coords="577,136,744,192"/>
+</map>

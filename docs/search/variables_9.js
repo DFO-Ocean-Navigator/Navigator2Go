@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['oninstalldir',['ONInstallDir',['../struct_preferences.html#aa129ad169f77f001050980d13ddc6565',1,'Preferences']]]
+  ['name',['Name',['../struct_data_download_desc.html#a5527c7a94721a7b60e9d2a05b36c542e',1,'DataDownloadDesc']]]
 ];

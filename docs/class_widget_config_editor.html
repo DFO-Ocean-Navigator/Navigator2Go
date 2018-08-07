@@ -109,6 +109,9 @@ $(document).ready(function(){initNavTree('class_widget_config_editor.html','');}
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-slots">Private Slots</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_widget_config_editor-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">WidgetConfigEditor Class Reference</div>  </div>
@@ -131,6 +134,8 @@ Collaboration diagram for WidgetConfigEditor:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_widget_config_editor__coll__graph.png" border="0" usemap="#_widget_config_editor_coll__map" alt="Collaboration graph"/></div>
 <map name="_widget_config_editor_coll__map" id="_widget_config_editor_coll__map">
+<area shape="rect" id="node3" href="struct_preferences.html" title="Contains the loaded and modified settings. " alt="" coords="83,5,175,32"/>
+<area shape="rect" id="node4" href="class_main_window.html" title="MainWindow" alt="" coords="204,95,301,121"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -150,6 +155,48 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:acb8e9b2b50728dc06a61184e0e163b3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5313f2d7c531d799f9ddd534a64b6c7e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="nodiscard_8h.html#abf13e44576a768044e199191d4f26f7e">NODISCARD</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#a5313f2d7c531d799f9ddd534a64b6c7e">hasUnsavedData</a> () const noexcept</td></tr>
 <tr class="separator:a5313f2d7c531d799f9ddd534a64b6c7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-slots"></a>
+Private Slots</h2></td></tr>
+<tr class="memitem:a88f9bfc70abac017c432e7c50beb0f74"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#a88f9bfc70abac017c432e7c50beb0f74">on_pushButtonAddDataset_clicked</a> ()</td></tr>
+<tr class="memdesc:a88f9bfc70abac017c432e7c50beb0f74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add Dataset button.  <a href="#a88f9bfc70abac017c432e7c50beb0f74">More...</a><br /></td></tr>
+<tr class="separator:a88f9bfc70abac017c432e7c50beb0f74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fa62c641f47e9a9c6071f2ae503de1b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#a1fa62c641f47e9a9c6071f2ae503de1b">on_pushButtonDeleteDataset_clicked</a> ()</td></tr>
+<tr class="memdesc:a1fa62c641f47e9a9c6071f2ae503de1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete Dataset button.  <a href="#a1fa62c641f47e9a9c6071f2ae503de1b">More...</a><br /></td></tr>
+<tr class="separator:a1fa62c641f47e9a9c6071f2ae503de1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7c505b7e41acf11e88aac981b70387b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#ad7c505b7e41acf11e88aac981b70387b">on_pushButtonSaveConfigFile_clicked</a> ()</td></tr>
+<tr class="memdesc:ad7c505b7e41acf11e88aac981b70387b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save button.  <a href="#ad7c505b7e41acf11e88aac981b70387b">More...</a><br /></td></tr>
+<tr class="separator:ad7c505b7e41acf11e88aac981b70387b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad178a5fbfe3880e58062bf89a671a9ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#ad178a5fbfe3880e58062bf89a671a9ef">on_pushButtonLoadCustomConfig_clicked</a> ()</td></tr>
+<tr class="memdesc:ad178a5fbfe3880e58062bf89a671a9ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load custom dataset config.  <a href="#ad178a5fbfe3880e58062bf89a671a9ef">More...</a><br /></td></tr>
+<tr class="separator:ad178a5fbfe3880e58062bf89a671a9ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1a6264132f506c1ed85a08ca6577548"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#ac1a6264132f506c1ed85a08ca6577548">on_pushButtonLoadDefaultConfig_clicked</a> ()</td></tr>
+<tr class="memdesc:ac1a6264132f506c1ed85a08ca6577548"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load default dataset config.  <a href="#ac1a6264132f506c1ed85a08ca6577548">More...</a><br /></td></tr>
+<tr class="separator:ac1a6264132f506c1ed85a08ca6577548"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9269052df005e2842019d170b4161eb7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#a9269052df005e2842019d170b4161eb7">on_listWidgetActiveDatasets_itemDoubleClicked</a> (QListWidgetItem *item)</td></tr>
+<tr class="separator:a9269052df005e2842019d170b4161eb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ab8e397d25c94be4bf0bec626789ffa5f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#ab8e397d25c94be4bf0bec626789ffa5f">showUnsavedDataMessageBox</a> ()</td></tr>
+<tr class="separator:ab8e397d25c94be4bf0bec626789ffa5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a1dab1f40f409b7dfbcc7af8c08fefe0a"><td class="memItemLeft" align="right" valign="top">Ui::WidgetConfigEditor *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#a1dab1f40f409b7dfbcc7af8c08fefe0a">m_ui</a> {nullptr}</td></tr>
+<tr class="separator:a1dab1f40f409b7dfbcc7af8c08fefe0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40a38271d302fde779cc71b42c30ceb1"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_main_window.html">MainWindow</a> *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#a40a38271d302fde779cc71b42c30ceb1">m_mainWindow</a> {nullptr}</td></tr>
+<tr class="separator:a40a38271d302fde779cc71b42c30ceb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fed937a61b2451e8e41d1b876680d87"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_preferences.html">Preferences</a> *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#a9fed937a61b2451e8e41d1b876680d87">m_prefs</a> {nullptr}</td></tr>
+<tr class="separator:a9fed937a61b2451e8e41d1b876680d87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef0320e8cd5dacd15ee3249d9bb383b2"><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#aef0320e8cd5dacd15ee3249d9bb383b2">m_activeConfigFile</a></td></tr>
+<tr class="memdesc:aef0320e8cd5dacd15ee3249d9bb383b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Path to the currently loaded config file.  <a href="#aef0320e8cd5dacd15ee3249d9bb383b2">More...</a><br /></td></tr>
+<tr class="separator:aef0320e8cd5dacd15ee3249d9bb383b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62aa988831e9e4a35f6baa596a0d8690"><td class="memItemLeft" align="right" valign="top">QJsonObject&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#a62aa988831e9e4a35f6baa596a0d8690">m_documentRootObject</a></td></tr>
+<tr class="memdesc:a62aa988831e9e4a35f6baa596a0d8690"><td class="mdescLeft">&#160;</td><td class="mdescRight">Root JSON object of active config file.  <a href="#a62aa988831e9e4a35f6baa596a0d8690">More...</a><br /></td></tr>
+<tr class="separator:a62aa988831e9e4a35f6baa596a0d8690"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b50b107482369d0a44d3cddf264028c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#a7b50b107482369d0a44d3cddf264028c">m_hasUnsavedData</a> {false}</td></tr>
+<tr class="separator:a7b50b107482369d0a44d3cddf264028c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Dataset config editor widget in the Config Editor tab. </p>
@@ -240,6 +287,218 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a9269052df005e2842019d170b4161eb7"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WidgetConfigEditor::on_listWidgetActiveDatasets_itemDoubleClicked </td>
+          <td>(</td>
+          <td class="paramtype">QListWidgetItem *&#160;</td>
+          <td class="paramname"><em>item</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_widget_config_editor_a9269052df005e2842019d170b4161eb7_cgraph.png" border="0" usemap="#class_widget_config_editor_a9269052df005e2842019d170b4161eb7_cgraph" alt=""/></div>
+<map name="class_widget_config_editor_a9269052df005e2842019d170b4161eb7_cgraph" id="class_widget_config_editor_a9269052df005e2842019d170b4161eb7_cgraph">
+<area shape="rect" id="node2" href="class_dialog_dataset_view.html#a36e858d0a88cdc43d2460dbedfac5b74" title="Parse data from loaded config file. " alt="" coords="252,13,395,54"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a88f9bfc70abac017c432e7c50beb0f74"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WidgetConfigEditor::on_pushButtonAddDataset_clicked </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Add Dataset button. </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_widget_config_editor_a88f9bfc70abac017c432e7c50beb0f74_cgraph.png" border="0" usemap="#class_widget_config_editor_a88f9bfc70abac017c432e7c50beb0f74_cgraph" alt=""/></div>
+<map name="class_widget_config_editor_a88f9bfc70abac017c432e7c50beb0f74_cgraph" id="class_widget_config_editor_a88f9bfc70abac017c432e7c50beb0f74_cgraph">
+<area shape="rect" id="node2" href="class_widget_config_editor.html#a913b3f3af19babddaf2f15e8c6c88cef" title="WidgetConfigEditor\l::addDatasetToConfigList" alt="" coords="240,13,411,54"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a1fa62c641f47e9a9c6071f2ae503de1b"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WidgetConfigEditor::on_pushButtonDeleteDataset_clicked </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Delete Dataset button. </p>
+
+</div>
+</div>
+<a class="anchor" id="ad178a5fbfe3880e58062bf89a671a9ef"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WidgetConfigEditor::on_pushButtonLoadCustomConfig_clicked </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Load custom dataset config. </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_widget_config_editor_ad178a5fbfe3880e58062bf89a671a9ef_cgraph.png" border="0" usemap="#class_widget_config_editor_ad178a5fbfe3880e58062bf89a671a9ef_cgraph" alt=""/></div>
+<map name="class_widget_config_editor_ad178a5fbfe3880e58062bf89a671a9ef_cgraph" id="class_widget_config_editor_ad178a5fbfe3880e58062bf89a671a9ef_cgraph">
+<area shape="rect" id="node2" href="class_widget_config_editor.html#ab8e397d25c94be4bf0bec626789ffa5f" title="WidgetConfigEditor\l::showUnsavedDataMessageBox" alt="" coords="283,5,500,47"/>
+<area shape="rect" id="node3" href="class_widget_config_editor.html#ab0ed33fdd531d977f34e1788eac02c57" title="WidgetConfigEditor\l::saveConfigFile" alt="" coords="324,71,459,112"/>
+<area shape="rect" id="node5" href="class_main_window.html#a9d37673e90ff7a642e3b73fb6097e130" title="MainWindow::showStatusBar\lMessage" alt="" coords="548,129,743,171"/>
+<area shape="rect" id="node6" href="namespace_i_o.html#a1fae692838a777c0cb5efc7bfd35ed3d" title="Loads a JSON file from disk, checks for errors, and returns the QJsonDocument. " alt="" coords="327,187,456,214"/>
+<area shape="rect" id="node7" href="class_widget_config_editor.html#a02f1397a15614d6eacc04848a0ef4fd6" title="WidgetConfigEditor\l::updateDatasetListWidget" alt="" coords="303,239,480,280"/>
+<area shape="rect" id="node4" href="namespace_i_o.html#ac86a15c73dae6f0332a90bf194abd8ca" title="Writes a JSON file to the given path. " alt="" coords="579,78,711,105"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ac1a6264132f506c1ed85a08ca6577548"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WidgetConfigEditor::on_pushButtonLoadDefaultConfig_clicked </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Load default dataset config. </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_widget_config_editor_ac1a6264132f506c1ed85a08ca6577548_cgraph.png" border="0" usemap="#class_widget_config_editor_ac1a6264132f506c1ed85a08ca6577548_cgraph" alt=""/></div>
+<map name="class_widget_config_editor_ac1a6264132f506c1ed85a08ca6577548_cgraph" id="class_widget_config_editor_ac1a6264132f506c1ed85a08ca6577548_cgraph">
+<area shape="rect" id="node2" href="class_widget_config_editor.html#ab8e397d25c94be4bf0bec626789ffa5f" title="WidgetConfigEditor\l::showUnsavedDataMessageBox" alt="" coords="240,5,457,47"/>
+<area shape="rect" id="node3" href="class_widget_config_editor.html#ab0ed33fdd531d977f34e1788eac02c57" title="WidgetConfigEditor\l::saveConfigFile" alt="" coords="281,71,416,112"/>
+<area shape="rect" id="node6" href="class_widget_config_editor.html#acb8e9b2b50728dc06a61184e0e163b3d" title="WidgetConfigEditor\l::setDefaultConfigFile" alt="" coords="274,136,423,177"/>
+<area shape="rect" id="node8" href="class_widget_config_editor.html#a02f1397a15614d6eacc04848a0ef4fd6" title="WidgetConfigEditor\l::updateDatasetListWidget" alt="" coords="260,201,437,243"/>
+<area shape="rect" id="node4" href="namespace_i_o.html#ac86a15c73dae6f0332a90bf194abd8ca" title="Writes a JSON file to the given path. " alt="" coords="537,137,669,163"/>
+<area shape="rect" id="node5" href="class_main_window.html#a9d37673e90ff7a642e3b73fb6097e130" title="MainWindow::showStatusBar\lMessage" alt="" coords="505,71,700,112"/>
+<area shape="rect" id="node7" href="namespace_i_o.html#a1fae692838a777c0cb5efc7bfd35ed3d" title="Loads a JSON file from disk, checks for errors, and returns the QJsonDocument. " alt="" coords="538,187,667,214"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ad7c505b7e41acf11e88aac981b70387b"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WidgetConfigEditor::on_pushButtonSaveConfigFile_clicked </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Save button. </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_widget_config_editor_ad7c505b7e41acf11e88aac981b70387b_cgraph.png" border="0" usemap="#class_widget_config_editor_ad7c505b7e41acf11e88aac981b70387b_cgraph" alt=""/></div>
+<map name="class_widget_config_editor_ad7c505b7e41acf11e88aac981b70387b_cgraph" id="class_widget_config_editor_ad7c505b7e41acf11e88aac981b70387b_cgraph">
+<area shape="rect" id="node2" href="class_widget_config_editor.html#ab0ed33fdd531d977f34e1788eac02c57" title="WidgetConfigEditor\l::saveConfigFile" alt="" coords="260,27,395,69"/>
+<area shape="rect" id="node3" href="namespace_i_o.html#ac86a15c73dae6f0332a90bf194abd8ca" title="Writes a JSON file to the given path. " alt="" coords="474,5,606,32"/>
+<area shape="rect" id="node4" href="class_main_window.html#a9d37673e90ff7a642e3b73fb6097e130" title="MainWindow::showStatusBar\lMessage" alt="" coords="443,57,637,98"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
 <a class="anchor" id="ab0ed33fdd531d977f34e1788eac02c57"></a>
 <div class="memitem">
 <div class="memproto">
@@ -252,6 +511,17 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_widget_config_editor_ab0ed33fdd531d977f34e1788eac02c57_cgraph.png" border="0" usemap="#class_widget_config_editor_ab0ed33fdd531d977f34e1788eac02c57_cgraph" alt=""/></div>
+<map name="class_widget_config_editor_ab0ed33fdd531d977f34e1788eac02c57_cgraph" id="class_widget_config_editor_ab0ed33fdd531d977f34e1788eac02c57_cgraph">
+<area shape="rect" id="node2" href="namespace_i_o.html#ac86a15c73dae6f0332a90bf194abd8ca" title="Writes a JSON file to the given path. " alt="" coords="219,5,351,32"/>
+<area shape="rect" id="node3" href="class_main_window.html#a9d37673e90ff7a642e3b73fb6097e130" title="MainWindow::showStatusBar\lMessage" alt="" coords="188,57,383,98"/>
+</map>
+</div>
+</p>
 
 </div>
 </div>
@@ -268,6 +538,41 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_widget_config_editor_acb8e9b2b50728dc06a61184e0e163b3d_cgraph.png" border="0" usemap="#class_widget_config_editor_acb8e9b2b50728dc06a61184e0e163b3d_cgraph" alt=""/></div>
+<map name="class_widget_config_editor_acb8e9b2b50728dc06a61184e0e163b3d_cgraph" id="class_widget_config_editor_acb8e9b2b50728dc06a61184e0e163b3d_cgraph">
+<area shape="rect" id="node2" href="namespace_i_o.html#a1fae692838a777c0cb5efc7bfd35ed3d" title="Loads a JSON file from disk, checks for errors, and returns the QJsonDocument. " alt="" coords="235,5,365,32"/>
+<area shape="rect" id="node3" href="namespace_i_o.html#ac86a15c73dae6f0332a90bf194abd8ca" title="Writes a JSON file to the given path. " alt="" coords="234,56,366,83"/>
+<area shape="rect" id="node4" href="class_main_window.html#a9d37673e90ff7a642e3b73fb6097e130" title="MainWindow::showStatusBar\lMessage" alt="" coords="203,107,397,149"/>
+</map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="ab8e397d25c94be4bf0bec626789ffa5f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int WidgetConfigEditor::showUnsavedDataMessageBox </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
 </div>
 </div>
 <a class="anchor" id="a02f1397a15614d6eacc04848a0ef4fd6"></a>
@@ -281,6 +586,131 @@ Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="aef0320e8cd5dacd15ee3249d9bb383b2"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString WidgetConfigEditor::m_activeConfigFile</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Path to the currently loaded config file. </p>
+
+</div>
+</div>
+<a class="anchor" id="a62aa988831e9e4a35f6baa596a0d8690"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QJsonObject WidgetConfigEditor::m_documentRootObject</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Root JSON object of active config file. </p>
+
+</div>
+</div>
+<a class="anchor" id="a7b50b107482369d0a44d3cddf264028c"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool WidgetConfigEditor::m_hasUnsavedData {false}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a40a38271d302fde779cc71b42c30ceb1"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="class_main_window.html">MainWindow</a>* const WidgetConfigEditor::m_mainWindow {nullptr}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a9fed937a61b2451e8e41d1b876680d87"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="struct_preferences.html">Preferences</a>* const WidgetConfigEditor::m_prefs {nullptr}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a1dab1f40f409b7dfbcc7af8c08fefe0a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Ui::WidgetConfigEditor* WidgetConfigEditor::m_ui {nullptr}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>

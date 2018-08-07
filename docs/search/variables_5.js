@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['id',['ID',['../struct_data_download_desc.html#ad50e68c9cdd1445d06963b8399bc2d3c',1,'DataDownloadDesc']]],
-  ['indextomonth',['indexToMonth',['../widgetmonthpicker_8cpp.html#a12083f792fe90ba641f9aefcc5db6908',1,'widgetmonthpicker.cpp']]],
-  ['isnetworkonline',['IsNetworkOnline',['../struct_preferences.html#a610434b3e6b23b91c7274c05dbdc9818',1,'Preferences']]]
+  ['file',['File',['../struct_net_c_d_f_import_desc.html#a63322376d91835daf4beafa50d4c19c3',1,'NetCDFImportDesc']]],
+  ['filename',['Filename',['../struct_i_o_1_1_t_h_r_e_d_d_s_file_desc.html#ae1cb8c100a465df2834ba368c4c6143c',1,'IO::THREDDSFileDesc']]],
+  ['format',['format',['../struct_h_t_m_l_highlighter_1_1_highlighting_rule.html#a0cff808900f93650e77e3808d11ea874',1,'HTMLHighlighter::HighlightingRule']]]
 ];

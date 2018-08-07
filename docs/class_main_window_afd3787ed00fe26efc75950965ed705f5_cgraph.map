@@ -1,0 +1,6 @@
+<map id="MainWindow::on_actionCheck_for_Updates_triggered" name="MainWindow::on_actionCheck_for_Updates_triggered">
+<area shape="rect" id="node2" href="$class_main_window.html#a10750b9bdf057c5863a1ff682390170f" title="Calls both update functions for convenience. " alt="" coords="252,31,460,57"/>
+<area shape="rect" id="node3" href="$class_main_window.html#a0a741972d090ea2332e980e2bcbaf582" title="Checks for updates for Navigator2Go. " alt="" coords="510,5,734,32"/>
+<area shape="rect" id="node5" href="$class_main_window.html#a3738cfe4d199c40c137ee86a20871891" title="Updates Ocean Navigator code from git and rebuilds necessary code. " alt="" coords="508,56,736,83"/>
+<area shape="rect" id="node4" href="$class_main_window.html#a9d37673e90ff7a642e3b73fb6097e130" title="MainWindow::showStatusBar\lMessage" alt="" coords="784,23,979,65"/>
+</map>

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['datadownloadformat',['DataDownloadFormat',['../struct_preferences.html#a551c94c8bb93e414b2aa12433487ff99',1,'Preferences']]],
-  ['datasetname',['DatasetName',['../struct_i_o_1_1_dataset_scan_desc.html#a0dea188774c1ab66c063a75907d90fca',1,'IO::DatasetScanDesc']]],
-  ['datasettoappendto',['DatasetToAppendTo',['../struct_net_c_d_f_import_desc.html#af1f13d8c34d830f178d8be6d376e2043',1,'NetCDFImportDesc']]]
+  ['checkforupdatesonstart',['CheckForUpdatesOnStart',['../struct_preferences.html#aa93811e5abb8b32c33790aef1f1b74f2',1,'Preferences']]],
+  ['color_5fgreen',['COLOR_GREEN',['../constants_8h.html#a4c07ac77604626da02b05fbb944013ef',1,'constants.h']]],
+  ['color_5fred',['COLOR_RED',['../constants_8h.html#a9a72b43a882d630adb72c8ce2c44638b',1,'constants.h']]]
 ];

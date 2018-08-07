@@ -1,0 +1,5 @@
+<map id="WidgetThreddsConfig::on_pushButtonRemoveDataset_clicked" name="WidgetThreddsConfig::on_pushButtonRemoveDataset_clicked">
+<area shape="rect" id="node2" href="$class_widget_thredds_config.html#aa39e0041ffe4266b4390d1def19143a9" title="WidgetThreddsConfig\l::removeDataset" alt="" coords="265,23,413,65"/>
+<area shape="rect" id="node3" href="$namespace_i_o.html#aa4da319edb033251c43ab1f9d63a7cf2" title="Reads an xml file from path. Returns std::nullopt on failure. " alt="" coords="469,5,565,32"/>
+<area shape="rect" id="node4" href="$namespace_i_o.html#a731cfdd3cd9f40b3a8710fc2681ab7fb" title="Recursively remove a directory. " alt="" coords="461,56,572,83"/>
+</map>

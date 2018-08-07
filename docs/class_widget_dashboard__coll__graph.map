@@ -1,2 +1,4 @@
 <map id="WidgetDashboard" name="WidgetDashboard">
+<area shape="rect" id="node3" href="$struct_preferences.html" title="Contains the loaded and modified settings. " alt="" coords="83,5,175,32"/>
+<area shape="rect" id="node4" href="$class_main_window.html" title="MainWindow" alt="" coords="204,95,301,121"/>
 </map>

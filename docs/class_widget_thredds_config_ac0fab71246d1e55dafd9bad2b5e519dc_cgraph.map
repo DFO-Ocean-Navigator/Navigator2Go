@@ -1,0 +1,5 @@
+<map id="WidgetThreddsConfig::WidgetThreddsConfig" name="WidgetThreddsConfig::WidgetThreddsConfig">
+<area shape="rect" id="node2" href="$class_widget_thredds_config.html#ad8afd511d014e15189eb8b9590aebe21" title="WidgetThreddsConfig\l::checkCatalogsPath" alt="" coords="209,5,357,47"/>
+<area shape="rect" id="node3" href="$class_widget_thredds_config.html#abc80e73cd387f75d0f117959f86867dc" title="WidgetThreddsConfig\l::buildTable" alt="" coords="209,71,357,112"/>
+<area shape="rect" id="node4" href="$namespace_i_o.html#aa4da319edb033251c43ab1f9d63a7cf2" title="Reads an xml file from path. Returns std::nullopt on failure. " alt="" coords="405,78,501,105"/>
+</map>

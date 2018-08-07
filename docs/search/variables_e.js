@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['threddscataloglocation',['THREDDSCatalogLocation',['../struct_preferences.html#a780f88585ce5586bafa1f4031e828a40',1,'Preferences']]],
-  ['tomcat_5fbin_5fdir',['TOMCAT_BIN_DIR',['../namespace_i_o.html#ae43f0453b5dd21f0d446839b5faaf19f',1,'IO']]]
+  ['selectedvariables',['SelectedVariables',['../struct_data_download_desc.html#ab3557114343d2230dc2e4d24ede56bf9',1,'DataDownloadDesc']]],
+  ['startdate',['StartDate',['../struct_data_download_desc.html#a1cf1f2be57cce84f94d1bdb97b8ecb56',1,'DataDownloadDesc']]],
+  ['status_5fbar_5fmsg_5ftimeout',['STATUS_BAR_MSG_TIMEOUT',['../constants_8h.html#ac6d08de611a456e803a62195e2f390cb',1,'constants.h']]]
 ];

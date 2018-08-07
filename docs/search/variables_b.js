@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['qss_5fcolor_5fgreen',['QSS_COLOR_GREEN',['../constants_8h.html#a26d3d3843ba2605f54e6540c97f07e84',1,'constants.h']]],
-  ['qss_5fcolor_5fred',['QSS_COLOR_RED',['../constants_8h.html#a7a250b535ff1d68bae471044f36a94e4',1,'constants.h']]],
-  ['quantum',['Quantum',['../struct_data_download_desc.html#a0ade61f36ac9e471538a94323ab1dc91',1,'DataDownloadDesc']]]
+  ['path',['Path',['../struct_i_o_1_1_t_h_r_e_d_d_s_file_desc.html#ac156f3d69b917e4ceb8a792c9335ad4d',1,'IO::THREDDSFileDesc']]],
+  ['pattern',['pattern',['../struct_h_t_m_l_highlighter_1_1_highlighting_rule.html#a98f59cf1e3a1c992262cc4823da39890',1,'HTMLHighlighter::HighlightingRule']]]
 ];

@@ -26,7 +26,8 @@ var files =
     ] ],
     [ "htmlhighlighter.cpp", "htmlhighlighter_8cpp.html", null ],
     [ "htmlhighlighter.h", "htmlhighlighter_8h.html", [
-      [ "HTMLHighlighter", "class_h_t_m_l_highlighter.html", "class_h_t_m_l_highlighter" ]
+      [ "HTMLHighlighter", "class_h_t_m_l_highlighter.html", "class_h_t_m_l_highlighter" ],
+      [ "HighlightingRule", "struct_h_t_m_l_highlighter_1_1_highlighting_rule.html", "struct_h_t_m_l_highlighter_1_1_highlighting_rule" ]
     ] ],
     [ "ioutils.cpp", "ioutils_8cpp.html", "ioutils_8cpp" ],
     [ "ioutils.h", "ioutils_8h.html", "ioutils_8h" ],

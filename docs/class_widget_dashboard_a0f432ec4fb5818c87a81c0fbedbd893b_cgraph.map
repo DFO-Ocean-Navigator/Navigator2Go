@@ -1,0 +1,6 @@
+<map id="WidgetDashboard::on_pushButtonCheckRemoteUplink_clicked" name="WidgetDashboard::on_pushButtonCheckRemoteUplink_clicked">
+<area shape="rect" id="node2" href="$class_main_window.html#abc8e9eb1d5c005b8a7c1873c1ad581e9" title="MainWindow::checkRemoteConnection" alt="" coords="269,64,521,91"/>
+<area shape="rect" id="node3" href="$class_main_window.html#a430bf119b39a7ed4ea31e9fc0d1dabcf" title="Set network state to online. " alt="" coords="587,5,747,32"/>
+<area shape="rect" id="node4" href="$class_main_window.html#a9d37673e90ff7a642e3b73fb6097e130" title="MainWindow::showStatusBar\lMessage" alt="" coords="569,57,764,98"/>
+<area shape="rect" id="node5" href="$class_main_window.html#a743de1d031e86b5da2e9701da5193483" title="Set network state to offline. " alt="" coords="586,123,747,149"/>
+</map>
