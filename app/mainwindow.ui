@@ -74,6 +74,26 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="dataOrder">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <attribute name="icon">
+        <iconset resource="resources.qrc">
+         <normaloff>:/icons/icons/database.png</normaloff>:/icons/icons/database.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>Data Order</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="dataOrderLayout"/>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="threddsconfig">
        <attribute name="icon">
         <iconset resource="resources.qrc">
@@ -102,26 +122,6 @@
        <layout class="QGridLayout" name="gridLayout_4">
         <item row="0" column="0">
          <layout class="QGridLayout" name="configEditorLayout"/>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="dataOrder">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <attribute name="icon">
-        <iconset resource="resources.qrc">
-         <normaloff>:/icons/icons/database.png</normaloff>:/icons/icons/database.png</iconset>
-       </attribute>
-       <attribute name="title">
-        <string>Data Order</string>
-       </attribute>
-       <layout class="QGridLayout" name="gridLayout_3">
-        <item row="0" column="0">
-         <layout class="QGridLayout" name="dataOrderLayout"/>
         </item>
        </layout>
       </widget>

@@ -19,8 +19,10 @@ class WidgetThreddsConfig : public QWidget {
 
 public:
 	WidgetThreddsConfig(QWidget* parent, const Preferences* prefs);
-
 	~WidgetThreddsConfig();
+
+	//
+	void BuildTable();
 
 private slots:
 	void on_tableWidget_cellChanged(int row, int column);
@@ -32,8 +34,6 @@ private slots:
 	void on_pushButtonShowLogs_clicked();
 
 private:
-	//
-	void buildTable();
 	//
 	void checkCatalogsPath();
 	//

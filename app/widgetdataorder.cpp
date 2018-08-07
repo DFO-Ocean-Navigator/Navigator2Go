@@ -219,6 +219,8 @@ void WidgetDataOrder::configureNetwork() {
 						box.setIcon(QMessageBox::Information);
 
 						box.exec();
+
+						m_mainWindow->UpdateTHREDDSConfigTable();
 					}
 	);
 

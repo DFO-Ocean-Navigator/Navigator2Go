@@ -467,6 +467,11 @@ void MainWindow::hideProgressBar() {
 }
 
 /***********************************************************************************/
+void MainWindow::UpdateTHREDDSConfigTable() {
+	m_widgetThreddsConfig->BuildTable();
+}
+
+/***********************************************************************************/
 void MainWindow::on_actionCheck_for_Updates_triggered() {
 	checkForUpdates();
 }

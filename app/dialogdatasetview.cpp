@@ -45,14 +45,19 @@ void DialogDatasetView::SetData(const QString& datasetKey, const QJsonObject& ob
 		m_ui->spinBoxCache->setEnabled(true);
 		m_ui->spinBoxCache->setValue(object["cache"].toInt());
 	}
-	m_ui->lineEditURL->setText(object["url"].toString());
+	if (const auto& url{ object["url"].toString() }; !url.isEmpty()) {
+		m_ui->lineEditURL->setText(object["url"].toString());
+	}
+	else {
+		m_ui->lineEditURL->setText(QString("http://localhost:8080/thredds/dodsC/%1/aggregated.ncml").arg(datasetKey));
+	}
 	m_ui->lineEditClima->setText(object["climatology"].toString());
-	const auto idx = m_ui->comboBoxQuantum->findText(object["quantum"].toString());
+	const auto idx{ m_ui->comboBoxQuantum->findText(object["quantum"].toString()) };
 	m_ui->comboBoxQuantum->setCurrentIndex(idx);
 	m_ui->plainTextEditHelp->document()->setPlainText(object["help"].toString());
 
 	// Populate variables
-	const auto variables = object["variables"].toObject();
+	const auto& variables = object["variables"].toObject();
 	for (const auto& key : variables.keys()) {
 		m_ui->tableWidgetVariables->insertRow(m_ui->tableWidgetVariables->rowCount());
 

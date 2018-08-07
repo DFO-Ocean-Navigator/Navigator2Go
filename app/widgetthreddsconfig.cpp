@@ -41,7 +41,7 @@ WidgetThreddsConfig::WidgetThreddsConfig(QWidget* parent, const Preferences* pre
 
 	checkCatalogsPath();
 
-	buildTable();
+	BuildTable();
 }
 
 /***********************************************************************************/
@@ -128,7 +128,8 @@ void WidgetThreddsConfig::on_pushButtonShowLogs_clicked() {
 }
 
 /***********************************************************************************/
-void WidgetThreddsConfig::buildTable() {
+void WidgetThreddsConfig::BuildTable() {
+	m_ui->tableWidget->clear();
 
 	const auto& catalogFile{ m_prefs->THREDDSCatalogLocation + QString("/catalog.xml") };
 

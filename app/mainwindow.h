@@ -38,6 +38,8 @@ public:
 	void updateProgressBar(const int value);
 	void hideProgressBar();
 
+	void UpdateTHREDDSConfigTable();
+
 protected:
 	/// Capture closeEvent to write settings, cleanup, etc.
 	void closeEvent(QCloseEvent* event) override;

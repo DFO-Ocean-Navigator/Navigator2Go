@@ -5,6 +5,7 @@
 #include "preferences.h"
 #include "dialogdatasetview.h"
 #include "jsonio.h"
+#include "ioutils.h"
 
 #include <QMessageBox>
 #include <QInputDialog>
@@ -24,6 +25,16 @@ WidgetConfigEditor::WidgetConfigEditor(QWidget* parent, const MainWindow* mainWi
 
 	m_ui->pushButtonAddDataset->setText(tr("Add Dataset"));
 	m_ui->pushButtonDeleteDataset->setText(tr("Delete Dataset"));
+
+	const auto& onlineConfig{ m_prefs->ONInstallDir+"/oceannavigator/datasetconfigONLINE.json" };
+	const auto& offlineConfig{ m_prefs->ONInstallDir+"/oceannavigator/datasetconfigOFFLINE.json" };
+	if (!IO::FileExists(onlineConfig)) {
+		IO::WriteJSONFile(onlineConfig);
+	}
+	if (!IO::FileExists(offlineConfig)) {
+		IO::WriteJSONFile(offlineConfig);
+	}
+
 }
 
 /***********************************************************************************/
@@ -198,18 +209,6 @@ void WidgetConfigEditor::setDefaultConfigFile() {
 	if (doc.isNull()) {
 #ifdef QT_DEBUG
 		qDebug() << "Config file not found: " << newConfigFile;
-#endif
-		QMessageBox box{this};
-		box.setWindowTitle(tr("File not found..."));
-		box.setText(tr("No default config file was found. Do you want to create one at: ")
-					+ newConfigFile);
-		box.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-		box.setIcon(QMessageBox::Question);
-
-		if (box.exec() != QMessageBox::Yes) {
-			return;
-		}
-#ifdef QT_DEBUG
 		qDebug() << "Creating it...";
 #endif
 		// File doesn't exist so create it
