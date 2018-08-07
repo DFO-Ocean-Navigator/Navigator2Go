@@ -473,6 +473,10 @@ void MainWindow::on_actionCheck_for_Updates_triggered() {
 
 /***********************************************************************************/
 void MainWindow::showFirstRunConfiguration() {
+	QMessageBox::information(this,
+							 tr("Navigator2Go First Run"),
+							 tr("Hello there! It appears this is the first time you are running Navigator2Go on this computer. Let's set up a few things first..."));
+
 	DialogPreferences prefsDialog{this};
 	prefsDialog.setWindowTitle(tr("Navigator2Go Initial Setup..."));
 	prefsDialog.SetPreferences(m_prefs);
