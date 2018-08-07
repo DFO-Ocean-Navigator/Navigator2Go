@@ -29,13 +29,6 @@ WidgetThreddsConfig::WidgetThreddsConfig(QWidget* parent, const Preferences* pre
 																						m_prefs{prefs} {
 	m_ui->setupUi(this);
 
-	m_ui->tableWidget->horizontalHeader()->setStretchLastSection(true); // Resize columns to widget width
-	m_ui->tableWidget->setHorizontalHeaderLabels({
-													tr("Dataset Name"),
-													tr("Catalog Path"),
-													tr("Dataset Files Location")
-												 });
-
 	m_ui->labelTHREDDSPath->setText(tr("THREDDS Location: ") + m_prefs->THREDDSCatalogLocation);
 	m_ui->labelTHREDDSPath->setStyleSheet(QSS_COLOR_GREEN);
 
@@ -130,6 +123,12 @@ void WidgetThreddsConfig::on_pushButtonShowLogs_clicked() {
 /***********************************************************************************/
 void WidgetThreddsConfig::BuildTable() {
 	m_ui->tableWidget->clear();
+	m_ui->tableWidget->horizontalHeader()->setStretchLastSection(true); // Resize columns to widget width
+	m_ui->tableWidget->setHorizontalHeaderLabels({
+													tr("Dataset Name"),
+													tr("Catalog Path"),
+													tr("Dataset Files Location")
+												 });
 
 	const auto& catalogFile{ m_prefs->THREDDSCatalogLocation + QString("/catalog.xml") };
 
