@@ -13,7 +13,6 @@
 
 #include <netcdf4/ncDim.h>
 #include <netcdf4/ncVar.h>
-#include <netcdf4/ncFile.h>
 
 /***********************************************************************************/
 DialogDatasetView::DialogDatasetView(QWidget* parent) :	QDialog(parent), m_ui(new Ui::DatasetView) {
