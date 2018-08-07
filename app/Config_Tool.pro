@@ -14,7 +14,7 @@ QMAKE_CXX = g++-7
 CONFIG += c++1z
 QMAKE_CXXFLAGS += -std=c++17
 
-TARGET = Config_Tool
+TARGET = Navigator2Go
 TEMPLATE = app
 
 QMAKE_CXXFLAGS_DEBUG += -Og # The OG optimized debug ;)

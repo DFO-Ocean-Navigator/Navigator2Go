@@ -5,7 +5,7 @@
 namespace System {
 
 /***********************************************************************************/
-// Checks if a named process is running on a UNIX or Windows system
+/// Checks if a named process is running on a UNIX or Windows system
 #ifdef __linux__
 bool IsProcessRunning(const QString& processName) {
 	static const QString& prefix{"ps cax | grep "};
