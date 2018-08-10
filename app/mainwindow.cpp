@@ -168,6 +168,9 @@ void MainWindow::readSettings() {
 	if (m_settings.contains("THREDDSCatalogLocation")) {
 		m_prefs.THREDDSCatalogLocation = m_settings.value("THREDDSCatalogLocation").toString();
 	}
+	else {
+		m_prefs.THREDDSCatalogLocation = "/opt/thredds_content/thredds";
+	}
 
 	if (m_settings.contains("UpdateRemoteListOnStart")) {
 		m_prefs.UpdateRemoteListOnStart = m_settings.value("UpdateRemoteListOnStart").toBool();
