@@ -4,6 +4,7 @@
 #include "mainwindow.h"
 #include "dialogdatasetview.h"
 #include "ioutils.h"
+#include "process.h"
 #include "network.h"
 #include "xmlio.h"
 
@@ -211,6 +212,8 @@ void WidgetDataOrder::configureNetwork() {
 						this->m_mainWindow->hideProgressBar();
 						m_downloadQueue.clear();
 						m_ui->groupBoxDownloadStats->setVisible(false);
+
+						System::SendDesktopNotification("Navigator2Go", "All downloads complete!");
 
 						QMessageBox box{this};
 						box.setWindowTitle(tr("Downloads completed..."));
