@@ -483,15 +483,16 @@ void MainWindow::on_actionCheck_for_Updates_triggered() {
 void MainWindow::showFirstRunConfiguration() {
 	QMessageBox::information(this,
 							 tr("Navigator2Go First Run"),
-							 tr("Hello there! It appears this is the first time you are running Navigator2Go on this computer. Go to: <a href='https://github.com/DFO-Ocean-Navigator/Navigator2Go/wiki/Tutorial' style='color: #3daee9'>https://github.com/DFO-Ocean-Navigator/Navigator2Go/wiki/First-Run</a>"));
+							 tr("Hello there! It appears this is the first time you are running Navigator2Go on this computer. Go to: <a href='https://dfo-ocean-navigator.github.io/Navigator2GoTutorial/' style='color: #3daee9'>https://dfo-ocean-navigator.github.io/Navigator2GoTutorial/</a>"));
 
 	DialogPreferences prefsDialog{this};
 	prefsDialog.setWindowTitle(tr("Navigator2Go Initial Setup..."));
 	prefsDialog.SetPreferences(m_prefs);
 
-	while(prefsDialog.GetPreferences().THREDDSCatalogLocation.isEmpty()) {
+	do {
 		prefsDialog.exec();
 	}
+	while(prefsDialog.GetPreferences().THREDDSCatalogLocation.isEmpty());
 
 	m_prefs = prefsDialog.GetPreferences();
 }
