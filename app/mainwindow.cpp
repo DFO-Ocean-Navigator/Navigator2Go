@@ -378,7 +378,6 @@ void MainWindow::setOnline() {
 #endif
 	m_widgetDataOrder->setNAMOnline();
 	m_widgetDashboard->showOnlineText();
-	m_widgetConfigEditor->setDefaultConfigFile();
 	m_widgetConfigEditor->updateDatasetListWidget();
 }
 
@@ -389,7 +388,6 @@ void MainWindow::setOffline() {
 #endif
 	m_widgetDataOrder->setNAMOffline();
 	m_widgetDashboard->showOfflineText();
-	m_widgetConfigEditor->setDefaultConfigFile();
 	m_widgetConfigEditor->updateDatasetListWidget();
 }
 

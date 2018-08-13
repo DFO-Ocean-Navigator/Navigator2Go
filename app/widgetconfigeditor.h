@@ -28,12 +28,10 @@ public:
 	void addDatasetToConfigList();
 	void saveConfigFile();
 	void updateDatasetListWidget();
-	void setDefaultConfigFile();
 
 	NODISCARD auto hasUnsavedData() const noexcept { return m_hasUnsavedData; }
 
 private slots:
-
 	/// Add Dataset button
 	void on_pushButtonAddDataset_clicked();
 	/// Delete Dataset button
@@ -48,6 +46,8 @@ private slots:
 	void on_listWidgetActiveDatasets_itemDoubleClicked(QListWidgetItem* item);
 
 private:
+	///
+	void setDefaultConfigFile();
 	///
 	int showUnsavedDataMessageBox();
 

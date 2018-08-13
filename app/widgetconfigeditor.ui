@@ -56,7 +56,7 @@
      <item>
       <widget class="QPushButton" name="pushButtonLoadDefaultConfig">
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Loads the default dataset config file for the current network state: Online or Offline.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Loads the offline config file.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
         <string>Load Default File</string>

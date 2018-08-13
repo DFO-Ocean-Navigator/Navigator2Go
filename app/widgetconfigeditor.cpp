@@ -26,15 +26,12 @@ WidgetConfigEditor::WidgetConfigEditor(QWidget* parent, const MainWindow* mainWi
 	m_ui->pushButtonAddDataset->setText(tr("Add Dataset"));
 	m_ui->pushButtonDeleteDataset->setText(tr("Delete Dataset"));
 
-	const auto& onlineConfig{ m_prefs->ONInstallDir+"/oceannavigator/datasetconfigONLINE.json" };
 	const auto& offlineConfig{ m_prefs->ONInstallDir+"/oceannavigator/datasetconfigOFFLINE.json" };
-	if (!IO::FileExists(onlineConfig)) {
-		IO::WriteJSONFile(onlineConfig);
-	}
 	if (!IO::FileExists(offlineConfig)) {
 		IO::WriteJSONFile(offlineConfig);
 	}
 
+	setDefaultConfigFile();
 }
 
 /***********************************************************************************/
@@ -199,27 +196,24 @@ void WidgetConfigEditor::updateDatasetListWidget() {
 
 /***********************************************************************************/
 void WidgetConfigEditor::setDefaultConfigFile() {
-	const auto& onlineConfig{ m_prefs->ONInstallDir+"/oceannavigator/datasetconfigONLINE.json" };
-	const auto& offlineConfig{ m_prefs->ONInstallDir+"/oceannavigator/datasetconfigOFFLINE.json" };
-
-	const auto& newConfigFile{ m_prefs->IsNetworkOnline ? onlineConfig : offlineConfig };
+	static const auto& offlineConfig{ m_prefs->ONInstallDir+"/oceannavigator/datasetconfigOFFLINE.json" };
 
 	// Validate file
-	auto doc = IO::LoadJSONFile(newConfigFile);
+	auto doc = IO::LoadJSONFile(offlineConfig);
 	if (doc.isNull()) {
 #ifdef QT_DEBUG
-		qDebug() << "Config file not found: " << newConfigFile;
+		qDebug() << "Config file not found: " << offlineConfig;
 		qDebug() << "Creating it...";
 #endif
 		// File doesn't exist so create it
-		IO::WriteJSONFile(newConfigFile);
+		IO::WriteJSONFile(offlineConfig);
 
 		// And now load it
-		doc = IO::LoadJSONFile(newConfigFile);
+		doc = IO::LoadJSONFile(offlineConfig);
 
 	}
 
-	m_activeConfigFile = newConfigFile;
+	m_activeConfigFile = offlineConfig;
 	m_documentRootObject = doc.object();
 
 	m_mainWindow->showStatusBarMessage("Config file loaded.");
