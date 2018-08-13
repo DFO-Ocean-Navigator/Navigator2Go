@@ -101,9 +101,12 @@ void addDataset(const QString& threddsCatalogLoc, const QString& datasetName, co
 		aggregate->save_file(aggregatePath.toStdString().c_str());
 	}
 
+	/* Show aggregation URL dialog...not really needed anymore since it's auto-filled in the dataset
+	 * properties
 	QMessageBox::information(nullptr,
 							 QObject::tr("Dataset Aggregation URL"),
 							 QString("localhost:8080/thredds/dodsC/%1/aggregated.ncml").arg(datasetName));
+	*/
 }
 
 /***********************************************************************************/

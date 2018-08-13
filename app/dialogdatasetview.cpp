@@ -384,7 +384,11 @@ void DialogDatasetView::on_pushButtonMagicScan_clicked() {
 					const auto& ncVar{ dsVars.find(var.toStdString())->second };
 
 					// Key
-					m_ui->tableWidgetVariables->item(rowIdx, 0)->setText(var);
+					auto* const key{ new QTableWidgetItem() };
+					key->setText(var);
+					key->setFlags(key->flags() ^ Qt::ItemIsEditable); // Read-only
+					m_ui->tableWidgetVariables->setItem(rowIdx, 0, key);
+
 					// Name
 					const auto& name_att{ ncVar.getAtt("long_name") };
 					if (!name_att.isNull()) {
