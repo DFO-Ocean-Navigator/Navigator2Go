@@ -92,8 +92,6 @@ private:
 
 	QTimer m_uplinkTimer{this};
 	bool m_hasRemoteUplink{true};
-
-	bool m_firstRun{false};
 };
 
 #endif // MAINWINDOW_H

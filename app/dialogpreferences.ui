@@ -180,7 +180,7 @@
             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Toggle the network state of Navigator2Go.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;All network activity from this program will cease.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;This is a helpful feature if you want to isolate your Navigator system to conserve bandwidth, for example.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="text">
-            <string>Network Online/Offline:</string>
+            <string>Network Access On/Off:</string>
            </property>
           </widget>
          </item>

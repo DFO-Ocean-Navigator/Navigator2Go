@@ -13,6 +13,7 @@
 #include "jsonio.h"
 #include "process.h"
 #include "ioutils.h"
+#include "xmlio.h"
 
 #include <QMessageBox>
 #include <QFile>
@@ -52,7 +53,7 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 
 	readSettings();
 
-	if (m_firstRun) {
+	if (m_prefs.FirstRun) {
 #ifdef QT_DEBUG
 		qDebug() << "First run";
 #endif
@@ -148,7 +149,10 @@ void MainWindow::readSettings() {
 	m_settings.beginGroup("General");
 
 	if (!m_settings.contains("FirstRun")) {
-		m_firstRun = true;
+		m_prefs.FirstRun = true;
+	}
+	else {
+		m_prefs.FirstRun = false;
 	}
 
 	if (m_settings.contains("ONInstallDir")) {

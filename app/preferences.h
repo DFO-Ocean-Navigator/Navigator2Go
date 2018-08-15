@@ -24,6 +24,7 @@ struct NODISCARD Preferences {
 	bool AutoStartServers{false};		///< Should we start gUnicorn and THREDDS on program start?
 	bool IsNetworkOnline{true};			///< Global network state (online or offline).
 	bool CheckForUpdatesOnStart{true};	///< Check for program updates on start.
+	bool FirstRun{true};
 };
 
 #endif // PREFERENCES_H

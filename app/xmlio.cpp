@@ -228,4 +228,82 @@ QStringList getTHREDDSDatasetList(const pugi::xml_document& doc) {
 	return dsList;
 }
 
+/***********************************************************************************/
+void createNewPrimaryCatalog(const QString& threddsContentPath) {
+	pugi::xml_document doc;
+
+	// Header declaration
+	auto header{ doc.prepend_child(pugi::node_declaration) };
+	header.append_attribute("version") = "1.0";
+	header.append_attribute("encoding") = "UTF-8";
+
+	// Top-level <catalog></catalog> tags
+	auto catalog{ doc.append_child() };
+	catalog.set_name("catalog");
+	catalog.append_attribute("xmlns") = "http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0";
+	catalog.append_attribute("xmlns:xlink") = "http://www.w3.org/1999/xlink";
+	catalog.append_attribute("name") = "Navigator2Go THREDDS Server";
+	catalog.append_attribute("version") = "1.0";
+
+	{
+		// Service tags
+		auto services{ catalog.append_child() };
+		services.set_name("service");
+		services.append_attribute("name") = "all";
+		services.append_attribute("base") = "";
+		services.append_attribute("serviceType") = "compound";
+
+
+		auto odapService{ services.append_child( ) };
+		odapService.set_name("service");
+		odapService.append_attribute("name") = "odap";
+		odapService.append_attribute("serviceType") = "OpenDAP";
+		odapService.append_attribute("base") = "/thredds/dodsC/";
+
+		auto dap4Service{ services.append_child( ) };
+		dap4Service.set_name("service");
+		dap4Service.append_attribute("name") = "dap4";
+		dap4Service.append_attribute("serviceType") = "DAP4";
+		dap4Service.append_attribute("base") = "/thredds/dap4/";
+
+		auto httpService{ services.append_child() };
+		httpService.set_name("service");
+		httpService.append_attribute("name") = "http";
+		httpService.append_attribute("serviceType") = "HTTPServer";
+		httpService.append_attribute("base") = "/thredds/fileServer/";
+
+		auto ncssService{ services.append_child() };
+		ncssService.set_name("service");
+		ncssService.append_attribute("name") = "ncss";
+		ncssService.append_attribute("serviceType") = "NetcdfSubset";
+		ncssService.append_attribute("base") = "/thredds/ncss/";
+	}
+
+	{
+		auto service{ catalog.append_child() };
+		service.set_name("service");
+		service.append_attribute("name") = "dap";
+		service.append_attribute("serviceType") = "compound";
+		service.append_attribute("base") = "";
+
+		auto odapService{ service.append_child() };
+		odapService.set_name("service");
+		odapService.append_attribute("name") = "odap";
+		odapService.append_attribute("serviceType") = "OpenDAP";
+		odapService.append_attribute("base") = "/thredds/dodsC/";
+
+		auto dap4Service{ service.append_child() };
+		dap4Service.set_name("service");
+		dap4Service.append_attribute("name") = "dap4";
+		dap4Service.append_attribute("serviceType") = "DAP4";
+		dap4Service.append_attribute("base") = "/thredds/dap4/";
+	}
+
+	// Check the path exists
+	IO::CreateDir(threddsContentPath);
+
+	const auto& filename{ threddsContentPath + "/catalog.xml" };
+	doc.save_file(filename.toStdString().c_str());
+}
+
 } // namespace IO

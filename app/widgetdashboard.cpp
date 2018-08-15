@@ -9,6 +9,7 @@
 #include "process.h"
 #include "preferences.h"
 #include "network.h"
+#include "xmlio.h"
 
 #include <QMessageBox>
 #include <QStorageInfo>

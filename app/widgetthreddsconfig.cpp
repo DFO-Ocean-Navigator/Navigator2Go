@@ -132,17 +132,12 @@ void WidgetThreddsConfig::BuildTable() {
 
 	const auto& catalogFile{ m_prefs->THREDDSCatalogLocation + QString("/catalog.xml") };
 
-	const auto doc{ IO::readXML(catalogFile) };
+	auto doc{ IO::readXML(catalogFile) };
 
 	if (!doc.has_value()) {
-		QMessageBox box{this};
-		box.setWindowTitle(tr("THREDDS catalog error..."));
-		box.setText(tr("Failed to load THREDDS catalog file: ") + catalogFile);
-		box.setIcon(QMessageBox::Critical);
+		IO::createNewPrimaryCatalog(m_prefs->THREDDSCatalogLocation);
 
-		box.exec();
-
-		return;
+		doc = IO::readXML(catalogFile);
 	}
 
 	const auto& rootNode{ doc->child("catalog") };

@@ -37,7 +37,11 @@ void addDataset(const QString& threddsCatalogLoc, const QString& datasetName, co
 NODISCARD bool datasetExists(const QString& threddsCatalogLoc, const QString& datasetName);
 
 /***********************************************************************************/
-/// Creates a new catalog document with required headers/attributes
+/// Creates a new "root catalog" that stores references to other catalogs.
+void createNewPrimaryCatalog(const QString& threddsContentPath);
+
+/***********************************************************************************/
+/// Creates a new catalog document for a dataset with required headers/attributes
 void createNewCatalogFile(const QString& threddsContentPath, const DatasetScanDesc& dataset);
 
 /***********************************************************************************/
