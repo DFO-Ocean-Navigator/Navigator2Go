@@ -242,8 +242,9 @@ void createNewPrimaryCatalog(const QString& threddsContentPath) {
 	catalog.set_name("catalog");
 	catalog.append_attribute("xmlns") = "http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0";
 	catalog.append_attribute("xmlns:xlink") = "http://www.w3.org/1999/xlink";
+	catalog.append_attribute("xmlns:xsi") = "http://www.w3.org/2001/XMLSchema-instance";
+	catalog.append_attribute("xsi:schemaLocation") = "http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0 http://www.unidata.ucar.edu/schemas/thredds/InvCatalog.1.0.6.xsd";
 	catalog.append_attribute("name") = "Navigator2Go THREDDS Server";
-	catalog.append_attribute("version") = "1.0";
 
 	{
 		// Service tags
