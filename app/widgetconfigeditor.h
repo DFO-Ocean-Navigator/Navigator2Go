@@ -42,7 +42,7 @@ private slots:
 	void on_pushButtonLoadCustomConfig_clicked();
 	/// Load default dataset config
 	void on_pushButtonLoadDefaultConfig_clicked();
-	///
+	/// Double-click on list item.
 	void on_listWidgetActiveDatasets_itemDoubleClicked(QListWidgetItem* item);
 
 private:

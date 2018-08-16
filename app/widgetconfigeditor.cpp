@@ -54,6 +54,10 @@ void WidgetConfigEditor::addDatasetToConfigList() {
 		m_hasUnsavedData = true;
 		m_ui->pushButtonSaveConfigFile->setEnabled(true);
 		m_ui->listWidgetActiveDatasets->addItem(name);
+
+		// Auto-open properties window
+		const auto rowCount{ m_ui->listWidgetActiveDatasets->count() };
+		on_listWidgetActiveDatasets_itemDoubleClicked(m_ui->listWidgetActiveDatasets->item(rowCount - 1));
 	}
 }
 
