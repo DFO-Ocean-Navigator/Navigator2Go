@@ -44,10 +44,14 @@ So, you've made some changes to my lovely code that made it even more awesome. T
 1. Navigate to the source folder `Navigator2Go/app/`.
 2. Run `./Build.sh`.
 3. Fix any compile errors that crop up and run the above again.
-4. You can now run the tool like so `./Config_Tool`.
+4. `cd ../build/`.
+5. `./Navigator2Go`.
+6. To package it for uploading to Github, `tar zcvf Navigator2Go.tar.gz Navigator2Go`. Do not change the tar.gz file name otherwise the installation script WILL fail.
+7. Go to Github and create a new release.
 
 ## Incrementing Version Number
 The program's version number is stored in `VERSION.txt`. This is included in `Config_Tool.pro` to make the number accessible to `qmake` and to C++.
+DO NOT remove or move this file, since this file is queried by the Navigator2Go update function.
 After changing the number as needed:
 * Run qmake from Qt Creator.
 * Clean and re-build the project.
