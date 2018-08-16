@@ -9,7 +9,7 @@
 
 /***********************************************************************************/
 DialogSelectVars::DialogSelectVars(const netCDF::NcFile& ds, QWidget* parent) :	QDialog{parent},
-																				m_ui(new Ui::DialogSelectVars) {
+																				m_ui{new Ui::DialogSelectVars} {
 	m_ui->setupUi(this);
 
 	m_ui->tableWidget->horizontalHeader()->setStretchLastSection(true); // Resize columns to widget width

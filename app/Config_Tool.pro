@@ -12,7 +12,7 @@ DEFINES += GIT_CURRENT_BRANCH="\\\"$(shell git -C \""$$_PRO_FILE_PWD_"\" branch 
 QMAKE_CXX = g++-7
 
 CONFIG += c++1z
-QMAKE_CXXFLAGS += -std=c++17
+QMAKE_CXXFLAGS += -std=c++17 -pedantic -Wold-style-cast
 
 TARGET = Navigator2Go
 TEMPLATE = app
@@ -23,7 +23,7 @@ QMAKE_CXXFLAGS_DEBUG += -Og # The OG optimized debug ;)
 QMAKE_CXXFLAGS_RELEASE -= -O
 QMAKE_CXXFLAGS_RELEASE -= -O1
 QMAKE_CXXFLAGS_RELEASE -= -O2
-QMAKE_CXXFLAGS_RELEASE += -O3 -pedantic -DNDEBUG -msse2 -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Winit-self -Wextra -pedantic-errors
+QMAKE_CXXFLAGS_RELEASE += -O3 -g -DNDEBUG -msse2 -Woverloaded-virtual -Wredundant-decls -Winit-self -Wextra -pedantic-errors
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -55,7 +55,7 @@ FORMS += \
     dialogthreddslogs.ui \
     widgetmonthpicker.ui
 
-unix:!macx: LIBS += -lnetcdf_c++4
+unix:!macx: LIBS += -lnetcdf_c++4 -lbfd -ldl
 
 HEADERS += \
     datadownloaddesc.h \
@@ -82,7 +82,8 @@ HEADERS += \
     dialogthreddslogs.h \
     widgetmonthpicker.h \
     updaterunnable.h \
-    systemutils.h
+    systemutils.h \
+    backward/backward.hpp
 
 SOURCES += \
     datadownloaddesc.cpp \
@@ -107,7 +108,8 @@ SOURCES += \
     dialogthreddslogs.cpp \
     widgetmonthpicker.cpp \
     updaterunnable.cpp \
-    systemutils.cpp
+    systemutils.cpp \
+    backward/backward.cpp
 
 INCLUDEPATH += \
     $$PWD/netcdf4/include \
