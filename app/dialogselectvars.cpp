@@ -3,6 +3,10 @@
 
 #include <netcdf4/ncVar.h>
 
+#ifdef QT_DEBUG
+	#include <QDebug>
+#endif
+
 /***********************************************************************************/
 DialogSelectVars::DialogSelectVars(const netCDF::NcFile& ds, QWidget* parent) :	QDialog{parent},
 																				m_ui(new Ui::DialogSelectVars) {
@@ -22,11 +26,19 @@ DialogSelectVars::DialogSelectVars(const netCDF::NcFile& ds, QWidget* parent) :	
 		hidden->setCheckState(Qt::Unchecked);
 		m_ui->tableWidget->setItem(rowIdx, 0, hidden);
 
-
 		auto* const item{ new QTableWidgetItem(var.first.c_str())};
-		std::string long_name;
-		var.second.getAtt("long_name").getValues(long_name);
-		item->setToolTip(QString::fromStdString(long_name));
+
+		// The netcdf c++ library throws an exception when an attribute
+		// is not found...so we do this try-catch nonsense.
+		try {
+			std::string long_name;
+			var.second.getAtt("long_name").getValues(long_name);
+			item->setToolTip(QString::fromStdString(long_name));
+		} catch(const netCDF::exceptions::NcException& e) {
+#ifdef QT_DEBUG
+			qDebug() << e.what();
+#endif
+		}
 
 		m_ui->tableWidget->setItem(rowIdx, 1, item);
 	}
