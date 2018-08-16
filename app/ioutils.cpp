@@ -46,7 +46,7 @@ bool FileExists(const QString& path) {
 }
 
 /***********************************************************************************/
-void CreateDir(const QString& path) {
+void createDir(const QString& path) {
 	const QFileInfo f{path};
 	const QDir dir{f.absoluteDir()};
 

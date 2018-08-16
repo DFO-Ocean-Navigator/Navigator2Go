@@ -31,7 +31,7 @@ NODISCARD bool FileExists(const QString& path);
 
 /***********************************************************************************/
 /// Create a directory with necessary parents if needed.
-void CreateDir(const QString& path);
+void createDir(const QString& path);
 
 /***********************************************************************************/
 /// Recursively remove a directory

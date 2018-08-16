@@ -35,7 +35,7 @@ void appendDatasetToCatalog(pugi::xml_document& doc, const QString& datasetName)
 }
 
 /***********************************************************************************/
-void addDataset(const QString& threddsCatalogLoc, const QString& datasetName, const QString& dataPath) {
+bool addDataset(const QString& threddsCatalogLoc, const QString& datasetName, const QString& dataPath) {
 	const auto& path{ QString("catalogs/") + datasetName };
 
 	// Modify catalog.xml
@@ -46,11 +46,9 @@ void addDataset(const QString& threddsCatalogLoc, const QString& datasetName, co
 	child.append_attribute("xlink:href") = QString(path + ".xml").toStdString().c_str();
 	child.append_attribute("name") = "";
 
-	doc->save_file(catalogPath.toStdString().c_str());
-
 	const auto& fileName{ threddsCatalogLoc + "/" + path + ".xml"};
 	if (!FileExists(fileName)) {
-		CreateDir(fileName);
+		createDir(fileName);
 	}
 
 	// Create dataset catalog file (giops_day.xml for example)
@@ -76,13 +74,14 @@ void addDataset(const QString& threddsCatalogLoc, const QString& datasetName, co
 												  QObject::tr("The folder you specified is empty. Please enter the name of the time dimension for your dataset. Alternatively, add a netCDF file to this directory and re-run this wizard."));
 
 			if (timeDimension.isEmpty()) {
-				return;
+				return false;
 			}
 		}
 		else {
 			// Find the name of time dimension of first file.
 			timeDimension = FindTimeDimension(dir.entryInfoList()[0].absoluteFilePath());
 		}
+		doc->save_file(catalogPath.toStdString().c_str());
 
 		aggregate = createNewAggregateFile();
 
@@ -107,6 +106,8 @@ void addDataset(const QString& threddsCatalogLoc, const QString& datasetName, co
 							 QObject::tr("Dataset Aggregation URL"),
 							 QString("localhost:8080/thredds/dodsC/%1/aggregated.ncml").arg(datasetName));
 	*/
+
+	return true;
 }
 
 /***********************************************************************************/

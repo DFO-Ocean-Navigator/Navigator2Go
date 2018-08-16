@@ -29,7 +29,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Select Variables to Import...</string>
+   <string>Select Data Variables to Import...</string>
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">

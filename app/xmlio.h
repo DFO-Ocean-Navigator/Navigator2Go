@@ -28,9 +28,9 @@ NODISCARD std::optional<pugi::xml_document> readXML(const QString& path);
 void appendDatasetToCatalog(pugi::xml_document& doc, const QString& datasetName);
 
 /***********************************************************************************/
-/// Adds a dataset to THREDDS.
+/// Adds a dataset to THREDDS. Returns true if added.
 /** Modifies/creates all necessary catalog and aggregate files. */
-void addDataset(const QString& threddsCatalogLoc, const QString& datasetName, const QString& dataPath);
+bool addDataset(const QString& threddsCatalogLoc, const QString& datasetName, const QString& dataPath);
 
 /***********************************************************************************/
 /// Checks if a named dataset exists in catalog.xml

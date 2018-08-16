@@ -83,9 +83,12 @@ void WidgetThreddsConfig::on_pushButtonAddDataset_clicked() {
 						  };
 
 	if (validateDatasetName(datasetName) && ok_dspath) {
-		createRow(datasetName, datasetPath);
-		IO::addDataset(m_prefs->THREDDSCatalogLocation, datasetName, datasetPath);
 
+		if (!IO::addDataset(m_prefs->THREDDSCatalogLocation, datasetName, datasetPath)) {
+			return;
+		}
+
+		createRow(datasetName, datasetPath);
 		QMessageBox::information(this,
 								 tr("Success..."),
 								 tr("Your dataset has been added to THREDDS! Go to the Dashboard to Stop and Start the Apache server to apply your changes."));
