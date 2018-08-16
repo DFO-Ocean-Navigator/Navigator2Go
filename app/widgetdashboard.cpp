@@ -6,7 +6,7 @@
 
 #include "constants.h"
 #include "ioutils.h"
-#include "process.h"
+#include "systemutils.h"
 #include "preferences.h"
 #include "network.h"
 #include "xmlio.h"

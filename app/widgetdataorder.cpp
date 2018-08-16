@@ -4,7 +4,7 @@
 #include "mainwindow.h"
 #include "dialogdatasetview.h"
 #include "ioutils.h"
-#include "process.h"
+#include "systemutils.h"
 #include "network.h"
 #include "xmlio.h"
 
