@@ -302,7 +302,7 @@ void createNewPrimaryCatalog(const QString& threddsContentPath) {
 	}
 
 	// Check the path exists
-	IO::CreateDir(threddsContentPath);
+	IO::createDir(threddsContentPath);
 
 	const auto& filename{ threddsContentPath + "/catalog.xml" };
 	doc.save_file(filename.toStdString().c_str());
