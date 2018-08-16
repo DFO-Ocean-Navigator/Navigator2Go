@@ -67,7 +67,6 @@ HEADERS += \
     mainwindow.h \
     network.h \
     preferences.h \
-    process.h \
     QEasyDownloader.hpp \
     switchwidget.h \
     widgetdashboard.h \
@@ -82,7 +81,8 @@ HEADERS += \
     netcdfimportdesc.h \
     dialogthreddslogs.h \
     widgetmonthpicker.h \
-    updaterunnable.h
+    updaterunnable.h \
+    systemutils.h
 
 SOURCES += \
     datadownloaddesc.cpp \
@@ -94,7 +94,6 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     network.cpp \
-    process.cpp \
     QEasyDownloader.cc \
     switchwidget.cpp \
     widgetdashboard.cpp \
@@ -107,7 +106,8 @@ SOURCES += \
     dialogimportnc.cpp \
     dialogthreddslogs.cpp \
     widgetmonthpicker.cpp \
-    updaterunnable.cpp
+    updaterunnable.cpp \
+    systemutils.cpp
 
 INCLUDEPATH += \
     $$PWD/netcdf4/include \

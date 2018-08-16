@@ -1,6 +1,7 @@
-#include "process.h"
+#include "systemutils.h"
 
 #include <QProcess>
+
 #ifdef QT_DEBUG
 	#include <QDebug>
 #endif
