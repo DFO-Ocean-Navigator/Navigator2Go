@@ -351,7 +351,7 @@ void MainWindow::checkForAppUpdate() {
 		} else {
 			msgBox.setWindowTitle(tr("Navigator2Go Update Available!"));
 			msgBox.setTextFormat(Qt::RichText);
-			msgBox.setText("<a href='https://github.com/DFO-Ocean-Navigator/Navigator2Go/releases' style='color: #3daee9'>https://github.com/DFO-Ocean-Navigator/Navigator2Go/releases</a>");
+			msgBox.setText("<a href='https://github.com/DFO-Ocean-Navigator/Navigator2Go/releases/latest' style='color: #3daee9'>https://github.com/DFO-Ocean-Navigator/Navigator2Go/releases/latest</a>");
 		}
 
 		msgBox.exec();
