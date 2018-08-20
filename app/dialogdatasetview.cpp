@@ -134,7 +134,8 @@ void DialogDatasetView::SetData(const QJsonObject& datasetObj, QNetworkAccessMan
 								const auto& startDate{ QDate::fromString(start, Qt::DateFormat::ISODate) };
 								const auto& endDate{ QDate::fromString(end, Qt::DateFormat::ISODate) };
 
-								if (quantum == "day") {
+								// Use correct time picking widget
+								if (quantum == "day" || quantum == "hour") {
 									m_ui->calendarWidgetStart->setVisible(true);
 									m_ui->calendarWidgetStart->setDateRange(startDate, endDate);
 									m_ui->calendarWidgetStart->setSelectedDate(startDate);
@@ -150,9 +151,6 @@ void DialogDatasetView::SetData(const QJsonObject& datasetObj, QNetworkAccessMan
 								if (quantum == "month") {
 									m_ui->widgetMonthPicker->setStartEndDate(startDate, endDate);
 									m_ui->widgetMonthPicker->setVisible(true);
-									return;
-								}
-								if (quantum == "hour") {
 									return;
 								}
 							}
@@ -218,17 +216,14 @@ DataDownloadDesc DialogDatasetView::GetDownloadData() const {
 
 	QDate startDate, endDate;
 	const auto& quantum{ m_ui->comboBoxQuantum->currentText() };
-	if (quantum == "day") {
+	if (quantum == "day" || quantum == "hour") {
 		startDate = m_ui->calendarWidgetStart->selectedDate();
 		endDate = m_ui->calendarWidgetEnd->selectedDate();
 	}
-	else if (quantum == "month") {
+	else { // Month
 		const auto& range{ m_ui->widgetMonthPicker->getStartEndDate() };
 		startDate = range.first;
 		endDate = range.second;
-	}
-	else { // hour
-
 	}
 
 	return {
