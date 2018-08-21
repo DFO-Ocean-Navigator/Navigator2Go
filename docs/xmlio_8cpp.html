@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="compass.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Navigator2Go
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.3</span>
    </div>
   </td>
  </tr>
@@ -146,14 +146,14 @@ Functions</h2></td></tr>
 <tr class="memitem:aca42d0aa1e2f49caa198b886e14f0d0b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_i_o.html#aca42d0aa1e2f49caa198b886e14f0d0b">IO::appendDatasetToCatalog</a> (pugi::xml_document &amp;doc, const QString &amp;datasetName)</td></tr>
 <tr class="memdesc:aca42d0aa1e2f49caa198b886e14f0d0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends a catalogRef tag to a catalog file.  <a href="namespace_i_o.html#aca42d0aa1e2f49caa198b886e14f0d0b">More...</a><br /></td></tr>
 <tr class="separator:aca42d0aa1e2f49caa198b886e14f0d0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2086f665ca3dbfbe2b51d7a4c45c63c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_i_o.html#ac2086f665ca3dbfbe2b51d7a4c45c63c">IO::addDataset</a> (const QString &amp;threddsCatalogLoc, const QString &amp;datasetName, const QString &amp;dataPath)</td></tr>
-<tr class="memdesc:ac2086f665ca3dbfbe2b51d7a4c45c63c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a dataset to THREDDS.  <a href="namespace_i_o.html#ac2086f665ca3dbfbe2b51d7a4c45c63c">More...</a><br /></td></tr>
-<tr class="separator:ac2086f665ca3dbfbe2b51d7a4c45c63c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bfaa71abcc4e015c5dca08677b916b2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_i_o.html#a8bfaa71abcc4e015c5dca08677b916b2">IO::addDataset</a> (const QString &amp;threddsCatalogLoc, const QString &amp;datasetName, const QString &amp;dataPath)</td></tr>
+<tr class="memdesc:a8bfaa71abcc4e015c5dca08677b916b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a dataset to THREDDS. Returns true if added.  <a href="namespace_i_o.html#a8bfaa71abcc4e015c5dca08677b916b2">More...</a><br /></td></tr>
+<tr class="separator:a8bfaa71abcc4e015c5dca08677b916b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa35fa4a41da624e6cbccd4e70692684b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_i_o.html#aa35fa4a41da624e6cbccd4e70692684b">IO::datasetExists</a> (const QString &amp;threddsCatalogLoc, const QString &amp;datasetName)</td></tr>
 <tr class="memdesc:aa35fa4a41da624e6cbccd4e70692684b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a named dataset exists in catalog.xml.  <a href="namespace_i_o.html#aa35fa4a41da624e6cbccd4e70692684b">More...</a><br /></td></tr>
 <tr class="separator:aa35fa4a41da624e6cbccd4e70692684b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec88d4d4c419a6e2b1f325f7a17e440c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_i_o.html#aec88d4d4c419a6e2b1f325f7a17e440c">IO::createNewCatalogFile</a> (const QString &amp;threddsContentPath, const DatasetScanDesc &amp;dataset)</td></tr>
-<tr class="memdesc:aec88d4d4c419a6e2b1f325f7a17e440c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new catalog document with required headers/attributes.  <a href="namespace_i_o.html#aec88d4d4c419a6e2b1f325f7a17e440c">More...</a><br /></td></tr>
+<tr class="memdesc:aec88d4d4c419a6e2b1f325f7a17e440c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new catalog document for a dataset with required headers/attributes.  <a href="namespace_i_o.html#aec88d4d4c419a6e2b1f325f7a17e440c">More...</a><br /></td></tr>
 <tr class="separator:aec88d4d4c419a6e2b1f325f7a17e440c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3bc43d0624a6370a45ac0052e4e4cb09"><td class="memItemLeft" align="right" valign="top">pugi::xml_document&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_i_o.html#a3bc43d0624a6370a45ac0052e4e4cb09">IO::createNewAggregateFile</a> ()</td></tr>
 <tr class="memdesc:a3bc43d0624a6370a45ac0052e4e4cb09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new empty aggregate file with required tags.  <a href="namespace_i_o.html#a3bc43d0624a6370a45ac0052e4e4cb09">More...</a><br /></td></tr>
@@ -161,6 +161,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aeb3af24cfec5d27c64a9adf09170979d"><td class="memItemLeft" align="right" valign="top">QStringList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_i_o.html#aeb3af24cfec5d27c64a9adf09170979d">IO::getTHREDDSDatasetList</a> (const pugi::xml_document &amp;doc)</td></tr>
 <tr class="memdesc:aeb3af24cfec5d27c64a9adf09170979d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a list of datasets from an opened catalog file.  <a href="namespace_i_o.html#aeb3af24cfec5d27c64a9adf09170979d">More...</a><br /></td></tr>
 <tr class="separator:aeb3af24cfec5d27c64a9adf09170979d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ede95fd1edd6efb346e5278c9cbed17"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_i_o.html#a9ede95fd1edd6efb346e5278c9cbed17">IO::createNewPrimaryCatalog</a> (const QString &amp;threddsContentPath)</td></tr>
+<tr class="memdesc:a9ede95fd1edd6efb346e5278c9cbed17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new "root catalog" that stores references to other catalogs.  <a href="namespace_i_o.html#a9ede95fd1edd6efb346e5278c9cbed17">More...</a><br /></td></tr>
+<tr class="separator:a9ede95fd1edd6efb346e5278c9cbed17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

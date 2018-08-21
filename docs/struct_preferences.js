@@ -8,6 +8,7 @@ var struct_preferences =
     [ "AutoStartServers", "struct_preferences.html#ac0b665f75915b5879823c1c51c3f1cfa", null ],
     [ "CheckForUpdatesOnStart", "struct_preferences.html#aa93811e5abb8b32c33790aef1f1b74f2", null ],
     [ "DataDownloadFormat", "struct_preferences.html#a551c94c8bb93e414b2aa12433487ff99", null ],
+    [ "FirstRun", "struct_preferences.html#afa00b9cab04b048426955e502e36e353", null ],
     [ "IsNetworkOnline", "struct_preferences.html#a610434b3e6b23b91c7274c05dbdc9818", null ],
     [ "ONInstallDir", "struct_preferences.html#aa129ad169f77f001050980d13ddc6565", null ],
     [ "RemoteURL", "struct_preferences.html#a7c1691fe0716d90e0b3ce84ef0d94629", null ],

@@ -1,12 +1,12 @@
 <map id="WidgetDataOrder::on_pushButtonDownload_clicked" name="WidgetDataOrder::on_pushButtonDownload_clicked">
 <area shape="rect" id="node2" href="$namespace_i_o.html#a46b5e13da721b8233c925f7fb80dfd5f" title="IO::GetNCFilename" alt="" coords="241,56,380,83"/>
-<area shape="rect" id="node4" href="$namespace_i_o.html#ac2086f665ca3dbfbe2b51d7a4c45c63c" title="Adds a dataset to THREDDS. " alt="" coords="255,157,366,184"/>
+<area shape="rect" id="node4" href="$namespace_i_o.html#a8bfaa71abcc4e015c5dca08677b916b2" title="Adds a dataset to THREDDS. Returns true if added. " alt="" coords="255,157,366,184"/>
 <area shape="rect" id="node10" href="$class_q_easy_downloader.html#a1c7b6d18fba99e981d71e841d44c502e" title="QEasyDownloader::Download" alt="" coords="212,259,409,285"/>
 <area shape="rect" id="node19" href="$class_main_window.html#a62be210d8008731f009ce6a31101cb69" title="MainWindow::showProgressBar" alt="" coords="207,309,415,336"/>
 <area shape="rect" id="node3" href="$namespace_i_o.html#aa4da319edb033251c43ab1f9d63a7cf2" title="Reads an xml file from path. Returns std::nullopt on failure. " alt="" coords="511,5,607,32"/>
 <area shape="rect" id="node5" href="$namespace_i_o.html#a0aafb4eb40c0832c513e1bbc0602fa57" title="Checks if a file exists at a given path. " alt="" coords="508,259,611,285"/>
-<area shape="rect" id="node6" href="$namespace_i_o.html#abe10e5990ee3968e3a3818091db29556" title="Create a directory with necessary parents if needed. " alt="" coords="509,56,609,83"/>
-<area shape="rect" id="node7" href="$namespace_i_o.html#aec88d4d4c419a6e2b1f325f7a17e440c" title="Creates a new catalog document with required headers/attributes. " alt="" coords="473,107,646,133"/>
+<area shape="rect" id="node6" href="$namespace_i_o.html#acd130712c8b05f34658133ce5cc869a4" title="Create a directory with necessary parents if needed. " alt="" coords="511,56,608,83"/>
+<area shape="rect" id="node7" href="$namespace_i_o.html#aec88d4d4c419a6e2b1f325f7a17e440c" title="Creates a new catalog document for a dataset with required headers/attributes. " alt="" coords="473,107,646,133"/>
 <area shape="rect" id="node8" href="$namespace_i_o.html#a070a01ffb554ced647e444026edfd0c7" title="Finds the time dimension from a given NetCDF file path. " alt="" coords="479,157,639,184"/>
 <area shape="rect" id="node9" href="$namespace_i_o.html#a3bc43d0624a6370a45ac0052e4e4cb09" title="Creates a new empty aggregate file with required tags. " alt="" coords="466,208,653,235"/>
 <area shape="rect" id="node11" href="$class_q_easy_downloader.html#a7de398556a59f88c554447083a885584" title="QEasyDownloader::printDebug" alt="" coords="1443,461,1645,488"/>

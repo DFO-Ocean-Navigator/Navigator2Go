@@ -18,7 +18,6 @@ var searchData=
   ['m_5fenddate',['m_endDate',['../class_widget_month_picker.html#a32ddcdc4fe55789e0e3a93215eb5b832',1,'WidgetMonthPicker']]],
   ['m_5fendtagrules',['m_endTagRules',['../class_h_t_m_l_highlighter.html#abbf1bd8cee3f0f691deaf9cafe993787',1,'HTMLHighlighter']]],
   ['m_5ffilelist',['m_fileList',['../class_i_o_1_1_copy_files_runnable.html#af1491a8e05125de9f366a15f531ff3f9',1,'IO::CopyFilesRunnable']]],
-  ['m_5ffirstrun',['m_firstRun',['../class_main_window.html#a0f4988f822d3fa4ad785ab8875cdb7ba',1,'MainWindow']]],
   ['m_5fhasremoteuplink',['m_hasRemoteUplink',['../class_main_window.html#af5f74accc2995feae8e4895024900702',1,'MainWindow']]],
   ['m_5fhasunsaveddata',['m_hasUnsavedData',['../class_widget_config_editor.html#a7b50b107482369d0a44d3cddf264028c',1,'WidgetConfigEditor']]],
   ['m_5fheight',['m_height',['../class_switch_widget.html#ac770a477d1dbc49a4dd0b2228e4acf1f',1,'SwitchWidget']]],

@@ -48,14 +48,14 @@ var files =
     [ "preferences.h", "preferences_8h.html", [
       [ "Preferences", "struct_preferences.html", "struct_preferences" ]
     ] ],
-    [ "process.cpp", "process_8cpp.html", null ],
-    [ "process.h", "process_8h.html", "process_8h" ],
     [ "QEasyDownloader.cc", "_q_easy_downloader_8cc.html", null ],
     [ "QEasyDownloader.hpp", "_q_easy_downloader_8hpp.html", "_q_easy_downloader_8hpp" ],
     [ "switchwidget.cpp", "switchwidget_8cpp.html", null ],
     [ "switchwidget.h", "switchwidget_8h.html", [
       [ "SwitchWidget", "class_switch_widget.html", "class_switch_widget" ]
     ] ],
+    [ "systemutils.cpp", "systemutils_8cpp.html", null ],
+    [ "systemutils.h", "systemutils_8h.html", "systemutils_8h" ],
     [ "updaterunnable.cpp", "updaterunnable_8cpp.html", null ],
     [ "updaterunnable.h", "updaterunnable_8h.html", [
       [ "UpdateRunnable", "class_update_runnable.html", "class_update_runnable" ]

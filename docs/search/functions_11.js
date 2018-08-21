@@ -2,6 +2,7 @@ var searchData=
 [
   ['saveconfigfile',['saveConfigFile',['../class_widget_config_editor.html#ab0ed33fdd531d977f34e1788eac02c57',1,'WidgetConfigEditor']]],
   ['savefilename',['saveFileName',['../class_q_easy_downloader.html#aff724d6b421425686b3f0a26f7451968',1,'QEasyDownloader']]],
+  ['senddesktopnotification',['SendDesktopNotification',['../namespace_system.html#a1592308ffa48dc75abbbfa3a7a759905',1,'System']]],
   ['setbrush',['setBrush',['../class_switch_widget.html#afbc1db53afaf2f301818f281723db76b',1,'SwitchWidget']]],
   ['setdata',['SetData',['../class_dialog_dataset_view.html#a36e858d0a88cdc43d2460dbedfac5b74',1,'DialogDatasetView::SetData(const QString &amp;datasetKey, const QJsonObject &amp;object)'],['../class_dialog_dataset_view.html#ac9ef6fa72147c0a049e6d17d7d4159e6',1,'DialogDatasetView::SetData(const QJsonObject &amp;datasetObj, QNetworkAccessManager &amp;nam)'],['../class_dialog_dataset_view.html#a636f720535346d5c85c55f4064e37c86',1,'DialogDatasetView::SetData(const DataDownloadDesc &amp;data)']]],
   ['setdataorderregion',['setDataOrderRegion',['../class_main_window.html#ad4e961d3729de7df151fc8f4647d17f0',1,'MainWindow']]],

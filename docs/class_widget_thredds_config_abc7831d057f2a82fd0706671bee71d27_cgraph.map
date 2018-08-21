@@ -1,0 +1,5 @@
+<map id="WidgetThreddsConfig::BuildTable" name="WidgetThreddsConfig::BuildTable">
+<area shape="rect" id="node2" href="$namespace_i_o.html#aa4da319edb033251c43ab1f9d63a7cf2" title="Reads an xml file from path. Returns std::nullopt on failure. " alt="" coords="252,5,348,32"/>
+<area shape="rect" id="node3" href="$namespace_i_o.html#a9ede95fd1edd6efb346e5278c9cbed17" title="Creates a new &quot;root catalog&quot; that stores references to other catalogs. " alt="" coords="201,56,399,83"/>
+<area shape="rect" id="node4" href="$namespace_i_o.html#acd130712c8b05f34658133ce5cc869a4" title="Create a directory with necessary parents if needed. " alt="" coords="447,56,544,83"/>
+</map>

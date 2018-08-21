@@ -1,0 +1,8 @@
+<map id="IO::addDataset" name="IO::addDataset">
+<area shape="rect" id="node2" href="$namespace_i_o.html#aa4da319edb033251c43ab1f9d63a7cf2" title="Reads an xml file from path. Returns std::nullopt on failure. " alt="" coords="209,5,305,32"/>
+<area shape="rect" id="node3" href="$namespace_i_o.html#a0aafb4eb40c0832c513e1bbc0602fa57" title="Checks if a file exists at a given path. " alt="" coords="206,56,309,83"/>
+<area shape="rect" id="node4" href="$namespace_i_o.html#acd130712c8b05f34658133ce5cc869a4" title="Create a directory with necessary parents if needed. " alt="" coords="209,107,306,133"/>
+<area shape="rect" id="node5" href="$namespace_i_o.html#aec88d4d4c419a6e2b1f325f7a17e440c" title="Creates a new catalog document for a dataset with required headers/attributes. " alt="" coords="171,157,344,184"/>
+<area shape="rect" id="node6" href="$namespace_i_o.html#a070a01ffb554ced647e444026edfd0c7" title="Finds the time dimension from a given NetCDF file path. " alt="" coords="177,208,337,235"/>
+<area shape="rect" id="node7" href="$namespace_i_o.html#a3bc43d0624a6370a45ac0052e4e4cb09" title="Creates a new empty aggregate file with required tags. " alt="" coords="164,259,351,285"/>
+</map>

@@ -40,7 +40,7 @@ var NAVTREEINDEX =
 [
 "_q_easy_downloader_8cc.html",
 "class_widget_dashboard.html#a974e9d0197062494876f2c554daa922a",
-"xmlio_8cpp.html#aa4da319edb033251c43ab1f9d63a7cf2"
+"xmlio_8cpp.html#a3bc43d0624a6370a45ac0052e4e4cb09"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="compass.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Navigator2Go
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.3</span>
    </div>
   </td>
  </tr>
@@ -139,6 +139,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac0fab71246d1e55dafd9bad2b5e519dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2247fb0f9bb2fe67537728dab516cc13"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_thredds_config.html#a2247fb0f9bb2fe67537728dab516cc13">~WidgetThreddsConfig</a> ()</td></tr>
 <tr class="separator:a2247fb0f9bb2fe67537728dab516cc13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc7831d057f2a82fd0706671bee71d27"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_thredds_config.html#abc7831d057f2a82fd0706671bee71d27">BuildTable</a> ()</td></tr>
+<tr class="separator:abc7831d057f2a82fd0706671bee71d27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-slots"></a>
 Private Slots</h2></td></tr>
@@ -153,8 +155,6 @@ Private Slots</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:abc80e73cd387f75d0f117959f86867dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_thredds_config.html#abc80e73cd387f75d0f117959f86867dc">buildTable</a> ()</td></tr>
-<tr class="separator:abc80e73cd387f75d0f117959f86867dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad8afd511d014e15189eb8b9590aebe21"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_thredds_config.html#ad8afd511d014e15189eb8b9590aebe21">checkCatalogsPath</a> ()</td></tr>
 <tr class="separator:ad8afd511d014e15189eb8b9590aebe21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ec2004cc823db7c240878ce4a2cd615"><td class="memItemLeft" align="right" valign="top"><a class="el" href="nodiscard_8h.html#abf13e44576a768044e199191d4f26f7e">NODISCARD</a> bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_thredds_config.html#a3ec2004cc823db7c240878ce4a2cd615">validateDatasetName</a> (const QString &amp;datasetName)</td></tr>
@@ -202,8 +202,10 @@ Here is the call graph for this function:</div>
 <div class="center"><img src="class_widget_thredds_config_ac0fab71246d1e55dafd9bad2b5e519dc_cgraph.png" border="0" usemap="#class_widget_thredds_config_ac0fab71246d1e55dafd9bad2b5e519dc_cgraph" alt=""/></div>
 <map name="class_widget_thredds_config_ac0fab71246d1e55dafd9bad2b5e519dc_cgraph" id="class_widget_thredds_config_ac0fab71246d1e55dafd9bad2b5e519dc_cgraph">
 <area shape="rect" id="node2" href="class_widget_thredds_config.html#ad8afd511d014e15189eb8b9590aebe21" title="WidgetThreddsConfig\l::checkCatalogsPath" alt="" coords="209,5,357,47"/>
-<area shape="rect" id="node3" href="class_widget_thredds_config.html#abc80e73cd387f75d0f117959f86867dc" title="WidgetThreddsConfig\l::buildTable" alt="" coords="209,71,357,112"/>
-<area shape="rect" id="node4" href="namespace_i_o.html#aa4da319edb033251c43ab1f9d63a7cf2" title="Reads an xml file from path. Returns std::nullopt on failure. " alt="" coords="405,78,501,105"/>
+<area shape="rect" id="node3" href="class_widget_thredds_config.html#abc7831d057f2a82fd0706671bee71d27" title="WidgetThreddsConfig\l::BuildTable" alt="" coords="209,71,357,112"/>
+<area shape="rect" id="node4" href="namespace_i_o.html#aa4da319edb033251c43ab1f9d63a7cf2" title="Reads an xml file from path. Returns std::nullopt on failure. " alt="" coords="456,53,552,79"/>
+<area shape="rect" id="node5" href="namespace_i_o.html#a9ede95fd1edd6efb346e5278c9cbed17" title="Creates a new &quot;root catalog&quot; that stores references to other catalogs. " alt="" coords="405,103,603,130"/>
+<area shape="rect" id="node6" href="namespace_i_o.html#acd130712c8b05f34658133ce5cc869a4" title="Create a directory with necessary parents if needed. " alt="" coords="651,103,748,130"/>
 </map>
 </div>
 </p>
@@ -226,33 +228,27 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="abc80e73cd387f75d0f117959f86867dc"></a>
+<a class="anchor" id="abc7831d057f2a82fd0706671bee71d27"></a>
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void WidgetThreddsConfig::buildTable </td>
+          <td class="memname">void WidgetThreddsConfig::BuildTable </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="class_widget_thredds_config_abc80e73cd387f75d0f117959f86867dc_cgraph.png" border="0" usemap="#class_widget_thredds_config_abc80e73cd387f75d0f117959f86867dc_cgraph" alt=""/></div>
-<map name="class_widget_thredds_config_abc80e73cd387f75d0f117959f86867dc_cgraph" id="class_widget_thredds_config_abc80e73cd387f75d0f117959f86867dc_cgraph">
-<area shape="rect" id="node2" href="namespace_i_o.html#aa4da319edb033251c43ab1f9d63a7cf2" title="Reads an xml file from path. Returns std::nullopt on failure. " alt="" coords="201,13,297,39"/>
+<div class="center"><img src="class_widget_thredds_config_abc7831d057f2a82fd0706671bee71d27_cgraph.png" border="0" usemap="#class_widget_thredds_config_abc7831d057f2a82fd0706671bee71d27_cgraph" alt=""/></div>
+<map name="class_widget_thredds_config_abc7831d057f2a82fd0706671bee71d27_cgraph" id="class_widget_thredds_config_abc7831d057f2a82fd0706671bee71d27_cgraph">
+<area shape="rect" id="node2" href="namespace_i_o.html#aa4da319edb033251c43ab1f9d63a7cf2" title="Reads an xml file from path. Returns std::nullopt on failure. " alt="" coords="252,5,348,32"/>
+<area shape="rect" id="node3" href="namespace_i_o.html#a9ede95fd1edd6efb346e5278c9cbed17" title="Creates a new &quot;root catalog&quot; that stores references to other catalogs. " alt="" coords="201,56,399,83"/>
+<area shape="rect" id="node4" href="namespace_i_o.html#acd130712c8b05f34658133ce5cc869a4" title="Create a directory with necessary parents if needed. " alt="" coords="447,56,544,83"/>
 </map>
 </div>
 </p>
@@ -342,15 +338,15 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_widget_thredds_config_a0d2eb2120abc0748f5d2954c2e3fefa0_cgraph.png" border="0" usemap="#class_widget_thredds_config_a0d2eb2120abc0748f5d2954c2e3fefa0_cgraph" alt=""/></div>
 <map name="class_widget_thredds_config_a0d2eb2120abc0748f5d2954c2e3fefa0_cgraph" id="class_widget_thredds_config_a0d2eb2120abc0748f5d2954c2e3fefa0_cgraph">
-<area shape="rect" id="node2" href="class_widget_thredds_config.html#a3ec2004cc823db7c240878ce4a2cd615" title="WidgetThreddsConfig\l::validateDatasetName" alt="" coords="240,5,396,47"/>
-<area shape="rect" id="node3" href="class_widget_thredds_config.html#af71bf586990d9f25b34c32130aff9ef4" title="WidgetThreddsConfig\l::createRow" alt="" coords="244,71,392,112"/>
-<area shape="rect" id="node4" href="namespace_i_o.html#ac2086f665ca3dbfbe2b51d7a4c45c63c" title="Adds a dataset to THREDDS. " alt="" coords="263,137,373,163"/>
-<area shape="rect" id="node5" href="namespace_i_o.html#aa4da319edb033251c43ab1f9d63a7cf2" title="Reads an xml file from path. Returns std::nullopt on failure. " alt="" coords="489,10,585,37"/>
-<area shape="rect" id="node6" href="namespace_i_o.html#a0aafb4eb40c0832c513e1bbc0602fa57" title="Checks if a file exists at a given path. " alt="" coords="486,61,589,87"/>
-<area shape="rect" id="node7" href="namespace_i_o.html#abe10e5990ee3968e3a3818091db29556" title="Create a directory with necessary parents if needed. " alt="" coords="487,111,587,138"/>
-<area shape="rect" id="node8" href="namespace_i_o.html#aec88d4d4c419a6e2b1f325f7a17e440c" title="Creates a new catalog document with required headers/attributes. " alt="" coords="451,162,624,189"/>
-<area shape="rect" id="node9" href="namespace_i_o.html#a070a01ffb554ced647e444026edfd0c7" title="Finds the time dimension from a given NetCDF file path. " alt="" coords="457,213,617,239"/>
-<area shape="rect" id="node10" href="namespace_i_o.html#a3bc43d0624a6370a45ac0052e4e4cb09" title="Creates a new empty aggregate file with required tags. " alt="" coords="444,263,631,290"/>
+<area shape="rect" id="node2" href="class_widget_thredds_config.html#a3ec2004cc823db7c240878ce4a2cd615" title="WidgetThreddsConfig\l::validateDatasetName" alt="" coords="240,66,396,107"/>
+<area shape="rect" id="node3" href="namespace_i_o.html#a8bfaa71abcc4e015c5dca08677b916b2" title="Adds a dataset to THREDDS. Returns true if added. " alt="" coords="263,132,373,159"/>
+<area shape="rect" id="node10" href="class_widget_thredds_config.html#af71bf586990d9f25b34c32130aff9ef4" title="WidgetThreddsConfig\l::createRow" alt="" coords="244,183,392,225"/>
+<area shape="rect" id="node4" href="namespace_i_o.html#aa4da319edb033251c43ab1f9d63a7cf2" title="Reads an xml file from path. Returns std::nullopt on failure. " alt="" coords="489,5,585,32"/>
+<area shape="rect" id="node5" href="namespace_i_o.html#a0aafb4eb40c0832c513e1bbc0602fa57" title="Checks if a file exists at a given path. " alt="" coords="486,56,589,83"/>
+<area shape="rect" id="node6" href="namespace_i_o.html#acd130712c8b05f34658133ce5cc869a4" title="Create a directory with necessary parents if needed. " alt="" coords="489,107,586,133"/>
+<area shape="rect" id="node7" href="namespace_i_o.html#aec88d4d4c419a6e2b1f325f7a17e440c" title="Creates a new catalog document for a dataset with required headers/attributes. " alt="" coords="451,157,624,184"/>
+<area shape="rect" id="node8" href="namespace_i_o.html#a070a01ffb554ced647e444026edfd0c7" title="Finds the time dimension from a given NetCDF file path. " alt="" coords="457,208,617,235"/>
+<area shape="rect" id="node9" href="namespace_i_o.html#a3bc43d0624a6370a45ac0052e4e4cb09" title="Creates a new empty aggregate file with required tags. " alt="" coords="444,259,631,285"/>
 </map>
 </div>
 </p>

@@ -18,8 +18,9 @@ var searchData=
   ['constants_2eh',['constants.h',['../constants_8h.html',1,'']]],
   ['copyfilesrunnable',['CopyFilesRunnable',['../class_i_o_1_1_copy_files_runnable.html',1,'IO']]],
   ['copyfilesrunnable',['CopyFilesRunnable',['../class_i_o_1_1_copy_files_runnable.html#a91f462149507d35f4fc16e454bc9e121',1,'IO::CopyFilesRunnable']]],
-  ['createdir',['CreateDir',['../namespace_i_o.html#abe10e5990ee3968e3a3818091db29556',1,'IO']]],
+  ['createdir',['createDir',['../namespace_i_o.html#acd130712c8b05f34658133ce5cc869a4',1,'IO']]],
   ['createnewaggregatefile',['createNewAggregateFile',['../namespace_i_o.html#a3bc43d0624a6370a45ac0052e4e4cb09',1,'IO']]],
   ['createnewcatalogfile',['createNewCatalogFile',['../namespace_i_o.html#aec88d4d4c419a6e2b1f325f7a17e440c',1,'IO']]],
+  ['createnewprimarycatalog',['createNewPrimaryCatalog',['../namespace_i_o.html#a9ede95fd1edd6efb346e5278c9cbed17',1,'IO']]],
   ['createrow',['createRow',['../class_widget_thredds_config.html#af71bf586990d9f25b34c32130aff9ef4',1,'WidgetThreddsConfig']]]
 ];

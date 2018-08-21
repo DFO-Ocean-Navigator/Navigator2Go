@@ -1,11 +1,11 @@
 <map id="WidgetThreddsConfig::on_pushButtonAddDataset_clicked" name="WidgetThreddsConfig::on_pushButtonAddDataset_clicked">
-<area shape="rect" id="node2" href="$class_widget_thredds_config.html#a3ec2004cc823db7c240878ce4a2cd615" title="WidgetThreddsConfig\l::validateDatasetName" alt="" coords="240,5,396,47"/>
-<area shape="rect" id="node3" href="$class_widget_thredds_config.html#af71bf586990d9f25b34c32130aff9ef4" title="WidgetThreddsConfig\l::createRow" alt="" coords="244,71,392,112"/>
-<area shape="rect" id="node4" href="$namespace_i_o.html#ac2086f665ca3dbfbe2b51d7a4c45c63c" title="Adds a dataset to THREDDS. " alt="" coords="263,137,373,163"/>
-<area shape="rect" id="node5" href="$namespace_i_o.html#aa4da319edb033251c43ab1f9d63a7cf2" title="Reads an xml file from path. Returns std::nullopt on failure. " alt="" coords="489,10,585,37"/>
-<area shape="rect" id="node6" href="$namespace_i_o.html#a0aafb4eb40c0832c513e1bbc0602fa57" title="Checks if a file exists at a given path. " alt="" coords="486,61,589,87"/>
-<area shape="rect" id="node7" href="$namespace_i_o.html#abe10e5990ee3968e3a3818091db29556" title="Create a directory with necessary parents if needed. " alt="" coords="487,111,587,138"/>
-<area shape="rect" id="node8" href="$namespace_i_o.html#aec88d4d4c419a6e2b1f325f7a17e440c" title="Creates a new catalog document with required headers/attributes. " alt="" coords="451,162,624,189"/>
-<area shape="rect" id="node9" href="$namespace_i_o.html#a070a01ffb554ced647e444026edfd0c7" title="Finds the time dimension from a given NetCDF file path. " alt="" coords="457,213,617,239"/>
-<area shape="rect" id="node10" href="$namespace_i_o.html#a3bc43d0624a6370a45ac0052e4e4cb09" title="Creates a new empty aggregate file with required tags. " alt="" coords="444,263,631,290"/>
+<area shape="rect" id="node2" href="$class_widget_thredds_config.html#a3ec2004cc823db7c240878ce4a2cd615" title="WidgetThreddsConfig\l::validateDatasetName" alt="" coords="240,66,396,107"/>
+<area shape="rect" id="node3" href="$namespace_i_o.html#a8bfaa71abcc4e015c5dca08677b916b2" title="Adds a dataset to THREDDS. Returns true if added. " alt="" coords="263,132,373,159"/>
+<area shape="rect" id="node10" href="$class_widget_thredds_config.html#af71bf586990d9f25b34c32130aff9ef4" title="WidgetThreddsConfig\l::createRow" alt="" coords="244,183,392,225"/>
+<area shape="rect" id="node4" href="$namespace_i_o.html#aa4da319edb033251c43ab1f9d63a7cf2" title="Reads an xml file from path. Returns std::nullopt on failure. " alt="" coords="489,5,585,32"/>
+<area shape="rect" id="node5" href="$namespace_i_o.html#a0aafb4eb40c0832c513e1bbc0602fa57" title="Checks if a file exists at a given path. " alt="" coords="486,56,589,83"/>
+<area shape="rect" id="node6" href="$namespace_i_o.html#acd130712c8b05f34658133ce5cc869a4" title="Create a directory with necessary parents if needed. " alt="" coords="489,107,586,133"/>
+<area shape="rect" id="node7" href="$namespace_i_o.html#aec88d4d4c419a6e2b1f325f7a17e440c" title="Creates a new catalog document for a dataset with required headers/attributes. " alt="" coords="451,157,624,184"/>
+<area shape="rect" id="node8" href="$namespace_i_o.html#a070a01ffb554ced647e444026edfd0c7" title="Finds the time dimension from a given NetCDF file path. " alt="" coords="457,208,617,235"/>
+<area shape="rect" id="node9" href="$namespace_i_o.html#a3bc43d0624a6370a45ac0052e4e4cb09" title="Creates a new empty aggregate file with required tags. " alt="" coords="444,259,631,285"/>
 </map>

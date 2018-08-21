@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="compass.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Navigator2Go
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.3</span>
    </div>
   </td>
  </tr>
@@ -122,8 +122,9 @@ $(document).ready(function(){initNavTree('mainwindow_8cpp.html','');});
 <code>#include &quot;<a class="el" href="updaterunnable_8h_source.html">updaterunnable.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="network_8h_source.html">network.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="jsonio_8h_source.html">jsonio.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="process_8h_source.html">process.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="systemutils_8h_source.html">systemutils.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ioutils_8h_source.html">ioutils.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="xmlio_8h_source.html">xmlio.h</a>&quot;</code><br />
 <code>#include &lt;QMessageBox&gt;</code><br />
 <code>#include &lt;QFile&gt;</code><br />
 <code>#include &lt;QTextStream&gt;</code><br />
@@ -137,24 +138,25 @@ Include dependency graph for mainwindow.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="mainwindow_8cpp__incl.png" border="0" usemap="#mainwindow_8cpp" alt=""/></div>
 <map name="mainwindow_8cpp" id="mainwindow_8cpp">
-<area shape="rect" id="node2" href="mainwindow_8h.html" title="mainwindow.h" alt="" coords="101,80,206,107"/>
-<area shape="rect" id="node15" href="dialogdatasetview_8h.html" title="dialogdatasetview.h" alt="" coords="933,80,1070,107"/>
-<area shape="rect" id="node20" href="dialogpreferences_8h.html" title="dialogpreferences.h" alt="" coords="540,80,674,107"/>
-<area shape="rect" id="node21" href="widgetdashboard_8h.html" title="widgetdashboard.h" alt="" coords="1600,80,1731,107"/>
-<area shape="rect" id="node24" href="widgetconfigeditor_8h.html" title="widgetconfigeditor.h" alt="" coords="1438,80,1576,107"/>
-<area shape="rect" id="node25" href="widgetdataorder_8h.html" title="widgetdataorder.h" alt="" coords="1223,80,1348,107"/>
-<area shape="rect" id="node34" href="widgetthreddsconfig_8h.html" title="widgetthreddsconfig.h" alt="" coords="1755,80,1904,107"/>
-<area shape="rect" id="node35" href="updaterunnable_8h.html" title="updaterunnable.h" alt="" coords="2265,80,2386,107"/>
-<area shape="rect" id="node38" href="network_8h.html" title="network.h" alt="" coords="2070,80,2149,107"/>
-<area shape="rect" id="node41" href="jsonio_8h.html" title="jsonio.h" alt="" coords="1928,80,1995,107"/>
-<area shape="rect" id="node42" href="process_8h.html" title="process.h" alt="" coords="2128,155,2206,181"/>
-<area shape="rect" id="node43" href="ioutils_8h.html" title="ioutils.h" alt="" coords="2174,80,2240,107"/>
-<area shape="rect" id="node3" href="datadownloaddesc_8h.html" title="datadownloaddesc.h" alt="" coords="1151,155,1292,181"/>
-<area shape="rect" id="node7" href="preferences_8h.html" title="preferences.h" alt="" coords="1026,155,1127,181"/>
-<area shape="rect" id="node4" href="nodiscard_8h.html" title="nodiscard.h" alt="" coords="1800,229,1889,256"/>
-<area shape="rect" id="node16" href="constants_8h.html" title="constants.h" alt="" coords="458,155,548,181"/>
-<area shape="rect" id="node26" href="_q_easy_downloader_8hpp.html" title="QEasyDownloader.hpp" alt="" coords="744,155,900,181"/>
-<area shape="rect" id="node44" href="netcdfimportdesc_8h.html" title="netcdfimportdesc.h" alt="" coords="2496,155,2630,181"/>
+<area shape="rect" id="node2" href="mainwindow_8h.html" title="mainwindow.h" alt="" coords="309,80,415,107"/>
+<area shape="rect" id="node15" href="dialogdatasetview_8h.html" title="dialogdatasetview.h" alt="" coords="824,80,961,107"/>
+<area shape="rect" id="node20" href="dialogpreferences_8h.html" title="dialogpreferences.h" alt="" coords="587,80,721,107"/>
+<area shape="rect" id="node21" href="widgetdashboard_8h.html" title="widgetdashboard.h" alt="" coords="1906,80,2037,107"/>
+<area shape="rect" id="node24" href="widgetconfigeditor_8h.html" title="widgetconfigeditor.h" alt="" coords="1570,80,1709,107"/>
+<area shape="rect" id="node25" href="widgetdataorder_8h.html" title="widgetdataorder.h" alt="" coords="1181,80,1306,107"/>
+<area shape="rect" id="node31" href="widgetthreddsconfig_8h.html" title="widgetthreddsconfig.h" alt="" coords="1733,80,1882,107"/>
+<area shape="rect" id="node32" href="updaterunnable_8h.html" title="updaterunnable.h" alt="" coords="2397,80,2519,107"/>
+<area shape="rect" id="node35" href="network_8h.html" title="network.h" alt="" coords="2203,80,2281,107"/>
+<area shape="rect" id="node38" href="jsonio_8h.html" title="jsonio.h" alt="" coords="2061,80,2127,107"/>
+<area shape="rect" id="node39" href="systemutils_8h.html" title="systemutils.h" alt="" coords="2128,155,2228,181"/>
+<area shape="rect" id="node40" href="ioutils_8h.html" title="ioutils.h" alt="" coords="2306,80,2373,107"/>
+<area shape="rect" id="node43" href="xmlio_8h.html" title="xmlio.h" alt="" coords="2866,155,2930,181"/>
+<area shape="rect" id="node3" href="datadownloaddesc_8h.html" title="datadownloaddesc.h" alt="" coords="767,155,909,181"/>
+<area shape="rect" id="node7" href="preferences_8h.html" title="preferences.h" alt="" coords="357,155,458,181"/>
+<area shape="rect" id="node4" href="nodiscard_8h.html" title="nodiscard.h" alt="" coords="1773,229,1863,256"/>
+<area shape="rect" id="node16" href="constants_8h.html" title="constants.h" alt="" coords="482,155,573,181"/>
+<area shape="rect" id="node26" href="_q_easy_downloader_8hpp.html" title="QEasyDownloader.hpp" alt="" coords="1035,155,1191,181"/>
+<area shape="rect" id="node41" href="netcdfimportdesc_8h.html" title="netcdfimportdesc.h" alt="" coords="2518,155,2651,181"/>
 </map>
 </div>
 </div><table class="memberdecls">
