@@ -20,7 +20,7 @@ For more details about the following build process go here: [http://doc.qt.io/qt
 1. Install GCC 7 or newer to get access to all the latest and greatest C++ 17 features.
 2. Install dependencies using the following:
 ```shell
-sudo apt install build-essential valgrind zlib1g-dev libgl1-mesa-dev libfontconfig1-dev libfreetype6-dev libx11-dev libxext-dev libxfixes-dev libxi-dev libxrender-dev libxcb1-dev libx11-xcb-dev libxcb-glx0-dev libxcb-keysyms1-dev libxcb-image0-dev libxcb-shm0-dev libxcb-icccm4-dev libxcb-sync0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-randr0-dev libxcb-render-util0-dev
+sudo apt install build-essential valgrind zlib1g-dev libgl1-mesa-dev libfontconfig1-dev libfreetype6-dev libx11-dev libxext-dev libxfixes-dev libxi-dev libxrender-dev libxcb1-dev libx11-xcb-dev libxcb-glx0-dev libxcb-keysyms1-dev libxcb-image0-dev libxcb-shm0-dev libxcb-icccm4-dev libxcb-sync0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-randr0-dev libxcb-render-util0-dev doxywizard
 ```
 3. Go ahead and clone this repository into a directory of your choice:
 ```shell
@@ -48,6 +48,12 @@ So, you've made some changes to my lovely code that made it even more awesome. T
 5. `./Navigator2Go`.
 6. To package it for uploading to Github, `tar zcvf Navigator2Go.tar.gz Navigator2Go`. Do not change the tar.gz file name otherwise the installation script WILL fail.
 7. Go to Github and create a new release.
+
+## Updating Code Documentation
+1. To update the Github pages, run `doxywizard` from your terminal.
+2. Open the doxyfile in the `app/` folder and increment the version number if needed to match VERSION.txt.
+3. Click the Run tab and then click on the Run Doxygen button.
+4. Commit and push your changes. The site will update automatically.
 
 ## Incrementing Version Number
 The program's version number is stored in `VERSION.txt`. This is included in `Config_Tool.pro` to make the number accessible to `qmake` and to C++.
