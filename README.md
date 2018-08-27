@@ -8,6 +8,8 @@ Tool to manage your local Ocean Navigator installation.
 
 [Code Documentation](https://dfo-ocean-navigator.github.io/Navigator2Go/)
 
+![Navigator2Go](screenshot.png "Navigator2Go Dashboard")
+
 ### Features
 * Control local gUnicorn and Apache Tomcat (THREDDS) servers.
 * Apply the full power of the Ocean Navigator to your own data by importing as a netCDF.
