@@ -45,9 +45,8 @@ private:
 	void updateDriveInfo();
 
 	Ui::WidgetDashboard* m_ui{nullptr};
-	MainWindow* const m_mainWindow{nullptr};
-
-	const Preferences* const m_prefs{nullptr};
+	MainWindow* const m_mainWindow{nullptr}; ///< Ptr to parent MainWindow.
+	const Preferences* const m_prefs{nullptr}; ///< Ptr to m_prefs in MainWindow.
 
 	QProcess m_consoleProcess{this};
 

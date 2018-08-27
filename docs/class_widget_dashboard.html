@@ -176,8 +176,10 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:aa893628c76d4c06fd9ac41baebfabf52"><td class="memItemLeft" align="right" valign="top">Ui::WidgetDashboard *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_dashboard.html#aa893628c76d4c06fd9ac41baebfabf52">m_ui</a> {nullptr}</td></tr>
 <tr class="separator:aa893628c76d4c06fd9ac41baebfabf52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a32059c1c3a724b9aa0b06f5973f6b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_main_window.html">MainWindow</a> *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_dashboard.html#a9a32059c1c3a724b9aa0b06f5973f6b5">m_mainWindow</a> {nullptr}</td></tr>
+<tr class="memdesc:a9a32059c1c3a724b9aa0b06f5973f6b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ptr to parent <a class="el" href="class_main_window.html">MainWindow</a>.  <a href="#a9a32059c1c3a724b9aa0b06f5973f6b5">More...</a><br /></td></tr>
 <tr class="separator:a9a32059c1c3a724b9aa0b06f5973f6b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b9aeb8f95e4b24db8bcc23f924b8f28"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_preferences.html">Preferences</a> *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_dashboard.html#a6b9aeb8f95e4b24db8bcc23f924b8f28">m_prefs</a> {nullptr}</td></tr>
+<tr class="memdesc:a6b9aeb8f95e4b24db8bcc23f924b8f28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ptr to m_prefs in <a class="el" href="class_main_window.html">MainWindow</a>.  <a href="#a6b9aeb8f95e4b24db8bcc23f924b8f28">More...</a><br /></td></tr>
 <tr class="separator:a6b9aeb8f95e4b24db8bcc23f924b8f28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ce7da49658ae87072e4d90b763498de"><td class="memItemLeft" align="right" valign="top">QProcess&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_dashboard.html#a8ce7da49658ae87072e4d90b763498de">m_consoleProcess</a> {this}</td></tr>
 <tr class="separator:a8ce7da49658ae87072e4d90b763498de"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -342,7 +344,7 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_widget_dashboard_a0f432ec4fb5818c87a81c0fbedbd893b_cgraph.png" border="0" usemap="#class_widget_dashboard_a0f432ec4fb5818c87a81c0fbedbd893b_cgraph" alt=""/></div>
 <map name="class_widget_dashboard_a0f432ec4fb5818c87a81c0fbedbd893b_cgraph" id="class_widget_dashboard_a0f432ec4fb5818c87a81c0fbedbd893b_cgraph">
-<area shape="rect" id="node2" href="class_main_window.html#abc8e9eb1d5c005b8a7c1873c1ad581e9" title="MainWindow::checkRemoteConnection" alt="" coords="269,64,521,91"/>
+<area shape="rect" id="node2" href="class_main_window.html#abc8e9eb1d5c005b8a7c1873c1ad581e9" title="Queries the RemoteURL in m_prefs for a connection. " alt="" coords="269,64,521,91"/>
 <area shape="rect" id="node3" href="class_main_window.html#a430bf119b39a7ed4ea31e9fc0d1dabcf" title="Set network state to online. " alt="" coords="587,5,747,32"/>
 <area shape="rect" id="node4" href="class_main_window.html#a9d37673e90ff7a642e3b73fb6097e130" title="MainWindow::showStatusBar\lMessage" alt="" coords="569,57,764,98"/>
 <area shape="rect" id="node5" href="class_main_window.html#a743de1d031e86b5da2e9701da5193483" title="Set network state to offline. " alt="" coords="586,123,747,149"/>
@@ -378,9 +380,9 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_widget_dashboard_ab0f46e2777c825a99921e774c248debf_cgraph.png" border="0" usemap="#class_widget_dashboard_ab0f46e2777c825a99921e774c248debf_cgraph" alt=""/></div>
 <map name="class_widget_dashboard_ab0f46e2777c825a99921e774c248debf_cgraph" id="class_widget_dashboard_ab0f46e2777c825a99921e774c248debf_cgraph">
-<area shape="rect" id="node2" href="class_main_window.html#a3fdaa9b3438854ad39576e1ddb2fb151" title="MainWindow::hideProgressBar" alt="" coords="242,5,443,32"/>
-<area shape="rect" id="node3" href="class_main_window.html#acdd6d0e11fa0dfe60e7ef8cb4cbe5de5" title="MainWindow::updateProgressBar" alt="" coords="235,56,451,83"/>
-<area shape="rect" id="node4" href="class_main_window.html#a62be210d8008731f009ce6a31101cb69" title="MainWindow::showProgressBar" alt="" coords="239,107,447,133"/>
+<area shape="rect" id="node2" href="class_main_window.html#a3fdaa9b3438854ad39576e1ddb2fb151" title="Hide progress bar and label. " alt="" coords="242,5,443,32"/>
+<area shape="rect" id="node3" href="class_main_window.html#acdd6d0e11fa0dfe60e7ef8cb4cbe5de5" title="Updates the progress bar percent value. Value is a percentage from 0 to 100. " alt="" coords="235,56,451,83"/>
+<area shape="rect" id="node4" href="class_main_window.html#a62be210d8008731f009ce6a31101cb69" title="Show the progress bar and label with the given labelText. Starts at 0%. " alt="" coords="239,107,447,133"/>
 </map>
 </div>
 </p>
@@ -615,6 +617,8 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
+<p>Ptr to parent <a class="el" href="class_main_window.html">MainWindow</a>. </p>
+
 </div>
 </div>
 <a class="anchor" id="a6b9aeb8f95e4b24db8bcc23f924b8f28"></a>
@@ -634,6 +638,8 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Ptr to m_prefs in <a class="el" href="class_main_window.html">MainWindow</a>. </p>
 
 </div>
 </div>

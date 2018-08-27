@@ -2,7 +2,7 @@
 <area shape="rect" id="node2" href="$namespace_i_o.html#a46b5e13da721b8233c925f7fb80dfd5f" title="IO::GetNCFilename" alt="" coords="241,56,380,83"/>
 <area shape="rect" id="node4" href="$namespace_i_o.html#a8bfaa71abcc4e015c5dca08677b916b2" title="Adds a dataset to THREDDS. Returns true if added. " alt="" coords="255,157,366,184"/>
 <area shape="rect" id="node10" href="$class_q_easy_downloader.html#a1c7b6d18fba99e981d71e841d44c502e" title="QEasyDownloader::Download" alt="" coords="212,259,409,285"/>
-<area shape="rect" id="node19" href="$class_main_window.html#a62be210d8008731f009ce6a31101cb69" title="MainWindow::showProgressBar" alt="" coords="207,309,415,336"/>
+<area shape="rect" id="node19" href="$class_main_window.html#a62be210d8008731f009ce6a31101cb69" title="Show the progress bar and label with the given labelText. Starts at 0%. " alt="" coords="207,309,415,336"/>
 <area shape="rect" id="node3" href="$namespace_i_o.html#aa4da319edb033251c43ab1f9d63a7cf2" title="Reads an xml file from path. Returns std::nullopt on failure. " alt="" coords="511,5,607,32"/>
 <area shape="rect" id="node5" href="$namespace_i_o.html#a0aafb4eb40c0832c513e1bbc0602fa57" title="Checks if a file exists at a given path. " alt="" coords="508,259,611,285"/>
 <area shape="rect" id="node6" href="$namespace_i_o.html#acd130712c8b05f34658133ce5cc869a4" title="Create a directory with necessary parents if needed. " alt="" coords="511,56,608,83"/>

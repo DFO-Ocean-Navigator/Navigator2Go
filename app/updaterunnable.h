@@ -12,9 +12,11 @@ class UpdateRunnable : public QObject, public QRunnable {
 public:
 	explicit UpdateRunnable(const QString& ONInstallDir);
 
+protected:
 	void run() override;
 
 signals:
+	/// Emitted when update check complete.
 	void finished();
 
 private:

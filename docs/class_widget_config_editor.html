@@ -176,6 +176,7 @@ Private Slots</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:acb8e9b2b50728dc06a61184e0e163b3d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#acb8e9b2b50728dc06a61184e0e163b3d">setDefaultConfigFile</a> ()</td></tr>
+<tr class="memdesc:acb8e9b2b50728dc06a61184e0e163b3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load the default datasetconfigOFFLINE.json into the UI.  <a href="#acb8e9b2b50728dc06a61184e0e163b3d">More...</a><br /></td></tr>
 <tr class="separator:acb8e9b2b50728dc06a61184e0e163b3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8e397d25c94be4bf0bec626789ffa5f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#ab8e397d25c94be4bf0bec626789ffa5f">showUnsavedDataMessageBox</a> ()</td></tr>
 <tr class="separator:ab8e397d25c94be4bf0bec626789ffa5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -185,8 +186,10 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a1dab1f40f409b7dfbcc7af8c08fefe0a"><td class="memItemLeft" align="right" valign="top">Ui::WidgetConfigEditor *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#a1dab1f40f409b7dfbcc7af8c08fefe0a">m_ui</a> {nullptr}</td></tr>
 <tr class="separator:a1dab1f40f409b7dfbcc7af8c08fefe0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40a38271d302fde779cc71b42c30ceb1"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_main_window.html">MainWindow</a> *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#a40a38271d302fde779cc71b42c30ceb1">m_mainWindow</a> {nullptr}</td></tr>
+<tr class="memdesc:a40a38271d302fde779cc71b42c30ceb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ptr to parent <a class="el" href="class_main_window.html">MainWindow</a>.  <a href="#a40a38271d302fde779cc71b42c30ceb1">More...</a><br /></td></tr>
 <tr class="separator:a40a38271d302fde779cc71b42c30ceb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9fed937a61b2451e8e41d1b876680d87"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_preferences.html">Preferences</a> *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#a9fed937a61b2451e8e41d1b876680d87">m_prefs</a> {nullptr}</td></tr>
+<tr class="memdesc:a9fed937a61b2451e8e41d1b876680d87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ptr to m_prefs in <a class="el" href="class_main_window.html">MainWindow</a>.  <a href="#a9fed937a61b2451e8e41d1b876680d87">More...</a><br /></td></tr>
 <tr class="separator:a9fed937a61b2451e8e41d1b876680d87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef0320e8cd5dacd15ee3249d9bb383b2"><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#aef0320e8cd5dacd15ee3249d9bb383b2">m_activeConfigFile</a></td></tr>
 <tr class="memdesc:aef0320e8cd5dacd15ee3249d9bb383b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Path to the currently loaded config file.  <a href="#aef0320e8cd5dacd15ee3249d9bb383b2">More...</a><br /></td></tr>
@@ -195,6 +198,7 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a62aa988831e9e4a35f6baa596a0d8690"><td class="mdescLeft">&#160;</td><td class="mdescRight">Root JSON object of active config file.  <a href="#a62aa988831e9e4a35f6baa596a0d8690">More...</a><br /></td></tr>
 <tr class="separator:a62aa988831e9e4a35f6baa596a0d8690"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b50b107482369d0a44d3cddf264028c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#a7b50b107482369d0a44d3cddf264028c">m_hasUnsavedData</a> {false}</td></tr>
+<tr class="memdesc:a7b50b107482369d0a44d3cddf264028c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does the current config file have unsaved data?  <a href="#a7b50b107482369d0a44d3cddf264028c">More...</a><br /></td></tr>
 <tr class="separator:a7b50b107482369d0a44d3cddf264028c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -237,7 +241,7 @@ Here is the call graph for this function:</div>
 <map name="class_widget_config_editor_abacfb5901728a5f54d3e396b1f7f6825_cgraph" id="class_widget_config_editor_abacfb5901728a5f54d3e396b1f7f6825_cgraph">
 <area shape="rect" id="node2" href="namespace_i_o.html#a0aafb4eb40c0832c513e1bbc0602fa57" title="Checks if a file exists at a given path. " alt="" coords="219,5,322,32"/>
 <area shape="rect" id="node3" href="namespace_i_o.html#ac86a15c73dae6f0332a90bf194abd8ca" title="Writes a JSON file to the given path. " alt="" coords="425,60,557,87"/>
-<area shape="rect" id="node4" href="class_widget_config_editor.html#acb8e9b2b50728dc06a61184e0e163b3d" title="WidgetConfigEditor\l::setDefaultConfigFile" alt="" coords="196,107,345,149"/>
+<area shape="rect" id="node4" href="class_widget_config_editor.html#acb8e9b2b50728dc06a61184e0e163b3d" title="Load the default datasetconfigOFFLINE.json into the UI. " alt="" coords="196,107,345,149"/>
 <area shape="rect" id="node5" href="namespace_i_o.html#a1fae692838a777c0cb5efc7bfd35ed3d" title="Loads a JSON file from disk, checks for errors, and returns the QJsonDocument. " alt="" coords="426,112,555,139"/>
 <area shape="rect" id="node6" href="class_main_window.html#a9d37673e90ff7a642e3b73fb6097e130" title="MainWindow::showStatusBar\lMessage" alt="" coords="393,163,588,205"/>
 </map>
@@ -479,7 +483,7 @@ Here is the call graph for this function:</div>
 <map name="class_widget_config_editor_ac1a6264132f506c1ed85a08ca6577548_cgraph" id="class_widget_config_editor_ac1a6264132f506c1ed85a08ca6577548_cgraph">
 <area shape="rect" id="node2" href="class_widget_config_editor.html#ab8e397d25c94be4bf0bec626789ffa5f" title="WidgetConfigEditor\l::showUnsavedDataMessageBox" alt="" coords="240,5,457,47"/>
 <area shape="rect" id="node3" href="class_widget_config_editor.html#ab0ed33fdd531d977f34e1788eac02c57" title="WidgetConfigEditor\l::saveConfigFile" alt="" coords="281,71,416,112"/>
-<area shape="rect" id="node6" href="class_widget_config_editor.html#acb8e9b2b50728dc06a61184e0e163b3d" title="WidgetConfigEditor\l::setDefaultConfigFile" alt="" coords="274,136,423,177"/>
+<area shape="rect" id="node6" href="class_widget_config_editor.html#acb8e9b2b50728dc06a61184e0e163b3d" title="Load the default datasetconfigOFFLINE.json into the UI. " alt="" coords="274,136,423,177"/>
 <area shape="rect" id="node8" href="class_widget_config_editor.html#a02f1397a15614d6eacc04848a0ef4fd6" title="WidgetConfigEditor\l::updateDatasetListWidget" alt="" coords="260,201,437,243"/>
 <area shape="rect" id="node4" href="namespace_i_o.html#ac86a15c73dae6f0332a90bf194abd8ca" title="Writes a JSON file to the given path. " alt="" coords="537,137,669,163"/>
 <area shape="rect" id="node5" href="class_main_window.html#a9d37673e90ff7a642e3b73fb6097e130" title="MainWindow::showStatusBar\lMessage" alt="" coords="505,71,700,112"/>
@@ -573,6 +577,8 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Load the default datasetconfigOFFLINE.json into the UI. </p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -689,6 +695,8 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
+<p>Does the current config file have unsaved data? </p>
+
 </div>
 </div>
 <a class="anchor" id="a40a38271d302fde779cc71b42c30ceb1"></a>
@@ -709,6 +717,8 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
+<p>Ptr to parent <a class="el" href="class_main_window.html">MainWindow</a>. </p>
+
 </div>
 </div>
 <a class="anchor" id="a9fed937a61b2451e8e41d1b876680d87"></a>
@@ -728,6 +738,8 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Ptr to m_prefs in <a class="el" href="class_main_window.html">MainWindow</a>. </p>
 
 </div>
 </div>

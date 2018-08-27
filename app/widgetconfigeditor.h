@@ -46,19 +46,19 @@ private slots:
 	void on_listWidgetActiveDatasets_itemDoubleClicked(QListWidgetItem* item);
 
 private:
-	///
+	/// Load the default datasetconfigOFFLINE.json into the UI
 	void setDefaultConfigFile();
 	///
 	int showUnsavedDataMessageBox();
 
 	Ui::WidgetConfigEditor* m_ui{nullptr};
-	const MainWindow* const m_mainWindow{nullptr};
-	const Preferences* const m_prefs{nullptr};
+	const MainWindow* const m_mainWindow{nullptr}; ///< Ptr to parent MainWindow.
+	const Preferences* const m_prefs{nullptr}; ///< Ptr to m_prefs in MainWindow.
 
 	QString m_activeConfigFile; ///< Path to the currently loaded config file
 	QJsonObject m_documentRootObject; ///< Root JSON object of active config file
 
-	bool m_hasUnsavedData{false};
+	bool m_hasUnsavedData{false}; ///< Does the current config file have unsaved data?
 };
 
 #endif // WIDGETCONFIGEDITOR_H

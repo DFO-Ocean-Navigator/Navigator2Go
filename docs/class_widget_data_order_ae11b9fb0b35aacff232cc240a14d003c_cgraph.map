@@ -1,8 +1,8 @@
 <map id="WidgetDataOrder::configureNetwork" name="WidgetDataOrder::configureNetwork">
 <area shape="rect" id="node2" href="$class_q_easy_downloader.html#a1e8620a53c7ec7dfdda85a8457e9bd38" title="QEasyDownloader::setTimeoutTime" alt="" coords="246,5,479,32"/>
 <area shape="rect" id="node3" href="$class_q_easy_downloader.html#ab53f8ed46f021736ff0040444b058421" title="QEasyDownloader::setDebug" alt="" coords="265,56,460,83"/>
-<area shape="rect" id="node4" href="$class_main_window.html#acdd6d0e11fa0dfe60e7ef8cb4cbe5de5" title="MainWindow::updateProgressBar" alt="" coords="255,107,471,133"/>
-<area shape="rect" id="node5" href="$class_main_window.html#a3fdaa9b3438854ad39576e1ddb2fb151" title="MainWindow::hideProgressBar" alt="" coords="262,157,463,184"/>
+<area shape="rect" id="node4" href="$class_main_window.html#acdd6d0e11fa0dfe60e7ef8cb4cbe5de5" title="Updates the progress bar percent value. Value is a percentage from 0 to 100. " alt="" coords="255,107,471,133"/>
+<area shape="rect" id="node5" href="$class_main_window.html#a3fdaa9b3438854ad39576e1ddb2fb151" title="Hide progress bar and label. " alt="" coords="262,157,463,184"/>
 <area shape="rect" id="node6" href="$namespace_system.html#a1592308ffa48dc75abbbfa3a7a759905" title="Sends a desktop notification. " alt="" coords="253,208,473,235"/>
 <area shape="rect" id="node7" href="$class_main_window.html#ad078587726dad32a714b6f0173a37d74" title="MainWindow::UpdateTHREDDSConfig\lTable" alt="" coords="237,259,488,301"/>
 <area shape="rect" id="node8" href="$class_q_easy_downloader.html#a1a338148f6e04988db49ebc5974e804f" title="QEasyDownloader::HasNext" alt="" coords="267,325,458,352"/>

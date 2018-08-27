@@ -2,7 +2,7 @@
 <area shape="rect" id="node2" href="$class_main_window.html#a06476208b8466211f3bb0fcae787052b" title="Read settings from disk into Preferences object. " alt="" coords="270,5,449,32"/>
 <area shape="rect" id="node3" href="$class_main_window.html#a47203b9c909f280cc38654fa1c7371bb" title="Show first run configuration dialog before main window pops up. " alt="" coords="266,57,453,98"/>
 <area shape="rect" id="node5" href="$class_main_window.html#afcf77332d90edc94daa4d7283c061a90" title="Initialize widgets for each tab. " alt="" coords="274,123,445,149"/>
-<area shape="rect" id="node7" href="$class_main_window.html#abc8e9eb1d5c005b8a7c1873c1ad581e9" title="MainWindow::checkRemoteConnection" alt="" coords="233,224,485,251"/>
+<area shape="rect" id="node7" href="$class_main_window.html#abc8e9eb1d5c005b8a7c1873c1ad581e9" title="Queries the RemoteURL in m_prefs for a connection. " alt="" coords="233,224,485,251"/>
 <area shape="rect" id="node8" href="$class_main_window.html#a430bf119b39a7ed4ea31e9fc0d1dabcf" title="Set network state to online. " alt="" coords="567,173,727,200"/>
 <area shape="rect" id="node10" href="$class_main_window.html#a743de1d031e86b5da2e9701da5193483" title="Set network state to offline. " alt="" coords="567,275,728,301"/>
 <area shape="rect" id="node11" href="$class_main_window.html#a10750b9bdf057c5863a1ff682390170f" title="Calls both update functions for convenience. " alt="" coords="255,325,463,352"/>
@@ -12,5 +12,5 @@
 <area shape="rect" id="node9" href="$class_main_window.html#a9d37673e90ff7a642e3b73fb6097e130" title="MainWindow::showStatusBar\lMessage" alt="" coords="809,318,1004,359"/>
 <area shape="rect" id="node12" href="$class_main_window.html#a0a741972d090ea2332e980e2bcbaf582" title="Checks for updates for Navigator2Go. " alt="" coords="535,325,759,352"/>
 <area shape="rect" id="node13" href="$class_main_window.html#a3738cfe4d199c40c137ee86a20871891" title="Updates Ocean Navigator code from git and rebuilds necessary code. " alt="" coords="533,376,761,403"/>
-<area shape="rect" id="node15" href="$class_main_window.html#a3fdaa9b3438854ad39576e1ddb2fb151" title="MainWindow::hideProgressBar" alt="" coords="547,427,748,453"/>
+<area shape="rect" id="node15" href="$class_main_window.html#a3fdaa9b3438854ad39576e1ddb2fb151" title="Hide progress bar and label. " alt="" coords="547,427,748,453"/>
 </map>

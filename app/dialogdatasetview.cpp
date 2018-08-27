@@ -405,7 +405,7 @@ void DialogDatasetView::on_pushButtonMagicScan_clicked() {
 		else {
 			QMessageBox::critical(this,
 								  tr("Error..."),
-								  tr("Magic scan failed :( There could be a network issue, or the URL is wrong.")
+								  tr("Magic scan failed :( There could be a network issue (did you start your THREDDS server?), or the URL is wrong.")
 								  );
 		}
 
