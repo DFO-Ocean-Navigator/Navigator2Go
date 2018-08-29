@@ -38,6 +38,8 @@ private slots:
 
 	void on_pushButtonCheckRemoteUplink_clicked();
 
+	void on_pushButtonClearPythonCache_clicked();
+
 private:
 	//
 	void checkAndStartServers();

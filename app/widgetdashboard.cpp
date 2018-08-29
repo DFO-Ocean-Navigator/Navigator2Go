@@ -240,3 +240,26 @@ void WidgetDashboard::updateDriveInfo() {
 	m_ui->progressBarDriveSpace->setMaximum(static_cast<int>(total));
 	m_ui->progressBarDriveSpace->setValue(static_cast<int>(used));
 }
+
+/***********************************************************************************/
+void WidgetDashboard::on_pushButtonClearPythonCache_clicked() {
+	if (QMessageBox::warning(this,
+							 tr("Confirm"),
+							 tr("Are you sure you wish to clear the python cache? This will result in a temporary slow-down of the Navigator web UI."),
+							 QMessageBox::Cancel | QMessageBox::Ok) == QMessageBox::Ok) {
+
+
+		QDir d{"/tmp/oceannavigator/tiles"};
+		if (!d.exists()) {
+			m_mainWindow->showStatusBarMessage("Python cache empty...nothing to do.");
+			return;
+		}
+
+		QString status;
+		d.removeRecursively() ? status = " successful" : status = " failed";
+
+		QMessageBox::information(this,
+								 tr("Clear python cache"),
+								 tr("Cache clearing operation ") + status + ".");
+	}
+}
