@@ -83,13 +83,28 @@ void DialogImportNC::addDataset() {
 		return;
 	}
 
+	// Check for duplicates
+	for (auto i = 0; i < m_ui->tableWidget->rowCount(); ++i) {
+
+		if (const auto* item{ m_ui->tableWidget->item(i, 0) };
+				file == item->text()) {
+
+			QMessageBox::information(this,
+									 tr("Duplicate entry"),
+									 tr("This file is already listed in the import queue!"));
+			return;
+		}
+	}
+
+	// Add new row
 	m_ui->tableWidget->insertRow(m_ui->tableWidget->rowCount());
 	const auto rowIdx{ m_ui->tableWidget->rowCount() - 1 };
 
+	// Set left cell (filename)
 	m_ui->tableWidget->setItem(rowIdx, 0, new QTableWidgetItem(file));
 
+	// Set right cell (combobox)
 	auto* box{ new QComboBox() };
 	box->addItems(m_datasetList);
-
 	m_ui->tableWidget->setCellWidget(rowIdx, 1, box);
 }
