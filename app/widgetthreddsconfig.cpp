@@ -13,6 +13,8 @@
 #include <QDir>
 #include <QInputDialog>
 #include <QRegularExpression>
+#include <QDesktopServices>
+#include <QUrl>
 
 #include <pugixml/pugixml.hpp>
 
@@ -252,4 +254,7 @@ void WidgetThreddsConfig::removeDataset(const QString& datasetName, const QStrin
 	IO::RemoveDir(dataPath);
 }
 
-
+/***********************************************************************************/
+void WidgetThreddsConfig::on_pushButtonBrowseTHREDDSDir_clicked() {
+	QDesktopServices::openUrl({"/opt/thredds_content/"});
+}

@@ -41,7 +41,7 @@ QVector<NetCDFImportDesc> DialogImportNC::GetImportList() const {
 }
 
 /***********************************************************************************/
-bool DialogImportNC::RemoveSourceNCFiles() const {
+bool DialogImportNC::ShouldRemoveSourceNCFiles() const {
 	return m_ui->checkBoxRemoveSourceFiles->isChecked();
 }
 

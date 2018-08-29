@@ -171,6 +171,8 @@
     </property>
     <addaction name="actionCheck_for_Updates"/>
     <addaction name="actionAbout"/>
+    <addaction name="actionNavigator2Go_Manual"/>
+    <addaction name="separator"/>
     <addaction name="actionAbout_Qt"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
@@ -210,6 +212,11 @@
   <action name="actionCheck_for_Updates">
    <property name="text">
     <string>Check for Updates</string>
+   </property>
+  </action>
+  <action name="actionNavigator2Go_Manual">
+   <property name="text">
+    <string>Navigator2Go Manual</string>
    </property>
   </action>
  </widget>

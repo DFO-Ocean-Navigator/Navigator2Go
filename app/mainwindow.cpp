@@ -23,6 +23,7 @@
 #include <QSettings>
 #include <QNetworkReply>
 #include <QThreadPool>
+#include <QDesktopServices>
 
 #ifdef QT_DEBUG
 	#include <QDebug>
@@ -497,4 +498,9 @@ void MainWindow::showFirstRunConfiguration() {
 	while(prefsDialog.GetPreferences().THREDDSCatalogLocation.isEmpty());
 
 	m_prefs = prefsDialog.GetPreferences();
+}
+
+/***********************************************************************************/
+void MainWindow::on_actionNavigator2Go_Manual_triggered() {
+	QDesktopServices::openUrl({"https://dfo-ocean-navigator.github.io/Navigator2GoTutorial/"});
 }

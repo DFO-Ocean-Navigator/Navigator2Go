@@ -87,7 +87,24 @@
         </spacer>
        </item>
        <item>
+        <widget class="QPushButton" name="pushButtonBrowseTHREDDSDir">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open folder containing THREDDS catalog files and *.nc files.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="text">
+          <string>Browse THREDDS Dirs...</string>
+         </property>
+         <property name="icon">
+          <iconset resource="resources.qrc">
+           <normaloff>:/icons/icons/folder.png</normaloff>:/icons/icons/folder.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="pushButtonShowLogs">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open folder containing THREDDS log files.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>Browse Log Files...</string>
          </property>

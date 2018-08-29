@@ -62,6 +62,8 @@ private slots:
 	/// Update check
 	void on_actionCheck_for_Updates_triggered();
 
+	void on_actionNavigator2Go_Manual_triggered();
+
 private:
 	/// Initialize widgets for each tab
 	void initWidgets();

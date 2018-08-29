@@ -33,6 +33,8 @@ private slots:
 
 	void on_pushButtonShowLogs_clicked();
 
+	void on_pushButtonBrowseTHREDDSDir_clicked();
+
 private:
 	//
 	void checkCatalogsPath();

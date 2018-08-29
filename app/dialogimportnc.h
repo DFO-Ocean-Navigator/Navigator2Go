@@ -24,7 +24,7 @@ public:
 	NODISCARD QVector<NetCDFImportDesc> GetImportList() const;
 
 	/// Should the source file be removed?
-	NODISCARD bool RemoveSourceNCFiles() const;
+	NODISCARD bool ShouldRemoveSourceNCFiles() const;
 
 private slots:
 	void on_pushButtonAdd_clicked();
