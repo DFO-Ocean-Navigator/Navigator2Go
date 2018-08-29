@@ -59,10 +59,25 @@ void DialogImportNC::on_pushButtonDelete_clicked() {
 		return;
 	}
 
-	const auto& selectedRows{ m_ui->tableWidget->selectionModel()->selectedRows() };
+	// 2 ways to select a row: only one way is possible at a time
 
-	for (const auto& row : selectedRows) {
-		m_ui->tableWidget->removeRow(row.row());
+	// If the user selects the entire row by clicking on the row index on the left-side
+	// get row index and delete it.
+	const auto& selectedRows{ m_ui->tableWidget->selectionModel()->selectedRows() };
+	if (!selectedRows.empty()) {
+		for (const auto& row : selectedRows) {
+			m_ui->tableWidget->removeRow(row.row());
+		}
+		return;
+	}
+
+	// If the user selects a cell on a particular row, get the row index of that cell
+	// and delete the row.
+	const auto& selectedItems{ m_ui->tableWidget->selectedItems() };
+	if (!selectedItems.empty()) {
+		for (const auto& item : selectedItems) {
+			m_ui->tableWidget->removeRow(item->row());
+		}
 	}
 }
 
