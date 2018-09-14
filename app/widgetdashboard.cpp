@@ -249,14 +249,14 @@ void WidgetDashboard::on_pushButtonClearPythonCache_clicked() {
 							 QMessageBox::Cancel | QMessageBox::Ok) == QMessageBox::Ok) {
 
 
-		QDir d{"/tmp/oceannavigator/tiles"};
+		QDir d{"/tmp/oceannavigator"};
 		if (!d.exists()) {
 			m_mainWindow->showStatusBarMessage("Python cache empty...nothing to do.");
 			return;
 		}
 
 		QString status;
-		d.removeRecursively() ? status = " successful" : status = " failed";
+		d.removeRecursively() ? status = "successful" : status = "failed";
 
 		QMessageBox::information(this,
 								 tr("Clear python cache"),

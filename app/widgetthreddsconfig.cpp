@@ -80,7 +80,7 @@ void WidgetThreddsConfig::on_pushButtonAddDataset_clicked() {
 												   tr("Dataset Path..."),
 												   tr("Enter the path for the folder containing the dataset."),
 												   QLineEdit::Normal,
-												   "",
+												   "/opt/thredds_content/data/"+datasetName,
 												   &ok_dspath)
 						  };
 
