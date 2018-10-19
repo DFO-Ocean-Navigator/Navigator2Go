@@ -6,7 +6,11 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QRegularExpression>
-#include <QDebug>
+#include <QMessageBox>
+
+#ifdef QT_DEBUG
+	#include <QDebug>
+#endif
 
 #include <netcdf4/ncFile.h>
 
@@ -46,7 +50,33 @@ bool FileExists(const QString& path) {
 }
 
 /***********************************************************************************/
-void createDir(const QString& path) {
+bool ClearPythonCache() {
+	if (QMessageBox::warning(nullptr,
+							 QObject::tr("Confirm"),
+							 QObject::tr("Are you sure you wish to clear the python cache? This will result in a temporary slow-down of the Navigator web UI."),
+							 QMessageBox::Cancel | QMessageBox::Ok) == QMessageBox::Ok) {
+
+
+		QDir d{"/tmp/oceannavigator"};
+		if (!d.exists()) {
+			return false;
+		}
+
+		QString status;
+		d.removeRecursively() ? status = "successful" : status = "failed";
+
+		QMessageBox::information(nullptr,
+								 QObject::tr("Clear python cache"),
+								 QObject::tr("Cache clearing operation ") + status + ".");
+
+		return true;
+	}
+
+	return false;
+}
+
+/***********************************************************************************/
+void CreateDir(const QString& path) {
 	const QFileInfo f{path};
 	const QDir dir{f.absoluteDir()};
 
@@ -111,6 +141,8 @@ void CopyFilesRunnable::run() {
 
 	emit finished(errorList);
 }
+
+
 
 
 } // namespace IO

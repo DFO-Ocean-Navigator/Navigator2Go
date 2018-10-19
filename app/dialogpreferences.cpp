@@ -2,52 +2,23 @@
 #include "ui_dialogpreferences.h"
 
 #include "ioutils.h"
+#include "preferences.h"
 
 #include <QFileDialog>
 #include <QMessageBox>
 
 /***********************************************************************************/
-DialogPreferences::DialogPreferences(QWidget* parent) : QDialog{parent},
-														m_ui{new Ui::DialogPreferences} {
+DialogPreferences::DialogPreferences(Preferences& prefs, QWidget* parent) : QDialog{parent},
+																			m_ui{new Ui::DialogPreferences},
+																			m_prefs{prefs} {
 	m_ui->setupUi(this);
 
-	const QStringList downloadFormats {
-		"NETCDF4", "NETCDF4_CLASSIC", "NETCDF3_64BIT",
-		"NETCDF3_CLASSIC", "NETCDF3_NC"
-	};
-
-	m_ui->comboBoxDownloadFormat->addItems(downloadFormats);
+	populateUI();
 }
 
 /***********************************************************************************/
 DialogPreferences::~DialogPreferences() {
 	delete m_ui;
-}
-
-/***********************************************************************************/
-void DialogPreferences::SetPreferences(Preferences& prefs) {
-	m_ui->lineEditInstallDir->setText(prefs.ONInstallDir);
-	m_ui->lineEditRemoteURL->setText(prefs.RemoteURL);
-	m_ui->lineEditTHREDDSDataLocation->setText(prefs.THREDDSCatalogLocation);
-	m_ui->comboBoxDownloadFormat->setCurrentText(prefs.DataDownloadFormat);
-	m_ui->switchUpdateDoryDatasetsOnStart->setChecked(prefs.UpdateRemoteListOnStart);
-	m_ui->switchAutoStartServers->setChecked(prefs.AutoStartServers);
-	m_ui->switchOnlineOffline->setChecked(prefs.IsNetworkOnline);
-	m_ui->switchWidgetCheckForUpdates->setChecked(prefs.CheckForUpdatesOnStart);
-}
-
-/***********************************************************************************/
-auto DialogPreferences::GetPreferences() const -> Preferences {
-	return {
-		m_ui->lineEditInstallDir->text(),
-		m_ui->lineEditRemoteURL->text(),
-		m_ui->lineEditTHREDDSDataLocation->text(),
-		m_ui->comboBoxDownloadFormat->currentText(),
-		m_ui->switchUpdateDoryDatasetsOnStart->isChecked(),
-		m_ui->switchAutoStartServers->isChecked(),
-		m_ui->switchOnlineOffline->isChecked(),
-		m_ui->switchWidgetCheckForUpdates->isChecked()
-	};
 }
 
 /***********************************************************************************/
@@ -69,7 +40,7 @@ void DialogPreferences::on_pushButtonBrowseInstallDir_clicked() {
 }
 
 /***********************************************************************************/
-void DialogPreferences::on_pushButtonBroweseTHREDDS_clicked() {
+void DialogPreferences::on_pushButtonBrowseTHREDDS_clicked() {
 	const auto& dir{ QFileDialog::getExistingDirectory(this, tr("Open THREDDS catalog.xml folder...")) };
 
 	if (!dir.isEmpty()) {
@@ -84,4 +55,42 @@ void DialogPreferences::on_pushButtonBroweseTHREDDS_clicked() {
 							  dir
 							  );
 	}
+}
+
+/***********************************************************************************/
+void DialogPreferences::on_buttonBox_accepted() {
+	if (!m_ui->lineEditInstallDir->text().isEmpty()) {
+		m_prefs.ONInstallDir = m_ui->lineEditInstallDir->text();
+	}
+
+	if (!m_ui->lineEditRemoteURL->text().isEmpty()) {
+		m_prefs.RemoteURL = m_ui->lineEditRemoteURL->text();
+	}
+
+	if (!m_ui->lineEditTHREDDSDataLocation->text().isEmpty()) {
+		m_prefs.THREDDSCatalogLocation = m_ui->lineEditTHREDDSDataLocation->text();
+	}
+
+	m_prefs.DataDownloadFormat = m_ui->comboBoxDownloadFormat->currentText();
+	m_prefs.UpdateRemoteListOnStart = m_ui->switchUpdateDoryDatasetsOnStart->isChecked();
+	m_prefs.IsNetworkOnline = m_ui->switchOnlineOffline->isChecked();
+	m_prefs.CheckForUpdatesOnStart = m_ui->switchWidgetCheckForUpdates->isChecked();
+}
+
+/***********************************************************************************/
+void DialogPreferences::populateUI() {
+	const QStringList downloadFormats {
+		"NETCDF4", "NETCDF4_CLASSIC", "NETCDF3_64BIT",
+		"NETCDF3_CLASSIC", "NETCDF3_NC"
+	};
+
+	m_ui->comboBoxDownloadFormat->addItems(downloadFormats);
+
+	m_ui->lineEditInstallDir->setText(m_prefs.ONInstallDir);
+	m_ui->lineEditRemoteURL->setText(m_prefs.RemoteURL);
+	m_ui->lineEditTHREDDSDataLocation->setText(m_prefs.THREDDSCatalogLocation);
+	m_ui->comboBoxDownloadFormat->setCurrentText(m_prefs.DataDownloadFormat);
+	m_ui->switchUpdateDoryDatasetsOnStart->setChecked(m_prefs.UpdateRemoteListOnStart);
+	m_ui->switchOnlineOffline->setChecked(m_prefs.IsNetworkOnline);
+	m_ui->switchWidgetCheckForUpdates->setChecked(m_prefs.CheckForUpdatesOnStart);
 }

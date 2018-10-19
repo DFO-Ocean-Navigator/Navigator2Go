@@ -240,6 +240,13 @@
         </spacer>
        </item>
        <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>Delete Selected</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="pushButtonDownload">
          <property name="enabled">
           <bool>true</bool>

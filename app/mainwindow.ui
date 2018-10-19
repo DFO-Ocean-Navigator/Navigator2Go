@@ -63,14 +63,86 @@
          <normaloff>:/icons/icons/house.png</normaloff>:/icons/icons/house.png</iconset>
        </attribute>
        <attribute name="title">
-        <string>Dashboard</string>
+        <string>Home</string>
        </attribute>
        <attribute name="toolTip">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Quick overview of the Navigator2Go system.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="0">
-         <layout class="QGridLayout" name="dashboardLayout"/>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="font">
+             <font>
+              <pointsize>24</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Welcome to Navigator2Go</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="textInteractionFlags">
+             <set>Qt::NoTextInteraction</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox">
+            <property name="title">
+             <string>Quick Tools</string>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout">
+               <item>
+                <widget class="QPushButton" name="pushButtonLaunchViewer">
+                 <property name="toolTip">
+                  <string>Open viewer in a web browser.</string>
+                 </property>
+                 <property name="text">
+                  <string>Launch Viewer</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButtonOpenDataOrder">
+                 <property name="toolTip">
+                  <string>Download more data from a remote source.</string>
+                 </property>
+                 <property name="text">
+                  <string>Data Order</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButtonImportNCFiles">
+                 <property name="toolTip">
+                  <string>Import an existing NetCDF file from your computer.</string>
+                 </property>
+                 <property name="text">
+                  <string>Import NetCDF File(s)</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButtonViewLocalData">
+                 <property name="toolTip">
+                  <string>List what local datasets are in THREDDS.</string>
+                 </property>
+                 <property name="text">
+                  <string>View Local Data</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>
@@ -163,6 +235,8 @@
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="actionPreferences"/>
+    <addaction name="separator"/>
     <addaction name="actionClose"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -175,14 +249,14 @@
     <addaction name="separator"/>
     <addaction name="actionAbout_Qt"/>
    </widget>
-   <widget class="QMenu" name="menuEdit">
+   <widget class="QMenu" name="menuTools">
     <property name="title">
-     <string>Edit</string>
+     <string>Tools</string>
     </property>
-    <addaction name="actionPreferences"/>
+    <addaction name="actionClear_Python_cache"/>
    </widget>
    <addaction name="menuFile"/>
-   <addaction name="menuEdit"/>
+   <addaction name="menuTools"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -217,6 +291,11 @@
   <action name="actionNavigator2Go_Manual">
    <property name="text">
     <string>Navigator2Go Manual</string>
+   </property>
+  </action>
+  <action name="actionClear_Python_cache">
+   <property name="text">
+    <string>Clear Python cache</string>
    </property>
   </action>
  </widget>

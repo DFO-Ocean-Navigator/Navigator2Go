@@ -15,14 +15,14 @@ class WidgetDataOrder;
 }
 class QListWidgetItem;
 class MainWindow;
-struct Preferences;
+class Preferences;
 
 /***********************************************************************************/
 class WidgetDataOrder : public QWidget {
 	Q_OBJECT
 
 public:
-	WidgetDataOrder(QWidget* parent, MainWindow* mainWindow, const Preferences* prefs);
+	WidgetDataOrder(QWidget* parent, MainWindow* mainWindow, Preferences& prefs);
 	~WidgetDataOrder();
 
 	//
@@ -30,9 +30,6 @@ public:
 
 	void setNAMOnline();
 	void setNAMOffline();
-
-	void setRegion(const double MinLat, const double MaxLat, const double MinLon, const double MaxLon);
-	NODISCARD std::tuple<double, double, double, double> getRegion() const;
 
 private slots:
 	void on_pushButtonDownload_clicked();
@@ -43,13 +40,19 @@ private slots:
 
 	void on_pushButtonUpdateRemoteList_clicked();
 
+	// Data order area changes
+	void on_spinboxMinLat_valueChanged(double arg1);
+	void on_spinboxMinLon_valueChanged(double arg1);
+	void on_spinboxMaxLat_valueChanged(double arg1);
+	void on_spinboxMaxLon_valueChanged(double arg1);
+
 private:
 	//
 	void configureNetwork();
 
 	Ui::WidgetDataOrder* m_ui{nullptr};
 	MainWindow* const m_mainWindow{nullptr}; ///< Ptr to parent MainWindow.
-	const Preferences* const m_prefs{nullptr}; ///< Ptr to m_prefs in MainWindow.
+	Preferences& m_prefs;
 
 	// Stores the resulting JSON objects for each dataset
 	// returned by a call to:

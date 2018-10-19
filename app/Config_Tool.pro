@@ -45,7 +45,6 @@ RESOURCES += \
 FORMS += \
     mainwindow.ui \
     dialogpreferences.ui \
-    widgetdashboard.ui \
     dialogdatasetview.ui \
     widgetconfigeditor.ui \
     widgetdataorder.ui \
@@ -69,7 +68,6 @@ HEADERS += \
     preferences.h \
     QEasyDownloader.hpp \
     switchwidget.h \
-    widgetdashboard.h \
     widgetconfigeditor.h \
     widgetdataorder.h \
     widgetthreddsconfig.h \
@@ -83,7 +81,8 @@ HEADERS += \
     widgetmonthpicker.h \
     updaterunnable.h \
     systemutils.h \
-    backward/backward.hpp
+    backward/backward.hpp \
+    servermanager.h
 
 SOURCES += \
     datadownloaddesc.cpp \
@@ -97,7 +96,6 @@ SOURCES += \
     network.cpp \
     QEasyDownloader.cc \
     switchwidget.cpp \
-    widgetdashboard.cpp \
     widgetconfigeditor.cpp \
     widgetdataorder.cpp \
     widgetthreddsconfig.cpp \
@@ -109,7 +107,9 @@ SOURCES += \
     widgetmonthpicker.cpp \
     updaterunnable.cpp \
     systemutils.cpp \
-    backward/backward.cpp
+    backward/backward.cpp \
+    preferences.cpp \
+    servermanager.cpp
 
 INCLUDEPATH += \
     $$PWD/netcdf4/include \

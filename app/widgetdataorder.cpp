@@ -19,13 +19,18 @@
 #endif
 
 /***********************************************************************************/
-WidgetDataOrder::WidgetDataOrder(QWidget* parent, MainWindow* mainWindow, const Preferences* prefs) :	QWidget{parent},
+WidgetDataOrder::WidgetDataOrder(QWidget* parent, MainWindow* mainWindow, Preferences& prefs) :	QWidget{parent},
 																										m_ui{new Ui::WidgetDataOrder},
 																										m_mainWindow{mainWindow},
 																										m_prefs{prefs} {
 	m_ui->setupUi(this);
 
 	m_ui->groupBoxDownloadStats->setVisible(false);
+	m_ui->spinboxMinLat->setValue(m_prefs.DataOrderArea.MinLat);
+	m_ui->spinboxMaxLat->setValue(m_prefs.DataOrderArea.MaxLat);
+
+	m_ui->spinboxMinLon->setValue(m_prefs.DataOrderArea.MinLon);
+	m_ui->spinboxMaxLon->setValue(m_prefs.DataOrderArea.MaxLon);
 
 	configureNetwork();
 }
@@ -33,24 +38,6 @@ WidgetDataOrder::WidgetDataOrder(QWidget* parent, MainWindow* mainWindow, const 
 /***********************************************************************************/
 WidgetDataOrder::~WidgetDataOrder() {
 	delete m_ui;
-}
-
-/***********************************************************************************/
-void WidgetDataOrder::setRegion(const double MinLat, const double MaxLat, const double MinLon, const double MaxLon) {
-	m_ui->spinboxMinLat->setValue(MinLat);
-	m_ui->spinboxMaxLat->setValue(MaxLat);
-
-	m_ui->spinboxMinLon->setValue(MinLon);
-	m_ui->spinboxMaxLon->setValue(MaxLon);
-}
-
-/***********************************************************************************/
-std::tuple<double, double, double, double> WidgetDataOrder::getRegion() const {
-	return std::make_tuple(	m_ui->spinboxMinLat->value(),
-							m_ui->spinboxMaxLat->value(),
-							m_ui->spinboxMinLon->value(),
-							m_ui->spinboxMaxLon->value()
-							);
 }
 
 /***********************************************************************************/
@@ -68,7 +55,7 @@ void WidgetDataOrder::on_pushButtonDownload_clicked() {
 		return;
 	}
 
-	if (m_prefs->THREDDSCatalogLocation.isEmpty()) {
+	if (m_prefs.THREDDSCatalogLocation.isEmpty()) {
 		QMessageBox::information(this, tr("THREDDS location not set..."), tr("Go to Preferences (CTRL + SHIFT + P) to set the location on disk."));
 		return;
 	}
@@ -89,9 +76,9 @@ void WidgetDataOrder::on_pushButtonDownload_clicked() {
 		const QString& max_range{ "&max_range=" + QString::number(m_ui->spinboxMaxLat->value()) + "," + QString::number(m_ui->spinboxMaxLon->value()) };
 
 		for (const auto& item : m_downloadQueue) {
-			const auto& url{ item.GetAPIQuery(m_prefs->RemoteURL) + min_range + max_range + "&output_format=" + m_prefs->DataDownloadFormat};
+			const auto& url{ item.GetAPIQuery(m_prefs.RemoteURL) + min_range + max_range + "&output_format=" + m_prefs.DataDownloadFormat};
 
-			auto fileDesc{ IO::GetNCFilename(m_prefs->THREDDSCatalogLocation, item) };
+			auto fileDesc{ IO::GetNCFilename(m_prefs.THREDDSCatalogLocation, item) };
 
 			if (fileDesc.Path.isEmpty()) {
 				const auto& location{ QInputDialog::getText(this,
@@ -100,7 +87,7 @@ void WidgetDataOrder::on_pushButtonDownload_clicked() {
 										 };
 
 				// Dataset doesn't exist so create it
-				IO::addDataset(m_prefs->THREDDSCatalogLocation, item.ID, location);
+				IO::addDataset(m_prefs.THREDDSCatalogLocation, item.ID, location);
 
 				fileDesc.Path = location;
 			}
@@ -158,7 +145,28 @@ void WidgetDataOrder::on_listWidgetRemoteDatasets_itemDoubleClicked(QListWidgetI
 
 /***********************************************************************************/
 void WidgetDataOrder::on_listWidgetDownloadQueue_itemDoubleClicked(QListWidgetItem* item) {
+
 	delete m_ui->listWidgetDownloadQueue->takeItem(m_ui->listWidgetDownloadQueue->row(item));
+}
+
+/***********************************************************************************/
+void WidgetDataOrder::on_spinboxMinLat_valueChanged(double arg1) {
+	m_prefs.DataOrderArea.MinLat = arg1;
+}
+
+/***********************************************************************************/
+void WidgetDataOrder::on_spinboxMinLon_valueChanged(double arg1) {
+	m_prefs.DataOrderArea.MinLon = arg1;
+}
+
+/***********************************************************************************/
+void WidgetDataOrder::on_spinboxMaxLat_valueChanged(double arg1) {
+	m_prefs.DataOrderArea.MaxLat = arg1;
+}
+
+/***********************************************************************************/
+void WidgetDataOrder::on_spinboxMaxLon_valueChanged(double arg1) {
+	m_prefs.DataOrderArea.MaxLon = arg1;
 }
 
 /***********************************************************************************/
@@ -166,9 +174,9 @@ void WidgetDataOrder::configureNetwork() {
 	// Follow server redirects for same domain only
 	m_networkAccessManager.setRedirectPolicy(QNetworkRequest::RedirectPolicy::SameOriginRedirectPolicy);
 
-	if (m_prefs->IsNetworkOnline) {
+	if (m_prefs.IsNetworkOnline) {
 		// Reduce latency by connecting to remote first
-		m_networkAccessManager.connectToHost(m_prefs->RemoteURL);
+		m_networkAccessManager.connectToHost(m_prefs.RemoteURL);
 	}
 
 	m_downloader.setTimeoutTime(300000); // 30 sec timeout
@@ -213,12 +221,11 @@ void WidgetDataOrder::configureNetwork() {
 						m_downloadQueue.clear();
 						m_ui->groupBoxDownloadStats->setVisible(false);
 
-						System::SendDesktopNotification("Navigator2Go", "All downloads complete!");
+						System::SendDesktopNotification(QStringLiteral("Navigator2Go"), QStringLiteral("All downloads complete!"));
 
 						QMessageBox box{this};
 						box.setWindowTitle(tr("Downloads completed..."));
 						box.setText(tr("All downloads completed! Your queue has been emptied."));
-						box.setInformativeText(tr("Be sure to click the button below to update your config and aggregation files!"));
 						box.setIcon(QMessageBox::Information);
 
 						box.exec();
@@ -237,8 +244,8 @@ void WidgetDataOrder::configureNetwork() {
 						box.setIcon(QMessageBox::Critical);
 						box.setWindowTitle(tr("Download error..."));
 						box.setText(tr("A error has occoured while downloading your file. If it exists, we will continue with the next file in your queue."));
-						box.setDetailedText( url.toString() + "\n\n QNetworkReply::NetworkError: " + QVariant(errorCode).toString() +
-											" http://doc.qt.io/archives/qt-4.8/qnetworkreply.html#NetworkError-enum");
+						box.setDetailedText( url.toString() + QStringLiteral("\n\n QNetworkReply::NetworkError: ") + QVariant(errorCode).toString() +
+											QStringLiteral(" http://doc.qt.io/archives/qt-4.8/qnetworkreply.html#NetworkError-enum"));
 
 						box.exec();
 
@@ -282,7 +289,7 @@ void WidgetDataOrder::updateRemoteDatasetListWidget() {
 	m_ui->pushButtonUpdateRemoteList->setEnabled(false);
 	m_ui->pushButtonUpdateRemoteList->setText(tr("Updating..."));
 
-	Network::MakeAPIRequest(m_networkAccessManager, m_prefs->RemoteURL+"/api/datasets/",
+	Network::MakeAPIRequest(m_networkAccessManager, m_prefs.RemoteURL+"/api/datasets/",
 							// Success handler
 							[&](const auto& doc) {
 								const auto& root = doc.array();
@@ -320,3 +327,5 @@ void WidgetDataOrder::setNAMOnline() {
 void WidgetDataOrder::setNAMOffline() {
 	m_networkAccessManager.setNetworkAccessible(QNetworkAccessManager::NotAccessible);
 }
+
+

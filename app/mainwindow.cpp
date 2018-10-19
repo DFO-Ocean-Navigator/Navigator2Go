@@ -3,7 +3,7 @@
 
 #include "dialogdatasetview.h"
 #include "dialogpreferences.h"
-#include "widgetdashboard.h"
+#include "dialogimportnc.h"
 #include "widgetconfigeditor.h"
 #include "widgetdataorder.h"
 #include "widgetthreddsconfig.h"
@@ -20,7 +20,6 @@
 #include <QTextStream>
 #include <QFileDialog>
 #include <QJsonArray>
-#include <QSettings>
 #include <QNetworkReply>
 #include <QThreadPool>
 #include <QDesktopServices>
@@ -30,17 +29,16 @@
 #endif
 
 /***********************************************************************************/
-enum UITabs : int {
-	HOME = 0,
-	DATA_SYNC
-};
+auto appVersion() noexcept { return APP_VERSION; }
+auto commitHash() noexcept { return GIT_CURRENT_SHA1; }
+auto currentBranch() noexcept { return GIT_CURRENT_BRANCH; }
 
 /***********************************************************************************/
 MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 											m_ui{new Ui::MainWindow} {
 	m_ui->setupUi(this);
 	// Set dark stylesheet
-	QFile f{":qdarkstyle/style.qss"};
+	QFile f{QStringLiteral(":qdarkstyle/style.qss")};
 	if (!f.exists()) {
 #ifdef QT_DEBUG
 		qDebug() << "Unable to set stylesheet: " << f.errorString();
@@ -51,8 +49,6 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 		QTextStream ts{&f};
 		qApp->setStyleSheet(ts.readAll());
 	}
-
-	readSettings();
 
 	if (m_prefs.FirstRun) {
 #ifdef QT_DEBUG
@@ -83,7 +79,7 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 		checkForUpdates();
 	}
 
-	setWindowTitle(tr("Navigator2Go - Alpha Build"));
+	setWindowTitle(tr("Navigator2Go"));
 
 	setInitialLayout();
 }
@@ -126,150 +122,22 @@ void MainWindow::on_actionClose_triggered() {
 }
 
 /***********************************************************************************/
-void MainWindow::closeEvent(QCloseEvent* event) {
-	writeSettings();
-}
-
-/***********************************************************************************/
 void MainWindow::initWidgets() {
-
-	m_widgetDashboard = new WidgetDashboard(m_ui->tabWidget, this, &m_prefs);
 
 	m_widgetConfigEditor = new WidgetConfigEditor(m_ui->tabWidget, this, &m_prefs);
 
-	m_widgetDataOrder = new WidgetDataOrder(m_ui->tabWidget, this, &m_prefs);
-	setDataOrderRegion();
+	m_widgetDataOrder = new WidgetDataOrder(m_ui->tabWidget, this, m_prefs);
 
 	m_widgetThreddsConfig = new WidgetThreddsConfig(m_ui->tabWidget, &m_prefs);
 }
 
 /***********************************************************************************/
-void MainWindow::readSettings() {
-
-	// General
-	m_settings.beginGroup("General");
-
-	if (!m_settings.contains("FirstRun")) {
-		m_prefs.FirstRun = true;
-	}
-	else {
-		m_prefs.FirstRun = false;
-	}
-
-	if (m_settings.contains("ONInstallDir")) {
-		m_prefs.ONInstallDir = m_settings.value("ONInstallDir").toString();
-	}
-	else {
-		m_prefs.ONInstallDir = "/opt/Ocean-Data-Map-Project/";
-	}
-
-	if (m_settings.contains("RemoteURL")) {
-		m_prefs.RemoteURL = m_settings.value("RemoteURL").toString();
-	}
-	else {
-		m_prefs.RemoteURL = "http://www.navigator.oceansdata.ca/";
-	}
-
-	if (m_settings.contains("THREDDSCatalogLocation")) {
-		m_prefs.THREDDSCatalogLocation = m_settings.value("THREDDSCatalogLocation").toString();
-	}
-	else {
-		m_prefs.THREDDSCatalogLocation = "/opt/thredds_content/thredds";
-	}
-
-	if (m_settings.contains("UpdateRemoteListOnStart")) {
-		m_prefs.UpdateRemoteListOnStart = m_settings.value("UpdateRemoteListOnStart").toBool();
-	}
-
-	if (m_settings.contains("AutoStartServers")) {
-		m_prefs.AutoStartServers = m_settings.value("AutoStartServers").toBool();
-	}
-
-	if (m_settings.contains("IsNetworkOnline")) {
-		m_prefs.IsNetworkOnline = m_settings.value("IsNetworkOnline").toBool();
-	}
-
-	if (m_settings.contains("CheckForUpdatesOnStart")) {
-		m_prefs.CheckForUpdatesOnStart = m_settings.value("CheckForUpdatesOnStart").toBool();
-	}
-
-	m_settings.endGroup();
-
-	//
-	m_settings.beginGroup("DataOrder");
-
-	if (m_settings.contains("DataDownloadFormat")) {
-		m_prefs.DataDownloadFormat = m_settings.value("DataDownloadFormat").toString();
-	}
-
-	m_settings.endGroup();
-
-	//
-	m_settings.beginGroup("Jobs");
-	m_settings.endGroup();
-}
-
-/***********************************************************************************/
-void MainWindow::writeSettings() {
-	// General
-	m_settings.beginGroup("General");
-
-	m_settings.setValue("FirstRun", false);
-	m_settings.setValue("ONInstallDir", m_prefs.ONInstallDir);
-	m_settings.setValue("RemoteURL", m_prefs.RemoteURL);
-	m_settings.setValue("THREDDSCatalogLocation", m_prefs.THREDDSCatalogLocation);
-	m_settings.setValue("UpdateRemoteListOnStart", m_prefs.UpdateRemoteListOnStart);
-	m_settings.setValue("AutoStartServers", m_prefs.AutoStartServers);
-	m_settings.setValue("IsNetworkOnline", m_prefs.IsNetworkOnline);
-	m_settings.setValue("CheckForUpdatesOnStart", m_prefs.CheckForUpdatesOnStart);
-
-	m_settings.endGroup();
-
-	// DataOrder
-	m_settings.beginGroup("DataOrder");
-
-	const auto& region = m_widgetDataOrder->getRegion();
-	m_settings.setValue("MinLat", std::get<0>(region));
-	m_settings.setValue("MaxLat", std::get<1>(region));
-	m_settings.setValue("MinLon", std::get<2>(region));
-	m_settings.setValue("MaxLon", std::get<3>(region));
-
-	m_settings.setValue("DataDownloadFormat", m_prefs.DataDownloadFormat);
-
-	m_settings.endGroup();
-
-	// Jobs
-	m_settings.beginGroup("Jobs");
-	m_settings.endGroup();
-}
-
-/***********************************************************************************/
-void MainWindow::setDataOrderRegion() {
-	// DataOrder
-	m_settings.beginGroup("DataOrder");
-
-	// If the settings has MinLat, it has all the points
-	if (m_settings.contains("MinLat")) {
-		m_widgetDataOrder->setRegion(m_settings.value("MinLat").toDouble(),
-									 m_settings.value("MaxLat").toDouble(),
-									 m_settings.value("MinLon").toDouble(),
-									 m_settings.value("MaxLon").toDouble()
-									);
-	}
-
-	m_settings.endGroup();
-}
-
-/***********************************************************************************/
 void MainWindow::on_actionPreferences_triggered() {
-	DialogPreferences prefsDialog{this};
-
-	prefsDialog.SetPreferences(m_prefs);
+	DialogPreferences prefsDialog{m_prefs, this};
 
 	if (prefsDialog.exec()) {
 		// Store previous network state
 		const auto prevNetworkState{ m_prefs.IsNetworkOnline };
-		m_prefs = prefsDialog.GetPreferences();
 
 		// Has the network state changed?
 		if (m_prefs.IsNetworkOnline != prevNetworkState) {
@@ -291,33 +159,19 @@ void MainWindow::on_actionPreferences_triggered() {
 void MainWindow::on_actionAbout_triggered() {
 	QMessageBox::information(this,
 							 tr("About Navigator2Go"),
-							 QString("Navigator2Go Version: %1\nGit commit hash: %2\nCompiled from branch: %3").arg(APP_VERSION)
-																											   .arg(GIT_CURRENT_SHA1)
-																											   .arg(GIT_CURRENT_BRANCH)
+							 QString("Navigator2Go Version: %1\nGit commit hash: %2\nCompiled from branch: %3").arg(appVersion())
+																											   .arg(commitHash())
+																											   .arg(currentBranch())
 							 );
 }
 
 /***********************************************************************************/
-void MainWindow::on_tabWidget_currentChanged(int index) {
-
-	switch (index) {
-	case UITabs::HOME:
-		break;
-	case UITabs::DATA_SYNC:
-		break;
-	default:
-		break;
-	}
-}
-
-/***********************************************************************************/
 void MainWindow::setInitialLayout() {
-	m_ui->tabWidget->setCurrentIndex(UITabs::HOME);
+	m_ui->tabWidget->setCurrentIndex(0);
 
 	hideProgressBar();
 
 	// Add widgets to their tabs
-	m_ui->dashboardLayout->addWidget(m_widgetDashboard);
 	m_ui->dataOrderLayout->addWidget(m_widgetDataOrder);
 	m_ui->configEditorLayout->addWidget(m_widgetConfigEditor);
 	m_ui->threddsConfigLayout->addWidget(m_widgetThreddsConfig);
@@ -333,7 +187,7 @@ void MainWindow::checkForUpdates() {
 void MainWindow::checkForAppUpdate() {
 	showStatusBarMessage("Checking for Navigator2Go updates...");
 	auto* const nam{ new QNetworkAccessManager };
-	QNetworkRequest req{{"https://raw.githubusercontent.com/DFO-Ocean-Navigator/Navigator2Go/master/VERSION.txt"}};
+	QNetworkRequest req{{QStringLiteral("https://raw.githubusercontent.com/DFO-Ocean-Navigator/Navigator2Go/master/VERSION.txt")}};
 
 	m_updateReply = nam->get(req);
 
@@ -352,11 +206,10 @@ void MainWindow::checkForAppUpdate() {
 		} else {
 			msgBox.setWindowTitle(tr("Navigator2Go Update Available!"));
 			msgBox.setTextFormat(Qt::RichText);
-			msgBox.setText("<a href='https://github.com/DFO-Ocean-Navigator/Navigator2Go/releases/latest' style='color: #3daee9'>https://github.com/DFO-Ocean-Navigator/Navigator2Go/releases/latest</a>");
+			msgBox.setText(QStringLiteral("<a href='https://github.com/DFO-Ocean-Navigator/Navigator2Go/releases/latest' style='color: #3daee9'>https://github.com/DFO-Ocean-Navigator/Navigator2Go/releases/latest</a>"));
 		}
 
 		msgBox.exec();
-
 
 		m_updateReply->deleteLater();
 	});
@@ -382,7 +235,6 @@ void MainWindow::setOnline() {
 	qDebug() << "Changing to online.";
 #endif
 	m_widgetDataOrder->setNAMOnline();
-	m_widgetDashboard->showOnlineText();
 	m_widgetConfigEditor->updateDatasetListWidget();
 }
 
@@ -392,7 +244,6 @@ void MainWindow::setOffline() {
 	qDebug() << "Changing to offline.";
 #endif
 	m_widgetDataOrder->setNAMOffline();
-	m_widgetDashboard->showOfflineText();
 	m_widgetConfigEditor->updateDatasetListWidget();
 }
 
@@ -421,7 +272,6 @@ void MainWindow::checkRemoteConnection() {
 					}
 				}
 
-				m_widgetDashboard->showOnlineText();
 				this->showStatusBarMessage("Remote uplink test successful.");
 				this->m_widgetDataOrder->updateRemoteDatasetListWidget();
 			}
@@ -442,11 +292,7 @@ void MainWindow::checkRemoteConnection() {
 				this->showStatusBarMessage("Remote uplink test failed");
 			}
 
-			m_widgetDashboard->enableUplinkTestButton();
-
 		}, Qt::BlockingQueuedConnection); // <-- Check out this magic...this would segfault otherwise
-
-		m_widgetDashboard->disableUplinkTestButton();
 
 		QThreadPool::globalInstance()->start(task);
 	}
@@ -488,19 +334,83 @@ void MainWindow::showFirstRunConfiguration() {
 							 tr("Navigator2Go First Run"),
 							 tr("Hello there! It appears this is the first time you are running Navigator2Go on this computer. Go to: <a href='https://dfo-ocean-navigator.github.io/Navigator2GoTutorial/' style='color: #3daee9'>https://dfo-ocean-navigator.github.io/Navigator2GoTutorial/</a>"));
 
-	DialogPreferences prefsDialog{this};
+	DialogPreferences prefsDialog{m_prefs, this};
 	prefsDialog.setWindowTitle(tr("Navigator2Go Initial Setup..."));
-	prefsDialog.SetPreferences(m_prefs);
 
 	do {
 		prefsDialog.exec();
 	}
-	while(prefsDialog.GetPreferences().THREDDSCatalogLocation.isEmpty());
+	while(m_prefs.THREDDSCatalogLocation.isEmpty());
 
-	m_prefs = prefsDialog.GetPreferences();
 }
 
 /***********************************************************************************/
 void MainWindow::on_actionNavigator2Go_Manual_triggered() {
-	QDesktopServices::openUrl({"https://dfo-ocean-navigator.github.io/Navigator2GoTutorial/"});
+	QDesktopServices::openUrl({QStringLiteral("https://dfo-ocean-navigator.github.io/Navigator2GoTutorial/")});
+}
+
+/***********************************************************************************/
+void MainWindow::on_pushButtonLaunchViewer_clicked() {
+	QDesktopServices::openUrl({QStringLiteral("http://localhost:5000")});
+}
+
+/***********************************************************************************/
+void MainWindow::on_pushButtonOpenDataOrder_clicked() {
+	m_ui->tabWidget->setCurrentIndex(1);
+}
+
+/***********************************************************************************/
+void MainWindow::on_pushButtonImportNCFiles_clicked() {
+	DialogImportNC dlg{m_prefs.THREDDSCatalogLocation, this};
+
+	if (dlg.exec()) {
+
+		auto&& importList{ dlg.GetImportList() };
+		if (importList.empty()) {
+			return;
+		}
+
+		auto* const task{ new IO::CopyFilesRunnable(m_prefs.THREDDSCatalogLocation, dlg.ShouldRemoveSourceNCFiles(), std::move(importList)) };
+
+		QObject::connect(task, &IO::CopyFilesRunnable::finished, this, [&](const auto errorList) {
+			QMessageBox box{this};
+			if (!errorList.empty()) {
+				box.setWindowTitle(tr("Errors occoured..."));
+				box.setIcon(QMessageBox::Warning);
+				box.setText(tr("The following files failed to import: "));
+				box.setDetailedText(errorList.join('\n'));
+			}
+			else {
+				box.setWindowTitle(tr("Import successful!"));
+				box.setIcon(QMessageBox::Information);
+				box.setText(tr("Your files have successfully been imported into the THREDDS server. Please go to the THREDDS Config tab to verify. Then add your datasets in the Dataset Config Editor"));
+			}
+			box.exec();
+
+			m_ui->pushButtonImportNCFiles->setEnabled(true);
+			hideProgressBar();
+		});
+
+		// Update progress bar state
+		QObject::connect(task, &IO::CopyFilesRunnable::progress, this, [&](const auto progress) {
+			updateProgressBar(static_cast<int>(progress));
+		});
+
+		m_ui->pushButtonImportNCFiles->setEnabled(false);
+
+		showProgressBar("NetCDF Import Progress:");
+
+		// Run it
+		QThreadPool::globalInstance()->start(task);
+	}
+}
+
+/***********************************************************************************/
+void MainWindow::on_pushButtonViewLocalData_clicked() {
+
+}
+
+/***********************************************************************************/
+void MainWindow::on_actionClear_Python_cache_triggered() {
+	IO::ClearPythonCache();
 }

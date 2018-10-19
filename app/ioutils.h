@@ -12,7 +12,15 @@ namespace IO {
 
 /***********************************************************************************/
 /// Location of Tomcat bin/ folder
+#ifdef __linux__
 const constexpr auto TOMCAT_BIN_DIR{ "/opt/tomcat9/bin" };
+#else
+#endif
+/// Location of Navigator frontend folder
+#ifdef __linux__
+const constexpr auto NAVIGATOR_FRONTEND_DIR{ "/opt/Ocean-Data-Map-Project/" };
+#else
+#endif
 
 /***********************************************************************************/
 /// Wraps a netCDF file description for THREDDS.
@@ -30,8 +38,11 @@ NODISCARD THREDDSFileDesc GetNCFilename(const QString& threddsContentDir, const 
 NODISCARD bool FileExists(const QString& path);
 
 /***********************************************************************************/
+bool ClearPythonCache();
+
+/***********************************************************************************/
 /// Create a directory with necessary parents if needed.
-void createDir(const QString& path);
+void CreateDir(const QString& path);
 
 /***********************************************************************************/
 /// Recursively remove a directory

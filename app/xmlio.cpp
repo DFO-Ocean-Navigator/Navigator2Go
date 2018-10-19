@@ -48,7 +48,7 @@ bool addDataset(const QString& threddsCatalogLoc, const QString& datasetName, co
 
 	const auto& fileName{ threddsCatalogLoc + "/" + path + ".xml"};
 	if (!FileExists(fileName)) {
-		createDir(fileName);
+		CreateDir(fileName);
 	}
 
 	// Create dataset catalog file (giops_day.xml for example)
@@ -302,7 +302,7 @@ void createNewPrimaryCatalog(const QString& threddsContentPath) {
 	}
 
 	// Check the path exists
-	IO::createDir(threddsContentPath);
+	IO::CreateDir(threddsContentPath);
 
 	const auto& filename{ threddsContentPath + "/catalog.xml" };
 	doc.save_file(filename.toStdString().c_str());

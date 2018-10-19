@@ -3,12 +3,14 @@
 
 #include "datadownloaddesc.h"
 #include "preferences.h"
+#include "servermanager.h"
 
 #include <QMainWindow>
 #include <QJsonObject>
 #include <QTimer>
 #include <QSettings>
 #include <QPointer>
+#include <QProcess>
 
 /***********************************************************************************/
 // Forward declarations
@@ -16,7 +18,6 @@ namespace Ui {
 class MainWindow;
 }
 
-class WidgetDashboard;
 class WidgetConfigEditor;
 class WidgetDataOrder;
 class WidgetThreddsConfig;
@@ -28,7 +29,7 @@ class MainWindow : public QMainWindow {
 
 public:
 	explicit MainWindow(QWidget* parent = nullptr);
-	~MainWindow() override;
+	~MainWindow();
 
 	void showStatusBarMessage(const char* text) const;
 	/// Queries the RemoteURL in m_prefs for a connection
@@ -42,10 +43,6 @@ public:
 	///
 	void UpdateTHREDDSConfigTable();
 
-protected:
-	/// Capture when the program is closing to write settings, cleanup, etc.
-	void closeEvent(QCloseEvent* event) override;
-
 private slots:
 	// Menu callbacks
 
@@ -57,22 +54,24 @@ private slots:
 	void on_actionPreferences_triggered();
 	/// About
 	void on_actionAbout_triggered();
-	/// Current tab changed
-	void on_tabWidget_currentChanged(int index);
 	/// Update check
 	void on_actionCheck_for_Updates_triggered();
 
 	void on_actionNavigator2Go_Manual_triggered();
 
+	void on_pushButtonLaunchViewer_clicked();
+
+	void on_pushButtonOpenDataOrder_clicked();
+
+	void on_pushButtonImportNCFiles_clicked();
+
+	void on_pushButtonViewLocalData_clicked();
+
+	void on_actionClear_Python_cache_triggered();
+
 private:
 	/// Initialize widgets for each tab
 	void initWidgets();
-	/// Read settings from disk into Preferences object
-	void readSettings();
-	/// Write settings from Preferences object to disk
-	void writeSettings();
-	/// Reads the saved data order bounding box from QSettings and sets it in the WidgetDataOrder
-	void setDataOrderRegion();
 	/// Sets initial layout of program on start
 	void setInitialLayout();
 	/// Set network state to online
@@ -89,17 +88,17 @@ private:
 	void showFirstRunConfiguration();
 
 	Ui::MainWindow* m_ui{nullptr};
-	QPointer<WidgetDashboard> m_widgetDashboard;
+	ServerManager m_serverManager{this};
 	QPointer<WidgetConfigEditor> m_widgetConfigEditor;
 	QPointer<WidgetDataOrder> m_widgetDataOrder;
 	QPointer<WidgetThreddsConfig> m_widgetThreddsConfig;
 	QPointer<QNetworkReply> m_updateReply;
 
-	QSettings m_settings{"Fisheries and Oceans Canada", "Navigator2Go"}; ///< Holds serialized ini settings. Loaded once into m_settings and saved once from m_settings on program exit.
-	Preferences m_prefs; ///< Populated after m_settings is loaded. This is manipulated.
+	Preferences m_prefs{this}; ///< Serializes user settings
 
 	QTimer m_uplinkTimer{this}; ///< Timer to check for a remote navigator connection every 5 minutes.
 	bool m_hasRemoteUplink{true}; ///< Does this client have a connection to the remote Navigator server
+
 };
 
 #endif // MAINWINDOW_H
