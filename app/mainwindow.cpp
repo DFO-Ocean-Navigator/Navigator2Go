@@ -85,6 +85,11 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 
 	setWindowTitle(tr("Navigator2Go"));
 
+	if (!m_prefs.AdvancedUI) {
+		m_ui->tabWidget->removeTab(3);
+		m_ui->tabWidget->removeTab(2);
+	}
+
 	setInitialLayout();
 }
 
@@ -191,7 +196,7 @@ void MainWindow::checkForUpdates() {
 /***********************************************************************************/
 void MainWindow::checkForAppUpdate() {
 	showStatusBarMessage("Checking for Navigator2Go updates...");
-	auto* const nam{ new QNetworkAccessManager };
+	auto* const nam{ new QNetworkAccessManager() };
 	QNetworkRequest req{{QStringLiteral("https://raw.githubusercontent.com/DFO-Ocean-Navigator/Navigator2Go/master/VERSION.txt")}};
 
 	m_updateReply = nam->get(req);

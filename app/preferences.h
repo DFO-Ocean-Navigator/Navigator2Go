@@ -32,6 +32,7 @@ public:
 	bool IsNetworkOnline{true};			///< Global network state (online or offline).
 	bool CheckForUpdatesOnStart{true};	///< Check for program updates on start.
 	bool FirstRun{true};				///< First time Navigator2Go is run?
+	bool AdvancedUI{false};				///< Enable advanced UI features?
 	BoundingBox DataOrderArea;
 
 private:

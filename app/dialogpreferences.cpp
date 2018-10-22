@@ -75,6 +75,13 @@ void DialogPreferences::on_buttonBox_accepted() {
 	m_prefs.UpdateRemoteListOnStart = m_ui->switchUpdateDoryDatasetsOnStart->isChecked();
 	m_prefs.IsNetworkOnline = m_ui->switchOnlineOffline->isChecked();
 	m_prefs.CheckForUpdatesOnStart = m_ui->switchWidgetCheckForUpdates->isChecked();
+
+	if (m_ui->switchWidgetAdvancedUI->isChecked() != m_prefs.AdvancedUI) {
+		QMessageBox::information(this,
+								 tr("Settings changed..."),
+								 tr("To apply your preference for Advanced UI, please restart this program."));
+		m_prefs.AdvancedUI = m_ui->switchWidgetAdvancedUI->isChecked();
+	}
 }
 
 /***********************************************************************************/
@@ -93,4 +100,5 @@ void DialogPreferences::populateUI() {
 	m_ui->switchUpdateDoryDatasetsOnStart->setChecked(m_prefs.UpdateRemoteListOnStart);
 	m_ui->switchOnlineOffline->setChecked(m_prefs.IsNetworkOnline);
 	m_ui->switchWidgetCheckForUpdates->setChecked(m_prefs.CheckForUpdatesOnStart);
+	m_ui->switchWidgetAdvancedUI->setChecked(m_prefs.AdvancedUI);
 }

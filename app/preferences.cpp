@@ -62,6 +62,10 @@ void Preferences::readSettings() {
 		CheckForUpdatesOnStart = value("CheckForUpdatesOnStart").toBool();
 	}
 
+	if (contains("AdvancedUI")) {
+		AdvancedUI = value("AdvancedUI").toBool();
+	}
+
 	endGroup();
 
 	//
@@ -103,6 +107,7 @@ void Preferences::writeSettings() {
 	setValue("UpdateRemoteListOnStart", UpdateRemoteListOnStart);
 	setValue("IsNetworkOnline", IsNetworkOnline);
 	setValue("CheckForUpdatesOnStart", CheckForUpdatesOnStart);
+	setValue("AdvancedUI", AdvancedUI);
 
 	endGroup();
 
