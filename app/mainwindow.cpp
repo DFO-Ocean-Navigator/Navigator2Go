@@ -131,6 +131,7 @@ void MainWindow::initWidgets() {
 	m_widgetConfigEditor = new WidgetConfigEditor(m_ui->tabWidget, this, &m_prefs);
 
 	m_widgetDataOrder = new WidgetDataOrder(m_ui->tabWidget, this, m_prefs);
+	QObject::connect(m_widgetDataOrder, &WidgetDataOrder::refreshRequested, this, &MainWindow::refreshRequestHandler);
 
 	m_widgetThreddsConfig = new WidgetThreddsConfig(m_ui->tabWidget, &m_prefs);
 }
@@ -323,8 +324,15 @@ void MainWindow::hideProgressBar() {
 }
 
 /***********************************************************************************/
-void MainWindow::UpdateTHREDDSConfigTable() {
+void MainWindow::updateTHREDDSConfigTable() {
 	m_widgetThreddsConfig->BuildTable();
+}
+
+/***********************************************************************************/
+void MainWindow::refreshRequestHandler() {
+	updateTHREDDSConfigTable();
+
+	on_pushButtonRefresh_clicked();
 }
 
 /***********************************************************************************/

@@ -31,6 +31,9 @@ public:
 	void setNAMOnline();
 	void setNAMOffline();
 
+signals:
+	void refreshRequested();
+
 private slots:
 	void on_pushButtonDownload_clicked();
 

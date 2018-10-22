@@ -40,10 +40,11 @@ public:
 	void updateProgressBar(const int value);
 	/// Hide progress bar and label
 	void hideProgressBar();
-	///
-	void UpdateTHREDDSConfigTable();
 
 private slots:
+	///
+	void refreshRequestHandler();
+
 	// Menu callbacks
 
 	/// About Qt
@@ -72,6 +73,8 @@ private slots:
 	void on_pushButtonRefresh_clicked();
 
 private:
+	///
+	void updateTHREDDSConfigTable();
 	/// Initialize widgets for each tab
 	void initWidgets();
 	/// Sets initial layout of program on start

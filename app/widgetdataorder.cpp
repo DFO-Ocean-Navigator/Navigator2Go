@@ -91,8 +91,8 @@ void WidgetDataOrder::on_pushButtonDownload_clicked() {
 
 				fileDesc.Path = location;
 
-				downloadPaths.push_back(fileDesc.Path + fileDesc.Filename);
 			}
+			downloadPaths.push_back(fileDesc.Path + fileDesc.Filename);
 		}
 
 		// Show download stats in UI
@@ -234,14 +234,7 @@ void WidgetDataOrder::configureNetwork() {
 
 						System::SendDesktopNotification(QStringLiteral("Navigator2Go"), QStringLiteral("All downloads complete!"));
 
-						QMessageBox box{this};
-						box.setWindowTitle(tr("Downloads completed..."));
-						box.setText(tr("All downloads completed! Your queue has been emptied."));
-						box.setIcon(QMessageBox::Information);
-
-						box.exec();
-
-						m_mainWindow->UpdateTHREDDSConfigTable();
+						emit refreshRequested();
 					}
 	);
 
