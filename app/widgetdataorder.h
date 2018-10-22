@@ -46,9 +46,13 @@ private slots:
 	void on_spinboxMaxLat_valueChanged(double arg1);
 	void on_spinboxMaxLon_valueChanged(double arg1);
 
+	void on_pushButtonDeleteSelected_clicked();
+
 private:
 	//
 	void configureNetwork();
+	//
+	void deleteQueueItem(QListWidgetItem* item);
 
 	Ui::WidgetDataOrder* m_ui{nullptr};
 	MainWindow* const m_mainWindow{nullptr}; ///< Ptr to parent MainWindow.

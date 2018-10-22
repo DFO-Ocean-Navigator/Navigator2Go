@@ -1,11 +1,18 @@
 #include "servermanager.h"
 
 #include "ioutils.h"
+#include "systemutils.h"
 
 #include <QTimer>
 
 /***********************************************************************************/
 ServerManager::ServerManager(QObject* parent) : QObject{parent} {
+
+	const auto& env{ QProcessEnvironment::systemEnvironment().toStringList() };
+
+	m_gunicornProcess.setEnvironment(env);
+	m_apacheProcess.setEnvironment(env);
+
 	startServers();
 }
 
@@ -24,6 +31,8 @@ void ServerManager::refreshServers() {
 void ServerManager::startServers() {
 	startWebServer();
 	startTHREDDS();
+
+	System::SendDesktopNotification(QStringLiteral("Navigator2Go"), QStringLiteral("Navigator2Go started!"));
 }
 
 /***********************************************************************************/
@@ -45,7 +54,7 @@ void ServerManager::startTHREDDS() {
 	m_apacheProcess.setProgram(QStringLiteral("/bin/sh"));
 	m_apacheProcess.setArguments({QStringLiteral("startup.sh")});
 
-	m_isApacheRunning = m_apacheProcess.startDetached();
+	m_isApacheRunning = m_apacheProcess.startDetached(&m_apachePID);
 
 	if (!m_isApacheRunning) {
 
@@ -56,6 +65,8 @@ void ServerManager::startTHREDDS() {
 void ServerManager::stopServers() {
 	stopWebServer();
 	stopTHREDDS();
+
+	System::SendDesktopNotification(QStringLiteral("Navigator2Go"), QStringLiteral("Navigator2Go stopped!"));
 }
 
 /***********************************************************************************/

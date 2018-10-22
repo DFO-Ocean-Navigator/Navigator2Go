@@ -12,6 +12,7 @@
 #include <QJsonArray>
 #include <QInputDialog>
 #include <QFileInfo>
+#include <QVector>
 #include <QJsonDocument>
 
 #ifdef QT_DEBUG
@@ -72,32 +73,42 @@ void WidgetDataOrder::on_pushButtonDownload_clicked() {
 		m_ui->pushButtonDownload->setEnabled(false);
 
 		// Get given region of interest
-		const QString& min_range{ "&min_range=" + QString::number(m_ui->spinboxMinLat->value()) + "," + QString::number(m_ui->spinboxMinLon->value()) };
-		const QString& max_range{ "&max_range=" + QString::number(m_ui->spinboxMaxLat->value()) + "," + QString::number(m_ui->spinboxMaxLon->value()) };
+		const QString& min_range{ QStringLiteral("&min_range=") + QString::number(m_ui->spinboxMinLat->value()) + QStringLiteral(",") + QString::number(m_ui->spinboxMinLon->value()) };
+		const QString& max_range{ QStringLiteral("&max_range=") + QString::number(m_ui->spinboxMaxLat->value()) + QStringLiteral(",") + QString::number(m_ui->spinboxMaxLon->value()) };
 
+		// Check if each dataset in the queue has a catalog file
+		// and storage folder before downloading.
+		QVector<QString> downloadPaths;
 		for (const auto& item : m_downloadQueue) {
-			const auto& url{ item.GetAPIQuery(m_prefs.RemoteURL) + min_range + max_range + "&output_format=" + m_prefs.DataDownloadFormat};
 
 			auto fileDesc{ IO::GetNCFilename(m_prefs.THREDDSCatalogLocation, item) };
 
 			if (fileDesc.Path.isEmpty()) {
-				const auto& location{ QInputDialog::getText(this,
-													  tr("Enter location for dataset"),
-													  item.ID + tr("  does not exist locally. Please enter the enter the directory to download this dataset's netCDF files to."))
-										 };
 
-				// Dataset doesn't exist so create it
+				// Dataset doesn't exist locally so create a catalog and folder for it
+				const auto& location{ QStringLiteral("/opt/thredds_content/data/") + item.ID };
 				IO::addDataset(m_prefs.THREDDSCatalogLocation, item.ID, location);
 
 				fileDesc.Path = location;
-			}
 
-			m_downloader.Download(url, fileDesc.Path + fileDesc.Filename);
+				downloadPaths.push_back(fileDesc.Path + fileDesc.Filename);
+			}
 		}
 
+		// Show download stats in UI
 		m_ui->groupBoxDownloadStats->setVisible(true);
-		// Show download stuff
+		// Show progress bar in UI
 		m_mainWindow->showProgressBar("Download Progress: ");
+
+		// Tell downloader to download the files now.
+		int i{ 0 };
+		for (const auto& item : m_downloadQueue) {
+			const auto& url{ item.GetAPIQuery(m_prefs.RemoteURL) + min_range + max_range + QStringLiteral("&output_format=") + m_prefs.DataDownloadFormat };
+
+			m_downloader.Download(url, downloadPaths[i]);
+
+			++i;
+		}
 	}
 }
 
@@ -146,7 +157,7 @@ void WidgetDataOrder::on_listWidgetRemoteDatasets_itemDoubleClicked(QListWidgetI
 /***********************************************************************************/
 void WidgetDataOrder::on_listWidgetDownloadQueue_itemDoubleClicked(QListWidgetItem* item) {
 
-	delete m_ui->listWidgetDownloadQueue->takeItem(m_ui->listWidgetDownloadQueue->row(item));
+	deleteQueueItem(item);
 }
 
 /***********************************************************************************/
@@ -283,13 +294,35 @@ void WidgetDataOrder::configureNetwork() {
 }
 
 /***********************************************************************************/
+void WidgetDataOrder::deleteQueueItem(QListWidgetItem* item) {
+	// Remove from queue table
+	m_downloadQueue.remove(item->text());
+
+	// Remove from UI
+	delete m_ui->listWidgetDownloadQueue->takeItem(m_ui->listWidgetDownloadQueue->row(item));
+}
+
+/***********************************************************************************/
+void WidgetDataOrder::on_pushButtonDeleteSelected_clicked() {
+
+	// Get selected items in queue widget
+	const auto& selected{ m_ui->listWidgetDownloadQueue->selectedItems() };
+	if (selected.empty()) { // return if nothing selected
+		return;
+	}
+	for (const auto& item : selected) {
+		deleteQueueItem(item);
+	}
+}
+
+/***********************************************************************************/
 void WidgetDataOrder::updateRemoteDatasetListWidget() {
 	m_mainWindow->showStatusBarMessage("Updating remote dataset list...");
 
 	m_ui->pushButtonUpdateRemoteList->setEnabled(false);
 	m_ui->pushButtonUpdateRemoteList->setText(tr("Updating..."));
 
-	Network::MakeAPIRequest(m_networkAccessManager, m_prefs.RemoteURL+"/api/datasets/",
+	Network::MakeAPIRequest(m_networkAccessManager, m_prefs.RemoteURL + QStringLiteral("/api/datasets/"),
 							// Success handler
 							[&](const auto& doc) {
 								const auto& root = doc.array();
@@ -327,5 +360,3 @@ void WidgetDataOrder::setNAMOnline() {
 void WidgetDataOrder::setNAMOffline() {
 	m_networkAccessManager.setNetworkAccessible(QNetworkAccessManager::NotAccessible);
 }
-
-

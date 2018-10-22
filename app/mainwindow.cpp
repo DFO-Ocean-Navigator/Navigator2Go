@@ -55,6 +55,10 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 		qDebug() << "First run";
 #endif
 		showFirstRunConfiguration();
+
+		QMessageBox::information(this,
+								 tr("Add some datasets!"),
+								 tr("Click on the Data Order button to get some data."));
 	}
 
 	initWidgets();
@@ -413,4 +417,15 @@ void MainWindow::on_pushButtonViewLocalData_clicked() {
 /***********************************************************************************/
 void MainWindow::on_actionClear_Python_cache_triggered() {
 	IO::ClearPythonCache();
+}
+
+/***********************************************************************************/
+void MainWindow::on_pushButtonRefresh_clicked() {
+	m_ui->pushButtonRefresh->setEnabled(false);
+
+	IO::ClearPythonCache();
+
+	m_serverManager.refreshServers();
+
+	m_ui->pushButtonRefresh->setEnabled(true);
 }

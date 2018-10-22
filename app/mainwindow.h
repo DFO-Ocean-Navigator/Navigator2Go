@@ -69,6 +69,8 @@ private slots:
 
 	void on_actionClear_Python_cache_triggered();
 
+	void on_pushButtonRefresh_clicked();
+
 private:
 	/// Initialize widgets for each tab
 	void initWidgets();
@@ -98,7 +100,6 @@ private:
 
 	QTimer m_uplinkTimer{this}; ///< Timer to check for a remote navigator connection every 5 minutes.
 	bool m_hasRemoteUplink{true}; ///< Does this client have a connection to the remote Navigator server
-
 };
 
 #endif // MAINWINDOW_H

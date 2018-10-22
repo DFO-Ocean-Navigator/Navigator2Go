@@ -38,19 +38,21 @@ auto IsProcessRunning(const QString& processName) {
 #endif
 
 /***********************************************************************************/
-#ifdef __linux__
+
 void SendDesktopNotification(const QString& title, const QString& message) {
+
+#ifdef __linux__
 	// TODO: Use Navigator2Go logo instead of ubuntu one.
 	const auto& command{ QString("notify-send '%1' '%2' '-i' /usr/share/pixmaps/ubuntu-logo.png '-t' 5000").arg(title).arg(message) };
+#else
+#endif
+
 #ifdef QT_DEBUG
 	qDebug() << command;
 #endif
-	system(command.toStdString().c_str());
+
+	std::system(command.toStdString().c_str());
 }
 
-#elif _WIN32
-void SendDesktopNotification(const QString& title, const QString& message) {
-}
-#endif
 
 } // namespace System

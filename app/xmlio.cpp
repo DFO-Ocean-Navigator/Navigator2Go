@@ -36,7 +36,7 @@ void appendDatasetToCatalog(pugi::xml_document& doc, const QString& datasetName)
 
 /***********************************************************************************/
 bool addDataset(const QString& threddsCatalogLoc, const QString& datasetName, const QString& dataPath) {
-	const auto& path{ QString("catalogs/") + datasetName };
+	const auto& path{ QStringLiteral("catalogs/") + datasetName };
 
 	// Modify catalog.xml
 	const auto catalogPath{ threddsCatalogLoc + QString("/catalog.xml") };
@@ -57,15 +57,15 @@ bool addDataset(const QString& threddsCatalogLoc, const QString& datasetName, co
 	}
 
 	// Create dataset aggregate file
-	const auto aggregatePath{ dataPath + "/aggregated.ncml" };
+	const auto aggregatePath{ dataPath + QStringLiteral("/aggregated.ncml") };
 	auto aggregate{ IO::readXML(aggregatePath) };
 	if (!aggregate.has_value()) {
 		// Find netCDF files in target directory
 		QDir dir{dataPath};
 		if (!dir.exists()) {
-			dir.mkpath(".");
+			dir.mkpath(QStringLiteral("."));
 		}
-		dir.setNameFilters({"*.nc"});
+		dir.setNameFilters({QStringLiteral("*.nc")});
 
 		QString timeDimension;
 		if (dir.entryInfoList().empty()) {
@@ -112,7 +112,7 @@ bool addDataset(const QString& threddsCatalogLoc, const QString& datasetName, co
 
 /***********************************************************************************/
 bool datasetExists(const QString& threddsCatalogLoc, const QString& datasetName) {
-	const auto& doc{ readXML(threddsCatalogLoc + "/catalog.xml") };
+	const auto& doc{ readXML(threddsCatalogLoc + QStringLiteral("/catalog.xml")) };
 
 	return !doc->child("catalog").find_child_by_attribute("catalogRef", "xlink:title", datasetName.toStdString().c_str()).empty();
 }
@@ -201,7 +201,7 @@ void createNewCatalogFile(const QString& threddsContentPath, const DatasetScanDe
 	serviceName.set_name("serviceName");
 	serviceName.text().set("all");
 
-	const auto& filename{ threddsContentPath + "/catalogs/" + dataset.DatasetName.toLower() + ".xml" };
+	const auto& filename{ threddsContentPath + QStringLiteral("/catalogs/") + dataset.DatasetName.toLower() + ".xml" };
 	doc.save_file(filename.toStdString().c_str());
 }
 
@@ -304,7 +304,7 @@ void createNewPrimaryCatalog(const QString& threddsContentPath) {
 	// Check the path exists
 	IO::CreateDir(threddsContentPath);
 
-	const auto& filename{ threddsContentPath + "/catalog.xml" };
+	const auto& filename{ threddsContentPath + QStringLiteral("/catalog.xml") };
 	doc.save_file(filename.toStdString().c_str());
 }
 

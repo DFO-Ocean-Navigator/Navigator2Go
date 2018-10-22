@@ -9,6 +9,8 @@ public:
 	ServerManager(QObject* parent = nullptr);
 	~ServerManager();
 
+	Q_DISABLE_COPY(ServerManager)
+
 	void refreshServers();
 
 	auto isWebUIRunning() const noexcept { return m_isGunicornRunning; }
@@ -26,7 +28,8 @@ private:
 	QProcess m_apacheProcess{this}, m_gunicornProcess{this};
 	bool m_isGunicornRunning{false};///< gUnicorn server
 	bool m_isApacheRunning{false};	///< Apache tomcat server
-	qint64 m_gunicornPID{0};		/// PID of gUnicorn process
+	qint64 m_gunicornPID{0};		///< PID of gUnicorn process
+	qint64 m_apachePID{0};			///< PID of apache tomcat process
 };
 
 #endif // SERVERMANAGER_H

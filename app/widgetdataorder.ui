@@ -240,9 +240,13 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="pushButtonDeleteSelected">
          <property name="text">
           <string>Delete Selected</string>
+         </property>
+         <property name="icon">
+          <iconset resource="resources.qrc">
+           <normaloff>:/icons/icons/delete.png</normaloff>:/icons/icons/delete.png</iconset>
          </property>
         </widget>
        </item>
