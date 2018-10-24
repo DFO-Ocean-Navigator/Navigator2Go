@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['location',['Location',['../struct_i_o_1_1_dataset_scan_desc.html#ae4666770a70df046502b422456096c4f',1,'IO::DatasetScanDesc']]]
+  ['updateremotelistonstart',['UpdateRemoteListOnStart',['../class_preferences.html#a21c5111c1756f83e2300456cea95575d',1,'Preferences']]]
 ];

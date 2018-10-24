@@ -1,27 +1,4 @@
 var searchData=
 [
-  ['_5fbacceptranges',['_bAcceptRanges',['../class_q_easy_downloader.html#add55753ff18faea979c9ebdfa2c74116',1,'QEasyDownloader']]],
-  ['_5fbautostartdownload',['_bAutoStartDownload',['../class_q_easy_downloader.html#aa002fba7540ebd487d040711f623aed0',1,'QEasyDownloader']]],
-  ['_5fbcaniterate',['_bCanIterate',['../class_q_easy_downloader.html#aa8e447780beaa32c4220af5ecf810812',1,'QEasyDownloader']]],
-  ['_5fbdodebug',['_bDoDebug',['../class_q_easy_downloader.html#a074c2b0ff803bf7a4fefdb21af86e948',1,'QEasyDownloader']]],
-  ['_5fbdoiterate',['_bDoIterate',['../class_q_easy_downloader.html#aee5736c40f26403b1f300703fdb99374',1,'QEasyDownloader']]],
-  ['_5fbdoresumedownloads',['_bDoResumeDownloads',['../class_q_easy_downloader.html#a4eff7b9542ff8400984a48c616c8bb4c',1,'QEasyDownloader']]],
-  ['_5fbiserror',['_bIsError',['../class_q_easy_downloader.html#a3bac511c081b6e117270e77db821b42c',1,'QEasyDownloader']]],
-  ['_5fbstopdownload',['_bStopDownload',['../class_q_easy_downloader.html#a289c61636d10fc2ff0f6dd84d76bea3c',1,'QEasyDownloader']]],
-  ['_5fcurrentrequest',['_CurrentRequest',['../class_q_easy_downloader.html#acd867ffe5a41c19aefb8ef0b4ddec71c',1,'QEasyDownloader']]],
-  ['_5fdownloadqueue',['_downloadQueue',['../class_q_easy_downloader.html#ac7952911de7ba0625a73119dbac8d130',1,'QEasyDownloader']]],
-  ['_5fdownloadspeed',['_downloadSpeed',['../class_q_easy_downloader.html#a3b01debc8e2d7ac18a70a2be77aa6526',1,'QEasyDownloader']]],
-  ['_5fndownloadsize',['_nDownloadSize',['../class_q_easy_downloader.html#ab88b3b34256f4f5cd220b9d91e0065dc',1,'QEasyDownloader']]],
-  ['_5fndownloadsizeatpause',['_nDownloadSizeAtPause',['../class_q_easy_downloader.html#ac257c54881d84c66b2dbaf6e1ed35bd8',1,'QEasyDownloader']]],
-  ['_5fndownloadtotal',['_nDownloadTotal',['../class_q_easy_downloader.html#a3bf3e489cbaea097627f451a0c6e5a4a',1,'QEasyDownloader']]],
-  ['_5fnretrytime',['_nRetryTime',['../class_q_easy_downloader.html#a156fb18ca299b67fa9d9db9a9095a567',1,'QEasyDownloader']]],
-  ['_5fntimeouttime',['_nTimeoutTime',['../class_q_easy_downloader.html#a69b8e7998ff94e8665b675202ea51b20',1,'QEasyDownloader']]],
-  ['_5fpcurrentgetreply',['_pCurrentGetReply',['../class_q_easy_downloader.html#a52b2d16c0e02f59251b791bb01248fe5',1,'QEasyDownloader']]],
-  ['_5fpcurrentreply',['_pCurrentReply',['../class_q_easy_downloader.html#a1c82836b842d41301af30dbda42fcebb',1,'QEasyDownloader']]],
-  ['_5fpfile',['_pFile',['../class_q_easy_downloader.html#aff68ce70509aa9e7faa635782462722f',1,'QEasyDownloader']]],
-  ['_5fpmanager',['_pManager',['../class_q_easy_downloader.html#aa1b96cad927bbcd652987234e90b08e8',1,'QEasyDownloader']]],
-  ['_5fqsfilename',['_qsFileName',['../class_q_easy_downloader.html#ab4973d0c0b7ec03df1200a62a20415af',1,'QEasyDownloader']]],
-  ['_5fqsfolderpath',['_qsFolderPath',['../class_q_easy_downloader.html#a2f68db3dc081a0e8b258de05b023bb85',1,'QEasyDownloader']]],
-  ['_5ftimer',['_Timer',['../class_q_easy_downloader.html#adcd56ab2c14d754b1905b05fcdefea43',1,'QEasyDownloader']]],
-  ['_5furl',['_URL',['../class_q_easy_downloader.html#ae817d9038c0cdb309c23c4edda0c8234',1,'QEasyDownloader']]]
+  ['advancedui',['AdvancedUI',['../class_preferences.html#af3e3666f59882600d5dcc7afa570c771',1,'Preferences']]]
 ];

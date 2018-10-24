@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['netcdfimportdesc',['NetCDFImportDesc',['../struct_net_c_d_f_import_desc.html',1,'']]]
+  ['mainwindow',['MainWindow',['../class_main_window.html',1,'']]]
 ];

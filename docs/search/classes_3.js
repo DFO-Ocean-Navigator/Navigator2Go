@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mainwindow',['MainWindow',['../class_main_window.html',1,'']]]
+  ['htmlhighlighter',['HTMLHighlighter',['../class_h_t_m_l_highlighter.html',1,'']]]
 ];

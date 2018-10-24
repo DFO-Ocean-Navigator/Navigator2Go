@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="compass.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Navigator2Go
-   &#160;<span id="projectnumber">1.3</span>
+   &#160;<span id="projectnumber">1.0</span>
    </div>
   </td>
  </tr>
@@ -48,7 +48,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -109,15 +108,13 @@ $(document).ready(function(){initNavTree('class_dialog_preferences.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-slots">Private Slots</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_dialog_preferences-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">DialogPreferences Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="struct_preferences.html" title="Contains the loaded and modified settings. ">Preferences</a> dialog window.  
+<p><a class="el" href="class_preferences.html" title="Contains the loaded and modified settings. ">Preferences</a> dialog window.  
  <a href="class_dialog_preferences.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="dialogpreferences_8h_source.html">dialogpreferences.h</a>&gt;</code></p>
@@ -125,196 +122,28 @@ $(document).ready(function(){initNavTree('class_dialog_preferences.html','');});
 Inheritance diagram for DialogPreferences:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_dialog_preferences__inherit__graph.png" border="0" usemap="#_dialog_preferences_inherit__map" alt="Inheritance graph"/></div>
+<map name="_dialog_preferences_inherit__map" id="_dialog_preferences_inherit__map">
+</map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for DialogPreferences:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_dialog_preferences__coll__graph.png" border="0" usemap="#_dialog_preferences_coll__map" alt="Collaboration graph"/></div>
+<map name="_dialog_preferences_coll__map" id="_dialog_preferences_coll__map">
+</map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4c1d53cd9b84eb98ce8681a296803784"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_dialog_preferences.html#a4c1d53cd9b84eb98ce8681a296803784">DialogPreferences</a> (QWidget *parent=nullptr)</td></tr>
-<tr class="separator:a4c1d53cd9b84eb98ce8681a296803784"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a5328716864436486bba5a55693b7df"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_dialog_preferences.html#a6a5328716864436486bba5a55693b7df">~DialogPreferences</a> ()</td></tr>
-<tr class="separator:a6a5328716864436486bba5a55693b7df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d280b88a5f40f552ee1bf21f26ac9c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_dialog_preferences.html#a9d280b88a5f40f552ee1bf21f26ac9c5">SetPreferences</a> (<a class="el" href="struct_preferences.html">Preferences</a> &amp;settings)</td></tr>
-<tr class="memdesc:a9d280b88a5f40f552ee1bf21f26ac9c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the UI state from a <a class="el" href="struct_preferences.html" title="Contains the loaded and modified settings. ">Preferences</a> object.  <a href="#a9d280b88a5f40f552ee1bf21f26ac9c5">More...</a><br /></td></tr>
-<tr class="separator:a9d280b88a5f40f552ee1bf21f26ac9c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d299383cdbc4e68c1a9111ed93465e0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="nodiscard_8h.html#abf13e44576a768044e199191d4f26f7e">NODISCARD</a> auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_dialog_preferences.html#a0d299383cdbc4e68c1a9111ed93465e0">GetPreferences</a> () const -&gt; <a class="el" href="struct_preferences.html">Preferences</a></td></tr>
-<tr class="memdesc:a0d299383cdbc4e68c1a9111ed93465e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializes UI values into a <a class="el" href="struct_preferences.html" title="Contains the loaded and modified settings. ">Preferences</a> object.  <a href="#a0d299383cdbc4e68c1a9111ed93465e0">More...</a><br /></td></tr>
-<tr class="separator:a0d299383cdbc4e68c1a9111ed93465e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-slots"></a>
-Private Slots</h2></td></tr>
-<tr class="memitem:a714b2d4a6c7cbfd34ba6ea04f9e0bc40"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_dialog_preferences.html#a714b2d4a6c7cbfd34ba6ea04f9e0bc40">on_pushButtonBrowseInstallDir_clicked</a> ()</td></tr>
-<tr class="separator:a714b2d4a6c7cbfd34ba6ea04f9e0bc40"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17f0c43d2fc4786acb4ffc833c18cd45"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_dialog_preferences.html#a17f0c43d2fc4786acb4ffc833c18cd45">on_pushButtonBroweseTHREDDS_clicked</a> ()</td></tr>
-<tr class="separator:a17f0c43d2fc4786acb4ffc833c18cd45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a64da71a3d4076e41239c715397c8618f"><td class="memItemLeft" align="right" valign="top">Ui::DialogPreferences *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_dialog_preferences.html#a64da71a3d4076e41239c715397c8618f">m_ui</a> {nullptr}</td></tr>
-<tr class="separator:a64da71a3d4076e41239c715397c8618f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14d5c466a10f9a5e9008ceaaf7795e02"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a14d5c466a10f9a5e9008ceaaf7795e02"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DialogPreferences</b> (<a class="el" href="class_preferences.html">Preferences</a> &amp;prefs, QWidget *parent=nullptr)</td></tr>
+<tr class="separator:a14d5c466a10f9a5e9008ceaaf7795e02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="struct_preferences.html" title="Contains the loaded and modified settings. ">Preferences</a> dialog window. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a4c1d53cd9b84eb98ce8681a296803784"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">DialogPreferences::DialogPreferences </td>
-          <td>(</td>
-          <td class="paramtype">QWidget *&#160;</td>
-          <td class="paramname"><em>parent</em> = <code>nullptr</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a6a5328716864436486bba5a55693b7df"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">DialogPreferences::~DialogPreferences </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a0d299383cdbc4e68c1a9111ed93465e0"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">auto DialogPreferences::GetPreferences </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const -&gt; <a class="el" href="struct_preferences.html">Preferences</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Serializes UI values into a <a class="el" href="struct_preferences.html" title="Contains the loaded and modified settings. ">Preferences</a> object. </p>
-
-</div>
-</div>
-<a class="anchor" id="a17f0c43d2fc4786acb4ffc833c18cd45"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DialogPreferences::on_pushButtonBroweseTHREDDS_clicked </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">slot</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_dialog_preferences_a17f0c43d2fc4786acb4ffc833c18cd45_cgraph.png" border="0" usemap="#class_dialog_preferences_a17f0c43d2fc4786acb4ffc833c18cd45_cgraph" alt=""/></div>
-<map name="class_dialog_preferences_a17f0c43d2fc4786acb4ffc833c18cd45_cgraph" id="class_dialog_preferences_a17f0c43d2fc4786acb4ffc833c18cd45_cgraph">
-<area shape="rect" id="node2" href="namespace_i_o.html#a0aafb4eb40c0832c513e1bbc0602fa57" title="Checks if a file exists at a given path. " alt="" coords="280,20,383,47"/>
-</map>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a714b2d4a6c7cbfd34ba6ea04f9e0bc40"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DialogPreferences::on_pushButtonBrowseInstallDir_clicked </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">slot</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a9d280b88a5f40f552ee1bf21f26ac9c5"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DialogPreferences::SetPreferences </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_preferences.html">Preferences</a> &amp;&#160;</td>
-          <td class="paramname"><em>settings</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the UI state from a <a class="el" href="struct_preferences.html" title="Contains the loaded and modified settings. ">Preferences</a> object. </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a64da71a3d4076e41239c715397c8618f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Ui::DialogPreferences* DialogPreferences::m_ui {nullptr}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="dialogpreferences_8h_source.html">dialogpreferences.h</a></li>
-<li><a class="el" href="dialogpreferences_8cpp.html">dialogpreferences.cpp</a></li>
+<div class="textblock"><p><a class="el" href="class_preferences.html" title="Contains the loaded and modified settings. ">Preferences</a> dialog window. </p>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
+<li>app/<a class="el" href="dialogpreferences_8h_source.html">dialogpreferences.h</a></li>
+<li>app/dialogpreferences.cpp</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['autostartservers',['AutoStartServers',['../struct_preferences.html#ac0b665f75915b5879823c1c51c3f1cfa',1,'Preferences']]]
+  ['checkforupdatesonstart',['CheckForUpdatesOnStart',['../class_preferences.html#aa93811e5abb8b32c33790aef1f1b74f2',1,'Preferences']]]
 ];

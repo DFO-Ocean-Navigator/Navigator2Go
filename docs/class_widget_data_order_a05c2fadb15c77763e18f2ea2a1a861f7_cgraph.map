@@ -1,5 +1,0 @@
-<map id="WidgetDataOrder::on_pushButtonUpdateRemoteList_clicked" name="WidgetDataOrder::on_pushButtonUpdateRemoteList_clicked">
-<area shape="rect" id="node2" href="$class_widget_data_order.html#ada71d618db5b0d1a6f6ef1f7164f76cd" title="WidgetDataOrder::updateRemote\lDatasetListWidget" alt="" coords="257,35,473,76"/>
-<area shape="rect" id="node3" href="$class_main_window.html#a9d37673e90ff7a642e3b73fb6097e130" title="MainWindow::showStatusBar\lMessage" alt="" coords="521,5,716,47"/>
-<area shape="rect" id="node4" href="$namespace_network.html#a0957b7300d49fafac06b25efdb5ab7e0" title="Network::MakeAPIRequest" alt="" coords="527,71,710,98"/>
-</map>

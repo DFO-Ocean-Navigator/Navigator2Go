@@ -1,6 +1,0 @@
-<map id="SwitchWidget::offset" name="SwitchWidget::offset">
-<area shape="rect" id="node2" href="$class_switch_widget.html#a63a0fd6680d366476e7e95e9ad3952ce" title="SwitchWidget::setOffset" alt="" coords="214,5,379,32"/>
-<area shape="rect" id="node3" href="$class_switch_widget.html#ade593adf015051a995e7edec13c9ea14" title="SwitchWidget::paintEvent" alt="" coords="210,56,383,83"/>
-<area shape="rect" id="node4" href="$class_switch_widget.html#ad3c8c0cdd7a34f9b8e1726f4cfeb0aa5" title="SwitchWidget::mouseRelease\lEvent" alt="" coords="197,107,396,149"/>
-<area shape="rect" id="node5" href="$class_switch_widget.html#ab294a5221540933d77be3419ecdcf288" title="SwitchWidget::enterEvent" alt="" coords="209,173,384,200"/>
-</map>

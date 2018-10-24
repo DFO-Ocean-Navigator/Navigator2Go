@@ -1,4 +1,0 @@
-<map id="DialogImportNC::DialogImportNC" name="DialogImportNC::DialogImportNC">
-<area shape="rect" id="node2" href="$namespace_i_o.html#aa4da319edb033251c43ab1f9d63a7cf2" title="Reads an xml file from path. Returns std::nullopt on failure. " alt="" coords="321,5,417,32"/>
-<area shape="rect" id="node3" href="$namespace_i_o.html#aeb3af24cfec5d27c64a9adf09170979d" title="Returns a list of datasets from an opened catalog file. " alt="" coords="272,56,467,83"/>
-</map>

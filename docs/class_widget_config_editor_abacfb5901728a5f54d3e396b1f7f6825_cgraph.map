@@ -1,7 +1,0 @@
-<map id="WidgetConfigEditor::WidgetConfigEditor" name="WidgetConfigEditor::WidgetConfigEditor">
-<area shape="rect" id="node2" href="$namespace_i_o.html#a0aafb4eb40c0832c513e1bbc0602fa57" title="Checks if a file exists at a given path. " alt="" coords="219,5,322,32"/>
-<area shape="rect" id="node3" href="$namespace_i_o.html#ac86a15c73dae6f0332a90bf194abd8ca" title="Writes a JSON file to the given path. " alt="" coords="425,60,557,87"/>
-<area shape="rect" id="node4" href="$class_widget_config_editor.html#acb8e9b2b50728dc06a61184e0e163b3d" title="Load the default datasetconfigOFFLINE.json into the UI. " alt="" coords="196,107,345,149"/>
-<area shape="rect" id="node5" href="$namespace_i_o.html#a1fae692838a777c0cb5efc7bfd35ed3d" title="Loads a JSON file from disk, checks for errors, and returns the QJsonDocument. " alt="" coords="426,112,555,139"/>
-<area shape="rect" id="node6" href="$class_main_window.html#a9d37673e90ff7a642e3b73fb6097e130" title="MainWindow::showStatusBar\lMessage" alt="" coords="393,163,588,205"/>
-</map>

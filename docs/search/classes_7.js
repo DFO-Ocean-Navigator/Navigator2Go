@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['switchwidget',['SwitchWidget',['../class_switch_widget.html',1,'']]]
+  ['qeasydownloader',['QEasyDownloader',['../class_q_easy_downloader.html',1,'']]]
 ];

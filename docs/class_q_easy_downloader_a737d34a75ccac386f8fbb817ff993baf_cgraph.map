@@ -1,9 +1,0 @@
-<map id="QEasyDownloader::download" name="QEasyDownloader::download">
-<area shape="rect" id="node2" href="$class_q_easy_downloader.html#a7de398556a59f88c554447083a885584" title="QEasyDownloader::printDebug" alt="" coords="985,108,1188,134"/>
-<area shape="rect" id="node3" href="$class_q_easy_downloader.html#a1ae8ae36884555ba807fd465875103a4" title="QEasyDownloader::timeout" alt="" coords="743,32,926,58"/>
-<area shape="rect" id="node4" href="$class_q_easy_downloader.html#aee7af67f05f89233d4e24a677648e468" title="QEasyDownloader::finished" alt="" coords="253,168,437,194"/>
-<area shape="rect" id="node7" href="$class_q_easy_downloader.html#afa9dbe06a5437d4ef7ef007f81c06a56" title="QEasyDownloader::error" alt="" coords="752,234,917,261"/>
-<area shape="rect" id="node8" href="$class_q_easy_downloader.html#a9b3ca6732f63978512b5582dff17a995" title="QEasyDownloader::download\lProgress" alt="" coords="248,352,443,394"/>
-<area shape="rect" id="node5" href="$class_q_easy_downloader.html#a3a3295e4b3547046d22019ea6055bd30" title="QEasyDownloader::startNext\lDownload" alt="" coords="491,134,684,175"/>
-<area shape="rect" id="node6" href="$class_q_easy_downloader.html#ab5b701d7befe8f185d4a2ababf08ed24" title="QEasyDownloader::checkHead" alt="" coords="732,184,937,210"/>
-</map>

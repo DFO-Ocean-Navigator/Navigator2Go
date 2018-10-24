@@ -1,5 +1,0 @@
-<map id="WidgetDashboard::checkAndStartServers" name="WidgetDashboard::checkAndStartServers">
-<area shape="rect" id="node2" href="$namespace_system.html#ae3452ae458d1f931ba8fab0ec7472ab0" title="Queries the OS given a process name to check if it&#39;s running. " alt="" coords="248,5,431,32"/>
-<area shape="rect" id="node3" href="$class_widget_dashboard.html#ad40c771d6045c3f4b959174fb52b1fa6" title="WidgetDashboard::on\l_pushButtonStartWebServer\l_clicked" alt="" coords="245,56,433,112"/>
-<area shape="rect" id="node4" href="$class_widget_dashboard.html#ae45103079502668aea34816c4db15f6e" title="WidgetDashboard::on\l_pushButtonStartApache\l_clicked" alt="" coords="256,136,423,192"/>
-</map>

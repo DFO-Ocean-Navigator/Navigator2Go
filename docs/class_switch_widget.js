@@ -9,17 +9,7 @@ var class_switch_widget =
     [ "setBrush", "class_switch_widget.html#afbc1db53afaf2f301818f281723db76b", null ],
     [ "setOffset", "class_switch_widget.html#a63a0fd6680d366476e7e95e9ad3952ce", null ],
     [ "sizeHint", "class_switch_widget.html#a1b981fc3c66cd7ea23bc296985129af3", null ],
-    [ "m_anim", "class_switch_widget.html#aeef95e108aae971d5cd96232f965390c", null ],
-    [ "m_brush", "class_switch_widget.html#a946411d4ac3ae822da9fced4aaa99a83", null ],
-    [ "m_height", "class_switch_widget.html#ac770a477d1dbc49a4dd0b2228e4acf1f", null ],
-    [ "m_margin", "class_switch_widget.html#a403a57adff45d90f3ff6442bd66a3820", null ],
-    [ "m_opacity", "class_switch_widget.html#abe2c37235ab9e9a1b02f4ea6069b6d64", null ],
-    [ "m_switch", "class_switch_widget.html#a3bfd0c7706c0d35014d897fcdccf085c", null ],
-    [ "m_thumb", "class_switch_widget.html#a52284e52ef730aa1dac9cbf269793a73", null ],
-    [ "m_track", "class_switch_widget.html#a0500bd381f449d7d48fa6b692d2bc498", null ],
-    [ "m_width", "class_switch_widget.html#a2dcc90371705234e4e7494377ee1ed48", null ],
-    [ "m_x", "class_switch_widget.html#a88661b0f19570bc75d514da780457e29", null ],
-    [ "m_y", "class_switch_widget.html#add7d4239f6393bd9c2488aa9a2dc9e06", null ],
+    [ "toggled", "class_switch_widget.html#aca5c16523c5d4d985bb0c83c6fd0f169", null ],
     [ "brush", "class_switch_widget.html#a0943eac2d908a971576285639831e64a", null ],
     [ "offset", "class_switch_widget.html#a57563bfd33286a358b805e9d6620dd16", null ]
 ];

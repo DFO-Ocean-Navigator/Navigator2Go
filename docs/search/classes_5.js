@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['preferences',['Preferences',['../struct_preferences.html',1,'']]]
+  ['netcdfimportdesc',['NetCDFImportDesc',['../struct_net_c_d_f_import_desc.html',1,'']]]
 ];

@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="compass.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Navigator2Go
-   &#160;<span id="projectnumber">1.3</span>
+   &#160;<span id="projectnumber">1.0</span>
    </div>
   </td>
  </tr>
@@ -48,7 +48,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -108,7 +107,6 @@ $(document).ready(function(){initNavTree('struct_net_c_d_f_import_desc.html','')
 
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="struct_net_c_d_f_import_desc-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -121,77 +119,21 @@ $(document).ready(function(){initNavTree('struct_net_c_d_f_import_desc.html','')
 
 <p><code>#include &lt;<a class="el" href="netcdfimportdesc_8h_source.html">netcdfimportdesc.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:acd785c2c157b931610ce5e6d05b2b143"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_net_c_d_f_import_desc.html#acd785c2c157b931610ce5e6d05b2b143">NetCDFImportDesc</a> () noexcept=default</td></tr>
-<tr class="separator:acd785c2c157b931610ce5e6d05b2b143"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a63322376d91835daf4beafa50d4c19c3"><td class="memItemLeft" align="right" valign="top">const QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_net_c_d_f_import_desc.html#a63322376d91835daf4beafa50d4c19c3">File</a></td></tr>
-<tr class="memdesc:a63322376d91835daf4beafa50d4c19c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Filepath on disk.  <a href="#a63322376d91835daf4beafa50d4c19c3">More...</a><br /></td></tr>
+<tr class="memitem:a63322376d91835daf4beafa50d4c19c3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a63322376d91835daf4beafa50d4c19c3"></a>
+const QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_net_c_d_f_import_desc.html#a63322376d91835daf4beafa50d4c19c3">File</a></td></tr>
+<tr class="memdesc:a63322376d91835daf4beafa50d4c19c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Filepath on disk. <br /></td></tr>
 <tr class="separator:a63322376d91835daf4beafa50d4c19c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1f13d8c34d830f178d8be6d376e2043"><td class="memItemLeft" align="right" valign="top">const QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_net_c_d_f_import_desc.html#af1f13d8c34d830f178d8be6d376e2043">DatasetToAppendTo</a></td></tr>
-<tr class="memdesc:af1f13d8c34d830f178d8be6d376e2043"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dataset key to append to in THREDDS.  <a href="#af1f13d8c34d830f178d8be6d376e2043">More...</a><br /></td></tr>
+<tr class="memitem:af1f13d8c34d830f178d8be6d376e2043"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af1f13d8c34d830f178d8be6d376e2043"></a>
+const QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_net_c_d_f_import_desc.html#af1f13d8c34d830f178d8be6d376e2043">DatasetToAppendTo</a></td></tr>
+<tr class="memdesc:af1f13d8c34d830f178d8be6d376e2043"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dataset key to append to in THREDDS. <br /></td></tr>
 <tr class="separator:af1f13d8c34d830f178d8be6d376e2043"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Descriptor to import a netCDF file into THREDDS. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="acd785c2c157b931610ce5e6d05b2b143"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">NetCDFImportDesc::NetCDFImportDesc </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="af1f13d8c34d830f178d8be6d376e2043"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const QString NetCDFImportDesc::DatasetToAppendTo</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Dataset key to append to in THREDDS. </p>
-
-</div>
-</div>
-<a class="anchor" id="a63322376d91835daf4beafa50d4c19c3"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const QString NetCDFImportDesc::File</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Filepath on disk. </p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li><a class="el" href="netcdfimportdesc_8h_source.html">netcdfimportdesc.h</a></li>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
+<li>app/<a class="el" href="netcdfimportdesc_8h_source.html">netcdfimportdesc.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

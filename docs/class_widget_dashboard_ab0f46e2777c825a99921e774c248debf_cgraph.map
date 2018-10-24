@@ -1,5 +1,0 @@
-<map id="WidgetDashboard::on_pushButtonImportNetCDF_clicked" name="WidgetDashboard::on_pushButtonImportNetCDF_clicked">
-<area shape="rect" id="node2" href="$class_main_window.html#a3fdaa9b3438854ad39576e1ddb2fb151" title="Hide progress bar and label. " alt="" coords="242,5,443,32"/>
-<area shape="rect" id="node3" href="$class_main_window.html#acdd6d0e11fa0dfe60e7ef8cb4cbe5de5" title="Updates the progress bar percent value. Value is a percentage from 0 to 100. " alt="" coords="235,56,451,83"/>
-<area shape="rect" id="node4" href="$class_main_window.html#a62be210d8008731f009ce6a31101cb69" title="Show the progress bar and label with the given labelText. Starts at 0%. " alt="" coords="239,107,447,133"/>
-</map>

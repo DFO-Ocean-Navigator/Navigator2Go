@@ -1,5 +1,0 @@
-<map id="WidgetConfigEditor::on_pushButtonAddDataset_clicked" name="WidgetConfigEditor::on_pushButtonAddDataset_clicked">
-<area shape="rect" id="node2" href="$class_widget_config_editor.html#a913b3f3af19babddaf2f15e8c6c88cef" title="WidgetConfigEditor\l::addDatasetToConfigList" alt="" coords="240,13,411,54"/>
-<area shape="rect" id="node3" href="$class_widget_config_editor.html#a9269052df005e2842019d170b4161eb7" title="Double&#45;click on list item. " alt="" coords="459,5,657,61"/>
-<area shape="rect" id="node4" href="$class_dialog_dataset_view.html#a36e858d0a88cdc43d2460dbedfac5b74" title="Parse data from loaded config file. " alt="" coords="705,13,848,54"/>
-</map>

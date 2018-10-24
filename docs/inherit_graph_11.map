@@ -1,7 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
 <area shape="rect" id="node2" href="$class_widget_config_editor.html" title="Dataset config editor widget in the Config Editor tab. " alt="" coords="133,5,268,32"/>
-<area shape="rect" id="node3" href="$class_widget_dashboard.html" title="WidgetDashboard" alt="" coords="137,56,264,83"/>
-<area shape="rect" id="node4" href="$class_widget_data_order.html" title="WidgetDataOrder" alt="" coords="139,107,262,133"/>
-<area shape="rect" id="node5" href="$class_widget_month_picker.html" title="WidgetMonthPicker" alt="" coords="133,157,269,184"/>
-<area shape="rect" id="node6" href="$class_widget_thredds_config.html" title="WidgetThreddsConfig" alt="" coords="127,208,275,235"/>
+<area shape="rect" id="node3" href="$class_widget_data_order.html" title="WidgetDataOrder" alt="" coords="139,56,262,83"/>
+<area shape="rect" id="node4" href="$class_widget_month_picker.html" title="WidgetMonthPicker" alt="" coords="133,107,269,133"/>
+<area shape="rect" id="node5" href="$class_widget_thredds_config.html" title="WidgetThreddsConfig" alt="" coords="127,157,275,184"/>
 </map>

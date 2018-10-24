@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['enddate',['EndDate',['../struct_data_download_desc.html#a784695753200fd281897a8d353809c5d',1,'DataDownloadDesc']]]
+  ['oninstalldir',['ONInstallDir',['../class_preferences.html#aa129ad169f77f001050980d13ddc6565',1,'Preferences']]]
 ];

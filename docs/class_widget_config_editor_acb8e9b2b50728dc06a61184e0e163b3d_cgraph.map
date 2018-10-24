@@ -1,5 +1,0 @@
-<map id="WidgetConfigEditor::setDefaultConfigFile" name="WidgetConfigEditor::setDefaultConfigFile">
-<area shape="rect" id="node2" href="$namespace_i_o.html#a1fae692838a777c0cb5efc7bfd35ed3d" title="Loads a JSON file from disk, checks for errors, and returns the QJsonDocument. " alt="" coords="235,5,365,32"/>
-<area shape="rect" id="node3" href="$namespace_i_o.html#ac86a15c73dae6f0332a90bf194abd8ca" title="Writes a JSON file to the given path. " alt="" coords="234,56,366,83"/>
-<area shape="rect" id="node4" href="$class_main_window.html#a9d37673e90ff7a642e3b73fb6097e130" title="MainWindow::showStatusBar\lMessage" alt="" coords="203,107,397,149"/>
-</map>

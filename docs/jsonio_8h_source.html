@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>Navigator2Go: jsonio.h Source File</title>
+<title>Navigator2Go: app/jsonio.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -33,7 +33,7 @@
   <td id="projectlogo"><img alt="Logo" src="compass.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Navigator2Go
-   &#160;<span id="projectnumber">1.3</span>
+   &#160;<span id="projectnumber">1.0</span>
    </div>
   </td>
  </tr>
@@ -48,7 +48,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -72,7 +71,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
-      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -109,17 +107,13 @@ $(document).ready(function(){initNavTree('jsonio_8h_source.html','');});
 <div class="title">jsonio.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="jsonio_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef JSONIO_H</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define JSONIO_H</span></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="nodiscard_8h.html">nodiscard.h</a>&quot;</span></div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;QJsonDocument&gt;</span></div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;QJsonObject&gt;</span></div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_i_o.html">IO</a> {</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">/***********************************************************************************/</span></div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<a class="code" href="nodiscard_8h.html#abf13e44576a768044e199191d4f26f7e">NODISCARD</a> QJsonDocument <a class="code" href="namespace_i_o.html#a1fae692838a777c0cb5efc7bfd35ed3d">LoadJSONFile</a>(<span class="keyword">const</span> QString&amp; path, <span class="keyword">const</span> <span class="keywordtype">bool</span> showMsgBox = <span class="keyword">true</span>);</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">/***********************************************************************************/</span></div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespace_i_o.html#ac86a15c73dae6f0332a90bf194abd8ca">WriteJSONFile</a>(<span class="keyword">const</span> QString&amp; path, <span class="keyword">const</span> QJsonObject&amp; obj = QJsonObject());</div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace IO</span></div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#endif // JSONIO_H</span></div><div class="ttc" id="namespace_i_o_html_ac86a15c73dae6f0332a90bf194abd8ca"><div class="ttname"><a href="namespace_i_o.html#ac86a15c73dae6f0332a90bf194abd8ca">IO::WriteJSONFile</a></div><div class="ttdeci">void WriteJSONFile(const QString &amp;path, const QJsonObject &amp;obj)</div><div class="ttdoc">Writes a JSON file to the given path. </div><div class="ttdef"><b>Definition:</b> jsonio.cpp:62</div></div>
-<div class="ttc" id="nodiscard_8h_html_abf13e44576a768044e199191d4f26f7e"><div class="ttname"><a href="nodiscard_8h.html#abf13e44576a768044e199191d4f26f7e">NODISCARD</a></div><div class="ttdeci">#define NODISCARD</div><div class="ttdoc">Preprocessor checks for nodiscard attribute support. </div><div class="ttdef"><b>Definition:</b> nodiscard.h:10</div></div>
-<div class="ttc" id="namespace_i_o_html"><div class="ttname"><a href="namespace_i_o.html">IO</a></div><div class="ttdef"><b>Definition:</b> ioutils.cpp:13</div></div>
-<div class="ttc" id="nodiscard_8h_html"><div class="ttname"><a href="nodiscard_8h.html">nodiscard.h</a></div></div>
-<div class="ttc" id="namespace_i_o_html_a1fae692838a777c0cb5efc7bfd35ed3d"><div class="ttname"><a href="namespace_i_o.html#a1fae692838a777c0cb5efc7bfd35ed3d">IO::LoadJSONFile</a></div><div class="ttdeci">QJsonDocument LoadJSONFile(const QString &amp;path, const bool showMsgBox)</div><div class="ttdoc">Loads a JSON file from disk, checks for errors, and returns the QJsonDocument. </div><div class="ttdef"><b>Definition:</b> jsonio.cpp:14</div></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef JSONIO_H</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define JSONIO_H</span></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;nodiscard.h&quot;</span></div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;QJsonDocument&gt;</span></div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;QJsonObject&gt;</span></div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_i_o.html">IO</a> {</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">/***********************************************************************************/</span></div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;NODISCARD QJsonDocument LoadJSONFile(<span class="keyword">const</span> QString&amp; path, <span class="keyword">const</span> <span class="keywordtype">bool</span> showMsgBox = <span class="keyword">true</span>);</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">/***********************************************************************************/</span></div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keywordtype">void</span> WriteJSONFile(<span class="keyword">const</span> QString&amp; path, <span class="keyword">const</span> QJsonObject&amp; obj = QJsonObject());</div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace IO</span></div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#endif // JSONIO_H</span></div><div class="ttc" id="namespace_i_o_html"><div class="ttname"><a href="namespace_i_o.html">IO</a></div><div class="ttdef"><b>Definition:</b> ioutils.cpp:17</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="jsonio_8h.html">jsonio.h</a></li>
+    <li class="navelem"><a class="el" href="dir_d422163b96683743ed3963d4aac17747.html">app</a></li><li class="navelem"><b>jsonio.h</b></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.11 </li>
