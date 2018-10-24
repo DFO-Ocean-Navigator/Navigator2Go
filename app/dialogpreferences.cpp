@@ -73,7 +73,6 @@ void DialogPreferences::on_buttonBox_accepted() {
 
 	m_prefs.DataDownloadFormat = m_ui->comboBoxDownloadFormat->currentText();
 	m_prefs.UpdateRemoteListOnStart = m_ui->switchUpdateDoryDatasetsOnStart->isChecked();
-	m_prefs.IsNetworkOnline = m_ui->switchOnlineOffline->isChecked();
 	m_prefs.CheckForUpdatesOnStart = m_ui->switchWidgetCheckForUpdates->isChecked();
 
 	if (m_ui->switchWidgetAdvancedUI->isChecked() != m_prefs.AdvancedUI) {
@@ -98,7 +97,6 @@ void DialogPreferences::populateUI() {
 	m_ui->lineEditTHREDDSDataLocation->setText(m_prefs.THREDDSCatalogLocation);
 	m_ui->comboBoxDownloadFormat->setCurrentText(m_prefs.DataDownloadFormat);
 	m_ui->switchUpdateDoryDatasetsOnStart->setChecked(m_prefs.UpdateRemoteListOnStart);
-	m_ui->switchOnlineOffline->setChecked(m_prefs.IsNetworkOnline);
 	m_ui->switchWidgetCheckForUpdates->setChecked(m_prefs.CheckForUpdatesOnStart);
 	m_ui->switchWidgetAdvancedUI->setChecked(m_prefs.AdvancedUI);
 }

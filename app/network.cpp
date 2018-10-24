@@ -76,7 +76,7 @@ void URLExistsRunnable::run() {
 	QTcpSocket socket;
 	socket.connectToHost(m_url.host(), m_port);
 
-	if (socket.waitForConnected()) {
+	if (socket.waitForConnected(5000)) {
 		socket.write("HEAD " + m_url.path().toUtf8() + " HTTP/1.1\r\n"
 						"Host: " + m_url.host().toUtf8() + "\r\n\r\n");
 

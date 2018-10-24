@@ -172,39 +172,6 @@
           <widget class="SwitchWidget" name="switchUpdateDoryDatasetsOnStart" native="true"/>
          </item>
          <item row="7" column="0">
-          <widget class="QLabel" name="label_4">
-           <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Toggle the network state of Navigator2Go.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;All network activity from this program will cease.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;This is a helpful feature if you want to isolate your Navigator system to conserve bandwidth, for example.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="text">
-            <string>Network Access On/Off:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="7" column="1">
-          <widget class="SwitchWidget" name="switchOnlineOffline" native="true"/>
-         </item>
-         <item row="9" column="0">
-          <widget class="QLabel" name="label_7">
-           <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The NetCDF version the downloaded files from the remote server will be in.&lt;/p&gt;&lt;p&gt;Default is NetCDF-4 for best compression and data accuracy.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="text">
-            <string>Dataset download format:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="9" column="1">
-          <widget class="QComboBox" name="comboBoxDownloadFormat">
-           <property name="focusPolicy">
-            <enum>Qt::NoFocus</enum>
-           </property>
-           <property name="frame">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="8" column="0">
           <widget class="QLabel" name="label_3">
            <property name="toolTip">
             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable advanced UI features.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -214,8 +181,28 @@
            </property>
           </widget>
          </item>
-         <item row="8" column="1">
+         <item row="7" column="1">
           <widget class="SwitchWidget" name="switchWidgetAdvancedUI" native="true"/>
+         </item>
+         <item row="8" column="0">
+          <widget class="QLabel" name="label_7">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The NetCDF version the downloaded files from the remote server will be in.&lt;/p&gt;&lt;p&gt;Default is NetCDF-4 for best compression and data accuracy.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="text">
+            <string>Dataset download format:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="8" column="1">
+          <widget class="QComboBox" name="comboBoxDownloadFormat">
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
+           <property name="frame">
+            <bool>true</bool>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>

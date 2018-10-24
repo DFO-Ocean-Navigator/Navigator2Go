@@ -35,6 +35,9 @@ public:
 
 	void setOffset(const int o);
 
+signals:
+	void toggled(const bool checked);
+
 protected:
 	void paintEvent(QPaintEvent* e) override;
 	void mouseReleaseEvent(QMouseEvent* e) override;

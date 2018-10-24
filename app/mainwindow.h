@@ -32,8 +32,6 @@ public:
 	~MainWindow();
 
 	void showStatusBarMessage(const char* text) const;
-	/// Queries the RemoteURL in m_prefs for a connection
-	void checkRemoteConnection();
 	/// Show the progress bar and label with the given labelText. Starts at 0%
 	void showProgressBar(const char* labelText);
 	/// Updates the progress bar percent value. Value is a percentage from 0 to 100.
@@ -73,16 +71,14 @@ private slots:
 	void on_pushButtonRefresh_clicked();
 
 private:
+	/// Queries the RemoteURL in m_prefs for a connection
+	void checkRemoteConnection();
 	///
 	void updateTHREDDSConfigTable();
 	/// Initialize widgets for each tab
 	void initWidgets();
 	/// Sets initial layout of program on start
 	void setInitialLayout();
-	/// Set network state to online
-	void setOnline();
-	/// Set network state to offline
-	void setOffline();
 	/// Calls both update functions for convenience
 	void checkForUpdates();
 	/// Checks for updates for Navigator2Go.

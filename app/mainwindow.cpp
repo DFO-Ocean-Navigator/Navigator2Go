@@ -25,7 +25,7 @@
 #include <QDesktopServices>
 
 #ifdef QT_DEBUG
-	#include <QDebug>
+#include <QDebug>
 #endif
 
 /***********************************************************************************/
@@ -35,7 +35,7 @@ auto currentBranch() noexcept { return GIT_CURRENT_BRANCH; }
 
 /***********************************************************************************/
 MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
-											m_ui{new Ui::MainWindow} {
+	m_ui{new Ui::MainWindow} {
 	m_ui->setupUi(this);
 	// Set dark stylesheet
 	QFile f{QStringLiteral(":qdarkstyle/style.qss")};
@@ -68,16 +68,6 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 	m_uplinkTimer.setInterval(300000); // Check for remote uplink every 5 minutes.
 	QObject::connect(&m_uplinkTimer, &QTimer::timeout, this, &MainWindow::checkRemoteConnection);
 	m_uplinkTimer.start();
-
-	if (m_prefs.IsNetworkOnline) {
-		setOnline();
-
-		if (m_prefs.UpdateRemoteListOnStart) {
-			m_widgetDataOrder->updateRemoteDatasetListWidget();
-		}
-	} else {
-		setOffline();
-	}
 
 	if (m_prefs.CheckForUpdatesOnStart) {
 		checkForUpdates();
@@ -113,7 +103,7 @@ void MainWindow::on_actionClose_triggered() {
 
 	if (m_widgetConfigEditor->hasUnsavedData()) {
 		const auto reply{ QMessageBox::question(this, tr("Confirm Action"), tr("Close without saving?"),
-										QMessageBox::Yes | QMessageBox::Save | QMessageBox::Cancel) };
+												QMessageBox::Yes | QMessageBox::Save | QMessageBox::Cancel) };
 
 		switch (reply) {
 		case QMessageBox::Save:
@@ -133,6 +123,13 @@ void MainWindow::on_actionClose_triggered() {
 /***********************************************************************************/
 void MainWindow::initWidgets() {
 
+	QObject::connect(m_ui->switchWidgetNetwork, &SwitchWidget::toggled, this, [&](const auto checked) {
+		if (checked) {
+			m_ui->switchWidgetNetwork->setEnabled(false);
+			this->checkRemoteConnection();
+		}
+	});
+
 	m_widgetConfigEditor = new WidgetConfigEditor(m_ui->tabWidget, this, &m_prefs);
 
 	m_widgetDataOrder = new WidgetDataOrder(m_ui->tabWidget, this, m_prefs);
@@ -145,24 +142,7 @@ void MainWindow::initWidgets() {
 void MainWindow::on_actionPreferences_triggered() {
 	DialogPreferences prefsDialog{m_prefs, this};
 
-	if (prefsDialog.exec()) {
-		// Store previous network state
-		const auto prevNetworkState{ m_prefs.IsNetworkOnline };
-
-		// Has the network state changed?
-		if (m_prefs.IsNetworkOnline != prevNetworkState) {
-
-			m_prefs.IsNetworkOnline ? setOnline() : setOffline();
-
-			QMessageBox box{this};
-			box.setWindowTitle(tr("Online status changed..."));
-			box.setText(tr("You've changed the network status of Navigator2Go.\
-							Please Stop and Start the Web Server in the Dashboard tab."));
-			box.setIcon(QMessageBox::Icon::Information);
-
-			box.exec();
-		}
-	}
+	prefsDialog.exec();
 }
 
 /***********************************************************************************/
@@ -170,8 +150,8 @@ void MainWindow::on_actionAbout_triggered() {
 	QMessageBox::information(this,
 							 tr("About Navigator2Go"),
 							 QString("Navigator2Go Version: %1\nGit commit hash: %2\nCompiled from branch: %3").arg(appVersion())
-																											   .arg(commitHash())
-																											   .arg(currentBranch())
+							 .arg(commitHash())
+							 .arg(currentBranch())
 							 );
 }
 
@@ -240,72 +220,51 @@ void MainWindow::checkForONUpdates() {
 }
 
 /***********************************************************************************/
-void MainWindow::setOnline() {
-#ifdef QT_DEBUG
-	qDebug() << "Changing to online.";
-#endif
-	m_widgetDataOrder->setNAMOnline();
-	m_widgetConfigEditor->updateDatasetListWidget();
-}
-
-/***********************************************************************************/
-void MainWindow::setOffline() {
-#ifdef QT_DEBUG
-	qDebug() << "Changing to offline.";
-#endif
-	m_widgetDataOrder->setNAMOffline();
-	m_widgetConfigEditor->updateDatasetListWidget();
-}
-
-/***********************************************************************************/
 void MainWindow::checkRemoteConnection() {
-	if (m_prefs.IsNetworkOnline) {
-		// QThreadPool deletes automatically
-		auto* const task{ new Network::URLExistsRunnable{m_prefs.RemoteURL, 80} };
+	// QThreadPool deletes automatically
+	auto* const task{ new Network::URLExistsRunnable{m_prefs.RemoteURL, 80} };
 
-		// Setup connection
-		QObject::connect(task, &Network::URLExistsRunnable::urlResult, this, [&](const auto success) {
-			QMessageBox box{this};
+	// Setup connection
+	QObject::connect(task, &Network::URLExistsRunnable::urlResult, this, [&](const auto success) {
+		QMessageBox box{this};
 
-			if (success) {
-				if (!m_hasRemoteUplink) {
-					m_hasRemoteUplink = true;
+		if (success) {
+			if (!m_hasRemoteUplink) {
+				m_hasRemoteUplink = true;
 
-					box.setWindowTitle(tr("Remote uplink restored..."));
-					box.setIcon(QMessageBox::Information);
-					box.setText(tr("You have restored connection to the remote server. Nice job! Would you like to switch to your remote server's datasets?"));
-					box.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+				box.setWindowTitle(tr("Remote uplink restored..."));
+				box.setIcon(QMessageBox::Information);
+				box.setText(tr("You have restored connection to the remote server."));
+				box.exec();
 
-					if (box.exec() == QMessageBox::Yes) {
-						m_prefs.IsNetworkOnline = true;
-						this->setOnline();
-					}
-				}
-
-				this->showStatusBarMessage("Remote uplink test successful.");
-				this->m_widgetDataOrder->updateRemoteDatasetListWidget();
-			}
-			else {
-				if (m_hasRemoteUplink) {
-					m_hasRemoteUplink = false;
-
-					box.setWindowTitle(tr("Remote uplink lost..."));
-					box.setIcon(QMessageBox::Warning);
-					box.setText(tr("You have lost connection to the remote server. Local datasets will now be used."));
-					box.setStandardButtons(QMessageBox::Ok);
-
-					m_prefs.IsNetworkOnline = false;
-
-					this->setOffline();
-				}
-
-				this->showStatusBarMessage("Remote uplink test failed");
+				m_widgetDataOrder->setNAMOnline();
 			}
 
-		}, Qt::BlockingQueuedConnection); // <-- Check out this magic...this would segfault otherwise
+			this->showStatusBarMessage("Remote uplink test successful.");
+			this->m_widgetDataOrder->updateRemoteDatasetListWidget();
+			m_ui->switchWidgetNetwork->setChecked(true);
+		}
+		else {
+			if (m_hasRemoteUplink) {
+				m_hasRemoteUplink = false;
 
-		QThreadPool::globalInstance()->start(task);
-	}
+				box.setWindowTitle(tr("Remote uplink lost..."));
+				box.setIcon(QMessageBox::Warning);
+				box.setText(tr("You have lost connection to the remote server."));
+				box.setStandardButtons(QMessageBox::Ok);
+				box.exec();
+
+				m_widgetDataOrder->setNAMOffline();
+			}
+
+			this->showStatusBarMessage("Remote uplink test failed");
+			m_ui->switchWidgetNetwork->setChecked(false);
+			m_ui->switchWidgetNetwork->setEnabled(true);
+		}
+
+	}, Qt::BlockingQueuedConnection); // <-- Check out this magic...this would segfault otherwise
+
+	QThreadPool::globalInstance()->start(task);
 }
 
 /***********************************************************************************/

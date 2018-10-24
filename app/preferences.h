@@ -29,7 +29,6 @@ public:
 	QString THREDDSCatalogLocation;		///< Location on disk of THREDDS datasets
 	QString DataDownloadFormat{"NETCDF4"};	///< Format to download netCDF files: same values as on Ocean Navigator web gui.
 	bool UpdateRemoteListOnStart{true};	///< Should we update dataset list from dory when starting
-	bool IsNetworkOnline{true};			///< Global network state (online or offline).
 	bool CheckForUpdatesOnStart{true};	///< Check for program updates on start.
 	bool FirstRun{true};				///< First time Navigator2Go is run?
 	bool AdvancedUI{false};				///< Enable advanced UI features?

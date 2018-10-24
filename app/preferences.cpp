@@ -54,10 +54,6 @@ void Preferences::readSettings() {
 		UpdateRemoteListOnStart = value("UpdateRemoteListOnStart").toBool();
 	}
 
-	if (contains("IsNetworkOnline")) {
-		IsNetworkOnline = value("IsNetworkOnline").toBool();
-	}
-
 	if (contains("CheckForUpdatesOnStart")) {
 		CheckForUpdatesOnStart = value("CheckForUpdatesOnStart").toBool();
 	}
@@ -105,7 +101,6 @@ void Preferences::writeSettings() {
 	setValue("RemoteURL", RemoteURL);
 	setValue("THREDDSCatalogLocation", THREDDSCatalogLocation);
 	setValue("UpdateRemoteListOnStart", UpdateRemoteListOnStart);
-	setValue("IsNetworkOnline", IsNetworkOnline);
 	setValue("CheckForUpdatesOnStart", CheckForUpdatesOnStart);
 	setValue("AdvancedUI", AdvancedUI);
 

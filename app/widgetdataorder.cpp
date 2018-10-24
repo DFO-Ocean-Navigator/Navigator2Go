@@ -185,10 +185,8 @@ void WidgetDataOrder::configureNetwork() {
 	// Follow server redirects for same domain only
 	m_networkAccessManager.setRedirectPolicy(QNetworkRequest::RedirectPolicy::SameOriginRedirectPolicy);
 
-	if (m_prefs.IsNetworkOnline) {
-		// Reduce latency by connecting to remote first
-		m_networkAccessManager.connectToHost(m_prefs.RemoteURL);
-	}
+	// Reduce latency by connecting to remote first
+	m_networkAccessManager.connectToHost(m_prefs.RemoteURL);
 
 	m_downloader.setTimeoutTime(300000); // 30 sec timeout
 

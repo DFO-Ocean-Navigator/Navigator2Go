@@ -13,6 +13,8 @@ SwitchWidget::SwitchWidget(QWidget* parent) : QAbstractButton{parent}, m_anim{ne
 	setBrush(QColor("009688"));
 	setMaximumWidth(m_width);
 	setCheckable(true);
+
+	setMinimumWidth(100);
 }
 
 /***********************************************************************************/
@@ -51,7 +53,25 @@ void SwitchWidget::paintEvent(QPaintEvent* e) {
 /***********************************************************************************/
 void SwitchWidget::mouseReleaseEvent(QMouseEvent* e) {
 
+	if (e->button() & Qt::LeftButton) {
+		m_switch = m_switch ? false : true;
+		m_thumb = m_switch ? m_brush : QBrush("#d5d5d5");
+		if (m_switch) {
+			m_anim->setStartValue(m_height / 2);
+			m_anim->setEndValue(width() - m_height);
+			m_anim->setDuration(120);
+			m_anim->start();
+		} else {
+			m_anim->setStartValue(offset());
+			m_anim->setEndValue(m_height / 2);
+			m_anim->setDuration(120);
+			m_anim->start();
+		}
+	}
+
 	QAbstractButton::mouseReleaseEvent(e);
+
+	emit toggled(isChecked());
 }
 
 /***********************************************************************************/
