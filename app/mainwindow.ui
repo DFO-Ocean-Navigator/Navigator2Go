@@ -221,6 +221,20 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tab">
+       <attribute name="icon">
+        <iconset resource="resources.qrc">
+         <normaloff>:/icons/icons/computer.png</normaloff>:/icons/icons/computer.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>Local Data</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <layout class="QVBoxLayout" name="localDataLayout"/>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="threddsconfig">
        <attribute name="icon">
         <iconset resource="resources.qrc">

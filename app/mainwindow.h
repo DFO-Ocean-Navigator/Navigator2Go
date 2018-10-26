@@ -21,6 +21,7 @@ class MainWindow;
 class WidgetConfigEditor;
 class WidgetDataOrder;
 class WidgetThreddsConfig;
+class WidgetLocalData;
 class QNetworkReply;
 
 /***********************************************************************************/
@@ -70,6 +71,8 @@ private slots:
 
 	void on_pushButtonRefresh_clicked();
 
+	void on_tabWidget_currentChanged(int index);
+
 private:
 	/// Queries the RemoteURL in m_prefs for a connection
 	void checkRemoteConnection();
@@ -90,6 +93,7 @@ private:
 
 	Ui::MainWindow* m_ui{nullptr};
 	ServerManager m_serverManager{this};
+	QPointer<WidgetLocalData> m_widgetLocalData;
 	QPointer<WidgetConfigEditor> m_widgetConfigEditor;
 	QPointer<WidgetDataOrder> m_widgetDataOrder;
 	QPointer<WidgetThreddsConfig> m_widgetThreddsConfig;

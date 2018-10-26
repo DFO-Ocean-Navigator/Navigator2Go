@@ -52,7 +52,8 @@ FORMS += \
     dialogselectvars.ui \
     dialogimportnc.ui \
     dialogthreddslogs.ui \
-    widgetmonthpicker.ui
+    widgetmonthpicker.ui \
+    widgetlocaldata.ui
 
 unix:!macx: LIBS += -lnetcdf_c++4 -lbfd -ldl
 
@@ -82,7 +83,8 @@ HEADERS += \
     updaterunnable.h \
     systemutils.h \
     backward/backward.hpp \
-    servermanager.h
+    servermanager.h \
+    widgetlocaldata.h
 
 SOURCES += \
     datadownloaddesc.cpp \
@@ -109,7 +111,8 @@ SOURCES += \
     systemutils.cpp \
     backward/backward.cpp \
     preferences.cpp \
-    servermanager.cpp
+    servermanager.cpp \
+    widgetlocaldata.cpp
 
 INCLUDEPATH += \
     $$PWD/netcdf4/include \

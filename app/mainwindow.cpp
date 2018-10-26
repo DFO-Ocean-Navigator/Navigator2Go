@@ -5,6 +5,7 @@
 #include "dialogpreferences.h"
 #include "dialogimportnc.h"
 #include "widgetconfigeditor.h"
+#include "widgetlocaldata.h"
 #include "widgetdataorder.h"
 #include "widgetthreddsconfig.h"
 #include "updaterunnable.h"
@@ -25,7 +26,7 @@
 #include <QDesktopServices>
 
 #ifdef QT_DEBUG
-#include <QDebug>
+	#include <QDebug>
 #endif
 
 /***********************************************************************************/
@@ -76,8 +77,9 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 	setWindowTitle(tr("Navigator2Go"));
 
 	if (!m_prefs.AdvancedUI) {
-		m_ui->tabWidget->removeTab(3);
-		m_ui->tabWidget->removeTab(2);
+		// Hide tabs
+		m_ui->tabWidget->removeTab(4); // Config Editor
+		m_ui->tabWidget->removeTab(3); // THREDDS Config
 	}
 
 	setInitialLayout();
@@ -130,6 +132,8 @@ void MainWindow::initWidgets() {
 		}
 	});
 
+	m_widgetLocalData = new WidgetLocalData(&m_prefs.ONInstallDir, this);
+
 	m_widgetConfigEditor = new WidgetConfigEditor(m_ui->tabWidget, this, &m_prefs);
 
 	m_widgetDataOrder = new WidgetDataOrder(m_ui->tabWidget, this, m_prefs);
@@ -165,6 +169,7 @@ void MainWindow::setInitialLayout() {
 	m_ui->dataOrderLayout->addWidget(m_widgetDataOrder);
 	m_ui->configEditorLayout->addWidget(m_widgetConfigEditor);
 	m_ui->threddsConfigLayout->addWidget(m_widgetThreddsConfig);
+	m_ui->localDataLayout->addWidget(m_widgetLocalData);
 }
 
 /***********************************************************************************/
@@ -259,8 +264,9 @@ void MainWindow::checkRemoteConnection() {
 
 			this->showStatusBarMessage("Remote uplink test failed");
 			m_ui->switchWidgetNetwork->setChecked(false);
-			m_ui->switchWidgetNetwork->setEnabled(true);
 		}
+
+		m_ui->switchWidgetNetwork->setEnabled(true);
 
 	}, Qt::BlockingQueuedConnection); // <-- Check out this magic...this would segfault otherwise
 
@@ -383,7 +389,7 @@ void MainWindow::on_pushButtonImportNCFiles_clicked() {
 
 /***********************************************************************************/
 void MainWindow::on_pushButtonViewLocalData_clicked() {
-
+	m_ui->tabWidget->setCurrentIndex(2);
 }
 
 /***********************************************************************************/
@@ -400,4 +406,11 @@ void MainWindow::on_pushButtonRefresh_clicked() {
 	m_serverManager.refreshServers();
 
 	m_ui->pushButtonRefresh->setEnabled(true);
+}
+
+/***********************************************************************************/
+void MainWindow::on_tabWidget_currentChanged(int index) {
+	if (index == 2) {
+		m_widgetLocalData->updateTreeWidget();
+	}
 }

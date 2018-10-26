@@ -17,5 +17,6 @@
         <file>icons/terminal.png</file>
         <file>icons/cat.png</file>
         <file>icons/refresh.png</file>
+        <file>icons/computer.png</file>
     </qresource>
 </RCC>

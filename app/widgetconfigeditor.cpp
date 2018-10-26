@@ -26,7 +26,7 @@ WidgetConfigEditor::WidgetConfigEditor(QWidget* parent, const MainWindow* mainWi
 	m_ui->pushButtonAddDataset->setText(tr("Add Dataset"));
 	m_ui->pushButtonDeleteDataset->setText(tr("Delete Dataset"));
 
-	const auto& offlineConfig{ m_prefs->ONInstallDir+"/oceannavigator/datasetconfigOFFLINE.json" };
+	const auto& offlineConfig{ m_prefs->ONInstallDir + QStringLiteral("/oceannavigator/datasetconfigOFFLINE.json") };
 	if (!IO::FileExists(offlineConfig)) {
 		IO::WriteJSONFile(offlineConfig);
 	}
@@ -200,7 +200,7 @@ void WidgetConfigEditor::updateDatasetListWidget() {
 
 /***********************************************************************************/
 void WidgetConfigEditor::setDefaultConfigFile() {
-	static const auto& offlineConfig{ m_prefs->ONInstallDir+"/oceannavigator/datasetconfigOFFLINE.json" };
+	static const auto& offlineConfig{ m_prefs->ONInstallDir + QStringLiteral("/oceannavigator/datasetconfigOFFLINE.json") };
 
 	// Validate file
 	auto doc = IO::LoadJSONFile(offlineConfig);
