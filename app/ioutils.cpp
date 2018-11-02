@@ -21,24 +21,24 @@ THREDDSFileDesc GetNCFilename(const QString& threddsContentDir, const DataDownlo
 
 	// Create filename
 	const auto& fileName{
-		data.ID + "_" +
+		data.ID + QStringLiteral("_") +
 		data.StartDate.toString(Qt::DateFormat::ISODate) +
-		(data.StartDate != data.EndDate ? "-" + data.EndDate.toString(Qt::DateFormat::ISODate) : "") +
-		".nc"
+		(data.StartDate != data.EndDate ? QStringLiteral("-") + data.EndDate.toString(Qt::DateFormat::ISODate) : "") +
+		QStringLiteral(".nc")
 	};
 
 	// Find dataset location from thredds catalogs
-	const auto& doc{ readXML(threddsContentDir+"/catalog.xml") };
+	const auto& doc{ readXML(threddsContentDir + QStringLiteral("/catalog.xml")) };
 	const auto& ds{ doc->child("catalog").find_child_by_attribute("catalogRef", "xlink:title", data.ID.toStdString().c_str())};
 	if (ds) {
 		const auto& ds_catalog{ IO::readXML(threddsContentDir + "/" + ds.attribute("xlink:href").as_string()) };
 		const auto& path{ ds_catalog->child("catalog").child("datasetScan").attribute("location").as_string() };
 
-		return { QString(path), "/" + fileName };
+		return { QString(path), QStringLiteral("/") + fileName };
 	}
 
 	// Dataset not found
-	return { QString(), "/" + fileName };
+	return { QStringLiteral(), QStringLiteral("/") + fileName };
 
 }
 
@@ -57,13 +57,13 @@ bool ClearPythonCache() {
 							 QMessageBox::Cancel | QMessageBox::Ok) == QMessageBox::Ok) {
 
 
-		QDir d{"/tmp/oceannavigator"};
+		QDir d{QStringLiteral("/tmp/oceannavigator")};
 		if (!d.exists()) {
 			return false;
 		}
 
 		QString status;
-		d.removeRecursively() ? status = "successful" : status = "failed";
+		d.removeRecursively() ? status = QStringLiteral("successful") : status = QStringLiteral("failed");
 
 		QMessageBox::information(nullptr,
 								 QObject::tr("Clear python cache"),
@@ -80,7 +80,7 @@ void CreateDir(const QString& path) {
 	const QFileInfo f{path};
 	const QDir dir{f.absoluteDir()};
 
-	dir.mkpath(".");
+	dir.mkpath(QStringLiteral("."));
 }
 
 /***********************************************************************************/
@@ -94,7 +94,7 @@ QString FindTimeDimension(const QString& netcdfFilePath) {
 	using namespace netCDF;
 	NcFile f(netcdfFilePath.toStdString(), NcFile::FileMode::read);
 
-	const QRegularExpression rxp{"(time)", QRegularExpression::CaseInsensitiveOption};
+	const QRegularExpression rxp{QStringLiteral("(time)"), QRegularExpression::CaseInsensitiveOption};
 
 	const auto& variableList{ f.getCoordVars() };
 	for (const auto& variable : variableList) {
@@ -117,16 +117,16 @@ void CopyFilesRunnable::run() {
 	const auto stepSize{ 100 * (1 / static_cast<qint64>(m_fileList.size())) };
 	qint64 currentStep{ 0 };
 
-	const auto& catalog{ IO::readXML(m_contentDir+"/catalog.xml")->child("catalog") };
+	const auto& catalog{ IO::readXML(m_contentDir + QStringLiteral("/catalog.xml"))->child("catalog") };
 	QStringList errorList;
 
 	for (const auto& file : m_fileList) {
 		const auto& fileName{ QFileInfo{file.File}.fileName() };
-		const auto& href{ "catalogs/" + file.DatasetToAppendTo + ".xml" };
+		const auto& href{ QStringLiteral("catalogs/") + file.DatasetToAppendTo + QStringLiteral(".xml") };
 		const auto* dsCatalogPath{ catalog.find_child_by_attribute("catalogRef", "xlink:href", href.toStdString().c_str()).attribute("xlink:href").as_string() };
-		const auto* dsLocation{ IO::readXML(m_contentDir+"/"+dsCatalogPath)->child("catalog").child("datasetScan").attribute("location").as_string() };
+		const auto* dsLocation{ IO::readXML(m_contentDir+QStringLiteral("/")+dsCatalogPath)->child("catalog").child("datasetScan").attribute("location").as_string() };
 
-		if (!QFile::copy(file.File, QString(dsLocation) + "/" + fileName)) {
+		if (!QFile::copy(file.File, QString(dsLocation) + QStringLiteral("/") + fileName)) {
 			errorList.append(file.File);
 		}
 		else {
@@ -141,8 +141,5 @@ void CopyFilesRunnable::run() {
 
 	emit finished(errorList);
 }
-
-
-
 
 } // namespace IO

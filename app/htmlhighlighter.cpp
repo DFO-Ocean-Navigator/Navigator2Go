@@ -10,8 +10,8 @@ HTMLHighlighter::HTMLHighlighter(QTextDocument* parent) : QSyntaxHighlighter(par
 
 	m_edgeTagFormat.setForeground(QBrush(QColor("#32a9dd")));
 	m_insideTagFormat.setForeground(Qt::green);
-	m_openTag = QRegExp("<");
-	m_closeTag = QRegExp(">");
+	m_openTag = QRegExp(QStringLiteral("<"));
+	m_closeTag = QRegExp(QStringLiteral(">"));
 
 	m_tagsFormat.setForeground(Qt::cyan);
 	m_tagsFormat.setFontWeight(QFont::Bold);
@@ -89,11 +89,11 @@ HTMLHighlighter::HTMLHighlighter(QTextDocument* parent) : QSyntaxHighlighter(par
 	}
 
 	m_multiLineCommentFormat.setForeground(Qt::darkGray);
-	m_commentStartExpression = QRegExp("<!--");
-	m_commentEndExpression = QRegExp("-->");
+	m_commentStartExpression = QRegExp(QStringLiteral("<!--"));
+	m_commentEndExpression = QRegExp(QStringLiteral("-->"));
 
 	m_quotationFormat.setForeground(Qt::darkGreen);
-	m_quotes = QRegExp("\"");
+	m_quotes = QRegExp(QStringLiteral("\""));
 }
 
 /***********************************************************************************/

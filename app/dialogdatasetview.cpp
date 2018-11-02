@@ -49,7 +49,7 @@ void DialogDatasetView::SetData(const QString& datasetKey, const QJsonObject& ob
 		m_ui->lineEditURL->setText(object["url"].toString());
 	}
 	else {
-		m_ui->lineEditURL->setText(QString("http://localhost:8080/thredds/dodsC/%1/aggregated.ncml").arg(datasetKey));
+		m_ui->lineEditURL->setText(QStringLiteral("http://localhost:8080/thredds/dodsC/%1/aggregated.ncml").arg(datasetKey));
 	}
 	m_ui->lineEditClima->setText(object["climatology"].toString());
 	const auto idx{ m_ui->comboBoxQuantum->findText(object["quantum"].toString()) };
@@ -109,7 +109,7 @@ void DialogDatasetView::SetData(const QJsonObject& datasetObj, QNetworkAccessMan
 	m_ui->plainTextEditHelp->document()->setHtml(datasetObj["help"].toString());
 
 	// Get variables from api
-	Network::MakeAPIRequest(nam, "http://navigator.oceansdata.ca/api/variables/?dataset="+datasetIDString,
+	Network::MakeAPIRequest(nam, QStringLiteral("http://navigator.oceansdata.ca/api/variables/?dataset=") + datasetIDString,
 							[&](const auto& doc) {
 								const auto& root = doc.array();
 
@@ -123,7 +123,7 @@ void DialogDatasetView::SetData(const QJsonObject& datasetObj, QNetworkAccessMan
 	);
 
 	// Figure out date range
-	Network::MakeAPIRequest(nam, "http://navigator.oceansdata.ca/api/timestamps/?dataset="+datasetIDString,
+	Network::MakeAPIRequest(nam, QStringLiteral("http://navigator.oceansdata.ca/api/timestamps/?dataset=") + datasetIDString,
 							[&](const auto& doc) {
 
 								const auto& root = doc.array();
@@ -135,7 +135,7 @@ void DialogDatasetView::SetData(const QJsonObject& datasetObj, QNetworkAccessMan
 								const auto& endDate{ QDate::fromString(end, Qt::DateFormat::ISODate) };
 
 								// Use correct time picking widget
-								if (quantum == "day" || quantum == "hour") {
+								if (quantum == QStringLiteral("day") || quantum == QStringLiteral("hour")) {
 									m_ui->calendarWidgetStart->setVisible(true);
 									m_ui->calendarWidgetStart->setDateRange(startDate, endDate);
 									m_ui->calendarWidgetStart->setSelectedDate(startDate);
@@ -148,7 +148,7 @@ void DialogDatasetView::SetData(const QJsonObject& datasetObj, QNetworkAccessMan
 									m_ui->labelEndDate->setVisible(true);
 									return;
 								}
-								if (quantum == "month") {
+								if (quantum == QStringLiteral("month")) {
 									m_ui->widgetMonthPicker->setStartEndDate(startDate, endDate);
 									m_ui->widgetMonthPicker->setVisible(true);
 									return;
@@ -163,16 +163,16 @@ void DialogDatasetView::SetData(const QJsonObject& datasetObj, QNetworkAccessMan
 std::pair<QString, QJsonObject> DialogDatasetView::GetData() const {
 
 	QJsonObject obj;
-	obj.insert("name", m_ui->lineEditName->text());
-	obj.insert("enabled", m_ui->checkBoxDatasetEnabled->isChecked());
-	obj.insert("url", m_ui->lineEditURL->text());
+	obj.insert(QStringLiteral("name"), m_ui->lineEditName->text());
+	obj.insert(QStringLiteral("enabled"), m_ui->checkBoxDatasetEnabled->isChecked());
+	obj.insert(QStringLiteral("url"), m_ui->lineEditURL->text());
 	if (m_ui->spinBoxCache->isEnabled()) {
-		obj.insert("cache", m_ui->spinBoxCache->value());
+		obj.insert(QStringLiteral("cache"), m_ui->spinBoxCache->value());
 	}
-	obj.insert("quantum", m_ui->comboBoxQuantum->currentText());
-	obj.insert("climatology", m_ui->lineEditClima->text());
-	obj.insert("attribution", m_ui->lineEditAttribution->text());
-	obj.insert("help", m_ui->plainTextEditHelp->document()->toRawText());
+	obj.insert(QStringLiteral("quantum"), m_ui->comboBoxQuantum->currentText());
+	obj.insert(QStringLiteral("climatology"), m_ui->lineEditClima->text());
+	obj.insert(QStringLiteral("attribution"), m_ui->lineEditAttribution->text());
+	obj.insert(QStringLiteral("help"), m_ui->plainTextEditHelp->document()->toRawText());
 
 	// Serialize variables
 	QJsonObject variables;
@@ -181,25 +181,25 @@ std::pair<QString, QJsonObject> DialogDatasetView::GetData() const {
 		QJsonObject var;
 
 		const auto& nameText{ m_ui->tableWidgetVariables->item(i, 1)->text() };
-		var.insert("name", nameText);
+		var.insert(QStringLiteral("name"), nameText);
 
 		const auto& unitsText{ m_ui->tableWidgetVariables->item(i, 2)->text() };
-		var.insert("unit", unitsText);
+		var.insert(QStringLiteral("unit"), unitsText);
 
 		const auto scaleMin{ m_ui->tableWidgetVariables->item(i, 3)->text().toDouble() };
 		const auto scaleMax{ m_ui->tableWidgetVariables->item(i, 4)->text().toDouble() };
-		var.insert("scale", QJsonArray({scaleMin, scaleMax}));
+		var.insert(QStringLiteral("scale"), QJsonArray({scaleMin, scaleMax}));
 
 		const auto factor{ m_ui->tableWidgetVariables->item(i, 5)->text().toDouble() };
-		var.insert("scale_factor", factor);
+		var.insert(QStringLiteral("scale_factor"), factor);
 
 		const auto isHidden{ m_ui->tableWidgetVariables->item(i, 6)->checkState() };
-		var.insert("hide", isHidden ? true : false);
+		var.insert(QStringLiteral("hide"), isHidden ? true : false);
 
 		const auto& keyText{ m_ui->tableWidgetVariables->item(i, 0)->text() };
 		variables.insert(keyText, var);
 	}
-	obj.insert("variables", variables);
+	obj.insert(QStringLiteral("variables"), variables);
 
 	return { m_ui->lineEditKey->text(), obj };
 }
@@ -216,7 +216,7 @@ DataDownloadDesc DialogDatasetView::GetDownloadData() const {
 
 	QDate startDate, endDate;
 	const auto& quantum{ m_ui->comboBoxQuantum->currentText() };
-	if (quantum == "day" || quantum == "hour") {
+	if (quantum == QStringLiteral("day") || quantum == QStringLiteral("hour")) {
 		startDate = m_ui->calendarWidgetStart->selectedDate();
 		endDate = m_ui->calendarWidgetEnd->selectedDate();
 	}

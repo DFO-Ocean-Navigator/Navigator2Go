@@ -13,7 +13,7 @@ DialogTHREDDSLogs::DialogTHREDDSLogs(const QString& threddsLogFolder, QWidget* p
 	m_ui->setupUi(this);
 
 	const QDir dir{m_logFolder};
-	const auto& logList{ dir.entryInfoList({"*.log"}) };
+	const auto& logList{ dir.entryInfoList({QStringLiteral("*.log")}) };
 
 	for (const auto& log : logList) {
 		m_ui->comboBoxLogFiles->addItem(log.fileName());
@@ -44,7 +44,7 @@ void DialogTHREDDSLogs::on_comboBoxLogFiles_currentIndexChanged(const QString& a
 void DialogTHREDDSLogs::loadLogFile(const QString& filename) {
 	m_ui->textBrowser->clear();
 
-	QFile f{ m_logFolder + "/" + filename };
+	QFile f{ m_logFolder + QStringLiteral("/") + filename };
 	f.open(QFile::ReadOnly | QFile::Text);
 
 	QTextStream ts{ &f };

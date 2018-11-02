@@ -30,7 +30,12 @@ void appendDatasetToCatalog(pugi::xml_document& doc, const QString& datasetName)
 /***********************************************************************************/
 /// Adds a dataset to THREDDS. Returns true if added.
 /** Modifies/creates all necessary catalog and aggregate files. */
-bool addDataset(const QString& threddsCatalogLoc, const QString& datasetName, const QString& dataPath);
+bool addDataset(const QString& rootCatalogFolder, const QString& datasetName, const QString& dataPath);
+
+/***********************************************************************************/
+/// Removes a dataset from THREDDS.
+/** Modifies/deletes all necessary catalog and aggregate files. */
+void removeDataset(const QString& rootCatalogFolder, const QString& datasetName, const QString& dataPath);
 
 /***********************************************************************************/
 /// Checks if a named dataset exists in catalog.xml

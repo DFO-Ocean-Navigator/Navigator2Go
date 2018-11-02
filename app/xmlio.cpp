@@ -35,25 +35,25 @@ void appendDatasetToCatalog(pugi::xml_document& doc, const QString& datasetName)
 }
 
 /***********************************************************************************/
-bool addDataset(const QString& threddsCatalogLoc, const QString& datasetName, const QString& dataPath) {
+bool addDataset(const QString& rootCatalogFolder, const QString& datasetName, const QString& dataPath) {
 	const auto& path{ QStringLiteral("catalogs/") + datasetName };
 
 	// Modify catalog.xml
-	const auto catalogPath{ threddsCatalogLoc + QString("/catalog.xml") };
+	const auto catalogPath{ rootCatalogFolder + QString("/catalog.xml") };
 	const auto doc{ IO::readXML(catalogPath) };
 	auto child{ doc->child("catalog").append_child("catalogRef") };
 	child.append_attribute("xlink:title") = datasetName.toStdString().c_str();
 	child.append_attribute("xlink:href") = QString(path + ".xml").toStdString().c_str();
 	child.append_attribute("name") = "";
 
-	const auto& fileName{ threddsCatalogLoc + "/" + path + ".xml"};
+	const auto& fileName{ rootCatalogFolder + "/" + path + ".xml"};
 	if (!FileExists(fileName)) {
 		CreateDir(fileName);
 	}
 
 	// Create dataset catalog file (giops_day.xml for example)
 	if (auto catalog{ IO::readXML(path) }; !catalog.has_value()) {
-		createNewCatalogFile(threddsCatalogLoc, { datasetName, dataPath } );
+		createNewCatalogFile(rootCatalogFolder, { datasetName, dataPath } );
 	}
 
 	// Create dataset aggregate file
@@ -108,6 +108,26 @@ bool addDataset(const QString& threddsCatalogLoc, const QString& datasetName, co
 	*/
 
 	return true;
+}
+
+/***********************************************************************************/
+void removeDataset(const QString& rootCatalogFolder, const QString& datasetName, const QString& dataPath) {
+
+	// Modify catalog.xml
+	{
+		const auto& catalogPath{ rootCatalogFolder + QStringLiteral("/catalog.xml") };
+		auto doc{ IO::readXML(catalogPath) };
+		const auto& nodeToRemove{ doc->child("catalog").find_child_by_attribute("catalogRef", "xlink:title", datasetName.toStdString().c_str()) };
+		nodeToRemove.parent().remove_child(nodeToRemove);
+
+		doc->save_file(catalogPath.toStdString().c_str());
+	}
+
+	// Remove dataset catalog
+	QFile::remove(rootCatalogFolder + QStringLiteral("/catalogs/") + datasetName + QStringLiteral(".xml"));
+
+	// Remove datasets + aggregated file
+	RemoveDir(dataPath);
 }
 
 /***********************************************************************************/

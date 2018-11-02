@@ -26,12 +26,12 @@
 
 
 /***********************************************************************************/
-WidgetThreddsConfig::WidgetThreddsConfig(QWidget* parent, const Preferences* prefs) :	QWidget{parent},
+WidgetThreddsConfig::WidgetThreddsConfig(QWidget* parent, const QString* catalogLoc) :	QWidget{parent},
 																						m_ui{new Ui::WidgetThreddsConfig},
-																						m_prefs{prefs} {
+																						m_catalogLocation{catalogLoc} {
 	m_ui->setupUi(this);
 
-	m_ui->labelTHREDDSPath->setText(tr("THREDDS Location: ") + m_prefs->THREDDSCatalogLocation);
+	m_ui->labelTHREDDSPath->setText(tr("THREDDS Location: ") + m_catalogLocation);
 	m_ui->labelTHREDDSPath->setStyleSheet(QSS_COLOR_GREEN);
 
 	checkCatalogsPath();
@@ -68,7 +68,7 @@ void WidgetThreddsConfig::on_pushButtonAddDataset_clicked() {
 													tr("Add THREDDS Dataset..."),
 													tr("Enter a dataset name.\nNo whitespace, /, \\, +, *, ., characters allowed."),
 													QLineEdit::Normal,
-													"my_dataset_" + QString::number(qrand()),
+													QStringLiteral("my_dataset_") + QString::number(qrand()),
 													&ok_dsname)
 						   };
 
@@ -80,13 +80,13 @@ void WidgetThreddsConfig::on_pushButtonAddDataset_clicked() {
 												   tr("Dataset Path..."),
 												   tr("Enter the path for the folder containing the dataset."),
 												   QLineEdit::Normal,
-												   "/opt/thredds_content/data/"+datasetName,
+												   QStringLiteral("/opt/thredds_content/data/") + datasetName,
 												   &ok_dspath)
 						  };
 
 	if (validateDatasetName(datasetName) && ok_dspath) {
 
-		if (!IO::addDataset(m_prefs->THREDDSCatalogLocation, datasetName, datasetPath)) {
+		if (!IO::addDataset(*m_catalogLocation, datasetName, datasetPath)) {
 			return;
 		}
 
@@ -109,9 +109,10 @@ void WidgetThreddsConfig::on_pushButtonRemoveDataset_clicked() {
 						};
 
 		if (reply == QMessageBox::Yes) {
-			removeDataset(m_ui->tableWidget->item(currentRow, 0)->text(),
-						  m_ui->tableWidget->item(currentRow, 2)->text()
-						  );
+			IO::removeDataset(	*m_catalogLocation,
+								m_ui->tableWidget->item(currentRow, 0)->text(),
+								m_ui->tableWidget->item(currentRow, 2)->text()
+								);
 
 			m_ui->tableWidget->removeRow(m_ui->tableWidget->currentRow());
 		}
@@ -120,7 +121,7 @@ void WidgetThreddsConfig::on_pushButtonRemoveDataset_clicked() {
 
 /***********************************************************************************/
 void WidgetThreddsConfig::on_pushButtonShowLogs_clicked() {
-	DialogTHREDDSLogs dlg{ m_prefs->THREDDSCatalogLocation + "/logs", this};
+	DialogTHREDDSLogs dlg{ *m_catalogLocation + QStringLiteral("/logs"), this};
 
 	dlg.exec();
 }
@@ -135,12 +136,12 @@ void WidgetThreddsConfig::BuildTable() {
 													tr("Dataset Files Location")
 												 });
 
-	const auto& catalogFile{ m_prefs->THREDDSCatalogLocation + QString("/catalog.xml") };
+	const auto& catalogFile{ m_catalogLocation + QStringLiteral("/catalog.xml") };
 
 	auto doc{ IO::readXML(catalogFile) };
 
 	if (!doc.has_value()) {
-		IO::createNewPrimaryCatalog(m_prefs->THREDDSCatalogLocation);
+		IO::createNewPrimaryCatalog(*m_catalogLocation);
 
 		doc = IO::readXML(catalogFile);
 	}
@@ -171,7 +172,7 @@ void WidgetThreddsConfig::BuildTable() {
 			m_ui->tableWidget->setItem(rowIdx, 1, pathItem);
 
 
-			const auto& datasetCatalog{ IO::readXML(m_prefs->THREDDSCatalogLocation + "/" + catalogPath) };
+			const auto& datasetCatalog{ IO::readXML(*m_catalogLocation + QStringLiteral("/") + catalogPath) };
 			if (!datasetCatalog.has_value()) {
 				continue;
 			}
@@ -190,15 +191,15 @@ void WidgetThreddsConfig::BuildTable() {
 
 /***********************************************************************************/
 void WidgetThreddsConfig::checkCatalogsPath() {
-	if (const QDir dir{m_prefs->THREDDSCatalogLocation+"/catalogs/"}; !dir.exists()) {
+	if (const QDir dir{*m_catalogLocation + QStringLiteral("/catalogs/") }; !dir.exists()) {
 #ifdef QT_DEBUG
-	qDebug() << "Creating catalogs folder at: " << m_prefs->THREDDSCatalogLocation << "/catalogs/";
+	qDebug() << "Creating catalogs folder at: " << *m_catalogLocation << "/catalogs/";
 #endif
-		if (!dir.mkpath(".")) {
+		if (!dir.mkpath(QStringLiteral("."))) {
 			QMessageBox::critical(this,
 								  tr("Permissions error..."),
 								  tr("Failed to create the catalogs folder for THREDDS. This is probably a permissions issue. Ensure you have write permissions to: ")+
-								  m_prefs->THREDDSCatalogLocation);
+								  *m_catalogLocation);
 		}
 	}
 }
@@ -206,7 +207,7 @@ void WidgetThreddsConfig::checkCatalogsPath() {
 /***********************************************************************************/
 bool WidgetThreddsConfig::validateDatasetName(const QString& datasetName) {
 	// https://regex101.com/r/2MfejI/3
-	const QRegularExpression re{"[\\.,;'`+*\\s/]+", QRegularExpression::CaseInsensitiveOption};
+	const QRegularExpression re{QStringLiteral("[\\.,;'`+*\\s/]+"), QRegularExpression::CaseInsensitiveOption};
 
 	const auto& matchResult{ re.match(datasetName) };
 
@@ -222,7 +223,7 @@ void WidgetThreddsConfig::createRow(const QString& datasetName, const QString& d
 	auto* const nameItem{ new QTableWidgetItem(datasetName) };
 	nameItem->setFlags(nameItem->flags() ^ Qt::ItemIsEditable);
 
-	const auto& catalogPath{ "catalogs/"+datasetName+".xml" };
+	const auto& catalogPath{ QStringLiteral("catalogs/") + datasetName + QStringLiteral(".xml") };
 	auto* const pathItem{ new QTableWidgetItem(catalogPath) };
 	pathItem->setFlags(pathItem->flags() ^ Qt::ItemIsEditable);
 
@@ -235,26 +236,6 @@ void WidgetThreddsConfig::createRow(const QString& datasetName, const QString& d
 }
 
 /***********************************************************************************/
-void WidgetThreddsConfig::removeDataset(const QString& datasetName, const QString& dataPath) {
-
-	// Modify catalog.xml
-	{
-		const auto& catalogPath{ m_prefs->THREDDSCatalogLocation + QString("/catalog.xml") };
-		auto doc{ IO::readXML(catalogPath) };
-		const auto& nodeToRemove{ doc->child("catalog").find_child_by_attribute("catalogRef", "xlink:title", datasetName.toStdString().c_str()) };
-		nodeToRemove.parent().remove_child(nodeToRemove);
-
-		doc->save_file(catalogPath.toStdString().c_str());
-	}
-
-	// Remove dataset catalog
-	QFile::remove(m_prefs->THREDDSCatalogLocation + "/catalogs/" + datasetName + ".xml");
-
-	// Remove datasets + aggregated file
-	IO::RemoveDir(dataPath);
-}
-
-/***********************************************************************************/
 void WidgetThreddsConfig::on_pushButtonBrowseTHREDDSDir_clicked() {
-	QDesktopServices::openUrl({"/opt/thredds_content/"});
+	QDesktopServices::openUrl({QStringLiteral("/opt/thredds_content/")});
 }

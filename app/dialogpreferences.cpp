@@ -26,7 +26,7 @@ void DialogPreferences::on_pushButtonBrowseInstallDir_clicked() {
 #ifdef QT_DEBUG
 	const constexpr auto path = "/home/nabil/";
 #else
-	const constexpr auto path = "/opt/tools/";
+	const constexpr auto path = "/opt/";
 #endif
 	const auto& dir{ QFileDialog::getExistingDirectory(this,
 													   tr("Open Ocean Navigator Installation Folder..."),
@@ -44,7 +44,7 @@ void DialogPreferences::on_pushButtonBrowseTHREDDS_clicked() {
 	const auto& dir{ QFileDialog::getExistingDirectory(this, tr("Open THREDDS catalog.xml folder...")) };
 
 	if (!dir.isEmpty()) {
-		if (IO::FileExists(dir+"/catalog.xml")) {
+		if (IO::FileExists(dir + QStringLiteral("/catalog.xml") )) {
 			m_ui->lineEditTHREDDSDataLocation->setText(dir);
 			return;
 		}
@@ -86,8 +86,8 @@ void DialogPreferences::on_buttonBox_accepted() {
 /***********************************************************************************/
 void DialogPreferences::populateUI() {
 	const QStringList downloadFormats {
-		"NETCDF4", "NETCDF4_CLASSIC", "NETCDF3_64BIT",
-		"NETCDF3_CLASSIC", "NETCDF3_NC"
+		QStringLiteral("NETCDF4"), QStringLiteral("NETCDF4_CLASSIC"), QStringLiteral("NETCDF3_64BIT"),
+		QStringLiteral("NETCDF3_CLASSIC"), QStringLiteral("NETCDF3_NC")
 	};
 
 	m_ui->comboBoxDownloadFormat->addItems(downloadFormats);

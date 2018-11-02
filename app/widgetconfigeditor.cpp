@@ -46,7 +46,7 @@ void WidgetConfigEditor::addDatasetToConfigList() {
 										   tr("New dataset key"),
 										   tr("Dataset key (e.g. giops_day):"),
 										   QLineEdit::Normal,
-										   "new_dataset_" + QString::number(qrand()),
+										   QStringLiteral("new_dataset_") + QString::number(qrand()),
 										   &ok
 				   )};
 
@@ -63,8 +63,6 @@ void WidgetConfigEditor::addDatasetToConfigList() {
 
 /***********************************************************************************/
 void WidgetConfigEditor::saveConfigFile() {
-	const QJsonDocument doc{m_documentRootObject};
-
 	IO::WriteJSONFile(m_activeConfigFile, m_documentRootObject);
 
 	m_mainWindow->showStatusBarMessage("Config file saved: ");
@@ -124,7 +122,7 @@ void WidgetConfigEditor::on_pushButtonLoadCustomConfig_clicked() {
 	const auto filePath{ QFileDialog::getOpenFileName(this,
 													   tr("Select a dataset config file..."),
 													   m_prefs->ONInstallDir,
-													   "Config Files (*.json)"
+													   QStringLiteral("Config Files (*.json)")
 													   )
 					   };
 

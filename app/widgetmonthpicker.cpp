@@ -7,33 +7,33 @@
 /***********************************************************************************/
 // http://doc.qt.io/qt-5/qdate.html#month
 const QHash<int, QString> indexToMonth {
-	{1, "January"},
-	{2, "February"},
-	{3, "March"},
-	{4, "April"},
-	{5, "May"},
-	{6, "June"},
-	{7, "July"},
-	{8, "August"},
-	{9, "September"},
-	{10, "October"},
-	{11, "November"},
-	{12, "December"}
+	{1, QStringLiteral("January")},
+	{2, QStringLiteral("February")},
+	{3, QStringLiteral("March")},
+	{4, QStringLiteral("April")},
+	{5, QStringLiteral("May")},
+	{6, QStringLiteral("June")},
+	{7, QStringLiteral("July")},
+	{8, QStringLiteral("August")},
+	{9, QStringLiteral("September")},
+	{10, QStringLiteral("October")},
+	{11, QStringLiteral("November")},
+	{12, QStringLiteral("December")}
 };
 
 const QHash<QString, int> monthToIndex {
-	{"January", 1},
-	{"February", 2},
-	{"March", 3},
-	{"April", 4},
-	{"May", 5},
-	{"June", 6},
-	{"July", 7},
-	{"August", 8},
-	{"September", 9},
-	{"October", 10},
-	{"November", 11},
-	{"December", 12}
+	{QStringLiteral("January"), 1},
+	{QStringLiteral("February"), 2},
+	{QStringLiteral("March"), 3},
+	{QStringLiteral("April"), 4},
+	{QStringLiteral("May"), 5},
+	{QStringLiteral("June"), 6},
+	{QStringLiteral("July"), 7},
+	{QStringLiteral("August"), 8},
+	{QStringLiteral("September"), 9},
+	{QStringLiteral("October"), 10},
+	{QStringLiteral("November"), 11},
+	{QStringLiteral("December"), 12}
 };
 
 /***********************************************************************************/

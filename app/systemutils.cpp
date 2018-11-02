@@ -12,19 +12,19 @@ namespace System {
 /// Checks if a named process is running on a UNIX or Windows system
 #ifdef __linux__
 bool IsProcessRunning(const QString& processName) {
-	static const QString& prefix{"ps cax | grep "};
-	static const QString& postfix{" > /dev/null; if [ $? -eq 0 ]; then echo \"true\"; else echo \"false\"; fi"};
+	static const auto& prefix{QStringLiteral("ps cax | grep ")};
+	static const auto& postfix{QStringLiteral(" > /dev/null; if [ $? -eq 0 ]; then echo \"true\"; else echo \"false\"; fi")};
 
 	QProcess process;
 	process.setProcessEnvironment(QProcessEnvironment::systemEnvironment());
 
-	const auto args{ QStringList() << "-c" << prefix + processName + postfix };
-	process.start("/bin/sh", args);
+	const auto args{ QStringList() << QStringLiteral("-c") << prefix + processName + postfix };
+	process.start(QStringLiteral("/bin/sh"), args);
 	process.waitForFinished();
 
 	// Capture output from bash script
 	const QString& output{ process.readAll() };
-	if (output.contains("true", Qt::CaseInsensitive)) {
+	if (output.contains(QStringLiteral("true"), Qt::CaseInsensitive)) {
 		return true;
 	}
 
@@ -43,7 +43,7 @@ void SendDesktopNotification(const QString& title, const QString& message) {
 
 #ifdef __linux__
 	// TODO: Use Navigator2Go logo instead of ubuntu one.
-	const auto& command{ QString("notify-send '%1' '%2' '-i' /usr/share/pixmaps/ubuntu-logo.png '-t' 5000").arg(title).arg(message) };
+	const auto& command{ QStringLiteral("notify-send '%1' '%2' '-i' /usr/share/pixmaps/ubuntu-logo.png '-t' 5000").arg(title).arg(message) };
 #else
 #endif
 

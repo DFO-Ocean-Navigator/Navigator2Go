@@ -20,62 +20,62 @@ Preferences::~Preferences() {
 /***********************************************************************************/
 void Preferences::readSettings() {
 	// General
-	beginGroup("General");
+	beginGroup(QStringLiteral("General"));
 
-	if (!contains("FirstRun")) {
+	if (!contains(QStringLiteral("FirstRun"))) {
 		FirstRun = true;
 	}
 	else {
 		FirstRun = false;
 	}
 
-	if (contains("ONInstallDir")) {
-		ONInstallDir = value("ONInstallDir").toString();
+	if (contains(QStringLiteral("ONInstallDir"))) {
+		ONInstallDir = value(QStringLiteral("ONInstallDir")).toString();
 	}
 	else {
-		ONInstallDir = "/opt/Ocean-Data-Map-Project/";
+		ONInstallDir = QStringLiteral("/opt/Ocean-Data-Map-Project/");
 	}
 
-	if (contains("RemoteURL")) {
-		RemoteURL = value("RemoteURL").toString();
+	if (contains(QStringLiteral("RemoteURL"))) {
+		RemoteURL = value(QStringLiteral("RemoteURL")).toString();
 	}
 	else {
-		RemoteURL = "http://www.navigator.oceansdata.ca/";
+		RemoteURL = QStringLiteral("http://www.navigator.oceansdata.ca/");
 	}
 
-	if (contains("THREDDSCatalogLocation")) {
-		THREDDSCatalogLocation = value("THREDDSCatalogLocation").toString();
+	if (contains(QStringLiteral("THREDDSCatalogLocation"))) {
+		THREDDSCatalogLocation = value(QStringLiteral("THREDDSCatalogLocation")).toString();
 	}
 	else {
-		THREDDSCatalogLocation = "/opt/thredds_content/thredds";
+		THREDDSCatalogLocation = QStringLiteral("/opt/thredds_content/thredds");
 	}
 
-	if (contains("UpdateRemoteListOnStart")) {
-		UpdateRemoteListOnStart = value("UpdateRemoteListOnStart").toBool();
+	if (contains(QStringLiteral("UpdateRemoteListOnStart"))) {
+		UpdateRemoteListOnStart = value(QStringLiteral("UpdateRemoteListOnStart")).toBool();
 	}
 
-	if (contains("CheckForUpdatesOnStart")) {
-		CheckForUpdatesOnStart = value("CheckForUpdatesOnStart").toBool();
+	if (contains(QStringLiteral("CheckForUpdatesOnStart"))) {
+		CheckForUpdatesOnStart = value(QStringLiteral("CheckForUpdatesOnStart")).toBool();
 	}
 
-	if (contains("AdvancedUI")) {
-		AdvancedUI = value("AdvancedUI").toBool();
+	if (contains(QStringLiteral("AdvancedUI"))) {
+		AdvancedUI = value(QStringLiteral("AdvancedUI")).toBool();
 	}
 
 	endGroup();
 
 	//
-	beginGroup("DataOrder");
+	beginGroup(QStringLiteral("DataOrder"));
 
-	if (contains("DataDownloadFormat")) {
-		DataDownloadFormat = value("DataDownloadFormat").toString();
+	if (contains(QStringLiteral("DataDownloadFormat"))) {
+		DataDownloadFormat = value(QStringLiteral("DataDownloadFormat")).toString();
 	}
 
 	if (contains("MinLat")) {
-		DataOrderArea.MinLat = value("MinLat").toDouble();
-		DataOrderArea.MaxLat = value("MaxLat").toDouble();
-		DataOrderArea.MinLon = value("MinLon").toDouble();
-		DataOrderArea.MaxLon = value("MaxLon").toDouble();
+		DataOrderArea.MinLat = value(QStringLiteral("MinLat")).toDouble();
+		DataOrderArea.MaxLat = value(QStringLiteral("MaxLat")).toDouble();
+		DataOrderArea.MinLon = value(QStringLiteral("MinLon")).toDouble();
+		DataOrderArea.MaxLon = value(QStringLiteral("MaxLon")).toDouble();
 	}
 	else {
 		DataOrderArea.MinLat = 40.0;
@@ -87,37 +87,37 @@ void Preferences::readSettings() {
 	endGroup();
 
 	//
-	beginGroup("Jobs");
+	beginGroup(QStringLiteral("Jobs"));
 	endGroup();
 }
 
 /***********************************************************************************/
 void Preferences::writeSettings() {
 	// General
-	beginGroup("General");
+	beginGroup(QStringLiteral("General"));
 
-	setValue("FirstRun", false);
-	setValue("ONInstallDir", ONInstallDir);
-	setValue("RemoteURL", RemoteURL);
-	setValue("THREDDSCatalogLocation", THREDDSCatalogLocation);
-	setValue("UpdateRemoteListOnStart", UpdateRemoteListOnStart);
-	setValue("CheckForUpdatesOnStart", CheckForUpdatesOnStart);
-	setValue("AdvancedUI", AdvancedUI);
+	setValue(QStringLiteral("FirstRun"), false);
+	setValue(QStringLiteral("ONInstallDir"), ONInstallDir);
+	setValue(QStringLiteral("RemoteURL"), RemoteURL);
+	setValue(QStringLiteral("THREDDSCatalogLocation"), THREDDSCatalogLocation);
+	setValue(QStringLiteral("UpdateRemoteListOnStart"), UpdateRemoteListOnStart);
+	setValue(QStringLiteral("CheckForUpdatesOnStart"), CheckForUpdatesOnStart);
+	setValue(QStringLiteral("AdvancedUI"), AdvancedUI);
 
 	endGroup();
 
 	// DataOrder
-	beginGroup("DataOrder");
-	setValue("MinLat", DataOrderArea.MinLat);
-	setValue("MaxLat", DataOrderArea.MaxLat);
-	setValue("MinLon", DataOrderArea.MinLon);
-	setValue("MaxLon", DataOrderArea.MaxLon);
+	beginGroup(QStringLiteral("DataOrder"));
+	setValue(QStringLiteral("MinLat"), DataOrderArea.MinLat);
+	setValue(QStringLiteral("MaxLat"), DataOrderArea.MaxLat);
+	setValue(QStringLiteral("MinLon"), DataOrderArea.MinLon);
+	setValue(QStringLiteral("MaxLon"), DataOrderArea.MaxLon);
 
-	setValue("DataDownloadFormat", DataDownloadFormat);
+	setValue(QStringLiteral("DataDownloadFormat"), DataDownloadFormat);
 
 	endGroup();
 
 	// Jobs
-	beginGroup("Jobs");
+	beginGroup(QStringLiteral("Jobs"));
 	endGroup();
 }

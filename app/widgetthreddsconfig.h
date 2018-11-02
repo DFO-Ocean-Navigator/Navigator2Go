@@ -11,14 +11,14 @@ namespace Ui {
 class WidgetThreddsConfig;
 }
 
-struct Preferences;
+class QString;
 
 /***********************************************************************************/
 class WidgetThreddsConfig : public QWidget {
 	Q_OBJECT
 
 public:
-	WidgetThreddsConfig(QWidget* parent, const Preferences* prefs);
+	WidgetThreddsConfig(QWidget* parent, const QString* threddsCatalogLocation);
 	~WidgetThreddsConfig();
 
 	//
@@ -42,11 +42,9 @@ private:
 	NODISCARD bool validateDatasetName(const QString& datasetName);
 	//
 	void createRow(const QString& datasetName, const QString& dataPath);
-	//
-	void removeDataset(const QString& datasetName, const QString& dataPath);
 
 	Ui::WidgetThreddsConfig* m_ui{nullptr};
-	const Preferences* const m_prefs{nullptr}; ///< Ptr to m_prefs in MainWindow.
+	const QString* const m_catalogLocation{nullptr}; ///< Ptr to THREDDS catalog location in user settings
 };
 
 #endif // WIDGETTHREDDSCONFIG_H

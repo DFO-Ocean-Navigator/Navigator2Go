@@ -27,7 +27,7 @@ public:
 	QString ONInstallDir;				///< Ocean Navigator installation directory
 	QString RemoteURL;					///< URL of remote Navigator server
 	QString THREDDSCatalogLocation;		///< Location on disk of THREDDS datasets
-	QString DataDownloadFormat{"NETCDF4"};	///< Format to download netCDF files: same values as on Ocean Navigator web gui.
+	QString DataDownloadFormat{QStringLiteral("NETCDF4")};	///< Format to download netCDF files: same values as on Ocean Navigator web gui.
 	bool UpdateRemoteListOnStart{true};	///< Should we update dataset list from dory when starting
 	bool CheckForUpdatesOnStart{true};	///< Check for program updates on start.
 	bool FirstRun{true};				///< First time Navigator2Go is run?

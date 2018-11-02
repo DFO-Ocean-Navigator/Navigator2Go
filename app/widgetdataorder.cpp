@@ -130,7 +130,7 @@ void WidgetDataOrder::on_listWidgetRemoteDatasets_itemDoubleClicked(QListWidgetI
 
 			// Don't accept a giant date range
 			std::size_t dayLimit{ 60 };
-			if (data.Quantum == "month") {
+			if (data.Quantum == QStringLiteral("month")) {
 				dayLimit = 1825; // 5 years of monthly data only
 			}
 
@@ -195,7 +195,7 @@ void WidgetDataOrder::configureNetwork() {
 	m_downloader.setDebug(true);
 	QObject::connect(&m_downloader, &QEasyDownloader::Debugger, this,
 					 [&](const auto& msg) {
-						qDebug() << msg;
+						//qDebug() << msg;
 					}
 	);
 #endif
@@ -206,23 +206,24 @@ void WidgetDataOrder::configureNetwork() {
 
 						m_ui->labelCurrentFile->setText(QFileInfo(filename).fileName());
 						m_ui->labelDownSpeedValue->setText(QString::number(speed) + " " + unit);
-						m_ui->labelFileSize->setText(QString::number(total >> 20) + " MB"); // Bytes to MB
+						m_ui->labelFileSize->setText(QString::number(total >> 20) + QStringLiteral(" MB")); // Bytes to MB
 						m_mainWindow->updateProgressBar(percent);
 					}
 	);
 
 	// Emitted when a single file is downloaded.
-	QObject::connect(&m_downloader, &QEasyDownloader::DownloadFinished, this,
+	if (!QObject::connect(&m_downloader, &QEasyDownloader::DownloadFinished, this,
 					 [&](const auto& url, const auto& filename) {
+						qDebug() << url;
+						qDebug() << filename;
 					}
-	);
+						  )) {
+		qDebug() << ";lkajdslkjafds";
+	}
 
 	// Emitted when all jobs are done.
 	QObject::connect(&m_downloader, &QEasyDownloader::Finished, this,
 					 [&]() {
-#ifdef QT_DEBUG
-						qDebug() << "All downloads complete";
-#endif
 						m_ui->listWidgetDownloadQueue->clear();
 						m_ui->pushButtonDownload->setEnabled(true);
 						m_ui->pushButtonUpdateRemoteList->setEnabled(true);
@@ -280,6 +281,10 @@ void WidgetDataOrder::configureNetwork() {
 						box.setIcon(QMessageBox::Warning);
 
 						box.exec();
+
+						if (m_downloader.HasNext()) {
+							m_downloader.Next();
+						}
 					}
 	);
 }

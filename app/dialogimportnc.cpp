@@ -17,7 +17,7 @@ DialogImportNC::DialogImportNC(const QString& threddsContentDir, QWidget* parent
 													tr("Append to")
 												 });
 
-	const auto& doc{ IO::readXML(threddsContentDir+"/catalog.xml") };
+	const auto& doc{ IO::readXML(threddsContentDir + QStringLiteral("/catalog.xml") ) };
 	m_datasetList = IO::getTHREDDSDatasetList(*doc);
 }
 
@@ -91,7 +91,7 @@ void DialogImportNC::addDataset() {
 	auto file{ QFileDialog::getOpenFileName(this,
 											tr("Select NetCDF file to import..."),
 											QDir::currentPath(),
-											"NetCDF Files (*.nc)"
+											QStringLiteral("NetCDF Files (*.nc)")
 											)
 			 };
 	if (file.isEmpty()) {

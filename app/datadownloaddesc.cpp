@@ -3,12 +3,12 @@
 #include <QUrlQuery>
 /***********************************************************************************/
 QString DataDownloadDesc::GetAPIQuery(const QString& remoteURL) const {
-	QUrlQuery q{remoteURL + "/subset/?"};
-	q.addQueryItem("variables", SelectedVariables.join(","));
-	q.addQueryItem("quantum", Quantum);
-	q.addQueryItem("dataset_name", ID);
-	q.addQueryItem("time", StartDate.toString(Qt::DateFormat::ISODate) + "," + EndDate.toString(Qt::DateFormat::ISODate));
-	q.addQueryItem("should_zip", "0");
+	QUrlQuery q{remoteURL + QStringLiteral("/subset/?")};
+	q.addQueryItem(QStringLiteral("variables"), SelectedVariables.join(QStringLiteral(",")));
+	q.addQueryItem(QStringLiteral("quantum"), Quantum);
+	q.addQueryItem(QStringLiteral("dataset_name"), ID);
+	q.addQueryItem(QStringLiteral("time"), StartDate.toString(Qt::DateFormat::ISODate) + QStringLiteral(",") + EndDate.toString(Qt::DateFormat::ISODate));
+	q.addQueryItem(QStringLiteral("should_zip"), "0");
 
 	return q.toString();
 }

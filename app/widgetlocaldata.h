@@ -22,7 +22,15 @@ public:
 	/// the tree widget with dataset names and variables
 	void updateTreeWidget();
 
+signals:
+	void refreshRequested();
+
+private slots:
+	void buttonHandler();
+
 private:
+	void deleteDataset(const QString& datasetName);
+
 	Ui::WidgetLocalData* m_ui{nullptr};
 	const QString* const m_ONInstallDir{nullptr}; ///< Ptr Navigator installation directory in User settings
 };
