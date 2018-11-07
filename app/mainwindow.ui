@@ -67,6 +67,9 @@
       </item>
       <item>
        <widget class="SwitchWidget" name="switchWidgetNetwork" native="true">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
           <horstretch>0</horstretch>

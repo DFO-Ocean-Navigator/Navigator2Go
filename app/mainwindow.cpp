@@ -269,8 +269,6 @@ void MainWindow::checkRemoteConnection() {
 			m_hasRemoteUplink = false;
 		}
 
-		m_ui->switchWidgetNetwork->setEnabled(true);
-
 	}, Qt::BlockingQueuedConnection); // <-- Check out this magic...this would segfault otherwise
 
 	QThreadPool::globalInstance()->start(task);
