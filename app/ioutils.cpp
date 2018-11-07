@@ -50,29 +50,20 @@ bool FileExists(const QString& path) {
 }
 
 /***********************************************************************************/
-bool ClearPythonCache() {
-	if (QMessageBox::warning(nullptr,
-							 QObject::tr("Confirm"),
-							 QObject::tr("Are you sure you wish to clear the python cache? This will result in a temporary slow-down of the Navigator web UI."),
-							 QMessageBox::Cancel | QMessageBox::Ok) == QMessageBox::Ok) {
-
-
-		QDir d{QStringLiteral("/tmp/oceannavigator")};
-		if (!d.exists()) {
-			return false;
-		}
-
-		QString status;
-		d.removeRecursively() ? status = QStringLiteral("successful") : status = QStringLiteral("failed");
-
-		QMessageBox::information(nullptr,
-								 QObject::tr("Clear python cache"),
-								 QObject::tr("Cache clearing operation ") + status + ".");
-
-		return true;
+void ClearPythonCache() {
+	QDir d{QStringLiteral("/tmp/oceannavigator")};
+	if (!d.exists()) {
+		return;
 	}
 
-	return false;
+	QString status;
+	d.removeRecursively() ? status = QStringLiteral("successful") : status = QStringLiteral("failed");
+
+	QMessageBox::information(nullptr,
+							 QObject::tr("Clear python cache"),
+							 QObject::tr("Cache clearing operation ") + status + ".");
+
+	return;
 }
 
 /***********************************************************************************/

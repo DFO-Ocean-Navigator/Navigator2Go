@@ -38,7 +38,7 @@ NODISCARD THREDDSFileDesc GetNCFilename(const QString& threddsContentDir, const 
 NODISCARD bool FileExists(const QString& path);
 
 /***********************************************************************************/
-bool ClearPythonCache();
+void ClearPythonCache();
 
 /***********************************************************************************/
 /// Create a directory with necessary parents if needed.

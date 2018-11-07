@@ -249,6 +249,7 @@ void MainWindow::checkRemoteConnection() {
 			this->showStatusBarMessage("Remote uplink test successful.");
 			this->m_widgetDataOrder->updateRemoteDatasetListWidget();
 			m_ui->switchWidgetNetwork->setChecked(true);
+			m_hasRemoteUplink = true;
 		}
 		else {
 			if (m_hasRemoteUplink) {
@@ -265,6 +266,7 @@ void MainWindow::checkRemoteConnection() {
 
 			this->showStatusBarMessage("Remote uplink test failed");
 			m_ui->switchWidgetNetwork->setChecked(false);
+			m_hasRemoteUplink = false;
 		}
 
 		m_ui->switchWidgetNetwork->setEnabled(true);
