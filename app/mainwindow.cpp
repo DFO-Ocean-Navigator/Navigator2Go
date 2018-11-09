@@ -76,8 +76,9 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 
 	setWindowTitle(tr("Navigator2Go"));
 
+	// Hide Config Editor and THREDDS config
+	// tabs by default
 	if (!m_prefs.AdvancedUI) {
-		// Hide tabs
 		m_ui->tabWidget->removeTab(4); // Config Editor
 		m_ui->tabWidget->removeTab(3); // THREDDS Config
 	}
@@ -136,9 +137,11 @@ void MainWindow::initWidgets() {
 	QObject::connect(m_widgetLocalData, &WidgetLocalData::refreshRequested, this, &MainWindow::refreshRequestHandler);
 
 	m_widgetConfigEditor = new WidgetConfigEditor(m_ui->tabWidget, this, &m_prefs);
+	QObject::connect(m_widgetConfigEditor, &WidgetConfigEditor::showStatusBarMessage, this, &MainWindow::showStatusBarMessageHandler);
 
 	m_widgetDataOrder = new WidgetDataOrder(m_ui->tabWidget, this, m_prefs);
 	QObject::connect(m_widgetDataOrder, &WidgetDataOrder::refreshRequested, this, &MainWindow::refreshRequestHandler);
+	QObject::connect(m_widgetDataOrder, &WidgetDataOrder::showStatusBarMessage, this, &MainWindow::showStatusBarMessageHandler);
 
 	m_widgetThreddsConfig = new WidgetThreddsConfig(m_ui->tabWidget, &m_prefs.THREDDSCatalogLocation);
 }
@@ -304,6 +307,11 @@ void MainWindow::refreshRequestHandler() {
 	updateTHREDDSConfigTable();
 
 	on_pushButtonRefresh_clicked();
+}
+
+/***********************************************************************************/
+void MainWindow::showStatusBarMessageHandler(const char* message) {
+	showStatusBarMessage(message);
 }
 
 /***********************************************************************************/

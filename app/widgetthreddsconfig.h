@@ -19,7 +19,7 @@ class WidgetThreddsConfig : public QWidget {
 
 public:
 	WidgetThreddsConfig(QWidget* parent, const QString* threddsCatalogLocation);
-	~WidgetThreddsConfig();
+	~WidgetThreddsConfig() override;
 
 	//
 	void BuildTable();

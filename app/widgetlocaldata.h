@@ -16,7 +16,7 @@ class WidgetLocalData : public QWidget {
 
 public:
 	explicit WidgetLocalData(const QString* m_ONInstallDir, QWidget *parent = nullptr);
-	~WidgetLocalData();
+	~WidgetLocalData() override;
 
 	/// Reads the offline dataset config file and updates
 	/// the tree widget with dataset names and variables
@@ -32,7 +32,7 @@ private:
 	void deleteDataset(const QString& datasetName);
 
 	Ui::WidgetLocalData* m_ui{nullptr};
-	const QString* const m_ONInstallDir{nullptr}; ///< Ptr Navigator installation directory in User settings
+	const QString* const m_ONInstallDir{nullptr}; ///< Pointer to Navigator installation directory in User settings
 };
 
 #endif // WIDGETLOCALDATA_H

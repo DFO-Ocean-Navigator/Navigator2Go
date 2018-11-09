@@ -19,7 +19,6 @@
 /***********************************************************************************/
 WidgetConfigEditor::WidgetConfigEditor(QWidget* parent, const MainWindow* mainWindow, const Preferences* prefs) :	QWidget{parent},
 																													m_ui{new Ui::WidgetConfigEditor},
-																													m_mainWindow{mainWindow},
 																													m_prefs{prefs} {
 	m_ui->setupUi(this);
 
@@ -65,10 +64,10 @@ void WidgetConfigEditor::addDatasetToConfigList() {
 void WidgetConfigEditor::saveConfigFile() {
 	IO::WriteJSONFile(m_activeConfigFile, m_documentRootObject);
 
-	m_mainWindow->showStatusBarMessage("Config file saved: ");
-
 	m_hasUnsavedData = false;
 	m_ui->pushButtonSaveConfigFile->setEnabled(false);
+
+	emit showStatusBarMessage("Config file saved.");
 }
 
 /***********************************************************************************/
@@ -139,9 +138,9 @@ void WidgetConfigEditor::on_pushButtonLoadCustomConfig_clicked() {
 	m_activeConfigFile = filePath;
 	m_documentRootObject = doc.object();
 
-	m_mainWindow->showStatusBarMessage("Config file loaded.");
-
 	updateDatasetListWidget();
+
+	emit showStatusBarMessage("Config file loaded.");
 }
 
 /***********************************************************************************/
@@ -218,7 +217,7 @@ void WidgetConfigEditor::setDefaultConfigFile() {
 	m_activeConfigFile = offlineConfig;
 	m_documentRootObject = doc.object();
 
-	m_mainWindow->showStatusBarMessage("Config file loaded.");
+	emit showStatusBarMessage("Config file loaded.");
 }
 
 /***********************************************************************************/

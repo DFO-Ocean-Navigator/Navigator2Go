@@ -23,13 +23,16 @@ class WidgetConfigEditor : public QWidget {
 
 public:
 	WidgetConfigEditor(QWidget* parent, const MainWindow* mainWindow, const Preferences* prefs);
-	~WidgetConfigEditor();
+	~WidgetConfigEditor() override;
 
 	void addDatasetToConfigList();
 	void saveConfigFile();
 	void updateDatasetListWidget();
 
 	NODISCARD auto hasUnsavedData() const noexcept { return m_hasUnsavedData; }
+
+signals:
+	void showStatusBarMessage(const char* message);
 
 private slots:
 	/// Add Dataset button
@@ -51,14 +54,13 @@ private:
 	///
 	int showUnsavedDataMessageBox();
 
-	Ui::WidgetConfigEditor* m_ui{nullptr};
-	const MainWindow* const m_mainWindow{nullptr}; ///< Ptr to parent MainWindow.
-	const Preferences* const m_prefs{nullptr}; ///< Ptr to m_prefs in MainWindow.
+	Ui::WidgetConfigEditor* m_ui{nullptr};			///< Pointer to UI widgets
+	const Preferences* const m_prefs{nullptr};		///< Pointer to m_prefs in MainWindow.
 
-	QString m_activeConfigFile; ///< Path to the currently loaded config file
-	QJsonObject m_documentRootObject; ///< Root JSON object of active config file
+	QString m_activeConfigFile;			///< Path to the currently loaded config file
+	QJsonObject m_documentRootObject;	///< Root JSON object of active config file
 
-	bool m_hasUnsavedData{false}; ///< Does the current config file have unsaved data?
+	bool m_hasUnsavedData{false};		///< Does the current config file have unsaved data?
 };
 
 #endif // WIDGETCONFIGEDITOR_H

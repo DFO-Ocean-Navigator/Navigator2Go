@@ -19,7 +19,7 @@ class WidgetMonthPicker : public QWidget {
 
 public:
 	explicit WidgetMonthPicker(QWidget* parent = nullptr);
-	~WidgetMonthPicker();
+	~WidgetMonthPicker() override;
 
 	void setStartEndDate(const QDate& start, const QDate& end);
 

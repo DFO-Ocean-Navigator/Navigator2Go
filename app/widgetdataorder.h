@@ -23,16 +23,19 @@ class WidgetDataOrder : public QWidget {
 
 public:
 	WidgetDataOrder(QWidget* parent, MainWindow* mainWindow, Preferences& prefs);
-	~WidgetDataOrder();
+	~WidgetDataOrder() override;
 
-	//
+	///
 	void updateRemoteDatasetListWidget();
 
 	void setNAMOnline();
 	void setNAMOffline();
 
 signals:
+	///
 	void refreshRequested();
+	///
+	void showStatusBarMessage(const char* message);
 
 private slots:
 	void on_pushButtonDownload_clicked();

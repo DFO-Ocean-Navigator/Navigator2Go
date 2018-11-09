@@ -195,7 +195,7 @@ void WidgetDataOrder::configureNetwork() {
 	m_downloader.setDebug(true);
 	QObject::connect(&m_downloader, &QEasyDownloader::Debugger, this,
 					 [&](const auto& msg) {
-						//qDebug() << msg;
+						qDebug() << msg;
 					}
 	);
 #endif
@@ -214,11 +214,8 @@ void WidgetDataOrder::configureNetwork() {
 	// Emitted when a single file is downloaded.
 	if (!QObject::connect(&m_downloader, &QEasyDownloader::DownloadFinished, this,
 					 [&](const auto& url, const auto& filename) {
-						qDebug() << url;
-						qDebug() << filename;
 					}
 						  )) {
-		qDebug() << ";lkajdslkjafds";
 	}
 
 	// Emitted when all jobs are done.
@@ -313,7 +310,7 @@ void WidgetDataOrder::on_pushButtonDeleteSelected_clicked() {
 
 /***********************************************************************************/
 void WidgetDataOrder::updateRemoteDatasetListWidget() {
-	m_mainWindow->showStatusBarMessage("Updating remote dataset list...");
+	emit showStatusBarMessage("Updating remote dataset list...");
 
 	m_ui->pushButtonUpdateRemoteList->setEnabled(false);
 	m_ui->pushButtonUpdateRemoteList->setText(tr("Updating..."));
@@ -335,14 +332,14 @@ void WidgetDataOrder::updateRemoteDatasetListWidget() {
 								m_ui->pushButtonUpdateRemoteList->setEnabled(true);
 								m_ui->pushButtonUpdateRemoteList->setText(tr("Update List"));
 
-								this->m_mainWindow->showStatusBarMessage("Remote dataset list updated.");
+								emit showStatusBarMessage("Remote dataset list updated.");
 							},
 							// Error handler
 							[&]() {
 								m_ui->pushButtonUpdateRemoteList->setEnabled(true);
 								m_ui->pushButtonUpdateRemoteList->setText(tr("Update List"));
 
-								this->m_mainWindow->showStatusBarMessage("Failed to update remote dataset list.");
+								emit showStatusBarMessage("Failed to update remote dataset list.");
 							}
 	);
 }
