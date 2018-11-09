@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['setdata',['SetData',['../class_dialog_dataset_view.html#a36e858d0a88cdc43d2460dbedfac5b74',1,'DialogDatasetView::SetData(const QString &amp;datasetKey, const QJsonObject &amp;object)'],['../class_dialog_dataset_view.html#ac9ef6fa72147c0a049e6d17d7d4159e6',1,'DialogDatasetView::SetData(const QJsonObject &amp;datasetObj, QNetworkAccessManager &amp;nam)'],['../class_dialog_dataset_view.html#a636f720535346d5c85c55f4064e37c86',1,'DialogDatasetView::SetData(const DataDownloadDesc &amp;data)']]],
-  ['shouldremovesourcencfiles',['ShouldRemoveSourceNCFiles',['../class_dialog_import_n_c.html#a9da36ed817c1743bb36af00ec55a49b9',1,'DialogImportNC']]],
-  ['showprogressbar',['showProgressBar',['../class_main_window.html#a62be210d8008731f009ce6a31101cb69',1,'MainWindow']]]
+  ['getapiquery',['GetAPIQuery',['../struct_data_download_desc.html#a0daff7b7a2277d00aacb64cd41825e5e',1,'DataDownloadDesc']]],
+  ['getdata',['GetData',['../class_dialog_dataset_view.html#ac03e5ac99d69e08f46c38f2db4d36f05',1,'DialogDatasetView']]],
+  ['getdownloaddata',['GetDownloadData',['../class_dialog_dataset_view.html#a9f62db32983631954cf17797ccf496b7',1,'DialogDatasetView']]],
+  ['getimportlist',['GetImportList',['../class_dialog_import_n_c.html#a983eaf9cdd9ab176a4d64c93dfb45a76',1,'DialogImportNC']]],
+  ['getselectedvars',['GetSelectedVars',['../class_dialog_select_vars.html#ac1a7083205da744f8b4a03bba03198f2',1,'DialogSelectVars']]]
 ];

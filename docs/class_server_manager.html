@@ -108,6 +108,8 @@ $(document).ready(function(){initNavTree('class_server_manager.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_server_manager-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">ServerManager Class Reference</div>  </div>
@@ -142,6 +144,52 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>isWebUIRunning</b> ()
 <tr class="memitem:a77b78ad7bbb7569a3b3ba4c3051c7096"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a77b78ad7bbb7569a3b3ba4c3051c7096"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>isTHREDDSRunning</b> () const noexcept</td></tr>
 <tr class="separator:a77b78ad7bbb7569a3b3ba4c3051c7096"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a8a6dc6c2f65cc7bcfc91b660ed341daf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8a6dc6c2f65cc7bcfc91b660ed341daf"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>startServers</b> ()</td></tr>
+<tr class="separator:a8a6dc6c2f65cc7bcfc91b660ed341daf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e6cfbe01622713a90547ebdde4a664b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1e6cfbe01622713a90547ebdde4a664b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>startWebServer</b> ()</td></tr>
+<tr class="separator:a1e6cfbe01622713a90547ebdde4a664b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0674101d67efe81e7f1a22b6bc05d08c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0674101d67efe81e7f1a22b6bc05d08c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>startTHREDDS</b> ()</td></tr>
+<tr class="separator:a0674101d67efe81e7f1a22b6bc05d08c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a074583ed0093ad091eaf757987949609"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a074583ed0093ad091eaf757987949609"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>stopServers</b> ()</td></tr>
+<tr class="separator:a074583ed0093ad091eaf757987949609"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20343bd1bee974823762ef9cae9e8e19"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a20343bd1bee974823762ef9cae9e8e19"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>stopWebServer</b> ()</td></tr>
+<tr class="separator:a20343bd1bee974823762ef9cae9e8e19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcbb8b787d146fc0d9f76eeb11ddf4df"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afcbb8b787d146fc0d9f76eeb11ddf4df"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>stopTHREDDS</b> ()</td></tr>
+<tr class="separator:afcbb8b787d146fc0d9f76eeb11ddf4df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a13dfc48988503e6ec1e8b441ef9767a0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a13dfc48988503e6ec1e8b441ef9767a0"></a>
+QProcess&#160;</td><td class="memItemRight" valign="bottom"><b>m_apacheProcess</b> {this}</td></tr>
+<tr class="separator:a13dfc48988503e6ec1e8b441ef9767a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae35fbc1a194599fd2355df49f515015e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae35fbc1a194599fd2355df49f515015e"></a>
+QProcess&#160;</td><td class="memItemRight" valign="bottom"><b>m_gunicornProcess</b> {this}</td></tr>
+<tr class="separator:ae35fbc1a194599fd2355df49f515015e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ef9850395de2e9afa77d98904d41153"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9ef9850395de2e9afa77d98904d41153"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_server_manager.html#a9ef9850395de2e9afa77d98904d41153">m_isGunicornRunning</a> {false}</td></tr>
+<tr class="memdesc:a9ef9850395de2e9afa77d98904d41153"><td class="mdescLeft">&#160;</td><td class="mdescRight">gUnicorn server <br /></td></tr>
+<tr class="separator:a9ef9850395de2e9afa77d98904d41153"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6ecc21f58a43a98d69a640caf7b9b1f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab6ecc21f58a43a98d69a640caf7b9b1f"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_server_manager.html#ab6ecc21f58a43a98d69a640caf7b9b1f">m_isApacheRunning</a> {false}</td></tr>
+<tr class="memdesc:ab6ecc21f58a43a98d69a640caf7b9b1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apache tomcat server. <br /></td></tr>
+<tr class="separator:ab6ecc21f58a43a98d69a640caf7b9b1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab592a2455c376081307a6801efae4bd3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab592a2455c376081307a6801efae4bd3"></a>
+qint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_server_manager.html#ab592a2455c376081307a6801efae4bd3">m_gunicornPID</a> {0}</td></tr>
+<tr class="memdesc:ab592a2455c376081307a6801efae4bd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">PID of gUnicorn process. <br /></td></tr>
+<tr class="separator:ab592a2455c376081307a6801efae4bd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67dccb96827b8fb315e02304bc1352fd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a67dccb96827b8fb315e02304bc1352fd"></a>
+qint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_server_manager.html#a67dccb96827b8fb315e02304bc1352fd">m_apachePID</a> {0}</td></tr>
+<tr class="memdesc:a67dccb96827b8fb315e02304bc1352fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">PID of apache tomcat process. <br /></td></tr>
+<tr class="separator:a67dccb96827b8fb315e02304bc1352fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>app/<a class="el" href="servermanager_8h_source.html">servermanager.h</a></li>

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['updateprogressbar',['updateProgressBar',['../class_main_window.html#acdd6d0e11fa0dfe60e7ef8cb4cbe5de5',1,'MainWindow']]]
+  ['hideprogressbar',['hideProgressBar',['../class_main_window.html#a3fdaa9b3438854ad39576e1ddb2fb151',1,'MainWindow']]],
+  ['highlightblock',['highlightBlock',['../class_h_t_m_l_highlighter.html#a629425c6aaf1b34f4686da6d6646c20e',1,'HTMLHighlighter']]]
 ];

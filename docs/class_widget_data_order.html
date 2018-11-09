@@ -109,6 +109,9 @@ $(document).ready(function(){initNavTree('class_widget_data_order.html','');});
   <div class="summary">
 <a href="#signals">Signals</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-slots">Private Slots</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_widget_data_order-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">WidgetDataOrder Class Reference</div>  </div>
@@ -126,6 +129,11 @@ Collaboration diagram for WidgetDataOrder:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_widget_data_order__coll__graph.png" border="0" usemap="#_widget_data_order_coll__map" alt="Collaboration graph"/></div>
 <map name="_widget_data_order_coll__map" id="_widget_data_order_coll__map">
+<area shape="rect" id="node3" href="class_preferences.html" title="Contains the loaded and modified settings. " alt="" coords="374,95,466,121"/>
+<area shape="rect" id="node8" href="class_main_window.html" title="MainWindow" alt="" coords="247,196,345,223"/>
+<area shape="rect" id="node5" href="struct_bounding_box.html" title="BoundingBox" alt="" coords="427,5,525,32"/>
+<area shape="rect" id="node6" href="class_q_easy_downloader.html" title="QEasyDownloader" alt="" coords="5,145,136,172"/>
+<area shape="rect" id="node10" href="class_server_manager.html" title="ServerManager" alt="" coords="107,95,218,121"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -134,6 +142,9 @@ Signals</h2></td></tr>
 <tr class="memitem:aab2f3500deec5733eab8089e6db7b470"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aab2f3500deec5733eab8089e6db7b470"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>refreshRequested</b> ()</td></tr>
 <tr class="separator:aab2f3500deec5733eab8089e6db7b470"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38114ce815ea46daaa2a30dd6fcdb982"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a38114ce815ea46daaa2a30dd6fcdb982"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>showStatusBarMessage</b> (const char *message)</td></tr>
+<tr class="separator:a38114ce815ea46daaa2a30dd6fcdb982"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -149,6 +160,70 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setNAMOnline</b> ()</
 <tr class="memitem:a20acca3885505404b0bcd825b954ec56"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a20acca3885505404b0bcd825b954ec56"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setNAMOffline</b> ()</td></tr>
 <tr class="separator:a20acca3885505404b0bcd825b954ec56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-slots"></a>
+Private Slots</h2></td></tr>
+<tr class="memitem:aa457d5082db90f70f3eb510fbcf4649c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa457d5082db90f70f3eb510fbcf4649c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_pushButtonDownload_clicked</b> ()</td></tr>
+<tr class="separator:aa457d5082db90f70f3eb510fbcf4649c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed07991b3168faf52010e74f8092ee5a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aed07991b3168faf52010e74f8092ee5a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_listWidgetRemoteDatasets_itemDoubleClicked</b> (QListWidgetItem *item)</td></tr>
+<tr class="separator:aed07991b3168faf52010e74f8092ee5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb873b3d3bb0b8f57cce5a57b0a16e17"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acb873b3d3bb0b8f57cce5a57b0a16e17"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_listWidgetDownloadQueue_itemDoubleClicked</b> (QListWidgetItem *item)</td></tr>
+<tr class="separator:acb873b3d3bb0b8f57cce5a57b0a16e17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05c2fadb15c77763e18f2ea2a1a861f7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a05c2fadb15c77763e18f2ea2a1a861f7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_pushButtonUpdateRemoteList_clicked</b> ()</td></tr>
+<tr class="separator:a05c2fadb15c77763e18f2ea2a1a861f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8d1d026476c2d49fdc4f3603e9db9e2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa8d1d026476c2d49fdc4f3603e9db9e2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_spinboxMinLat_valueChanged</b> (double arg1)</td></tr>
+<tr class="separator:aa8d1d026476c2d49fdc4f3603e9db9e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd1128d37aa0519d103459d8b2f5cb45"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afd1128d37aa0519d103459d8b2f5cb45"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_spinboxMinLon_valueChanged</b> (double arg1)</td></tr>
+<tr class="separator:afd1128d37aa0519d103459d8b2f5cb45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adccfd2adaf17086f52c5f9410d6f7da9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adccfd2adaf17086f52c5f9410d6f7da9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_spinboxMaxLat_valueChanged</b> (double arg1)</td></tr>
+<tr class="separator:adccfd2adaf17086f52c5f9410d6f7da9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada7292ac8531ab09fe67cd7cc8896d0f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ada7292ac8531ab09fe67cd7cc8896d0f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_spinboxMaxLon_valueChanged</b> (double arg1)</td></tr>
+<tr class="separator:ada7292ac8531ab09fe67cd7cc8896d0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4d1cf023d3ccf7460b6d11ac4567b88"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad4d1cf023d3ccf7460b6d11ac4567b88"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_pushButtonDeleteSelected_clicked</b> ()</td></tr>
+<tr class="separator:ad4d1cf023d3ccf7460b6d11ac4567b88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ae11b9fb0b35aacff232cc240a14d003c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae11b9fb0b35aacff232cc240a14d003c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>configureNetwork</b> ()</td></tr>
+<tr class="separator:ae11b9fb0b35aacff232cc240a14d003c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a851d4261efba89ad177fe0d03ad2f7d1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a851d4261efba89ad177fe0d03ad2f7d1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>deleteQueueItem</b> (QListWidgetItem *item)</td></tr>
+<tr class="separator:a851d4261efba89ad177fe0d03ad2f7d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a8fb055f0a52cb956291f1db366e4e11a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8fb055f0a52cb956291f1db366e4e11a"></a>
+Ui::WidgetDataOrder *&#160;</td><td class="memItemRight" valign="bottom"><b>m_ui</b> {nullptr}</td></tr>
+<tr class="separator:a8fb055f0a52cb956291f1db366e4e11a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa08dbfccb9b0a9b2efdf128c9907f738"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa08dbfccb9b0a9b2efdf128c9907f738"></a>
+<a class="el" href="class_main_window.html">MainWindow</a> *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_data_order.html#aa08dbfccb9b0a9b2efdf128c9907f738">m_mainWindow</a> {nullptr}</td></tr>
+<tr class="memdesc:aa08dbfccb9b0a9b2efdf128c9907f738"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ptr to parent <a class="el" href="class_main_window.html">MainWindow</a>. <br /></td></tr>
+<tr class="separator:aa08dbfccb9b0a9b2efdf128c9907f738"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a855c8d50f8512359a15191f3fec63689"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a855c8d50f8512359a15191f3fec63689"></a>
+<a class="el" href="class_preferences.html">Preferences</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>m_prefs</b></td></tr>
+<tr class="separator:a855c8d50f8512359a15191f3fec63689"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd50bf2770127f5235019e6cdb694ef4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afd50bf2770127f5235019e6cdb694ef4"></a>
+QHash&lt; QString, QJsonObject &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_datasetsAPIResultCache</b></td></tr>
+<tr class="separator:afd50bf2770127f5235019e6cdb694ef4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac805db6d4ebdd48e15d9eb9afbe3b575"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac805db6d4ebdd48e15d9eb9afbe3b575"></a>
+QHash&lt; QString, <a class="el" href="struct_data_download_desc.html">DataDownloadDesc</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_downloadQueue</b></td></tr>
+<tr class="separator:ac805db6d4ebdd48e15d9eb9afbe3b575"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa88727139702081213dcbc63234b3603"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa88727139702081213dcbc63234b3603"></a>
+QNetworkAccessManager&#160;</td><td class="memItemRight" valign="bottom"><b>m_networkAccessManager</b> {this}</td></tr>
+<tr class="separator:aa88727139702081213dcbc63234b3603"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a816ba2cc64ff0fb802c12b500d65bebd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a816ba2cc64ff0fb802c12b500d65bebd"></a>
+<a class="el" href="class_q_easy_downloader.html">QEasyDownloader</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_downloader</b> {this, &amp;m_networkAccessManager}</td></tr>
+<tr class="separator:a816ba2cc64ff0fb802c12b500d65bebd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>app/<a class="el" href="widgetdataorder_8h_source.html">widgetdataorder.h</a></li>

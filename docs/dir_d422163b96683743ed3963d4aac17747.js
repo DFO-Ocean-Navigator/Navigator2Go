@@ -22,6 +22,7 @@ var dir_d422163b96683743ed3963d4aac17747 =
     [ "updaterunnable.h", "updaterunnable_8h_source.html", null ],
     [ "widgetconfigeditor.h", "widgetconfigeditor_8h_source.html", null ],
     [ "widgetdataorder.h", "widgetdataorder_8h_source.html", null ],
+    [ "widgetlocaldata.h", "widgetlocaldata_8h_source.html", null ],
     [ "widgetmonthpicker.h", "widgetmonthpicker_8h_source.html", null ],
     [ "widgetthreddsconfig.h", "widgetthreddsconfig_8h_source.html", null ],
     [ "xmlio.h", "xmlio_8h_source.html", null ]

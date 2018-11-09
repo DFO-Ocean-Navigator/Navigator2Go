@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['threddscataloglocation',['THREDDSCatalogLocation',['../class_preferences.html#a780f88585ce5586bafa1f4031e828a40',1,'Preferences']]]
+  ['remoteurl',['RemoteURL',['../class_preferences.html#a7c1691fe0716d90e0b3ce84ef0d94629',1,'Preferences']]]
 ];

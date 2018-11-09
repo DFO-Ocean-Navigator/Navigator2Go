@@ -1,2 +1,7 @@
 <map id="WidgetDataOrder" name="WidgetDataOrder">
+<area shape="rect" id="node3" href="$class_preferences.html" title="Contains the loaded and modified settings. " alt="" coords="374,95,466,121"/>
+<area shape="rect" id="node8" href="$class_main_window.html" title="MainWindow" alt="" coords="247,196,345,223"/>
+<area shape="rect" id="node5" href="$struct_bounding_box.html" title="BoundingBox" alt="" coords="427,5,525,32"/>
+<area shape="rect" id="node6" href="$class_q_easy_downloader.html" title="QEasyDownloader" alt="" coords="5,145,136,172"/>
+<area shape="rect" id="node10" href="$class_server_manager.html" title="ServerManager" alt="" coords="107,95,218,121"/>
 </map>

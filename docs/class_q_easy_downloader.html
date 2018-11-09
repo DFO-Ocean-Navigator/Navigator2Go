@@ -110,6 +110,8 @@ $(document).ready(function(){initNavTree('class_q_easy_downloader.html','');});
 <a href="#pub-slots">Public Slots</a> &#124;
 <a href="#signals">Signals</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-slots">Private Slots</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_q_easy_downloader-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">QEasyDownloader Class Reference</div>  </div>
@@ -201,6 +203,117 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setRetryTime</b> (int
 <tr class="memitem:ab85d06bab265dce3c54bd59bc89166cf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab85d06bab265dce3c54bd59bc89166cf"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setDownloadPath</b> (const QString &amp;qsFolderPath)</td></tr>
 <tr class="separator:ab85d06bab265dce3c54bd59bc89166cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-slots"></a>
+Private Slots</h2></td></tr>
+<tr class="memitem:a737d34a75ccac386f8fbb817ff993baf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a737d34a75ccac386f8fbb817ff993baf"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>download</b> ()</td></tr>
+<tr class="separator:a737d34a75ccac386f8fbb817ff993baf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5b701d7befe8f185d4a2ababf08ed24"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab5b701d7befe8f185d4a2ababf08ed24"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>checkHead</b> (qint64, qint64)</td></tr>
+<tr class="separator:ab5b701d7befe8f185d4a2ababf08ed24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee7af67f05f89233d4e24a677648e468"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aee7af67f05f89233d4e24a677648e468"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>finished</b> ()</td></tr>
+<tr class="separator:aee7af67f05f89233d4e24a677648e468"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b3ca6732f63978512b5582dff17a995"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9b3ca6732f63978512b5582dff17a995"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>downloadProgress</b> (qint64, qint64)</td></tr>
+<tr class="separator:a9b3ca6732f63978512b5582dff17a995"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a3295e4b3547046d22019ea6055bd30"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3a3295e4b3547046d22019ea6055bd30"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>startNextDownload</b> ()</td></tr>
+<tr class="separator:a3a3295e4b3547046d22019ea6055bd30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa39216018668b4d92316187474357609"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa39216018668b4d92316187474357609"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>retry</b> (QNetworkAccessManager::NetworkAccessibility)</td></tr>
+<tr class="separator:aa39216018668b4d92316187474357609"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa9dbe06a5437d4ef7ef007f81c06a56"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afa9dbe06a5437d4ef7ef007f81c06a56"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>error</b> (QNetworkReply::NetworkError)</td></tr>
+<tr class="separator:afa9dbe06a5437d4ef7ef007f81c06a56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7de398556a59f88c554447083a885584"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7de398556a59f88c554447083a885584"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>printDebug</b> (const QString &amp;)</td></tr>
+<tr class="separator:a7de398556a59f88c554447083a885584"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ae8ae36884555ba807fd465875103a4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1ae8ae36884555ba807fd465875103a4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>timeout</b> ()</td></tr>
+<tr class="separator:a1ae8ae36884555ba807fd465875103a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff724d6b421425686b3f0a26f7451968"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aff724d6b421425686b3f0a26f7451968"></a>
+QString&#160;</td><td class="memItemRight" valign="bottom"><b>saveFileName</b> (const QString &amp;)</td></tr>
+<tr class="separator:aff724d6b421425686b3f0a26f7451968"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ab657ac76b561bff4f4a6759d13cb2196"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab657ac76b561bff4f4a6759d13cb2196"></a>
+QMutex&#160;</td><td class="memItemRight" valign="bottom"><b>mutex</b></td></tr>
+<tr class="separator:ab657ac76b561bff4f4a6759d13cb2196"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1b96cad927bbcd652987234e90b08e8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa1b96cad927bbcd652987234e90b08e8"></a>
+QNetworkAccessManager *&#160;</td><td class="memItemRight" valign="bottom"><b>_pManager</b> = nullptr</td></tr>
+<tr class="separator:aa1b96cad927bbcd652987234e90b08e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd867ffe5a41c19aefb8ef0b4ddec71c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acd867ffe5a41c19aefb8ef0b4ddec71c"></a>
+QNetworkRequest&#160;</td><td class="memItemRight" valign="bottom"><b>_CurrentRequest</b></td></tr>
+<tr class="separator:acd867ffe5a41c19aefb8ef0b4ddec71c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c82836b842d41301af30dbda42fcebb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1c82836b842d41301af30dbda42fcebb"></a>
+QNetworkReply *&#160;</td><td class="memItemRight" valign="bottom"><b>_pCurrentReply</b> = nullptr</td></tr>
+<tr class="separator:a1c82836b842d41301af30dbda42fcebb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52b2d16c0e02f59251b791bb01248fe5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a52b2d16c0e02f59251b791bb01248fe5"></a>
+QNetworkReply *&#160;</td><td class="memItemRight" valign="bottom"><b>_pCurrentGetReply</b> = nullptr</td></tr>
+<tr class="separator:a52b2d16c0e02f59251b791bb01248fe5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff68ce70509aa9e7faa635782462722f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aff68ce70509aa9e7faa635782462722f"></a>
+QFile *&#160;</td><td class="memItemRight" valign="bottom"><b>_pFile</b> = nullptr</td></tr>
+<tr class="separator:aff68ce70509aa9e7faa635782462722f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcd56ab2c14d754b1905b05fcdefea43"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adcd56ab2c14d754b1905b05fcdefea43"></a>
+QTimer&#160;</td><td class="memItemRight" valign="bottom"><b>_Timer</b></td></tr>
+<tr class="separator:adcd56ab2c14d754b1905b05fcdefea43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b01debc8e2d7ac18a70a2be77aa6526"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3b01debc8e2d7ac18a70a2be77aa6526"></a>
+QTime&#160;</td><td class="memItemRight" valign="bottom"><b>_downloadSpeed</b></td></tr>
+<tr class="separator:a3b01debc8e2d7ac18a70a2be77aa6526"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae817d9038c0cdb309c23c4edda0c8234"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae817d9038c0cdb309c23c4edda0c8234"></a>
+QUrl&#160;</td><td class="memItemRight" valign="bottom"><b>_URL</b></td></tr>
+<tr class="separator:ae817d9038c0cdb309c23c4edda0c8234"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4973d0c0b7ec03df1200a62a20415af"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab4973d0c0b7ec03df1200a62a20415af"></a>
+QString&#160;</td><td class="memItemRight" valign="bottom"><b>_qsFileName</b></td></tr>
+<tr class="separator:ab4973d0c0b7ec03df1200a62a20415af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f68db3dc081a0e8b258de05b023bb85"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2f68db3dc081a0e8b258de05b023bb85"></a>
+QString&#160;</td><td class="memItemRight" valign="bottom"><b>_qsFolderPath</b></td></tr>
+<tr class="separator:a2f68db3dc081a0e8b258de05b023bb85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7952911de7ba0625a73119dbac8d130"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac7952911de7ba0625a73119dbac8d130"></a>
+QQueue&lt; QStringList &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>_downloadQueue</b></td></tr>
+<tr class="separator:ac7952911de7ba0625a73119dbac8d130"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bf3e489cbaea097627f451a0c6e5a4a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3bf3e489cbaea097627f451a0c6e5a4a"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>_nDownloadTotal</b> = 0</td></tr>
+<tr class="separator:a3bf3e489cbaea097627f451a0c6e5a4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab88b3b34256f4f5cd220b9d91e0065dc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab88b3b34256f4f5cd220b9d91e0065dc"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>_nDownloadSize</b> = 0</td></tr>
+<tr class="separator:ab88b3b34256f4f5cd220b9d91e0065dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac257c54881d84c66b2dbaf6e1ed35bd8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac257c54881d84c66b2dbaf6e1ed35bd8"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>_nDownloadSizeAtPause</b> = 0</td></tr>
+<tr class="separator:ac257c54881d84c66b2dbaf6e1ed35bd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69b8e7998ff94e8665b675202ea51b20"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a69b8e7998ff94e8665b675202ea51b20"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>_nTimeoutTime</b> = 5000</td></tr>
+<tr class="separator:a69b8e7998ff94e8665b675202ea51b20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a156fb18ca299b67fa9d9db9a9095a567"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a156fb18ca299b67fa9d9db9a9095a567"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>_nRetryTime</b> = 6000</td></tr>
+<tr class="separator:a156fb18ca299b67fa9d9db9a9095a567"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add55753ff18faea979c9ebdfa2c74116"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="add55753ff18faea979c9ebdfa2c74116"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>_bAcceptRanges</b> = false</td></tr>
+<tr class="separator:add55753ff18faea979c9ebdfa2c74116"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a289c61636d10fc2ff0f6dd84d76bea3c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a289c61636d10fc2ff0f6dd84d76bea3c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>_bStopDownload</b> = false</td></tr>
+<tr class="separator:a289c61636d10fc2ff0f6dd84d76bea3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bac511c081b6e117270e77db821b42c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3bac511c081b6e117270e77db821b42c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>_bIsError</b> = false</td></tr>
+<tr class="separator:a3bac511c081b6e117270e77db821b42c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4eff7b9542ff8400984a48c616c8bb4c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4eff7b9542ff8400984a48c616c8bb4c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>_bDoResumeDownloads</b> = true</td></tr>
+<tr class="separator:a4eff7b9542ff8400984a48c616c8bb4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa002fba7540ebd487d040711f623aed0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa002fba7540ebd487d040711f623aed0"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>_bAutoStartDownload</b> = true</td></tr>
+<tr class="separator:aa002fba7540ebd487d040711f623aed0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee5736c40f26403b1f300703fdb99374"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aee5736c40f26403b1f300703fdb99374"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>_bDoIterate</b> = false</td></tr>
+<tr class="separator:aee5736c40f26403b1f300703fdb99374"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8e447780beaa32c4220af5ecf810812"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa8e447780beaa32c4220af5ecf810812"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>_bCanIterate</b> = false</td></tr>
+<tr class="separator:aa8e447780beaa32c4220af5ecf810812"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a074c2b0ff803bf7a4fefdb21af86e948"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a074c2b0ff803bf7a4fefdb21af86e948"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>_bDoDebug</b> = false</td></tr>
+<tr class="separator:a074c2b0ff803bf7a4fefdb21af86e948"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>app/<a class="el" href="_q_easy_downloader_8hpp_source.html">QEasyDownloader.hpp</a></li>

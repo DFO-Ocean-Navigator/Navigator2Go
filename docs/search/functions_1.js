@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['getapiquery',['GetAPIQuery',['../struct_data_download_desc.html#a0daff7b7a2277d00aacb64cd41825e5e',1,'DataDownloadDesc']]],
-  ['getdata',['GetData',['../class_dialog_dataset_view.html#ac03e5ac99d69e08f46c38f2db4d36f05',1,'DialogDatasetView']]],
-  ['getdownloaddata',['GetDownloadData',['../class_dialog_dataset_view.html#a9f62db32983631954cf17797ccf496b7',1,'DialogDatasetView']]],
-  ['getimportlist',['GetImportList',['../class_dialog_import_n_c.html#a983eaf9cdd9ab176a4d64c93dfb45a76',1,'DialogImportNC']]],
-  ['getselectedvars',['GetSelectedVars',['../class_dialog_select_vars.html#ac1a7083205da744f8b4a03bba03198f2',1,'DialogSelectVars']]]
+  ['checkforappupdate',['checkForAppUpdate',['../class_main_window.html#a0a741972d090ea2332e980e2bcbaf582',1,'MainWindow']]],
+  ['checkforonupdates',['checkForONUpdates',['../class_main_window.html#a3738cfe4d199c40c137ee86a20871891',1,'MainWindow']]],
+  ['checkforupdates',['checkForUpdates',['../class_main_window.html#a10750b9bdf057c5863a1ff682390170f',1,'MainWindow']]],
+  ['checkremoteconnection',['checkRemoteConnection',['../class_main_window.html#abc8e9eb1d5c005b8a7c1873c1ad581e9',1,'MainWindow']]]
 ];

@@ -108,6 +108,9 @@ $(document).ready(function(){initNavTree('class_widget_thredds_config.html','');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-slots">Private Slots</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_widget_thredds_config-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">WidgetThreddsConfig Class Reference</div>  </div>
@@ -130,12 +133,52 @@ Collaboration diagram for WidgetThreddsConfig:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac0fab71246d1e55dafd9bad2b5e519dc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac0fab71246d1e55dafd9bad2b5e519dc"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>WidgetThreddsConfig</b> (QWidget *parent, const <a class="el" href="class_preferences.html">Preferences</a> *prefs)</td></tr>
-<tr class="separator:ac0fab71246d1e55dafd9bad2b5e519dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a606d3a8f91c6eefc4d01c572748b6ed9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a606d3a8f91c6eefc4d01c572748b6ed9"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>WidgetThreddsConfig</b> (QWidget *parent, const QString *threddsCatalogLocation)</td></tr>
+<tr class="separator:a606d3a8f91c6eefc4d01c572748b6ed9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc7831d057f2a82fd0706671bee71d27"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abc7831d057f2a82fd0706671bee71d27"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>BuildTable</b> ()</td></tr>
 <tr class="separator:abc7831d057f2a82fd0706671bee71d27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-slots"></a>
+Private Slots</h2></td></tr>
+<tr class="memitem:a368eab4bc39bd1d406c4a9154df23726"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a368eab4bc39bd1d406c4a9154df23726"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_tableWidget_cellChanged</b> (int row, int column)</td></tr>
+<tr class="separator:a368eab4bc39bd1d406c4a9154df23726"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d2eb2120abc0748f5d2954c2e3fefa0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0d2eb2120abc0748f5d2954c2e3fefa0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_pushButtonAddDataset_clicked</b> ()</td></tr>
+<tr class="separator:a0d2eb2120abc0748f5d2954c2e3fefa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09292a8a25b31a669f5f681036a5c333"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a09292a8a25b31a669f5f681036a5c333"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_pushButtonRemoveDataset_clicked</b> ()</td></tr>
+<tr class="separator:a09292a8a25b31a669f5f681036a5c333"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52aa24341cedc8d185b88ea2ed5109ab"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a52aa24341cedc8d185b88ea2ed5109ab"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_pushButtonShowLogs_clicked</b> ()</td></tr>
+<tr class="separator:a52aa24341cedc8d185b88ea2ed5109ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1f83b274f2491320d69e0c12d3bb516"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad1f83b274f2491320d69e0c12d3bb516"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_pushButtonBrowseTHREDDSDir_clicked</b> ()</td></tr>
+<tr class="separator:ad1f83b274f2491320d69e0c12d3bb516"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ad8afd511d014e15189eb8b9590aebe21"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad8afd511d014e15189eb8b9590aebe21"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>checkCatalogsPath</b> ()</td></tr>
+<tr class="separator:ad8afd511d014e15189eb8b9590aebe21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ec2004cc823db7c240878ce4a2cd615"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3ec2004cc823db7c240878ce4a2cd615"></a>
+NODISCARD bool&#160;</td><td class="memItemRight" valign="bottom"><b>validateDatasetName</b> (const QString &amp;datasetName)</td></tr>
+<tr class="separator:a3ec2004cc823db7c240878ce4a2cd615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af71bf586990d9f25b34c32130aff9ef4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af71bf586990d9f25b34c32130aff9ef4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>createRow</b> (const QString &amp;datasetName, const QString &amp;dataPath)</td></tr>
+<tr class="separator:af71bf586990d9f25b34c32130aff9ef4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a16a2dd997cdd7a3cc581ae9539fb7532"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a16a2dd997cdd7a3cc581ae9539fb7532"></a>
+Ui::WidgetThreddsConfig *&#160;</td><td class="memItemRight" valign="bottom"><b>m_ui</b> {nullptr}</td></tr>
+<tr class="separator:a16a2dd997cdd7a3cc581ae9539fb7532"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa847e68634a91685dc56e5803ef717b7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa847e68634a91685dc56e5803ef717b7"></a>
+const QString *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_thredds_config.html#aa847e68634a91685dc56e5803ef717b7">m_catalogLocation</a> {nullptr}</td></tr>
+<tr class="memdesc:aa847e68634a91685dc56e5803ef717b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ptr to THREDDS catalog location in user settings. <br /></td></tr>
+<tr class="separator:aa847e68634a91685dc56e5803ef717b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>app/<a class="el" href="widgetthreddsconfig_8h_source.html">widgetthreddsconfig.h</a></li>

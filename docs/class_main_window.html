@@ -108,6 +108,9 @@ $(document).ready(function(){initNavTree('class_main_window.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-slots">Private Slots</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_main_window-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">MainWindow Class Reference</div>  </div>
@@ -125,6 +128,9 @@ Collaboration diagram for MainWindow:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_main_window__coll__graph.png" border="0" usemap="#_main_window_coll__map" alt="Collaboration graph"/></div>
 <map name="_main_window_coll__map" id="_main_window_coll__map">
+<area shape="rect" id="node3" href="class_preferences.html" title="Contains the loaded and modified settings. " alt="" coords="137,95,229,121"/>
+<area shape="rect" id="node5" href="struct_bounding_box.html" title="BoundingBox" alt="" coords="140,5,239,32"/>
+<area shape="rect" id="node6" href="class_server_manager.html" title="ServerManager" alt="" coords="253,95,363,121"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -133,9 +139,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a996c5a2b6f77944776856f08ec30858d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a996c5a2b6f77944776856f08ec30858d"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>MainWindow</b> (QWidget *parent=nullptr)</td></tr>
 <tr class="separator:a996c5a2b6f77944776856f08ec30858d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d37673e90ff7a642e3b73fb6097e130"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9d37673e90ff7a642e3b73fb6097e130"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>showStatusBarMessage</b> (const char *text) const </td></tr>
-<tr class="separator:a9d37673e90ff7a642e3b73fb6097e130"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62be210d8008731f009ce6a31101cb69"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a62be210d8008731f009ce6a31101cb69"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#a62be210d8008731f009ce6a31101cb69">showProgressBar</a> (const char *labelText)</td></tr>
 <tr class="memdesc:a62be210d8008731f009ce6a31101cb69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Show the progress bar and label with the given labelText. Starts at 0%. <br /></td></tr>
@@ -148,6 +151,149 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#a3fdaa9b3438854ad39576e1ddb2fb151">hideProgressBar</a> ()</td></tr>
 <tr class="memdesc:a3fdaa9b3438854ad39576e1ddb2fb151"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hide progress bar and label. <br /></td></tr>
 <tr class="separator:a3fdaa9b3438854ad39576e1ddb2fb151"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-slots"></a>
+Private Slots</h2></td></tr>
+<tr class="memitem:a8b4c94b30f81e5aeea8eeaddfbc2a5b9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8b4c94b30f81e5aeea8eeaddfbc2a5b9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>refreshRequestHandler</b> ()</td></tr>
+<tr class="separator:a8b4c94b30f81e5aeea8eeaddfbc2a5b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b0ce9f342c752b59cea812af1703862"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1b0ce9f342c752b59cea812af1703862"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>showStatusBarMessageHandler</b> (const char *message)</td></tr>
+<tr class="separator:a1b0ce9f342c752b59cea812af1703862"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad774b9592a2e4aefd2eff70240081d34"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad774b9592a2e4aefd2eff70240081d34"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#ad774b9592a2e4aefd2eff70240081d34">on_actionAbout_Qt_triggered</a> ()</td></tr>
+<tr class="memdesc:ad774b9592a2e4aefd2eff70240081d34"><td class="mdescLeft">&#160;</td><td class="mdescRight">About Qt menu item. <br /></td></tr>
+<tr class="separator:ad774b9592a2e4aefd2eff70240081d34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a189b458b701fa572969a22f8718ce5b0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a189b458b701fa572969a22f8718ce5b0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#a189b458b701fa572969a22f8718ce5b0">on_actionClose_triggered</a> ()</td></tr>
+<tr class="memdesc:a189b458b701fa572969a22f8718ce5b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Program close. <br /></td></tr>
+<tr class="separator:a189b458b701fa572969a22f8718ce5b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e63d199e37300ac181f39c3a7a7d78b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2e63d199e37300ac181f39c3a7a7d78b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#a2e63d199e37300ac181f39c3a7a7d78b">on_actionPreferences_triggered</a> ()</td></tr>
+<tr class="memdesc:a2e63d199e37300ac181f39c3a7a7d78b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_preferences.html" title="Contains the loaded and modified settings. ">Preferences</a> menu item. <br /></td></tr>
+<tr class="separator:a2e63d199e37300ac181f39c3a7a7d78b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f3ebda1ba39e0ef4d678b44893c9c7f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4f3ebda1ba39e0ef4d678b44893c9c7f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#a4f3ebda1ba39e0ef4d678b44893c9c7f">on_actionAbout_triggered</a> ()</td></tr>
+<tr class="memdesc:a4f3ebda1ba39e0ef4d678b44893c9c7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">About menu item. <br /></td></tr>
+<tr class="separator:a4f3ebda1ba39e0ef4d678b44893c9c7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd3787ed00fe26efc75950965ed705f5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afd3787ed00fe26efc75950965ed705f5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#afd3787ed00fe26efc75950965ed705f5">on_actionCheck_for_Updates_triggered</a> ()</td></tr>
+<tr class="memdesc:afd3787ed00fe26efc75950965ed705f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update check menu item. <br /></td></tr>
+<tr class="separator:afd3787ed00fe26efc75950965ed705f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8521ea308b646acbb249428561bc86c0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8521ea308b646acbb249428561bc86c0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#a8521ea308b646acbb249428561bc86c0">on_actionNavigator2Go_Manual_triggered</a> ()</td></tr>
+<tr class="memdesc:a8521ea308b646acbb249428561bc86c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open Navigator2Go manual menu item. <br /></td></tr>
+<tr class="separator:a8521ea308b646acbb249428561bc86c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a727506541f1468c234d33c9254ee9d8f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a727506541f1468c234d33c9254ee9d8f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#a727506541f1468c234d33c9254ee9d8f">on_pushButtonLaunchViewer_clicked</a> ()</td></tr>
+<tr class="memdesc:a727506541f1468c234d33c9254ee9d8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Launch web viewer button. <br /></td></tr>
+<tr class="separator:a727506541f1468c234d33c9254ee9d8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af52c09674feae2f9c419386bf0f41003"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af52c09674feae2f9c419386bf0f41003"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#af52c09674feae2f9c419386bf0f41003">on_pushButtonOpenDataOrder_clicked</a> ()</td></tr>
+<tr class="memdesc:af52c09674feae2f9c419386bf0f41003"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data order button. <br /></td></tr>
+<tr class="separator:af52c09674feae2f9c419386bf0f41003"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff559845ec684e9c605f8cedcd18ecfe"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aff559845ec684e9c605f8cedcd18ecfe"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#aff559845ec684e9c605f8cedcd18ecfe">on_pushButtonImportNCFiles_clicked</a> ()</td></tr>
+<tr class="memdesc:aff559845ec684e9c605f8cedcd18ecfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Import NetCDF files button. <br /></td></tr>
+<tr class="separator:aff559845ec684e9c605f8cedcd18ecfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3a61b45341fc514b1e7ab53d7121736"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa3a61b45341fc514b1e7ab53d7121736"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#aa3a61b45341fc514b1e7ab53d7121736">on_pushButtonViewLocalData_clicked</a> ()</td></tr>
+<tr class="memdesc:aa3a61b45341fc514b1e7ab53d7121736"><td class="mdescLeft">&#160;</td><td class="mdescRight">View local data button. <br /></td></tr>
+<tr class="separator:aa3a61b45341fc514b1e7ab53d7121736"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac34d00cb7e4ac5f6fa520f63c1646ea8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac34d00cb7e4ac5f6fa520f63c1646ea8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#ac34d00cb7e4ac5f6fa520f63c1646ea8">on_actionClear_Python_cache_triggered</a> ()</td></tr>
+<tr class="memdesc:ac34d00cb7e4ac5f6fa520f63c1646ea8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear Python cache menu item. <br /></td></tr>
+<tr class="separator:ac34d00cb7e4ac5f6fa520f63c1646ea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a291e6906a91738a3df100d5ffabe7ad3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a291e6906a91738a3df100d5ffabe7ad3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#a291e6906a91738a3df100d5ffabe7ad3">on_pushButtonRefresh_clicked</a> ()</td></tr>
+<tr class="memdesc:a291e6906a91738a3df100d5ffabe7ad3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refresh Navigator2Go button. <br /></td></tr>
+<tr class="separator:a291e6906a91738a3df100d5ffabe7ad3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5ec4a06e4e38781eb7b913fed92733e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab5ec4a06e4e38781eb7b913fed92733e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#ab5ec4a06e4e38781eb7b913fed92733e">on_tabWidget_currentChanged</a> (int index)</td></tr>
+<tr class="memdesc:ab5ec4a06e4e38781eb7b913fed92733e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fires when the current tab changes. <br /></td></tr>
+<tr class="separator:ab5ec4a06e4e38781eb7b913fed92733e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a9d37673e90ff7a642e3b73fb6097e130"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9d37673e90ff7a642e3b73fb6097e130"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#a9d37673e90ff7a642e3b73fb6097e130">showStatusBarMessage</a> (const char *text) const </td></tr>
+<tr class="memdesc:a9d37673e90ff7a642e3b73fb6097e130"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display a message in the window's status bar. <br /></td></tr>
+<tr class="separator:a9d37673e90ff7a642e3b73fb6097e130"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc8e9eb1d5c005b8a7c1873c1ad581e9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abc8e9eb1d5c005b8a7c1873c1ad581e9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#abc8e9eb1d5c005b8a7c1873c1ad581e9">checkRemoteConnection</a> ()</td></tr>
+<tr class="memdesc:abc8e9eb1d5c005b8a7c1873c1ad581e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries the RemoteURL in m_prefs for a connection. <br /></td></tr>
+<tr class="separator:abc8e9eb1d5c005b8a7c1873c1ad581e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7707deaa0f39ab596a4bb95ee64aa871"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7707deaa0f39ab596a4bb95ee64aa871"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#a7707deaa0f39ab596a4bb95ee64aa871">updateTHREDDSConfigTable</a> ()</td></tr>
+<tr class="memdesc:a7707deaa0f39ab596a4bb95ee64aa871"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instructs m_widgetThreddsConfig to rebuild the THREDDS table widgets. <br /></td></tr>
+<tr class="separator:a7707deaa0f39ab596a4bb95ee64aa871"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcf77332d90edc94daa4d7283c061a90"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afcf77332d90edc94daa4d7283c061a90"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#afcf77332d90edc94daa4d7283c061a90">initWidgets</a> ()</td></tr>
+<tr class="memdesc:afcf77332d90edc94daa4d7283c061a90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize widgets for each tab. <br /></td></tr>
+<tr class="separator:afcf77332d90edc94daa4d7283c061a90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f40cab2d54e64ac92bf7f9705de0607"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2f40cab2d54e64ac92bf7f9705de0607"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#a2f40cab2d54e64ac92bf7f9705de0607">setInitialLayout</a> ()</td></tr>
+<tr class="memdesc:a2f40cab2d54e64ac92bf7f9705de0607"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets initial layout of program on start. <br /></td></tr>
+<tr class="separator:a2f40cab2d54e64ac92bf7f9705de0607"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10750b9bdf057c5863a1ff682390170f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a10750b9bdf057c5863a1ff682390170f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#a10750b9bdf057c5863a1ff682390170f">checkForUpdates</a> ()</td></tr>
+<tr class="memdesc:a10750b9bdf057c5863a1ff682390170f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls both update functions for convenience. <br /></td></tr>
+<tr class="separator:a10750b9bdf057c5863a1ff682390170f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a741972d090ea2332e980e2bcbaf582"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0a741972d090ea2332e980e2bcbaf582"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#a0a741972d090ea2332e980e2bcbaf582">checkForAppUpdate</a> ()</td></tr>
+<tr class="memdesc:a0a741972d090ea2332e980e2bcbaf582"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks for updates for Navigator2Go. <br /></td></tr>
+<tr class="separator:a0a741972d090ea2332e980e2bcbaf582"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3738cfe4d199c40c137ee86a20871891"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3738cfe4d199c40c137ee86a20871891"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#a3738cfe4d199c40c137ee86a20871891">checkForONUpdates</a> ()</td></tr>
+<tr class="memdesc:a3738cfe4d199c40c137ee86a20871891"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates Ocean Navigator code from git and rebuilds necessary code. <br /></td></tr>
+<tr class="separator:a3738cfe4d199c40c137ee86a20871891"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47203b9c909f280cc38654fa1c7371bb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a47203b9c909f280cc38654fa1c7371bb"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#a47203b9c909f280cc38654fa1c7371bb">showFirstRunConfiguration</a> ()</td></tr>
+<tr class="memdesc:a47203b9c909f280cc38654fa1c7371bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Show first run configuration dialog before main window pops up. <br /></td></tr>
+<tr class="separator:a47203b9c909f280cc38654fa1c7371bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a5a3eb262660797d9a4d52ed16edb6d11"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5a3eb262660797d9a4d52ed16edb6d11"></a>
+Ui::MainWindow *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#a5a3eb262660797d9a4d52ed16edb6d11">m_ui</a> {nullptr}</td></tr>
+<tr class="memdesc:a5a3eb262660797d9a4d52ed16edb6d11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to UI widgets. <br /></td></tr>
+<tr class="separator:a5a3eb262660797d9a4d52ed16edb6d11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4dea0331fd0ddd5284147dc0e9adcecf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4dea0331fd0ddd5284147dc0e9adcecf"></a>
+<a class="el" href="class_server_manager.html">ServerManager</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#a4dea0331fd0ddd5284147dc0e9adcecf">m_serverManager</a> {this}</td></tr>
+<tr class="memdesc:a4dea0331fd0ddd5284147dc0e9adcecf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Server manager to handle gunicorn and THREDDS servers. <br /></td></tr>
+<tr class="separator:a4dea0331fd0ddd5284147dc0e9adcecf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67f728e443eb02f355eff18a90d44ec4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a67f728e443eb02f355eff18a90d44ec4"></a>
+QPointer&lt; <a class="el" href="class_widget_local_data.html">WidgetLocalData</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#a67f728e443eb02f355eff18a90d44ec4">m_widgetLocalData</a></td></tr>
+<tr class="memdesc:a67f728e443eb02f355eff18a90d44ec4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local data tab. <br /></td></tr>
+<tr class="separator:a67f728e443eb02f355eff18a90d44ec4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb53f128056f132300534c15e9379c42"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afb53f128056f132300534c15e9379c42"></a>
+QPointer&lt; <a class="el" href="class_widget_config_editor.html">WidgetConfigEditor</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#afb53f128056f132300534c15e9379c42">m_widgetConfigEditor</a></td></tr>
+<tr class="memdesc:afb53f128056f132300534c15e9379c42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dataset config tab (advanced mode) <br /></td></tr>
+<tr class="separator:afb53f128056f132300534c15e9379c42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55266587bade38b6e13d0863c8e33c6a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a55266587bade38b6e13d0863c8e33c6a"></a>
+QPointer&lt; <a class="el" href="class_widget_data_order.html">WidgetDataOrder</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#a55266587bade38b6e13d0863c8e33c6a">m_widgetDataOrder</a></td></tr>
+<tr class="memdesc:a55266587bade38b6e13d0863c8e33c6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data order tab. <br /></td></tr>
+<tr class="separator:a55266587bade38b6e13d0863c8e33c6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cd17b52aa77860272b358b614503731"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0cd17b52aa77860272b358b614503731"></a>
+QPointer&lt; <a class="el" href="class_widget_thredds_config.html">WidgetThreddsConfig</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#a0cd17b52aa77860272b358b614503731">m_widgetThreddsConfig</a></td></tr>
+<tr class="memdesc:a0cd17b52aa77860272b358b614503731"><td class="mdescLeft">&#160;</td><td class="mdescRight">THREDDS config tab (advanced mode) <br /></td></tr>
+<tr class="separator:a0cd17b52aa77860272b358b614503731"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a200cd582425458a747958dcf2c1dc051"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a200cd582425458a747958dcf2c1dc051"></a>
+QPointer&lt; QNetworkReply &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#a200cd582425458a747958dcf2c1dc051">m_updateReply</a></td></tr>
+<tr class="memdesc:a200cd582425458a747958dcf2c1dc051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to update response. <br /></td></tr>
+<tr class="separator:a200cd582425458a747958dcf2c1dc051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3247e5a20e03028000893916c7604ee"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad3247e5a20e03028000893916c7604ee"></a>
+<a class="el" href="class_preferences.html">Preferences</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#ad3247e5a20e03028000893916c7604ee">m_prefs</a> {this}</td></tr>
+<tr class="memdesc:ad3247e5a20e03028000893916c7604ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializes user settings. <br /></td></tr>
+<tr class="separator:ad3247e5a20e03028000893916c7604ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1475dcc95e06283076309b4309a80e5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae1475dcc95e06283076309b4309a80e5"></a>
+QTimer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#ae1475dcc95e06283076309b4309a80e5">m_uplinkTimer</a> {this}</td></tr>
+<tr class="memdesc:ae1475dcc95e06283076309b4309a80e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer to check for a remote navigator connection every 5 minutes. <br /></td></tr>
+<tr class="separator:ae1475dcc95e06283076309b4309a80e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5f74accc2995feae8e4895024900702"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af5f74accc2995feae8e4895024900702"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_window.html#af5f74accc2995feae8e4895024900702">m_hasRemoteUplink</a> {true}</td></tr>
+<tr class="memdesc:af5f74accc2995feae8e4895024900702"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does this client have a connection to the remote Navigator server. <br /></td></tr>
+<tr class="separator:af5f74accc2995feae8e4895024900702"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>app/<a class="el" href="mainwindow_8h_source.html">mainwindow.h</a></li>

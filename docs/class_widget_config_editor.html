@@ -107,7 +107,11 @@ $(document).ready(function(){initNavTree('class_widget_config_editor.html','');}
 
 <div class="header">
   <div class="summary">
+<a href="#signals">Signals</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-slots">Private Slots</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_widget_config_editor-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">WidgetConfigEditor Class Reference</div>  </div>
@@ -130,9 +134,17 @@ Collaboration diagram for WidgetConfigEditor:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_widget_config_editor__coll__graph.png" border="0" usemap="#_widget_config_editor_coll__map" alt="Collaboration graph"/></div>
 <map name="_widget_config_editor_coll__map" id="_widget_config_editor_coll__map">
+<area shape="rect" id="node3" href="class_preferences.html" title="Contains the loaded and modified settings. " alt="" coords="103,95,195,121"/>
+<area shape="rect" id="node5" href="struct_bounding_box.html" title="BoundingBox" alt="" coords="155,5,254,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
+Signals</h2></td></tr>
+<tr class="memitem:a356cda99729c05532fbf6f7eb10fbf69"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a356cda99729c05532fbf6f7eb10fbf69"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>showStatusBarMessage</b> (const char *message)</td></tr>
+<tr class="separator:a356cda99729c05532fbf6f7eb10fbf69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:abacfb5901728a5f54d3e396b1f7f6825"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abacfb5901728a5f54d3e396b1f7f6825"></a>
@@ -150,6 +162,66 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>updateDatasetListWidg
 <tr class="memitem:a5313f2d7c531d799f9ddd534a64b6c7e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5313f2d7c531d799f9ddd534a64b6c7e"></a>
 NODISCARD auto&#160;</td><td class="memItemRight" valign="bottom"><b>hasUnsavedData</b> () const noexcept</td></tr>
 <tr class="separator:a5313f2d7c531d799f9ddd534a64b6c7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-slots"></a>
+Private Slots</h2></td></tr>
+<tr class="memitem:a88f9bfc70abac017c432e7c50beb0f74"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a88f9bfc70abac017c432e7c50beb0f74"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#a88f9bfc70abac017c432e7c50beb0f74">on_pushButtonAddDataset_clicked</a> ()</td></tr>
+<tr class="memdesc:a88f9bfc70abac017c432e7c50beb0f74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add Dataset button. <br /></td></tr>
+<tr class="separator:a88f9bfc70abac017c432e7c50beb0f74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fa62c641f47e9a9c6071f2ae503de1b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1fa62c641f47e9a9c6071f2ae503de1b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#a1fa62c641f47e9a9c6071f2ae503de1b">on_pushButtonDeleteDataset_clicked</a> ()</td></tr>
+<tr class="memdesc:a1fa62c641f47e9a9c6071f2ae503de1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete Dataset button. <br /></td></tr>
+<tr class="separator:a1fa62c641f47e9a9c6071f2ae503de1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7c505b7e41acf11e88aac981b70387b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad7c505b7e41acf11e88aac981b70387b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#ad7c505b7e41acf11e88aac981b70387b">on_pushButtonSaveConfigFile_clicked</a> ()</td></tr>
+<tr class="memdesc:ad7c505b7e41acf11e88aac981b70387b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save button. <br /></td></tr>
+<tr class="separator:ad7c505b7e41acf11e88aac981b70387b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad178a5fbfe3880e58062bf89a671a9ef"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad178a5fbfe3880e58062bf89a671a9ef"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#ad178a5fbfe3880e58062bf89a671a9ef">on_pushButtonLoadCustomConfig_clicked</a> ()</td></tr>
+<tr class="memdesc:ad178a5fbfe3880e58062bf89a671a9ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load custom dataset config. <br /></td></tr>
+<tr class="separator:ad178a5fbfe3880e58062bf89a671a9ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1a6264132f506c1ed85a08ca6577548"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac1a6264132f506c1ed85a08ca6577548"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#ac1a6264132f506c1ed85a08ca6577548">on_pushButtonLoadDefaultConfig_clicked</a> ()</td></tr>
+<tr class="memdesc:ac1a6264132f506c1ed85a08ca6577548"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load default dataset config. <br /></td></tr>
+<tr class="separator:ac1a6264132f506c1ed85a08ca6577548"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9269052df005e2842019d170b4161eb7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9269052df005e2842019d170b4161eb7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#a9269052df005e2842019d170b4161eb7">on_listWidgetActiveDatasets_itemDoubleClicked</a> (QListWidgetItem *item)</td></tr>
+<tr class="memdesc:a9269052df005e2842019d170b4161eb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Double-click on list item. <br /></td></tr>
+<tr class="separator:a9269052df005e2842019d170b4161eb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:acb8e9b2b50728dc06a61184e0e163b3d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acb8e9b2b50728dc06a61184e0e163b3d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#acb8e9b2b50728dc06a61184e0e163b3d">setDefaultConfigFile</a> ()</td></tr>
+<tr class="memdesc:acb8e9b2b50728dc06a61184e0e163b3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load the default datasetconfigOFFLINE.json into the UI. <br /></td></tr>
+<tr class="separator:acb8e9b2b50728dc06a61184e0e163b3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8e397d25c94be4bf0bec626789ffa5f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab8e397d25c94be4bf0bec626789ffa5f"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>showUnsavedDataMessageBox</b> ()</td></tr>
+<tr class="separator:ab8e397d25c94be4bf0bec626789ffa5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a1dab1f40f409b7dfbcc7af8c08fefe0a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1dab1f40f409b7dfbcc7af8c08fefe0a"></a>
+Ui::WidgetConfigEditor *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#a1dab1f40f409b7dfbcc7af8c08fefe0a">m_ui</a> {nullptr}</td></tr>
+<tr class="memdesc:a1dab1f40f409b7dfbcc7af8c08fefe0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to UI widgets. <br /></td></tr>
+<tr class="separator:a1dab1f40f409b7dfbcc7af8c08fefe0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fed937a61b2451e8e41d1b876680d87"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9fed937a61b2451e8e41d1b876680d87"></a>
+const <a class="el" href="class_preferences.html">Preferences</a> *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#a9fed937a61b2451e8e41d1b876680d87">m_prefs</a> {nullptr}</td></tr>
+<tr class="memdesc:a9fed937a61b2451e8e41d1b876680d87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to m_prefs in <a class="el" href="class_main_window.html">MainWindow</a>. <br /></td></tr>
+<tr class="separator:a9fed937a61b2451e8e41d1b876680d87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef0320e8cd5dacd15ee3249d9bb383b2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aef0320e8cd5dacd15ee3249d9bb383b2"></a>
+QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#aef0320e8cd5dacd15ee3249d9bb383b2">m_activeConfigFile</a></td></tr>
+<tr class="memdesc:aef0320e8cd5dacd15ee3249d9bb383b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Path to the currently loaded config file. <br /></td></tr>
+<tr class="separator:aef0320e8cd5dacd15ee3249d9bb383b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62aa988831e9e4a35f6baa596a0d8690"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a62aa988831e9e4a35f6baa596a0d8690"></a>
+QJsonObject&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#a62aa988831e9e4a35f6baa596a0d8690">m_documentRootObject</a></td></tr>
+<tr class="memdesc:a62aa988831e9e4a35f6baa596a0d8690"><td class="mdescLeft">&#160;</td><td class="mdescRight">Root JSON object of active config file. <br /></td></tr>
+<tr class="separator:a62aa988831e9e4a35f6baa596a0d8690"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b50b107482369d0a44d3cddf264028c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7b50b107482369d0a44d3cddf264028c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_config_editor.html#a7b50b107482369d0a44d3cddf264028c">m_hasUnsavedData</a> {false}</td></tr>
+<tr class="memdesc:a7b50b107482369d0a44d3cddf264028c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does the current config file have unsaved data? <br /></td></tr>
+<tr class="separator:a7b50b107482369d0a44d3cddf264028c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Dataset config editor widget in the Config Editor tab. </p>

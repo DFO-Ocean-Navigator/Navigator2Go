@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['updateremotelistonstart',['UpdateRemoteListOnStart',['../class_preferences.html#a21c5111c1756f83e2300456cea95575d',1,'Preferences']]]
+  ['threddscataloglocation',['THREDDSCatalogLocation',['../class_preferences.html#a780f88585ce5586bafa1f4031e828a40',1,'Preferences']]]
 ];

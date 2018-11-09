@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['finished',['finished',['../class_update_runnable.html#a5a551a90036c8b82ae7dcf8a68c6e0e6',1,'UpdateRunnable']]]
+  ['addemptyvariable',['addEmptyVariable',['../class_dialog_dataset_view.html#a5c4eb567215f18108fae3ead417b5f93',1,'DialogDatasetView']]]
 ];

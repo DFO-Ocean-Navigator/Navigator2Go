@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['remoteurl',['RemoteURL',['../class_preferences.html#a7c1691fe0716d90e0b3ce84ef0d94629',1,'Preferences']]]
+  ['oninstalldir',['ONInstallDir',['../class_preferences.html#aa129ad169f77f001050980d13ddc6565',1,'Preferences']]]
 ];

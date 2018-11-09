@@ -3,6 +3,7 @@ var hierarchy =
     [ "BoundingBox", "struct_bounding_box.html", null ],
     [ "DataDownloadDesc", "struct_data_download_desc.html", null ],
     [ "IO::DatasetScanDesc", "struct_i_o_1_1_dataset_scan_desc.html", null ],
+    [ "HTMLHighlighter::HighlightingRule", "struct_h_t_m_l_highlighter_1_1_highlighting_rule.html", null ],
     [ "NetCDFImportDesc", "struct_net_c_d_f_import_desc.html", null ],
     [ "QAbstractButton", null, [
       [ "SwitchWidget", "class_switch_widget.html", null ]
@@ -38,6 +39,7 @@ var hierarchy =
     [ "QWidget", null, [
       [ "WidgetConfigEditor", "class_widget_config_editor.html", null ],
       [ "WidgetDataOrder", "class_widget_data_order.html", null ],
+      [ "WidgetLocalData", "class_widget_local_data.html", null ],
       [ "WidgetMonthPicker", "class_widget_month_picker.html", null ],
       [ "WidgetThreddsConfig", "class_widget_thredds_config.html", null ]
     ] ],

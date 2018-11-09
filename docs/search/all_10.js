@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['widgetconfigeditor',['WidgetConfigEditor',['../class_widget_config_editor.html',1,'']]],
-  ['widgetdataorder',['WidgetDataOrder',['../class_widget_data_order.html',1,'']]],
-  ['widgetmonthpicker',['WidgetMonthPicker',['../class_widget_month_picker.html',1,'']]],
-  ['widgetthreddsconfig',['WidgetThreddsConfig',['../class_widget_thredds_config.html',1,'']]]
+  ['threddscataloglocation',['THREDDSCatalogLocation',['../class_preferences.html#a780f88585ce5586bafa1f4031e828a40',1,'Preferences']]],
+  ['threddsfiledesc',['THREDDSFileDesc',['../struct_i_o_1_1_t_h_r_e_d_d_s_file_desc.html',1,'IO']]]
 ];

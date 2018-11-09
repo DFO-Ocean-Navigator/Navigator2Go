@@ -108,6 +108,9 @@ $(document).ready(function(){initNavTree('class_widget_month_picker.html','');})
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-slots">Private Slots</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_widget_month_picker-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">WidgetMonthPicker Class Reference</div>  </div>
@@ -139,6 +142,45 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setStartEndDate</b> (
 <tr class="memitem:a5645fe14dc6fd75b6a3dbaa7417300c7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5645fe14dc6fd75b6a3dbaa7417300c7"></a>
 NODISCARD std::pair&lt; QDate, QDate &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getStartEndDate</b> () const </td></tr>
 <tr class="separator:a5645fe14dc6fd75b6a3dbaa7417300c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-slots"></a>
+Private Slots</h2></td></tr>
+<tr class="memitem:ab16ed6331be3654a2baaf5f7ee0b2477"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab16ed6331be3654a2baaf5f7ee0b2477"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_comboBoxStartMonth_currentIndexChanged</b> (int index)</td></tr>
+<tr class="separator:ab16ed6331be3654a2baaf5f7ee0b2477"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58c0c7454545195d1bfb94c76bc1f7e7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a58c0c7454545195d1bfb94c76bc1f7e7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_comboBoxEndMonth_currentIndexChanged</b> (int index)</td></tr>
+<tr class="separator:a58c0c7454545195d1bfb94c76bc1f7e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58b48e906d0ee75ed6b527abbca20f3c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a58b48e906d0ee75ed6b527abbca20f3c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_comboBoxStartYear_currentIndexChanged</b> (const QString &amp;arg1)</td></tr>
+<tr class="separator:a58b48e906d0ee75ed6b527abbca20f3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abaf1b93c388ed01549328f632d5a0b5e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abaf1b93c388ed01549328f632d5a0b5e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_comboBoxEndYear_currentIndexChanged</b> (const QString &amp;arg1)</td></tr>
+<tr class="separator:abaf1b93c388ed01549328f632d5a0b5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a064b2e1c1c38b1e32b06c24cee3abf24"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a064b2e1c1c38b1e32b06c24cee3abf24"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>populateMonth</b> (const int year, QComboBox *comboBox)</td></tr>
+<tr class="separator:a064b2e1c1c38b1e32b06c24cee3abf24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa609e5a71fd8430c58fdf4910c16fd95"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa609e5a71fd8430c58fdf4910c16fd95"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>validateMonthSelection</b> ()</td></tr>
+<tr class="separator:aa609e5a71fd8430c58fdf4910c16fd95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a6311a44c07a5698d855efebf722a71b4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6311a44c07a5698d855efebf722a71b4"></a>
+Ui::WidgetMonthPicker *&#160;</td><td class="memItemRight" valign="bottom"><b>m_ui</b> {nullptr}</td></tr>
+<tr class="separator:a6311a44c07a5698d855efebf722a71b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf0cd5df17850a912007088261abde8b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abf0cd5df17850a912007088261abde8b"></a>
+QDate&#160;</td><td class="memItemRight" valign="bottom"><b>m_startDate</b></td></tr>
+<tr class="separator:abf0cd5df17850a912007088261abde8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32ddcdc4fe55789e0e3a93215eb5b832"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a32ddcdc4fe55789e0e3a93215eb5b832"></a>
+QDate&#160;</td><td class="memItemRight" valign="bottom"><b>m_endDate</b></td></tr>
+<tr class="separator:a32ddcdc4fe55789e0e3a93215eb5b832"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3db872764e716b809bad20c6972b73ad"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3db872764e716b809bad20c6972b73ad"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_showErrorDialog</b> {false}</td></tr>
+<tr class="separator:a3db872764e716b809bad20c6972b73ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>app/<a class="el" href="widgetmonthpicker_8h_source.html">widgetmonthpicker.h</a></li>

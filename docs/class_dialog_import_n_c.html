@@ -108,6 +108,9 @@ $(document).ready(function(){initNavTree('class_dialog_import_n_c.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-slots">Private Slots</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_dialog_import_n_c-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">DialogImportNC Class Reference</div>  </div>
@@ -146,6 +149,33 @@ NODISCARD QVector&lt; <a class="el" href="struct_net_c_d_f_import_desc.html">Net
 NODISCARD bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_dialog_import_n_c.html#a9da36ed817c1743bb36af00ec55a49b9">ShouldRemoveSourceNCFiles</a> () const </td></tr>
 <tr class="memdesc:a9da36ed817c1743bb36af00ec55a49b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Should the source file be removed? <br /></td></tr>
 <tr class="separator:a9da36ed817c1743bb36af00ec55a49b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-slots"></a>
+Private Slots</h2></td></tr>
+<tr class="memitem:a2ae28fd999124f78f8c8c0c3de651190"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2ae28fd999124f78f8c8c0c3de651190"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_pushButtonAdd_clicked</b> ()</td></tr>
+<tr class="separator:a2ae28fd999124f78f8c8c0c3de651190"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f5f3d571459a5fc0b78478fd1802c31"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2f5f3d571459a5fc0b78478fd1802c31"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_pushButtonDelete_clicked</b> ()</td></tr>
+<tr class="separator:a2f5f3d571459a5fc0b78478fd1802c31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14fda8b8ed044991be641c9defb4fc78"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a14fda8b8ed044991be641c9defb4fc78"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_tableWidget_doubleClicked</b> (const QModelIndex &amp;index)</td></tr>
+<tr class="separator:a14fda8b8ed044991be641c9defb4fc78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a257f1103af19f21d0be80d100491c025"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a257f1103af19f21d0be80d100491c025"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addDataset</b> ()</td></tr>
+<tr class="separator:a257f1103af19f21d0be80d100491c025"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a67868b17c5bb8fe15c22ef294d7a2b81"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a67868b17c5bb8fe15c22ef294d7a2b81"></a>
+Ui::DialogImportNC *&#160;</td><td class="memItemRight" valign="bottom"><b>m_ui</b> {nullptr}</td></tr>
+<tr class="separator:a67868b17c5bb8fe15c22ef294d7a2b81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2ff66fa7346b66cbcb7f56a3abbcae0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac2ff66fa7346b66cbcb7f56a3abbcae0"></a>
+QStringList&#160;</td><td class="memItemRight" valign="bottom"><b>m_datasetList</b></td></tr>
+<tr class="separator:ac2ff66fa7346b66cbcb7f56a3abbcae0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Dialog window to import a netCDF file. </p>

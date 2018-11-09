@@ -109,6 +109,7 @@ $(document).ready(function(){initNavTree('class_preferences.html','');});
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="class_preferences-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Preferences Class Reference</div>  </div>
@@ -156,7 +157,7 @@ QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memdesc:a780f88585ce5586bafa1f4031e828a40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Location on disk of THREDDS datasets. <br /></td></tr>
 <tr class="separator:a780f88585ce5586bafa1f4031e828a40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a551c94c8bb93e414b2aa12433487ff99"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a551c94c8bb93e414b2aa12433487ff99"></a>
-QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_preferences.html#a551c94c8bb93e414b2aa12433487ff99">DataDownloadFormat</a> {&quot;NETCDF4&quot;}</td></tr>
+QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_preferences.html#a551c94c8bb93e414b2aa12433487ff99">DataDownloadFormat</a> {QStringLiteral(&quot;NETCDF4&quot;)}</td></tr>
 <tr class="memdesc:a551c94c8bb93e414b2aa12433487ff99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format to download netCDF files: same values as on Ocean Navigator web gui. <br /></td></tr>
 <tr class="separator:a551c94c8bb93e414b2aa12433487ff99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21c5111c1756f83e2300456cea95575d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a21c5111c1756f83e2300456cea95575d"></a>
@@ -178,6 +179,17 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a55650b20d39d2cdb345e6a6cedcc70f6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a55650b20d39d2cdb345e6a6cedcc70f6"></a>
 <a class="el" href="struct_bounding_box.html">BoundingBox</a>&#160;</td><td class="memItemRight" valign="bottom"><b>DataOrderArea</b></td></tr>
 <tr class="separator:a55650b20d39d2cdb345e6a6cedcc70f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:abc05184c6497085eec42a9c89d639fe0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abc05184c6497085eec42a9c89d639fe0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_preferences.html#abc05184c6497085eec42a9c89d639fe0">readSettings</a> ()</td></tr>
+<tr class="memdesc:abc05184c6497085eec42a9c89d639fe0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read settings from disk into member vars. <br /></td></tr>
+<tr class="separator:abc05184c6497085eec42a9c89d639fe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2038f9cf0e9ada14206adcd0d1288b2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af2038f9cf0e9ada14206adcd0d1288b2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_preferences.html#af2038f9cf0e9ada14206adcd0d1288b2">writeSettings</a> ()</td></tr>
+<tr class="memdesc:af2038f9cf0e9ada14206adcd0d1288b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write settings from member vars to disk. <br /></td></tr>
+<tr class="separator:af2038f9cf0e9ada14206adcd0d1288b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Contains the loaded and modified settings. </p>

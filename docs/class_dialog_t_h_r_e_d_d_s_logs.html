@@ -108,6 +108,9 @@ $(document).ready(function(){initNavTree('class_dialog_t_h_r_e_d_d_s_logs.html',
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-slots">Private Slots</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_dialog_t_h_r_e_d_d_s_logs-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">DialogTHREDDSLogs Class Reference</div>  </div>
@@ -138,6 +141,39 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aeb1c7c04d03f8ab356c1b26cb5d57cdf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aeb1c7c04d03f8ab356c1b26cb5d57cdf"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>DialogTHREDDSLogs</b> (const QString &amp;threddsLogFolder, QWidget *parent=nullptr)</td></tr>
 <tr class="separator:aeb1c7c04d03f8ab356c1b26cb5d57cdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-slots"></a>
+Private Slots</h2></td></tr>
+<tr class="memitem:a5ad1441e8242d9d9b00897e195c74c90"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5ad1441e8242d9d9b00897e195c74c90"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_pushButtonOpenLogFolder_clicked</b> ()</td></tr>
+<tr class="separator:a5ad1441e8242d9d9b00897e195c74c90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adadd53717792f286d3e46fd0bd9e9e1e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adadd53717792f286d3e46fd0bd9e9e1e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_comboBoxLogFiles_currentIndexChanged</b> (const QString &amp;arg1)</td></tr>
+<tr class="separator:adadd53717792f286d3e46fd0bd9e9e1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38fe6a9d1180a94754870531cc3593de"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a38fe6a9d1180a94754870531cc3593de"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_pushButtonReloadLogFile_clicked</b> ()</td></tr>
+<tr class="separator:a38fe6a9d1180a94754870531cc3593de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a4a9cbc27caa6344ac8990bb30fe9b850"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4a9cbc27caa6344ac8990bb30fe9b850"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_dialog_t_h_r_e_d_d_s_logs.html#a4a9cbc27caa6344ac8990bb30fe9b850">loadLogFile</a> (const QString &amp;filename)</td></tr>
+<tr class="memdesc:a4a9cbc27caa6344ac8990bb30fe9b850"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a given log file into the UI. <br /></td></tr>
+<tr class="separator:a4a9cbc27caa6344ac8990bb30fe9b850"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a57dd46747de2140d614a26f8012cb5ef"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a57dd46747de2140d614a26f8012cb5ef"></a>
+Ui::DialogTHREDDSLogs *&#160;</td><td class="memItemRight" valign="bottom"><b>m_ui</b> {nullptr}</td></tr>
+<tr class="separator:a57dd46747de2140d614a26f8012cb5ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9dffa8534b238cc0c5bfdd2cd38ee9e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad9dffa8534b238cc0c5bfdd2cd38ee9e"></a>
+QTimer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_dialog_t_h_r_e_d_d_s_logs.html#ad9dffa8534b238cc0c5bfdd2cd38ee9e">m_reloadLogFileTimer</a> {this}</td></tr>
+<tr class="memdesc:ad9dffa8534b238cc0c5bfdd2cd38ee9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer to reload the current log file. <br /></td></tr>
+<tr class="separator:ad9dffa8534b238cc0c5bfdd2cd38ee9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a365ddfd32789275c8081936d12fe9a82"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a365ddfd32789275c8081936d12fe9a82"></a>
+const QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_dialog_t_h_r_e_d_d_s_logs.html#a365ddfd32789275c8081936d12fe9a82">m_logFolder</a></td></tr>
+<tr class="memdesc:a365ddfd32789275c8081936d12fe9a82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Folder containing THREDDS log files. <br /></td></tr>
+<tr class="separator:a365ddfd32789275c8081936d12fe9a82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Dialog window to view THREDDS log files. </p>

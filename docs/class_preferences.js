@@ -2,6 +2,8 @@ var class_preferences =
 [
     [ "Preferences", "class_preferences.html#aba34c53f74e0604cf2aa42fb007c9ca1", null ],
     [ "~Preferences", "class_preferences.html#a20020f4fceeefb048a5eeddec6c28376", null ],
+    [ "readSettings", "class_preferences.html#abc05184c6497085eec42a9c89d639fe0", null ],
+    [ "writeSettings", "class_preferences.html#af2038f9cf0e9ada14206adcd0d1288b2", null ],
     [ "AdvancedUI", "class_preferences.html#af3e3666f59882600d5dcc7afa570c771", null ],
     [ "CheckForUpdatesOnStart", "class_preferences.html#aa93811e5abb8b32c33790aef1f1b74f2", null ],
     [ "DataDownloadFormat", "class_preferences.html#a551c94c8bb93e414b2aa12433487ff99", null ],

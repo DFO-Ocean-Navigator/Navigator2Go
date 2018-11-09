@@ -25,6 +25,7 @@ var annotated_dup =
     [ "UpdateRunnable", "class_update_runnable.html", "class_update_runnable" ],
     [ "WidgetConfigEditor", "class_widget_config_editor.html", "class_widget_config_editor" ],
     [ "WidgetDataOrder", "class_widget_data_order.html", "class_widget_data_order" ],
+    [ "WidgetLocalData", "class_widget_local_data.html", "class_widget_local_data" ],
     [ "WidgetMonthPicker", "class_widget_month_picker.html", "class_widget_month_picker" ],
     [ "WidgetThreddsConfig", "class_widget_thredds_config.html", "class_widget_thredds_config" ]
 ];

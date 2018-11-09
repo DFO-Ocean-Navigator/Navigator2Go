@@ -1,4 +1,25 @@
 var searchData=
 [
-  ['oninstalldir',['ONInstallDir',['../class_preferences.html#aa129ad169f77f001050980d13ddc6565',1,'Preferences']]]
+  ['m_5factiveconfigfile',['m_activeConfigFile',['../class_widget_config_editor.html#aef0320e8cd5dacd15ee3249d9bb383b2',1,'WidgetConfigEditor']]],
+  ['m_5fapachepid',['m_apachePID',['../class_server_manager.html#a67dccb96827b8fb315e02304bc1352fd',1,'ServerManager']]],
+  ['m_5fcataloglocation',['m_catalogLocation',['../class_widget_thredds_config.html#aa847e68634a91685dc56e5803ef717b7',1,'WidgetThreddsConfig']]],
+  ['m_5fdocumentrootobject',['m_documentRootObject',['../class_widget_config_editor.html#a62aa988831e9e4a35f6baa596a0d8690',1,'WidgetConfigEditor']]],
+  ['m_5fgunicornpid',['m_gunicornPID',['../class_server_manager.html#ab592a2455c376081307a6801efae4bd3',1,'ServerManager']]],
+  ['m_5fhasremoteuplink',['m_hasRemoteUplink',['../class_main_window.html#af5f74accc2995feae8e4895024900702',1,'MainWindow']]],
+  ['m_5fhasunsaveddata',['m_hasUnsavedData',['../class_widget_config_editor.html#a7b50b107482369d0a44d3cddf264028c',1,'WidgetConfigEditor']]],
+  ['m_5fisapacherunning',['m_isApacheRunning',['../class_server_manager.html#ab6ecc21f58a43a98d69a640caf7b9b1f',1,'ServerManager']]],
+  ['m_5fisgunicornrunning',['m_isGunicornRunning',['../class_server_manager.html#a9ef9850395de2e9afa77d98904d41153',1,'ServerManager']]],
+  ['m_5flogfolder',['m_logFolder',['../class_dialog_t_h_r_e_d_d_s_logs.html#a365ddfd32789275c8081936d12fe9a82',1,'DialogTHREDDSLogs']]],
+  ['m_5fmainwindow',['m_mainWindow',['../class_widget_data_order.html#aa08dbfccb9b0a9b2efdf128c9907f738',1,'WidgetDataOrder']]],
+  ['m_5foninstalldir',['m_ONInstallDir',['../class_widget_local_data.html#ab96f1354fcc914823b3759221a8a9d16',1,'WidgetLocalData']]],
+  ['m_5fprefs',['m_prefs',['../class_main_window.html#ad3247e5a20e03028000893916c7604ee',1,'MainWindow::m_prefs()'],['../class_widget_config_editor.html#a9fed937a61b2451e8e41d1b876680d87',1,'WidgetConfigEditor::m_prefs()']]],
+  ['m_5freloadlogfiletimer',['m_reloadLogFileTimer',['../class_dialog_t_h_r_e_d_d_s_logs.html#ad9dffa8534b238cc0c5bfdd2cd38ee9e',1,'DialogTHREDDSLogs']]],
+  ['m_5fservermanager',['m_serverManager',['../class_main_window.html#a4dea0331fd0ddd5284147dc0e9adcecf',1,'MainWindow']]],
+  ['m_5fui',['m_ui',['../class_main_window.html#a5a3eb262660797d9a4d52ed16edb6d11',1,'MainWindow::m_ui()'],['../class_widget_config_editor.html#a1dab1f40f409b7dfbcc7af8c08fefe0a',1,'WidgetConfigEditor::m_ui()']]],
+  ['m_5fupdatereply',['m_updateReply',['../class_main_window.html#a200cd582425458a747958dcf2c1dc051',1,'MainWindow']]],
+  ['m_5fuplinktimer',['m_uplinkTimer',['../class_main_window.html#ae1475dcc95e06283076309b4309a80e5',1,'MainWindow']]],
+  ['m_5fwidgetconfigeditor',['m_widgetConfigEditor',['../class_main_window.html#afb53f128056f132300534c15e9379c42',1,'MainWindow']]],
+  ['m_5fwidgetdataorder',['m_widgetDataOrder',['../class_main_window.html#a55266587bade38b6e13d0863c8e33c6a',1,'MainWindow']]],
+  ['m_5fwidgetlocaldata',['m_widgetLocalData',['../class_main_window.html#a67f728e443eb02f355eff18a90d44ec4',1,'MainWindow']]],
+  ['m_5fwidgetthreddsconfig',['m_widgetThreddsConfig',['../class_main_window.html#a0cd17b52aa77860272b358b614503731',1,'MainWindow']]]
 ];
