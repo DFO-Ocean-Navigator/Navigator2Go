@@ -1,6 +1,7 @@
 # Navigator2Go
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/32d9cc8cd9784783afc17c4e9bd3490e)](https://www.codacy.com/app/htmlboss/Ocean-Navigator-Config-Tool?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=DFO-Ocean-Navigator/Ocean-Navigator-Config-Tool&amp;utm_campaign=Badge_Grade)
+[![CodeFactor](https://www.codefactor.io/repository/github/dfo-ocean-navigator/navigator2go/badge)](https://www.codefactor.io/repository/github/dfo-ocean-navigator/navigator2go)
 
 Tool to manage your local Ocean Navigator installation.
 
