@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['loadlogfile',['loadLogFile',['../class_dialog_t_h_r_e_d_d_s_logs.html#a4a9cbc27caa6344ac8990bb30fe9b850',1,'DialogTHREDDSLogs']]]
+  ['hideprogressbar',['hideProgressBar',['../class_main_window.html#a3fdaa9b3438854ad39576e1ddb2fb151',1,'MainWindow']]],
+  ['highlightblock',['highlightBlock',['../class_h_t_m_l_highlighter.html#a629425c6aaf1b34f4686da6d6646c20e',1,'HTMLHighlighter']]]
 ];

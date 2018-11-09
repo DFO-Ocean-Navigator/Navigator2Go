@@ -98,10 +98,12 @@ void WidgetLocalData::deleteDataset(const QString& datasetName) {
 	auto root{ doc.object() };
 
 	// Find JSON object and erase it
-	const auto& ds{ root.find(datasetName) };
-	root.erase(ds);
+	if (const auto& ds{ root.find(datasetName) }; ds != root.end()) {
 
-	IO::WriteJSONFile(*m_ONInstallDir + QStringLiteral("/oceannavigator/datasetconfigOFFLINE.json"), root);
+		root.erase(ds);
+
+		IO::WriteJSONFile(*m_ONInstallDir + QStringLiteral("/oceannavigator/datasetconfigOFFLINE.json"), root);
+	}
 
 	// Delete from THREDDS catalogs and the files too
 	IO::removeDataset(QStringLiteral("/opt/thredds_content/thredds/"),

@@ -1,20 +1,26 @@
 #ifndef SERVERMANAGER_H
 #define SERVERMANAGER_H
 
+#include "nodiscard.h"
+
 #include <QProcess>
 
+/***********************************************************************************/
+/// Manages the Apache and gUnicorn servers for the Ocean Navigator
 class ServerManager : public QObject {
 	Q_OBJECT
+
 public:
-	ServerManager(QObject* parent = nullptr);
-	~ServerManager();
+	explicit ServerManager(QObject* parent = nullptr);
+	~ServerManager() override;
 
 	Q_DISABLE_COPY(ServerManager)
 
+	/// Restarts the Apache and gUnicorn servers after 5 seconds.
 	void refreshServers();
 
-	auto isWebUIRunning() const noexcept { return m_isGunicornRunning; }
-	auto isTHREDDSRunning() const noexcept { return m_isApacheRunning; }
+	NODISCARD auto isWebUIRunning() const noexcept { return m_isGunicornRunning; }
+	NODISCARD auto isTHREDDSRunning() const noexcept { return m_isApacheRunning; }
 
 private:
 	void startServers();

@@ -37,7 +37,7 @@ private:
 	//
 	void validateMonthSelection();
 
-	Ui::WidgetMonthPicker* m_ui{nullptr};
+	Ui::WidgetMonthPicker* m_ui{nullptr};	///< Pointer to UI widgets
 	QDate m_startDate, m_endDate;
 	bool m_showErrorDialog{false};
 };

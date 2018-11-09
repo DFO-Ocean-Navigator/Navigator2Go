@@ -32,6 +32,7 @@ public:
 	NODISCARD auto hasUnsavedData() const noexcept { return m_hasUnsavedData; }
 
 signals:
+	/// Signal emitted to MainWindow to show a given message in the window status bar.
 	void showStatusBarMessage(const char* message);
 
 private slots:

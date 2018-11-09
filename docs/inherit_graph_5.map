@@ -2,6 +2,6 @@
 <area shape="rect" id="node2" href="$class_i_o_1_1_copy_files_runnable.html" title="Copies (or moves) netCDF files to the THREDDS directory. " alt="" coords="160,5,319,32"/>
 <area shape="rect" id="node3" href="$class_network_1_1_u_r_l_exists_runnable.html" title="Queries a remote url on a given port. " alt="" coords="140,56,339,83"/>
 <area shape="rect" id="node4" href="$class_q_easy_downloader.html" title="QEasyDownloader" alt="" coords="174,208,305,235"/>
-<area shape="rect" id="node5" href="$class_server_manager.html" title="ServerManager" alt="" coords="184,157,295,184"/>
+<area shape="rect" id="node5" href="$class_server_manager.html" title="Manages the Apache and gUnicorn servers for the Ocean Navigator. " alt="" coords="184,157,295,184"/>
 <area shape="rect" id="node6" href="$class_update_runnable.html" title="Used to update Navigator code from git, and rebuild frontend files. " alt="" coords="180,107,299,133"/>
 </map>

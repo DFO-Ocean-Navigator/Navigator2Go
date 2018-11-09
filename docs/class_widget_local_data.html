@@ -117,25 +117,27 @@ $(document).ready(function(){initNavTree('class_widget_local_data.html','');});
 <div class="title">WidgetLocalData Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Local data widget in the Local Data tab.  
+ <a href="class_widget_local_data.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="widgetlocaldata_8h_source.html">widgetlocaldata.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for WidgetLocalData:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_widget_local_data__inherit__graph.png" border="0" usemap="#_widget_local_data_inherit__map" alt="Inheritance graph"/></div>
-<map name="_widget_local_data_inherit__map" id="_widget_local_data_inherit__map">
-</map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for WidgetLocalData:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_widget_local_data__coll__graph.png" border="0" usemap="#_widget_local_data_coll__map" alt="Collaboration graph"/></div>
-<map name="_widget_local_data_coll__map" id="_widget_local_data_coll__map">
-</map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
 Signals</h2></td></tr>
 <tr class="memitem:ac472f8c76e30df93e6f6cceb6eb6bb77"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac472f8c76e30df93e6f6cceb6eb6bb77"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>refreshRequested</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_local_data.html#ac472f8c76e30df93e6f6cceb6eb6bb77">refreshRequested</a> ()</td></tr>
+<tr class="memdesc:ac472f8c76e30df93e6f6cceb6eb6bb77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signal emitted to <a class="el" href="class_main_window.html">MainWindow</a> to refresh the Ocean Navigator servers and cache. <br /></td></tr>
 <tr class="separator:ac472f8c76e30df93e6f6cceb6eb6bb77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -143,49 +145,39 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af0bb70f2f7787ebe4fadb9b3500691e4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af0bb70f2f7787ebe4fadb9b3500691e4"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>WidgetLocalData</b> (const QString *<a class="el" href="class_widget_local_data.html#ab96f1354fcc914823b3759221a8a9d16">m_ONInstallDir</a>, QWidget *parent=nullptr)</td></tr>
 <tr class="separator:af0bb70f2f7787ebe4fadb9b3500691e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61ceef0a36993b9b420e8a7b165abca1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_local_data.html#a61ceef0a36993b9b420e8a7b165abca1">updateTreeWidget</a> ()</td></tr>
+<tr class="memitem:a61ceef0a36993b9b420e8a7b165abca1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a61ceef0a36993b9b420e8a7b165abca1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_local_data.html#a61ceef0a36993b9b420e8a7b165abca1">updateTreeWidget</a> ()</td></tr>
+<tr class="memdesc:a61ceef0a36993b9b420e8a7b165abca1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the offline dataset config file and updates the tree widget with dataset names and variables. <br /></td></tr>
 <tr class="separator:a61ceef0a36993b9b420e8a7b165abca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-slots"></a>
 Private Slots</h2></td></tr>
 <tr class="memitem:a8a33bae8adcb8aa805412dc39fba3bff"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8a33bae8adcb8aa805412dc39fba3bff"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>buttonHandler</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_local_data.html#a8a33bae8adcb8aa805412dc39fba3bff">buttonHandler</a> ()</td></tr>
+<tr class="memdesc:a8a33bae8adcb8aa805412dc39fba3bff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete button callback. <br /></td></tr>
 <tr class="separator:a8a33bae8adcb8aa805412dc39fba3bff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a1cc402d36f89fb1036be7f37db11b389"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1cc402d36f89fb1036be7f37db11b389"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>deleteDataset</b> (const QString &amp;datasetName)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_local_data.html#a1cc402d36f89fb1036be7f37db11b389">deleteDataset</a> (const QString &amp;datasetName)</td></tr>
+<tr class="memdesc:a1cc402d36f89fb1036be7f37db11b389"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a dataset from the Ocean Navigator given a dataset name. <br /></td></tr>
 <tr class="separator:a1cc402d36f89fb1036be7f37db11b389"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:af05670328c409057e05a9e4863fd7d9f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af05670328c409057e05a9e4863fd7d9f"></a>
-Ui::WidgetLocalData *&#160;</td><td class="memItemRight" valign="bottom"><b>m_ui</b> {nullptr}</td></tr>
+Ui::WidgetLocalData *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_local_data.html#af05670328c409057e05a9e4863fd7d9f">m_ui</a> {nullptr}</td></tr>
+<tr class="memdesc:af05670328c409057e05a9e4863fd7d9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to UI widgets. <br /></td></tr>
 <tr class="separator:af05670328c409057e05a9e4863fd7d9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab96f1354fcc914823b3759221a8a9d16"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab96f1354fcc914823b3759221a8a9d16"></a>
 const QString *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_local_data.html#ab96f1354fcc914823b3759221a8a9d16">m_ONInstallDir</a> {nullptr}</td></tr>
 <tr class="memdesc:ab96f1354fcc914823b3759221a8a9d16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to Navigator installation directory in User settings. <br /></td></tr>
 <tr class="separator:ab96f1354fcc914823b3759221a8a9d16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a61ceef0a36993b9b420e8a7b165abca1"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void WidgetLocalData::updateTreeWidget </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Reads the offline dataset config file and updates the tree widget with dataset names and variables </p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Local data widget in the Local Data tab. </p>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>app/<a class="el" href="widgetlocaldata_8h_source.html">widgetlocaldata.h</a></li>
 <li>app/widgetlocaldata.cpp</li>
 </ul>

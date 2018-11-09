@@ -7,6 +7,6 @@ var searchData=
   ['shouldremovesourcencfiles',['ShouldRemoveSourceNCFiles',['../class_dialog_import_n_c.html#a9da36ed817c1743bb36af00ec55a49b9',1,'DialogImportNC']]],
   ['showfirstrunconfiguration',['showFirstRunConfiguration',['../class_main_window.html#a47203b9c909f280cc38654fa1c7371bb',1,'MainWindow']]],
   ['showprogressbar',['showProgressBar',['../class_main_window.html#a62be210d8008731f009ce6a31101cb69',1,'MainWindow']]],
-  ['showstatusbarmessage',['showStatusBarMessage',['../class_main_window.html#a9d37673e90ff7a642e3b73fb6097e130',1,'MainWindow']]],
+  ['showstatusbarmessage',['showStatusBarMessage',['../class_main_window.html#a9d37673e90ff7a642e3b73fb6097e130',1,'MainWindow::showStatusBarMessage()'],['../class_widget_config_editor.html#a356cda99729c05532fbf6f7eb10fbf69',1,'WidgetConfigEditor::showStatusBarMessage()'],['../class_widget_data_order.html#a38114ce815ea46daaa2a30dd6fcdb982',1,'WidgetDataOrder::showStatusBarMessage()']]],
   ['switchwidget',['SwitchWidget',['../class_switch_widget.html',1,'']]]
 ];

@@ -115,19 +115,20 @@ $(document).ready(function(){initNavTree('class_server_manager.html','');});
 <div class="title">ServerManager Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Manages the Apache and gUnicorn servers for the Ocean Navigator.  
+ <a href="class_server_manager.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="servermanager_8h_source.html">servermanager.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for ServerManager:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_server_manager__inherit__graph.png" border="0" usemap="#_server_manager_inherit__map" alt="Inheritance graph"/></div>
-<map name="_server_manager_inherit__map" id="_server_manager_inherit__map">
-</map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for ServerManager:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_server_manager__coll__graph.png" border="0" usemap="#_server_manager_coll__map" alt="Collaboration graph"/></div>
-<map name="_server_manager_coll__map" id="_server_manager_coll__map">
-</map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -136,14 +137,15 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>ServerManager</b> (QObject *parent=nullptr)</td></tr>
 <tr class="separator:ab81e5fc9bd5399ca7ba924f104ee3a1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0b543dcfaf1455dab421d22c7fae38b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa0b543dcfaf1455dab421d22c7fae38b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>refreshServers</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_server_manager.html#aa0b543dcfaf1455dab421d22c7fae38b">refreshServers</a> ()</td></tr>
+<tr class="memdesc:aa0b543dcfaf1455dab421d22c7fae38b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restarts the Apache and gUnicorn servers after 5 seconds. <br /></td></tr>
 <tr class="separator:aa0b543dcfaf1455dab421d22c7fae38b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62be16a7b2e6f585698bd5d38efe271f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a62be16a7b2e6f585698bd5d38efe271f"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>isWebUIRunning</b> () const noexcept</td></tr>
-<tr class="separator:a62be16a7b2e6f585698bd5d38efe271f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77b78ad7bbb7569a3b3ba4c3051c7096"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a77b78ad7bbb7569a3b3ba4c3051c7096"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>isTHREDDSRunning</b> () const noexcept</td></tr>
-<tr class="separator:a77b78ad7bbb7569a3b3ba4c3051c7096"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34fa1799eed16534401cdc8a8709d2c4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a34fa1799eed16534401cdc8a8709d2c4"></a>
+NODISCARD auto&#160;</td><td class="memItemRight" valign="bottom"><b>isWebUIRunning</b> () const noexcept</td></tr>
+<tr class="separator:a34fa1799eed16534401cdc8a8709d2c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a260a4870fddc6712d0d45b455b8f346a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a260a4870fddc6712d0d45b455b8f346a"></a>
+NODISCARD auto&#160;</td><td class="memItemRight" valign="bottom"><b>isTHREDDSRunning</b> () const noexcept</td></tr>
+<tr class="separator:a260a4870fddc6712d0d45b455b8f346a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -191,7 +193,9 @@ qint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <tr class="memdesc:a67dccb96827b8fb315e02304bc1352fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">PID of apache tomcat process. <br /></td></tr>
 <tr class="separator:a67dccb96827b8fb315e02304bc1352fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Manages the Apache and gUnicorn servers for the Ocean Navigator. </p>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>app/<a class="el" href="servermanager_8h_source.html">servermanager.h</a></li>
 <li>app/servermanager.cpp</li>
 </ul>

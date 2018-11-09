@@ -117,12 +117,15 @@ $(document).ready(function(){initNavTree('class_widget_data_order.html','');});
 <div class="title">WidgetDataOrder Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Data order widget in the Data Order tab.  
+ <a href="class_widget_data_order.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="widgetdataorder_8h_source.html">widgetdataorder.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for WidgetDataOrder:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_widget_data_order__inherit__graph.png" border="0" usemap="#_widget_data_order_inherit__map" alt="Inheritance graph"/></div>
-<map name="_widget_data_order_inherit__map" id="_widget_data_order_inherit__map">
-</map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for WidgetDataOrder:</div>
@@ -133,17 +136,19 @@ Collaboration diagram for WidgetDataOrder:</div>
 <area shape="rect" id="node8" href="class_main_window.html" title="MainWindow" alt="" coords="247,196,345,223"/>
 <area shape="rect" id="node5" href="struct_bounding_box.html" title="BoundingBox" alt="" coords="427,5,525,32"/>
 <area shape="rect" id="node6" href="class_q_easy_downloader.html" title="QEasyDownloader" alt="" coords="5,145,136,172"/>
-<area shape="rect" id="node10" href="class_server_manager.html" title="ServerManager" alt="" coords="107,95,218,121"/>
+<area shape="rect" id="node10" href="class_server_manager.html" title="Manages the Apache and gUnicorn servers for the Ocean Navigator. " alt="" coords="107,95,218,121"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
 Signals</h2></td></tr>
 <tr class="memitem:aab2f3500deec5733eab8089e6db7b470"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aab2f3500deec5733eab8089e6db7b470"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>refreshRequested</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_data_order.html#aab2f3500deec5733eab8089e6db7b470">refreshRequested</a> ()</td></tr>
+<tr class="memdesc:aab2f3500deec5733eab8089e6db7b470"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signal emitted to <a class="el" href="class_main_window.html">MainWindow</a> to refresh the Ocean Navigator servers and cache. <br /></td></tr>
 <tr class="separator:aab2f3500deec5733eab8089e6db7b470"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38114ce815ea46daaa2a30dd6fcdb982"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a38114ce815ea46daaa2a30dd6fcdb982"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>showStatusBarMessage</b> (const char *message)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_data_order.html#a38114ce815ea46daaa2a30dd6fcdb982">showStatusBarMessage</a> (const char *message)</td></tr>
+<tr class="memdesc:a38114ce815ea46daaa2a30dd6fcdb982"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signal emitted to <a class="el" href="class_main_window.html">MainWindow</a> to show a given message in the window status bar. <br /></td></tr>
 <tr class="separator:a38114ce815ea46daaa2a30dd6fcdb982"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -164,17 +169,25 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setNAMOffline</b> ()<
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-slots"></a>
 Private Slots</h2></td></tr>
 <tr class="memitem:aa457d5082db90f70f3eb510fbcf4649c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa457d5082db90f70f3eb510fbcf4649c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>on_pushButtonDownload_clicked</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_data_order.html#aa457d5082db90f70f3eb510fbcf4649c">on_pushButtonDownload_clicked</a> ()</td></tr>
+<tr class="memdesc:aa457d5082db90f70f3eb510fbcf4649c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Download button callback. <br /></td></tr>
 <tr class="separator:aa457d5082db90f70f3eb510fbcf4649c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed07991b3168faf52010e74f8092ee5a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aed07991b3168faf52010e74f8092ee5a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>on_listWidgetRemoteDatasets_itemDoubleClicked</b> (QListWidgetItem *item)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_data_order.html#aed07991b3168faf52010e74f8092ee5a">on_listWidgetRemoteDatasets_itemDoubleClicked</a> (QListWidgetItem *item)</td></tr>
+<tr class="memdesc:aed07991b3168faf52010e74f8092ee5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remote dataset item double-clicked callback: Opens new window showing metadata. <br /></td></tr>
 <tr class="separator:aed07991b3168faf52010e74f8092ee5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb873b3d3bb0b8f57cce5a57b0a16e17"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acb873b3d3bb0b8f57cce5a57b0a16e17"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>on_listWidgetDownloadQueue_itemDoubleClicked</b> (QListWidgetItem *item)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_data_order.html#acb873b3d3bb0b8f57cce5a57b0a16e17">on_listWidgetDownloadQueue_itemDoubleClicked</a> (QListWidgetItem *item)</td></tr>
+<tr class="memdesc:acb873b3d3bb0b8f57cce5a57b0a16e17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Download queue item double-clicked callback: Removes item from queue. <br /></td></tr>
 <tr class="separator:acb873b3d3bb0b8f57cce5a57b0a16e17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a05c2fadb15c77763e18f2ea2a1a861f7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a05c2fadb15c77763e18f2ea2a1a861f7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>on_pushButtonUpdateRemoteList_clicked</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_data_order.html#a05c2fadb15c77763e18f2ea2a1a861f7">on_pushButtonUpdateRemoteList_clicked</a> ()</td></tr>
+<tr class="memdesc:a05c2fadb15c77763e18f2ea2a1a861f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update remote dataset widget button callback. <br /></td></tr>
 <tr class="separator:a05c2fadb15c77763e18f2ea2a1a861f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4d1cf023d3ccf7460b6d11ac4567b88"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad4d1cf023d3ccf7460b6d11ac4567b88"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_data_order.html#ad4d1cf023d3ccf7460b6d11ac4567b88">on_pushButtonDeleteSelected_clicked</a> ()</td></tr>
+<tr class="memdesc:ad4d1cf023d3ccf7460b6d11ac4567b88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete button callback: removes selected item(s) from download queue. <br /></td></tr>
+<tr class="separator:ad4d1cf023d3ccf7460b6d11ac4567b88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8d1d026476c2d49fdc4f3603e9db9e2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa8d1d026476c2d49fdc4f3603e9db9e2"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>on_spinboxMinLat_valueChanged</b> (double arg1)</td></tr>
 <tr class="separator:aa8d1d026476c2d49fdc4f3603e9db9e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -187,36 +200,39 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>on_spinboxMaxLat_valu
 <tr class="memitem:ada7292ac8531ab09fe67cd7cc8896d0f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ada7292ac8531ab09fe67cd7cc8896d0f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>on_spinboxMaxLon_valueChanged</b> (double arg1)</td></tr>
 <tr class="separator:ada7292ac8531ab09fe67cd7cc8896d0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4d1cf023d3ccf7460b6d11ac4567b88"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad4d1cf023d3ccf7460b6d11ac4567b88"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>on_pushButtonDeleteSelected_clicked</b> ()</td></tr>
-<tr class="separator:ad4d1cf023d3ccf7460b6d11ac4567b88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:ae11b9fb0b35aacff232cc240a14d003c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae11b9fb0b35aacff232cc240a14d003c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>configureNetwork</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_data_order.html#ae11b9fb0b35aacff232cc240a14d003c">configureNetwork</a> ()</td></tr>
+<tr class="memdesc:ae11b9fb0b35aacff232cc240a14d003c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup m_downloader callbacks, and network settings. <br /></td></tr>
 <tr class="separator:ae11b9fb0b35aacff232cc240a14d003c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a851d4261efba89ad177fe0d03ad2f7d1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a851d4261efba89ad177fe0d03ad2f7d1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>deleteQueueItem</b> (QListWidgetItem *item)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_data_order.html#a851d4261efba89ad177fe0d03ad2f7d1">deleteQueueItem</a> (QListWidgetItem *item)</td></tr>
+<tr class="memdesc:a851d4261efba89ad177fe0d03ad2f7d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove item from download queue given corresponding UI widget. <br /></td></tr>
 <tr class="separator:a851d4261efba89ad177fe0d03ad2f7d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a8fb055f0a52cb956291f1db366e4e11a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8fb055f0a52cb956291f1db366e4e11a"></a>
-Ui::WidgetDataOrder *&#160;</td><td class="memItemRight" valign="bottom"><b>m_ui</b> {nullptr}</td></tr>
+Ui::WidgetDataOrder *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_data_order.html#a8fb055f0a52cb956291f1db366e4e11a">m_ui</a> {nullptr}</td></tr>
+<tr class="memdesc:a8fb055f0a52cb956291f1db366e4e11a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to UI widgets. <br /></td></tr>
 <tr class="separator:a8fb055f0a52cb956291f1db366e4e11a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa08dbfccb9b0a9b2efdf128c9907f738"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa08dbfccb9b0a9b2efdf128c9907f738"></a>
 <a class="el" href="class_main_window.html">MainWindow</a> *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_data_order.html#aa08dbfccb9b0a9b2efdf128c9907f738">m_mainWindow</a> {nullptr}</td></tr>
 <tr class="memdesc:aa08dbfccb9b0a9b2efdf128c9907f738"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ptr to parent <a class="el" href="class_main_window.html">MainWindow</a>. <br /></td></tr>
 <tr class="separator:aa08dbfccb9b0a9b2efdf128c9907f738"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a855c8d50f8512359a15191f3fec63689"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a855c8d50f8512359a15191f3fec63689"></a>
-<a class="el" href="class_preferences.html">Preferences</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>m_prefs</b></td></tr>
+<a class="el" href="class_preferences.html">Preferences</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_data_order.html#a855c8d50f8512359a15191f3fec63689">m_prefs</a></td></tr>
+<tr class="memdesc:a855c8d50f8512359a15191f3fec63689"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ref to preferences object in <a class="el" href="class_main_window.html">MainWindow</a>. <br /></td></tr>
 <tr class="separator:a855c8d50f8512359a15191f3fec63689"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd50bf2770127f5235019e6cdb694ef4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afd50bf2770127f5235019e6cdb694ef4"></a>
-QHash&lt; QString, QJsonObject &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_datasetsAPIResultCache</b></td></tr>
+QHash&lt; QString, QJsonObject &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_data_order.html#afd50bf2770127f5235019e6cdb694ef4">m_datasetsAPIResultCache</a></td></tr>
+<tr class="memdesc:afd50bf2770127f5235019e6cdb694ef4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cache API results by dataset ID. <br /></td></tr>
 <tr class="separator:afd50bf2770127f5235019e6cdb694ef4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac805db6d4ebdd48e15d9eb9afbe3b575"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac805db6d4ebdd48e15d9eb9afbe3b575"></a>
-QHash&lt; QString, <a class="el" href="struct_data_download_desc.html">DataDownloadDesc</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_downloadQueue</b></td></tr>
+QHash&lt; QString, <a class="el" href="struct_data_download_desc.html">DataDownloadDesc</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_widget_data_order.html#ac805db6d4ebdd48e15d9eb9afbe3b575">m_downloadQueue</a></td></tr>
+<tr class="memdesc:ac805db6d4ebdd48e15d9eb9afbe3b575"><td class="mdescLeft">&#160;</td><td class="mdescRight">Download queue maps dataset ID to download description. <br /></td></tr>
 <tr class="separator:ac805db6d4ebdd48e15d9eb9afbe3b575"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa88727139702081213dcbc63234b3603"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa88727139702081213dcbc63234b3603"></a>
 QNetworkAccessManager&#160;</td><td class="memItemRight" valign="bottom"><b>m_networkAccessManager</b> {this}</td></tr>
@@ -225,7 +241,9 @@ QNetworkAccessManager&#160;</td><td class="memItemRight" valign="bottom"><b>m_ne
 <a class="el" href="class_q_easy_downloader.html">QEasyDownloader</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_downloader</b> {this, &amp;m_networkAccessManager}</td></tr>
 <tr class="separator:a816ba2cc64ff0fb802c12b500d65bebd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Data order widget in the Data Order tab. </p>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>app/<a class="el" href="widgetdataorder_8h_source.html">widgetdataorder.h</a></li>
 <li>app/widgetdataorder.cpp</li>
 </ul>
