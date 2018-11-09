@@ -7,7 +7,7 @@ pipeline {
         echo 'Pulling...'+env.BRANCH_NAME
         checkout scm
         echo 'Running CppCheck'
-        sh '''cppcheck --enable=warning,performance,error,portability --inconclusive --xml --xml-version=2 --std=c++11 -iapp/backward -iapp/pugixml -iapp/netcdf4 app 2> cppcheck-result.xml
+        sh '''cppcheck --enable=warning,performance,portability --inconclusive --xml --xml-version=2 --std=c++11 -iapp/backward -iapp/pugixml -iapp/netcdf4 app 2> cppcheck-result.xml
 '''
         publishCppcheck(displayAllErrors: true, displayErrorSeverity: true, displayPortabilitySeverity: true, displayPerformanceSeverity: true, displayWarningSeverity: true, XSize: 500, YSize: 500, displayNoCategorySeverity: true, numBuildsInGraph: 10, severityError: true, threshold: '20', unHealthy: '10', displayStyleSeverity: true, severityWarning: true, severityStyle: true, severityPortability: true, severityNoCategory: true, severityInformation: true, severityPerformance: true)
       }
