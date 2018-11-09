@@ -9,7 +9,7 @@ pipeline {
         echo 'Running CppCheck'
         sh '''cppcheck -j 12 --enable=all --inconclusive --xml --xml-version=2 --std=c++11 -iapp/backward -iapp/pugixml -iapp/netcdf4 app 2> cppcheck-result.xml
 '''
-        publishCppcheck(displayAllErrors: true, displayErrorSeverity: true, displayStyleSeverity: true, displayPortabilitySeverity: true, displayPerformanceSeverity: true, displayWarningSeverity: true, XSize: 500, YSize: 200, displayNoCategorySeverity: true)
+        publishCppcheck(displayAllErrors: true, displayErrorSeverity: true, displayStyleSeverity: true, displayPortabilitySeverity: true, displayPerformanceSeverity: true, displayWarningSeverity: true, XSize: 500, YSize: 200, displayNoCategorySeverity: true, numBuildsInGraph: 10)
       }
     }
   }
