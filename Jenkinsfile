@@ -8,7 +8,8 @@ pipeline {
         checkout scm
         echo 'Compiling for release'
         sh '''cd app
-bash Build.sh $QT_5_11_0_BIN_DIR
+$QT_5_11_0_BIN_DIR/qmake -config release
+make
 cd ../'''
         echo 'Running CppCheck'
         sh '''cppcheck --enable=warning,performance,portability --inconclusive --xml --xml-version=2 --std=c++11 -iapp/backward -iapp/pugixml -iapp/netcdf4 app 2> cppcheck-result.xml
