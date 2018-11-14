@@ -9,7 +9,7 @@ pipeline {
         echo 'Compiling for release'
         sh '''cd app
 $QT_5_11_0_BIN_DIR/qmake -config release
-make
+make -j12
 cd ../'''
         echo 'Running CppCheck'
         sh '''cppcheck --enable=warning,performance,portability --inconclusive --xml --xml-version=2 --std=c++11 -iapp/backward -iapp/pugixml -iapp/netcdf4 app 2> cppcheck-result.xml
