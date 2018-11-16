@@ -14,7 +14,6 @@ struct NODISCARD BoundingBox {
 
 /***********************************************************************************/
 /// Contains the loaded and modified settings.
-/** Move-only type. */
 class Preferences : public QSettings {
 	Q_OBJECT
 

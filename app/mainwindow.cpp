@@ -133,17 +133,17 @@ void MainWindow::initWidgets() {
 		}
 	});
 
-	m_widgetLocalData = new WidgetLocalData(&m_prefs.ONInstallDir, this);
+	m_widgetLocalData = new WidgetLocalData(std::addressof(m_prefs.ONInstallDir), this);
 	QObject::connect(m_widgetLocalData, &WidgetLocalData::refreshRequested, this, &MainWindow::refreshRequestHandler);
 
-	m_widgetConfigEditor = new WidgetConfigEditor(m_ui->tabWidget, this, &m_prefs);
+	m_widgetConfigEditor = new WidgetConfigEditor(m_ui->tabWidget, this, std::addressof(m_prefs));
 	QObject::connect(m_widgetConfigEditor, &WidgetConfigEditor::showStatusBarMessage, this, &MainWindow::showStatusBarMessageHandler);
 
 	m_widgetDataOrder = new WidgetDataOrder(m_ui->tabWidget, this, m_prefs);
 	QObject::connect(m_widgetDataOrder, &WidgetDataOrder::refreshRequested, this, &MainWindow::refreshRequestHandler);
 	QObject::connect(m_widgetDataOrder, &WidgetDataOrder::showStatusBarMessage, this, &MainWindow::showStatusBarMessageHandler);
 
-	m_widgetThreddsConfig = new WidgetThreddsConfig(m_ui->tabWidget, &m_prefs.THREDDSCatalogLocation);
+	m_widgetThreddsConfig = new WidgetThreddsConfig(m_ui->tabWidget, std::addressof(m_prefs.THREDDSCatalogLocation));
 }
 
 /***********************************************************************************/

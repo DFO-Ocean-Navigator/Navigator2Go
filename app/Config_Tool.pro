@@ -12,7 +12,7 @@ DEFINES += GIT_CURRENT_BRANCH="\\\"$(shell git -C \""$$_PRO_FILE_PWD_"\" branch 
 QMAKE_CXX = g++-7
 
 CONFIG += c++1z
-QMAKE_CXXFLAGS += -std=c++17 -pedantic -Wold-style-cast
+QMAKE_CXXFLAGS += -std=c++17 -pedantic -Wold-style-cast -Wall
 
 TARGET = Navigator2Go
 TEMPLATE = app
