@@ -12,8 +12,9 @@ namespace System {
 /// Checks if a named process is running on a UNIX or Windows system
 #ifdef __linux__
 bool IsProcessRunning(const QString& processName) {
-	static const auto& prefix{QStringLiteral("ps cax | grep ")};
-	static const auto& postfix{QStringLiteral(" > /dev/null; if [ $? -eq 0 ]; then echo \"true\"; else echo \"false\"; fi")};
+	// https://askubuntu.com/a/405227/308818
+	static const auto& prefix{QStringLiteral("if pidof -x $(basename  ")};
+	static const auto& postfix{QStringLiteral(" ) > /dev/null; then echo \"true\"; else echo \"false\"; fi")};
 
 	QProcess process;
 	process.setProcessEnvironment(QProcessEnvironment::systemEnvironment());
@@ -31,7 +32,8 @@ bool IsProcessRunning(const QString& processName) {
 	return false;
 }
 
-#elif _WIN32
+#else
+	#error IsProcessRunning is not implemented in __FILE__
 auto IsProcessRunning(const QString& processName) {
 	return false;
 }
