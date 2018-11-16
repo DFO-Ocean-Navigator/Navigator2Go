@@ -74,6 +74,8 @@ private slots:
 	/// Fires when the current tab changes
 	void on_tabWidget_currentChanged(int index);
 
+	void on_actionReport_Issue_triggered();
+
 private:
 	/// Display a message in the window's status bar
 	void showStatusBarMessage(const char* text) const;

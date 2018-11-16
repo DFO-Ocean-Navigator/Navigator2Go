@@ -345,6 +345,7 @@
     <property name="title">
      <string>Help</string>
     </property>
+    <addaction name="actionReport_Issue"/>
     <addaction name="actionCheck_for_Updates"/>
     <addaction name="actionAbout"/>
     <addaction name="actionNavigator2Go_Manual"/>
@@ -398,6 +399,11 @@
   <action name="actionClear_Python_cache">
    <property name="text">
     <string>Clear Python cache</string>
+   </property>
+  </action>
+  <action name="actionReport_Issue">
+   <property name="text">
+    <string>Report Issue</string>
    </property>
   </action>
  </widget>
