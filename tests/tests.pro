@@ -6,6 +6,8 @@
 
 QT       += core network testlib
 
+QMAKE_CXX = g++-7
+QMAKE_CXXFLAGS += -std=c++17 -pedantic
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -26,6 +28,22 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-
 SOURCES += \
-        tst_networktest.cpp
+    test_ioutils.cpp \
+    test_network.cpp \
+    main.cpp \
+    tdatadownloaddesc.cpp \
+    tpreferences.cpp \
+    tservermanager.cpp \
+    tnetcdfimportdesc.cpp \
+    test_systemutils.cpp
+
+HEADERS += \
+    test_network.h \
+    test_ioutils.h \
+    helper_functions.h \
+    tdatadownloaddesc.h \
+    tpreferences.h \
+    tservermanager.h \
+    tnetcdfimportdesc.h \
+    test_systemutils.h

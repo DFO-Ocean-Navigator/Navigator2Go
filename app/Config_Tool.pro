@@ -12,7 +12,7 @@ DEFINES += GIT_CURRENT_BRANCH="\\\"$(shell git -C \""$$_PRO_FILE_PWD_"\" branch 
 QMAKE_CXX = g++-7
 
 CONFIG += c++1z
-QMAKE_CXXFLAGS += -std=c++17 -pedantic -Wold-style-cast
+QMAKE_CXXFLAGS += -std=c++17 -pedantic -Wold-style-cast -Wall
 
 TARGET = Navigator2Go
 TEMPLATE = app
@@ -23,7 +23,7 @@ QMAKE_CXXFLAGS_DEBUG += -Og # The OG optimized debug ;)
 QMAKE_CXXFLAGS_RELEASE -= -O
 QMAKE_CXXFLAGS_RELEASE -= -O1
 QMAKE_CXXFLAGS_RELEASE -= -O2
-QMAKE_CXXFLAGS_RELEASE += -O3 -g -DNDEBUG -msse2 -Woverloaded-virtual -Wredundant-decls -Winit-self -Wextra -pedantic-errors -Wall
+QMAKE_CXXFLAGS_RELEASE += -O3 -g -DNDEBUG -msse2 -Woverloaded-virtual -Wredundant-decls -Winit-self -Wextra -pedantic-errors
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
