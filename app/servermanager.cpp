@@ -8,12 +8,19 @@
 /***********************************************************************************/
 ServerManager::ServerManager(QObject* parent) : QObject{parent} {
 
-	const auto& env{ QProcessEnvironment::systemEnvironment().toStringList() };
-
-	m_gunicornProcess.setEnvironment(env);
-	m_apacheProcess.setEnvironment(env);
+	setEnvironment();
 
 	startServers();
+}
+
+/***********************************************************************************/
+ServerManager::ServerManager(const bool autoStartServers, QObject* parent) : QObject{parent} {
+
+	setEnvironment();
+
+	if (autoStartServers) {
+		startServers();
+	}
 }
 
 /***********************************************************************************/
@@ -84,4 +91,12 @@ void ServerManager::stopTHREDDS() {
 	m_apacheProcess.setArguments({QStringLiteral("shutdown.sh")});
 
 	m_isApacheRunning = m_apacheProcess.startDetached();
+}
+
+/***********************************************************************************/
+void ServerManager::setEnvironment() {
+	const auto& env{ QProcessEnvironment::systemEnvironment().toStringList() };
+
+	m_gunicornProcess.setEnvironment(env);
+	m_apacheProcess.setEnvironment(env);
 }
