@@ -12,6 +12,8 @@ class ServerManager : public QObject {
 
 public:
 	explicit ServerManager(QObject* parent = nullptr);
+	ServerManager(const bool autoStartServers = true, QObject* parent = nullptr);
+
 	~ServerManager() override;
 
 	Q_DISABLE_COPY(ServerManager)
@@ -30,6 +32,8 @@ private:
 	void stopServers();
 	void stopWebServer();
 	void stopTHREDDS();
+
+	void setEnvironment();
 
 	QProcess m_apacheProcess{this}, m_gunicornProcess{this};
 	bool m_isGunicornRunning{false};///< gUnicorn server

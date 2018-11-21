@@ -38,7 +38,7 @@ THREDDSFileDesc GetNCFilename(const QString& threddsContentDir, const DataDownlo
 	}
 
 	// Dataset not found
-	return { QStringLiteral(), QStringLiteral("/") + fileName };
+	return { QStringLiteral(""), QStringLiteral("/") + fileName };
 
 }
 

@@ -5,6 +5,7 @@
 
 namespace Test {
 
+/***********************************************************************************/
 class TDataDownloadDesc : public QObject {
 	Q_OBJECT
 
@@ -13,6 +14,8 @@ private slots:
 	void check_noexcept();
 
 	void check_returnType_GetAPIQuery();
+
+	void check_GetAPIQuery();
 
 };
 

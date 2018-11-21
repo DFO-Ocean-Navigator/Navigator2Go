@@ -423,3 +423,8 @@ void MainWindow::on_tabWidget_currentChanged(int index) {
 		m_widgetLocalData->updateTreeWidget();
 	}
 }
+
+/***********************************************************************************/
+void MainWindow::on_actionReport_Issue_triggered() {
+	QDesktopServices::openUrl(QStringLiteral("https://github.com/DFO-Ocean-Navigator/Navigator2Go/issues/new/choose"));
+}

@@ -1,7 +1,7 @@
 #ifndef TEST_IOUTILS_H
 #define TEST_IOUTILS_H
 
-#include "../app/ioutils.h"
+#include <QObject>
 
 namespace Test {
 
@@ -12,7 +12,7 @@ class IOUtils : public QObject {
 private slots:
 
 	/***********************************************************************************/
-	void test_constants();
+	void check_constants();
 
 };
 
