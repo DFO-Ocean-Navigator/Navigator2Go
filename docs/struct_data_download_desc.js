@@ -1,7 +1,7 @@
 var struct_data_download_desc =
 [
     [ "GetAPIQuery", "struct_data_download_desc.html#a0daff7b7a2277d00aacb64cd41825e5e", null ],
-    [ "operator==", "struct_data_download_desc.html#a1ac02eda72c237bf6977a60f2d1e0ba8", null ],
+    [ "operator==", "struct_data_download_desc.html#af27ed6db255b42c577a703397a38ed3c", null ],
     [ "EndDate", "struct_data_download_desc.html#a784695753200fd281897a8d353809c5d", null ],
     [ "ID", "struct_data_download_desc.html#ad50e68c9cdd1445d06963b8399bc2d3c", null ],
     [ "Name", "struct_data_download_desc.html#a5527c7a94721a7b60e9d2a05b36c542e", null ],

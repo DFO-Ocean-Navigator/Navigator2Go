@@ -1,5 +1,8 @@
 var NAVTREEINDEX1 =
 {
+"class_switch_widget.html#aeef95e108aae971d5cd96232f965390c":[0,0,15,10],
+"class_switch_widget.html#afbc1db53afaf2f301818f281723db76b":[0,0,15,6],
+"class_update_runnable.html":[0,0,16],
 "class_update_runnable.html#a2b23f3f03fa612b7c834b2e67389f3fa":[0,0,16,0],
 "class_update_runnable.html#a5a551a90036c8b82ae7dcf8a68c6e0e6":[0,0,16,1],
 "class_update_runnable.html#a661bb979157f1d721dbdb5d1cb7f9089":[0,0,16,3],
@@ -122,12 +125,12 @@ var NAVTREEINDEX1 =
 "struct_data_download_desc.html":[0,0,3],
 "struct_data_download_desc.html#a0ade61f36ac9e471538a94323ab1dc91":[0,0,3,5],
 "struct_data_download_desc.html#a0daff7b7a2277d00aacb64cd41825e5e":[0,0,3,0],
-"struct_data_download_desc.html#a1ac02eda72c237bf6977a60f2d1e0ba8":[0,0,3,1],
 "struct_data_download_desc.html#a1cf1f2be57cce84f94d1bdb97b8ecb56":[0,0,3,7],
 "struct_data_download_desc.html#a5527c7a94721a7b60e9d2a05b36c542e":[0,0,3,4],
 "struct_data_download_desc.html#a784695753200fd281897a8d353809c5d":[0,0,3,2],
 "struct_data_download_desc.html#ab3557114343d2230dc2e4d24ede56bf9":[0,0,3,6],
 "struct_data_download_desc.html#ad50e68c9cdd1445d06963b8399bc2d3c":[0,0,3,3],
+"struct_data_download_desc.html#af27ed6db255b42c577a703397a38ed3c":[0,0,3,1],
 "struct_h_t_m_l_highlighter_1_1_highlighting_rule.html":[0,0,9,0],
 "struct_h_t_m_l_highlighter_1_1_highlighting_rule.html#a0cff808900f93650e77e3808d11ea874":[0,0,9,0,0],
 "struct_h_t_m_l_highlighter_1_1_highlighting_rule.html#a98f59cf1e3a1c992262cc4823da39890":[0,0,9,0,1],

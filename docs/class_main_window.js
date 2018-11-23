@@ -15,6 +15,7 @@ var class_main_window =
     [ "on_actionClose_triggered", "class_main_window.html#a189b458b701fa572969a22f8718ce5b0", null ],
     [ "on_actionNavigator2Go_Manual_triggered", "class_main_window.html#a8521ea308b646acbb249428561bc86c0", null ],
     [ "on_actionPreferences_triggered", "class_main_window.html#a2e63d199e37300ac181f39c3a7a7d78b", null ],
+    [ "on_actionReport_Issue_triggered", "class_main_window.html#a58baeeb509d275bb308a009e8b1d2b54", null ],
     [ "on_pushButtonImportNCFiles_clicked", "class_main_window.html#aff559845ec684e9c605f8cedcd18ecfe", null ],
     [ "on_pushButtonLaunchViewer_clicked", "class_main_window.html#a727506541f1468c234d33c9254ee9d8f", null ],
     [ "on_pushButtonOpenDataOrder_clicked", "class_main_window.html#af52c09674feae2f9c419386bf0f41003", null ],

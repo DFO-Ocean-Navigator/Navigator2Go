@@ -26,8 +26,10 @@ ui_*.h
 Makefile*
 *build-*
 
-
 build/*
+*/build/*
+*_plugin_import.cpp
+*.qmake.stash
 
 # QtCreator
 
