@@ -70,8 +70,8 @@ bool addDataset(const QString& rootCatalogFolder, const QString& datasetName, co
 		QString timeDimension;
 		if (dir.entryInfoList().empty()) {
 			timeDimension = QInputDialog::getText(nullptr,
-												  QObject::tr("Enter time dimension"),
-												  QObject::tr("The folder you specified is empty. Please enter the name of the time dimension for your dataset. Alternatively, add a netCDF file to this directory and re-run this wizard."));
+												  QObject::tr("Enter name of time dimension..."),
+												  QObject::tr("Please enter the name of the time dimension for your dataset: it should be something like time, or time_counter."));
 
 			if (timeDimension.isEmpty()) {
 				return false;
