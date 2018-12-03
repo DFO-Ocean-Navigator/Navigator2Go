@@ -76,10 +76,9 @@ MainWindow::MainWindow(QWidget* parent) : 	QMainWindow{parent},
 
 	setWindowTitle(tr("Navigator2Go"));
 
-	// Hide Config Editor and THREDDS config
+	// Hide THREDDS config
 	// tabs by default
 	if (!m_prefs.AdvancedUI) {
-		m_ui->tabWidget->removeTab(4); // Config Editor
 		m_ui->tabWidget->removeTab(3); // THREDDS Config
 	}
 
@@ -136,7 +135,7 @@ void MainWindow::initWidgets() {
 	m_widgetLocalData = new WidgetLocalData(std::addressof(m_prefs.ONInstallDir), this);
 	QObject::connect(m_widgetLocalData, &WidgetLocalData::refreshRequested, this, &MainWindow::refreshRequestHandler);
 
-	m_widgetConfigEditor = new WidgetConfigEditor(m_ui->tabWidget, this, std::addressof(m_prefs));
+	m_widgetConfigEditor = new WidgetConfigEditor(m_ui->tabWidget, std::addressof(m_prefs));
 	QObject::connect(m_widgetConfigEditor, &WidgetConfigEditor::showStatusBarMessage, this, &MainWindow::showStatusBarMessageHandler);
 
 	m_widgetDataOrder = new WidgetDataOrder(m_ui->tabWidget, this, m_prefs);

@@ -17,13 +17,19 @@
 #endif
 
 /***********************************************************************************/
-WidgetConfigEditor::WidgetConfigEditor(QWidget* parent, const MainWindow* mainWindow, const Preferences* prefs) :	QWidget{parent},
+WidgetConfigEditor::WidgetConfigEditor(QWidget* parent, const Preferences* prefs) :	QWidget{parent},
 																													m_ui{new Ui::WidgetConfigEditor},
 																													m_prefs{prefs} {
 	m_ui->setupUi(this);
 
 	m_ui->pushButtonAddDataset->setText(tr("Add Dataset"));
 	m_ui->pushButtonDeleteDataset->setText(tr("Delete Dataset"));
+
+	if (!prefs->AdvancedUI) {
+		m_ui->pushButtonLoadCustomConfig->setVisible(false);
+		m_ui->pushButtonLoadDefaultConfig->setVisible(false);
+		m_ui->labelActiveConfigFile->setVisible(false);
+	}
 
 	const auto& offlineConfig{ m_prefs->ONInstallDir + QStringLiteral("/oceannavigator/datasetconfigOFFLINE.json") };
 	if (!IO::FileExists(offlineConfig)) {

@@ -22,7 +22,7 @@ class WidgetConfigEditor : public QWidget {
 	Q_OBJECT
 
 public:
-	WidgetConfigEditor(QWidget* parent, const MainWindow* mainWindow, const Preferences* prefs);
+	WidgetConfigEditor(QWidget* parent, const Preferences* prefs);
 	~WidgetConfigEditor() override;
 
 	void addDatasetToConfigList();
