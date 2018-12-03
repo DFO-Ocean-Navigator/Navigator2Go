@@ -15,3 +15,11 @@ $1/qmake -config release
 make -j12 clean
 make -j12
 make -j12 clean
+
+cwd=$(pwd)
+
+cd ../build/
+tar zcvf Navigator2Go.tar.gz Navigator2Go
+md5sum Navigator2Go.tar.gz > Navigator2Go.tar.gz.md5
+
+cd $cwd
