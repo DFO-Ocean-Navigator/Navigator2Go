@@ -51,12 +51,8 @@ git clone https://github.com/DFO-Ocean-Navigator/Navigator2Go.git
 ## Building for Release
 So, you've made some changes to my lovely code that made it even more awesome. Time to send it out to the masses.
 1. Navigate to the source folder `Navigator2Go/app/`.
-2. Run `./Build.sh`.
-3. Fix any compile errors that crop up and run the above again.
-4. `cd ../build/`.
-5. `./Navigator2Go`.
-6. To package it for uploading to Github, `tar zcvf Navigator2Go.tar.gz Navigator2Go`. Do not change the tar.gz file name otherwise the installation script WILL fail.
-7. Go to Github and create a new release.
+2. Run `./Make_Release.sh`. The script will compile the code, generate a tar.gz file, and calculate the MD5 hash of that tar.gz in the `build/` folder.
+7. Go to Github and create a new release (upload `Navigator2Go.tar.gz` and `Navigator2Go.tar.gz.md5`).
 
 ## Jenkins CI
 Jenkins will run a series of unit tests (some of which exist in the `tests/` folder) and`cppcheck` for static analysis after every commit, and before a pull request may be merged into `master`. Top-quality modern C++ is very important. Jenkins will also check for `VERSION.TXT` existing in the project root.
