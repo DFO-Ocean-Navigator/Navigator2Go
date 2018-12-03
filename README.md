@@ -16,15 +16,17 @@ Tool to manage your local Ocean Navigator installation.
 * Apply the full power of the Ocean Navigator to your own data by importing as a netCDF.
 * Customize your Navigator with easy-to-use configuration editors.
 * Download netCDF datasets from remote Navigator servers.
-* Very high performance.
-* Schedule jobs to update your data.
-* Multi-threading where needed.
 
 ## Getting Started
 
-For more details about the following build process go here: [http://doc.qt.io/qt-5/linux-building.html](http://doc.qt.io/qt-5/linux-building.html)
+Use the Navigator [installation script](https://raw.githubusercontent.com/DFO-Ocean-Navigator/Navigator-Installer/master/Installer_Linux.sh) to set up some pre-requisites first, then continue below.
 
-1. Install GCC 7 or newer to get access to all the latest and greatest C++ 17 features.
+For more details about the Qt build process go here: [http://doc.qt.io/qt-5/linux-building.html](http://doc.qt.io/qt-5/linux-building.html)
+
+1. Install GCC 7 or newer to get access to all the latest and greatest C++ 17 features. For Ubuntu 16.04:
+    * `sudo add-apt-repository ppa:jonathonf/gcc-7.1`
+    * `sudo apt update`
+    * `sudo apt install -y gcc-7 g++-7`
 2. Install dependencies using the following:
 ```shell
 sudo apt install build-essential valgrind zlib1g-dev libgl1-mesa-dev libfontconfig1-dev libfreetype6-dev libx11-dev libxext-dev libxfixes-dev libxi-dev libxrender-dev libxcb1-dev libx11-xcb-dev libxcb-glx0-dev libxcb-keysyms1-dev libxcb-image0-dev libxcb-shm0-dev libxcb-icccm4-dev libxcb-sync0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-randr0-dev libxcb-render-util0-dev doxygen-gui binutils-dev libnetcdf-c++4 libnetcdf-c++4-dev
@@ -55,6 +57,9 @@ So, you've made some changes to my lovely code that made it even more awesome. T
 5. `./Navigator2Go`.
 6. To package it for uploading to Github, `tar zcvf Navigator2Go.tar.gz Navigator2Go`. Do not change the tar.gz file name otherwise the installation script WILL fail.
 7. Go to Github and create a new release.
+
+## Jenkins CI
+Jenkins will run a series of unit tests (some of which exist in the `tests/` folder) and`cppcheck` for static analysis after every commit, and before a pull request may be merged into `master`. Top-quality modern C++ is very important. Jenkins will also check for `VERSION.TXT` existing in the project root.
 
 ## Updating Code Documentation
 1. To update the Github pages, run `doxywizard` from your terminal.
