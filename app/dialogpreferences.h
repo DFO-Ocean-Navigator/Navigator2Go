@@ -16,24 +16,24 @@ class Preferences;
 /***********************************************************************************/
 /// Preferences dialog window
 class DialogPreferences : public QDialog {
-	Q_OBJECT
+  Q_OBJECT
 
 public:
-	DialogPreferences(Preferences& prefs, QWidget* parent = nullptr);
-	~DialogPreferences();
+  DialogPreferences(Preferences &prefs, QWidget *parent = nullptr);
+  ~DialogPreferences();
 
 private slots:
-	void on_pushButtonBrowseInstallDir_clicked();
+  void on_pushButtonBrowseInstallDir_clicked();
 
-	void on_pushButtonBrowseTHREDDS_clicked();
+  void on_pushButtonBrowseTHREDDS_clicked();
 
-	void on_buttonBox_accepted();
+  void on_buttonBox_accepted();
 
 private:
-	void populateUI();
+  void populateUI();
 
-	Ui::DialogPreferences* m_ui{nullptr};
-	Preferences& m_prefs;
+  Ui::DialogPreferences *m_ui{nullptr};
+  Preferences &m_prefs;
 };
 
 #endif // DIALOGPREFERENCES_H

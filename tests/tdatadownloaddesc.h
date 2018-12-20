@@ -7,16 +7,15 @@ namespace Test {
 
 /***********************************************************************************/
 class TDataDownloadDesc : public QObject {
-	Q_OBJECT
+  Q_OBJECT
 
 private slots:
-
-	void check_noexcept();
-
-	void check_returnType_GetAPIQuery();
-
-	void check_GetAPIQuery();
-
+  ///
+  void check_noexcept();
+  ///
+  void return_Type_of_GetAPIQuery_should_be_qstring();
+  /// Possible flaky test, since it relies on an internet connection to Dory
+  void check_GetAPIQuery();
 };
 
 } // namespace Test

@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/fixtures">
+        <file>sample_json.txt</file>
+    </qresource>
+</RCC>

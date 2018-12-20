@@ -38,7 +38,8 @@ SOURCES += \
     tpreferences.cpp \
     tservermanager.cpp \
     tnetcdfimportdesc.cpp \
-    test_systemutils.cpp
+    test_systemutils.cpp \
+    test_jsonio.cpp
 
 HEADERS += \
     test_network.h \
@@ -48,4 +49,8 @@ HEADERS += \
     tpreferences.h \
     tservermanager.h \
     tnetcdfimportdesc.h \
-    test_systemutils.h
+    test_systemutils.h \
+    test_jsonio.h
+
+RESOURCES += \
+    fixtures/fixtures.qrc

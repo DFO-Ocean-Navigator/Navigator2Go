@@ -12,14 +12,13 @@ namespace Test {
 /***********************************************************************************/
 void TPreferences::check_QSettingsIsParent() {
 
-	QCOMPARE( (::std::is_base_of_v<::QSettings, ::Preferences>), true);
+  QCOMPARE((::std::is_base_of_v<::QSettings, ::Preferences>), true);
 }
 
 /***********************************************************************************/
 void TPreferences::check_noCopyNoMove() {
 
-	QCOMPARE( is_no_copy_no_move<::Preferences>(), true);
+  QCOMPARE(is_no_copy_no_move<::Preferences>(), true);
 }
 
 } // namespace Test
-

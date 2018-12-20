@@ -7,10 +7,9 @@ namespace Test {
 
 /***********************************************************************************/
 class Network : public QObject {
-	Q_OBJECT
+  Q_OBJECT
 
 private slots:
-
 };
 
 } // namespace Test

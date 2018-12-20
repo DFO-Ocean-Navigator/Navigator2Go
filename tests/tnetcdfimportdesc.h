@@ -6,14 +6,14 @@
 namespace Test {
 
 class TNetCDFImportDesc : public QObject {
-	Q_OBJECT
+  Q_OBJECT
 
 private slots:
-	void check_noexceptCtor();
+  void check_noexceptCtor();
 
-	void check_const();
+  void check_const();
 
-	void check_types();
+  void check_types();
 };
 
 } // namespace Test
