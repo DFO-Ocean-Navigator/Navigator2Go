@@ -18,8 +18,8 @@
 
 /***********************************************************************************/
 WidgetConfigEditor::WidgetConfigEditor(QWidget* parent, const Preferences* prefs) :	QWidget{parent},
-																													m_ui{new Ui::WidgetConfigEditor},
-																													m_prefs{prefs} {
+																					m_ui{new Ui::WidgetConfigEditor},
+																					m_prefs{prefs} {
 	m_ui->setupUi(this);
 
 	m_ui->pushButtonAddDataset->setText(tr("Add Dataset"));

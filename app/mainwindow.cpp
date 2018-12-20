@@ -198,13 +198,13 @@ void MainWindow::checkForAppUpdate() {
 		QMessageBox msgBox;
 		msgBox.setIcon(QMessageBox::Information);
 
-		if (number == APP_VERSION) {
-			msgBox.setWindowTitle(tr("Navigator2Go"));
-			msgBox.setText(tr("No updates available!"));
-		} else {
-			msgBox.setWindowTitle(tr("Navigator2Go Update Available!"));
-			msgBox.setTextFormat(Qt::RichText);
-			msgBox.setText(QStringLiteral("<a href='https://github.com/DFO-Ocean-Navigator/Navigator2Go/releases/latest' style='color: #3daee9'>https://github.com/DFO-Ocean-Navigator/Navigator2Go/releases/latest</a>"));
+                if (number > APP_VERSION) {
+                    msgBox.setWindowTitle(tr("Navigator2Go Update Available!"));
+                    msgBox.setTextFormat(Qt::RichText);
+                    msgBox.setText(QStringLiteral("<a href='https://github.com/DFO-Ocean-Navigator/Navigator2Go/releases/latest' style='color: #3daee9'>https://github.com/DFO-Ocean-Navigator/Navigator2Go/releases/latest</a>"));
+                } else {
+                    msgBox.setWindowTitle(tr("Navigator2Go"));
+                    msgBox.setText(tr("No updates available!"));
 		}
 
 		msgBox.exec();
