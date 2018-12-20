@@ -14,7 +14,7 @@ class WidgetConfigEditor;
 
 class QListWidgetItem;
 class MainWindow;
-struct Preferences;
+class Preferences;
 
 /***********************************************************************************/
 /// Dataset config editor widget in the Config Editor tab.

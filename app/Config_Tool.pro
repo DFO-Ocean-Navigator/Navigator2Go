@@ -23,7 +23,7 @@ QMAKE_CXXFLAGS_DEBUG += -Og # The OG optimized debug ;)
 QMAKE_CXXFLAGS_RELEASE -= -O
 QMAKE_CXXFLAGS_RELEASE -= -O1
 QMAKE_CXXFLAGS_RELEASE -= -O2
-QMAKE_CXXFLAGS_RELEASE += -O3 -g -DNDEBUG -msse2 -Woverloaded-virtual -Wredundant-decls -Winit-self -Wextra -pedantic-errors
+QMAKE_CXXFLAGS_RELEASE += -O3 -g -DNDEBUG -Woverloaded-virtual -Wredundant-decls -Winit-self -Wextra -pedantic-errors
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -42,18 +42,7 @@ RESOURCES += \
     resources.qrc \
     qdarkstyle/style.qrc
 
-FORMS += \
-    mainwindow.ui \
-    dialogpreferences.ui \
-    dialogdatasetview.ui \
-    widgetconfigeditor.ui \
-    widgetdataorder.ui \
-    widgetthreddsconfig.ui \
-    dialogselectvars.ui \
-    dialogimportnc.ui \
-    dialogthreddslogs.ui \
-    widgetmonthpicker.ui \
-    widgetlocaldata.ui
+FORMS += $$PWD/forms/*.ui
 
 unix:!macx: LIBS += -lnetcdf_c++4 -lbfd -ldl
 
