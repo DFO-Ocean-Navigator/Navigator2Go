@@ -6,11 +6,11 @@
 namespace Test {
 
 class Test_SystemUtils : public QObject {
-	Q_OBJECT
+  Q_OBJECT
 
 private slots:
-
-	void check_IsProcessRunning();
+  ///
+  void check_IsProcessRunning();
 };
 
 } // namespace Test

@@ -17,20 +17,20 @@ class DialogSelectVars;
 /// Dialog window to select variables to add to a dataset config file.
 /** Opened by Magic Scan button. */
 class DialogSelectVars : public QDialog {
-	Q_OBJECT
+  Q_OBJECT
 
 public:
-	DialogSelectVars(const netCDF::NcFile& ds, QWidget* parent = nullptr);
-	~DialogSelectVars();
+  DialogSelectVars(const netCDF::NcFile &ds, QWidget *parent = nullptr);
+  ~DialogSelectVars();
 
-	/// Returns a list of variable keys to be added to dataset config file.
-	NODISCARD QStringList GetSelectedVars() const;
+  /// Returns a list of variable keys to be added to dataset config file.
+  NODISCARD QStringList GetSelectedVars() const;
 
 private slots:
-	void on_tableWidget_cellClicked(int row, int column);
+  void on_tableWidget_cellClicked(int row, int column);
 
 private:
-	Ui::DialogSelectVars* m_ui{nullptr};
+  Ui::DialogSelectVars *m_ui{nullptr};
 };
 
 #endif // DIALOGSELECTVARS_H

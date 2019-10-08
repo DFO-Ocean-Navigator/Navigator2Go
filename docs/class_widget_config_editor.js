@@ -1,6 +1,6 @@
 var class_widget_config_editor =
 [
-    [ "WidgetConfigEditor", "class_widget_config_editor.html#abacfb5901728a5f54d3e396b1f7f6825", null ],
+    [ "WidgetConfigEditor", "class_widget_config_editor.html#ab2b3130a5c0c5d7e62aeb35838d7ac56", null ],
     [ "~WidgetConfigEditor", "class_widget_config_editor.html#abb7b96a20db32b118b1f9f6a63e01f7a", null ],
     [ "addDatasetToConfigList", "class_widget_config_editor.html#a913b3f3af19babddaf2f15e8c6c88cef", null ],
     [ "hasUnsavedData", "class_widget_config_editor.html#a5313f2d7c531d799f9ddd534a64b6c7e", null ],

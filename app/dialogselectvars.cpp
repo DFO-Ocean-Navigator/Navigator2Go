@@ -4,72 +4,69 @@
 #include <netcdf4/ncVar.h>
 
 #ifdef QT_DEBUG
-	#include <QDebug>
+#include <QDebug>
 #endif
 
 /***********************************************************************************/
-DialogSelectVars::DialogSelectVars(const netCDF::NcFile& ds, QWidget* parent) :	QDialog{parent},
-																				m_ui{new Ui::DialogSelectVars} {
-	m_ui->setupUi(this);
+DialogSelectVars::DialogSelectVars(const netCDF::NcFile &ds, QWidget *parent)
+    : QDialog{parent}, m_ui{new Ui::DialogSelectVars} {
+  m_ui->setupUi(this);
 
-	m_ui->tableWidget->horizontalHeader()->setStretchLastSection(true); // Resize columns to widget width
-	m_ui->tableWidget->setHorizontalHeaderLabels({	tr("Import?"),
-													tr("Variable Key")
-												 });
+  m_ui->tableWidget->horizontalHeader()->setStretchLastSection(
+      true); // Resize columns to widget width
+  m_ui->tableWidget->setHorizontalHeaderLabels(
+      {tr("Import?"), tr("Variable Key")});
 
-	const auto& vars{ ds.getVars() };
-	for (const auto& var : vars) {
-		m_ui->tableWidget->insertRow(m_ui->tableWidget->rowCount());
-		const auto rowIdx{ m_ui->tableWidget->rowCount() - 1 };
+  const auto &vars{ds.getVars()};
+  for (const auto &var : vars) {
+    m_ui->tableWidget->insertRow(m_ui->tableWidget->rowCount());
+    const auto rowIdx{m_ui->tableWidget->rowCount() - 1};
 
-		auto* const hidden{ new QTableWidgetItem() };
-		hidden->setCheckState(Qt::Unchecked);
-		m_ui->tableWidget->setItem(rowIdx, 0, hidden);
+    auto *const hidden{new QTableWidgetItem()};
+    hidden->setCheckState(Qt::Unchecked);
+    m_ui->tableWidget->setItem(rowIdx, 0, hidden);
 
-		auto* const item{ new QTableWidgetItem(var.first.c_str())};
+    auto *const item{new QTableWidgetItem(var.first.c_str())};
 
-		// The netcdf c++ library throws an exception when an attribute
-		// is not found...so we do this try-catch nonsense.
-		try {
-			std::string long_name;
-			var.second.getAtt("long_name").getValues(long_name);
-			item->setToolTip(QString::fromStdString(long_name));
-		} catch(const netCDF::exceptions::NcException& e) {
+    // The netcdf c++ library throws an exception when an attribute
+    // is not found...so we do this try-catch nonsense.
+    try {
+      std::string long_name;
+      var.second.getAtt("long_name").getValues(long_name);
+      item->setToolTip(QString::fromStdString(long_name));
+    } catch (const netCDF::exceptions::NcException &e) {
 #ifdef QT_DEBUG
-			qDebug() << e.what();
+      qDebug() << e.what();
 #endif
-		}
+    }
 
-		m_ui->tableWidget->setItem(rowIdx, 1, item);
-	}
+    m_ui->tableWidget->setItem(rowIdx, 1, item);
+  }
 }
 
 /***********************************************************************************/
-DialogSelectVars::~DialogSelectVars() {
-	delete m_ui;
-}
+DialogSelectVars::~DialogSelectVars() { delete m_ui; }
 
 /***********************************************************************************/
 QStringList DialogSelectVars::GetSelectedVars() const {
-	QStringList selectedVars;
+  QStringList selectedVars;
 
-	for (auto row = 0; row < m_ui->tableWidget->rowCount(); ++row) {
-		if (m_ui->tableWidget->item(row, 0)->checkState() == Qt::Checked) {
-			selectedVars << m_ui->tableWidget->item(row, 1)->text();
-		}
-	}
+  for (auto row = 0; row < m_ui->tableWidget->rowCount(); ++row) {
+    if (m_ui->tableWidget->item(row, 0)->checkState() == Qt::Checked) {
+      selectedVars << m_ui->tableWidget->item(row, 1)->text();
+    }
+  }
 
-	return selectedVars;
+  return selectedVars;
 }
 
 /***********************************************************************************/
 void DialogSelectVars::on_tableWidget_cellClicked(int row, int column) {
-	const auto oldCheckState{ m_ui->tableWidget->item(row, 0)->checkState() };
+  const auto oldCheckState{m_ui->tableWidget->item(row, 0)->checkState()};
 
-	if (oldCheckState == Qt::Checked) {
-		m_ui->tableWidget->item(row, 0)->setCheckState(Qt::Unchecked);
-	}
-	else {
-		m_ui->tableWidget->item(row, 0)->setCheckState(Qt::Checked);
-	}
+  if (oldCheckState == Qt::Checked) {
+    m_ui->tableWidget->item(row, 0)->setCheckState(Qt::Unchecked);
+  } else {
+    m_ui->tableWidget->item(row, 0)->setCheckState(Qt::Checked);
+  }
 }

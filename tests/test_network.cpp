@@ -2,6 +2,4 @@
 
 #include <QtTest/QtTest>
 
-namespace Test {
-
-} // namespace Test
+namespace Test {} // namespace Test

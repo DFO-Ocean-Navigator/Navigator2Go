@@ -8,19 +8,19 @@
 /// Used to update Navigator code from git, and rebuild frontend files.
 /** This is always invoked by QThreadPool */
 class UpdateRunnable : public QObject, public QRunnable {
-	Q_OBJECT
+  Q_OBJECT
 public:
-	explicit UpdateRunnable(const QString& ONInstallDir);
+  explicit UpdateRunnable(const QString &ONInstallDir);
 
 protected:
-	void run() override;
+  void run() override;
 
 signals:
-	/// Emitted when update check complete.
-	void finished();
+  /// Emitted when update check complete.
+  void finished();
 
 private:
-	const QString m_ONInstallDir;
+  const QString m_ONInstallDir;
 };
 
 #endif // UPDATERUNNABLE_H
